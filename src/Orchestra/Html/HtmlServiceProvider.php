@@ -14,6 +14,11 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 			return new HtmlBuilder($app['url']);
 		});
 
+		$this->app['orchestra.form'] = $this->app->share(function($app)
+		{
+			return new Form\Environment;
+		});
+
 		$this->app['orchestra.table'] = $this->app->share(function($app)
 		{
 			return new Table\Environment;

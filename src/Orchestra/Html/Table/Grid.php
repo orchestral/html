@@ -132,7 +132,7 @@ class Grid {
 		{
 			case 'horizontal' :
 			case 'vertical' :
-				$this->view = "orchestra::support.table.{$name}";
+				$this->view = "orchestra/html::table.{$name}";
 				break;
 			default :
 				$this->view = $name;
@@ -304,8 +304,6 @@ class Grid {
 	 */
 	public function __get($key)
 	{
-		$key = $this->key($key);
-		
 		if ( ! in_array($key, array('attributes', 'columns', 'model', 'paginate', 'view', 'rows')))
 		{
 			throw new InvalidArgumentException("Unable to use __get for [{$key}].");
@@ -319,8 +317,6 @@ class Grid {
 	 */
 	public function __set($key, $values)
 	{
-		$key = $this->key($key);
-		
 		if ( ! in_array($key, array('attributes')))
 		{
 			throw new InvalidArgumentException("Unable to use __set for [{$key}].");
@@ -338,25 +334,11 @@ class Grid {
 	 */
 	public function __isset($key)
 	{
-		$key = $this->key($key);
-
 		if ( ! in_array($key, array('attributes', 'columns', 'model', 'paginate', 'view')))
 		{
 			throw new InvalidArgumentException("Unable to use __isset for [{$key}].");
 		}
 
 		return isset($this->{$key});
-	}
-
-	/**
-	 * Valid key for magic methods.
-	 *
-	 * @access private 	
-	 * @param  string   $key
-	 * @return string
-	 */
-	private function key($key)
-	{
-		return $key;
 	}
 }

@@ -18,15 +18,15 @@ class TableBuilder extends AbstractableBuilder {
 	 */
 	public function __construct(Closure $callback)
 	{
-		// Initiate Table\Grid, this wrapper emulate table designer
-		// script to create the table.
+		// Initiate Table\Grid, this wrapper emulate Table designer
+		// script to create the Table.
 		$this->grid = new Grid(Config::get('orchestra/html::table', array()));
 		
 		$this->extend($callback);
 	}
 
 	/**
-	 * Render the table
+	 * Render the Table
 	 *
 	 * @access  public
 	 * @return  string

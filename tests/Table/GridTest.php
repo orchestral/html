@@ -66,10 +66,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$view->setAccessible(true);
 
 		$stub->layout('horizontal');
-		$this->assertEquals('orchestra::support.table.horizontal', $view->getValue($stub));
+		$this->assertEquals('orchestra/html::table.horizontal', $view->getValue($stub));
 
 		$stub->layout('vertical');
-		$this->assertEquals('orchestra::support.table.vertical', $view->getValue($stub));
+		$this->assertEquals('orchestra/html::table.vertical', $view->getValue($stub));
 
 		$stub->layout('foo');
 		$this->assertEquals('foo', $view->getValue($stub));
