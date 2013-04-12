@@ -1,0 +1,28 @@
+{
+	"name": "orchestra/html",
+	"description": "Orchestra Platform Html Component",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mior Muhammad Zaki",
+			"email": "crynobone@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3.3",
+		"illuminate/support": "4.0.*@dev"
+	},
+	"require-dev": {
+		"mockery/mockery": "0.8.0"
+	},
+	"suggest": {
+		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform",
+		"orchestra/foundation": "Using orchestra/html with Orchestra Platform"
+	},
+	"autoload": {
+		"psr-0": { 
+			"Orchestra\\Html" : "src/" 
+		}
+	},
+	"minimum-stability": "dev"
+}
