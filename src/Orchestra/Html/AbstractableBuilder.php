@@ -11,7 +11,7 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	 *
 	 * @var string
 	 */
-	protected $name = null;
+	public $name = null;
 
 	/**
 	 * Grid instance.

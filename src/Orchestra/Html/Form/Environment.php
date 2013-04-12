@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
-use Orchestra\Html\AbstractableEnvironment;
+use Closure,
+	Orchestra\Html\AbstractableEnvironment;
 
 class Environment extends AbstractableEnvironment {
 	
@@ -24,7 +25,7 @@ class Environment extends AbstractableEnvironment {
 	 * @param  Closure  $callback
 	 * @return Orchestra\Html\Form\FormBuilder
 	 */
-	public function of($name, Closure $callback = null);
+	public function of($name, Closure $callback = null)
 	{
 		if ( ! isset($this->names[$name]))
 		{
