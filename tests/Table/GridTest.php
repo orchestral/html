@@ -85,25 +85,25 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$stub = new \Orchestra\Html\Table\Grid(array());
 		$expected = array(
 			new \Illuminate\Support\Fluent(array(
-				'id'           => 'id',
-				'label'        => 'Id',
-				'value'        => 'Foobar',
-				'label_attributes' => array(),
-				'cell_attributes'  => function ($row) { return array(); }
+				'id'              => 'id',
+				'label'           => 'Id',
+				'value'           => 'Foobar',
+				'labelAttributes' => array(),
+				'attributes'      => function ($row) { return array(); }
 			)),
 			new \Illuminate\Support\Fluent(array(
-				'id'               => 'foo1',
-				'label'            => 'Foo1',
-				'value'            => 'Foo1 value',
-				'label_attributes' => array(),
-				'cell_attributes'  => function ($row) { return array(); }
+				'id'              => 'foo1',
+				'label'           => 'Foo1',
+				'value'           => 'Foo1 value',
+				'labelAttributes' => array(),
+				'attributes'      => function ($row) { return array(); }
 			)),
 			new \Illuminate\Support\Fluent(array(
-				'id'               => 'foo2',
-				'label'            => 'Foo2',
-				'value'            => 'Foo2 value',
-				'label_attributes' => array(),
-				'cell_attributes'  => function ($row) { return array(); }
+				'id'              => 'foo2',
+				'label'           => 'Foo2',
+				'value'           => 'Foo2 value',
+				'labelAttributes' => array(),
+				'attributes'      => function ($row) { return array(); }
 			))
 		);
 

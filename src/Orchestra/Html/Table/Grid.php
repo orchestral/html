@@ -220,11 +220,11 @@ class Grid {
 		}
 		
 		$column = new Fluent(array(
-			'id'               => $name,
-			'label'            => $label,
-			'value'            => $value,
-			'label_attributes' => array(),
-			'cell_attributes'  => function ($row) { return array(); },
+			'id'              => $name,
+			'label'           => $label,
+			'value'           => $value,
+			'labelAttributes' => array(),
+			'attributes'      => function ($row) { return array(); },
 		));
 
 		// run closure
