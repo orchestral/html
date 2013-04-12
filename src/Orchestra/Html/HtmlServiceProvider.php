@@ -34,4 +34,15 @@ class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 	{
 		$this->package('orchestra/html', 'orchestra/html');
 	}
+	
+
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return array('html', 'form', 'orchestra.form', 'orchestra.table');
+	}
 }
