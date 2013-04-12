@@ -18,7 +18,7 @@
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform",
-		"orchestra/foundation": "Using orchestra/html with Orchestra Platform"
+		"orchestra/foundation": "Allow using orchestra/html with Orchestra Platform"
 	},
 	"autoload": {
 		"psr-0": { 
