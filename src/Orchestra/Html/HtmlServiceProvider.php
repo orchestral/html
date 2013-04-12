@@ -1,8 +1,6 @@
 <?php namespace Orchestra\Html;
 
-use Illuminate\Support\ServiceProvider;
-
-class HtmlServiceProvider extends ServiceProvider {
+class HtmlServiceProvider extends \Illuminate\Html\HtmlServiceProvider {
 	
 	/**
 	 * Register the HTML builder instance.
