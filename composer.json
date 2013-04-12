@@ -10,6 +10,7 @@
 	],
 	"require": {
 		"php": ">=5.3.3",
+		"illuminate/html": "4.0.*@dev",
 		"illuminate/support": "4.0.*@dev"
 	},
 	"require-dev": {
