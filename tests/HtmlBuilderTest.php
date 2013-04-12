@@ -29,7 +29,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\HtmlBuilder::create() with content
 	 * 
 	 * @test
-	 * @group support
 	 */
 	public function testCreateWithContent()
 	{
@@ -44,7 +43,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\HtmlBuilder::create() without content
 	 * 
 	 * @test
-	 * @group support
 	 */
 	public function testCreateWithoutContent()
 	{
@@ -70,7 +68,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\HtmlBuilder::entities() method
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testEntitiesMethod()
 	{
@@ -87,7 +84,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\HtmlBuilder::raw() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testRawExpressionMethod()
 	{
@@ -99,7 +95,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\HtmlBuilder::decorate() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testDecorateMethod()
 	{
