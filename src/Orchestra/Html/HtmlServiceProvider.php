@@ -3,6 +3,13 @@
 class HtmlServiceProvider extends \Illuminate\Support\ServiceProvider {
 	
 	/**
+	 * Indicates if loading of the provider is deferred.
+	 *
+	 * @var bool
+	 */
+	protected $defer = true;
+
+	/**
 	 * Register the service provider.
 	 *
 	 * @return void
@@ -77,5 +84,15 @@ class HtmlServiceProvider extends \Illuminate\Support\ServiceProvider {
 	public function boot()
 	{
 		$this->package('orchestra/html', 'orchestra/html');
+	}
+
+	/**
+	 * Get the services provided by the provider.
+	 *
+	 * @return array
+	 */
+	public function provides()
+	{
+		return array('html', 'form', 'orchestra.form', 'orchestra.table');
 	}
 }
