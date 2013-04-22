@@ -1,5 +1,7 @@
 <?php namespace Orchestra\Html;
 
+use Orchestra\Support\Expression;
+
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
 	/**

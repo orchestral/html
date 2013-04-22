@@ -88,7 +88,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	public function testRawExpressionMethod()
 	{
 		$stub   = new \Orchestra\Html\HtmlBuilder($this->app);
-		$this->assertInstanceOf('\Orchestra\Html\Expression', $stub->raw('hello'));
+		$this->assertInstanceOf('\Orchestra\Support\Expression', $stub->raw('hello'));
 	}
 
 	/**
