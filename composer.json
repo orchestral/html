@@ -1,6 +1,7 @@
 {
 	"name": "orchestra/html",
 	"description": "Orchestra Platform Html Component",
+	"keywords": ["orchestra-platform", "laravel"],
 	"license": "MIT",
 	"authors": [
 		{
@@ -8,10 +9,15 @@
 			"email": "crynobone@gmail.com"
 		}
 	],
+	"autoload": {
+		"psr-0": { 
+			"Orchestra\\Html" : "src/" 
+		}
+	},
 	"require": {
 		"php": ">=5.3.3",
 		"illuminate/html": "4.0.*@dev",
-		"orchestra/support": "dev-master"
+		"orchestra/support": "2.0.*"
 	},
 	"require-dev": {
 		"mockery/mockery": "0.8.0"
@@ -20,9 +26,9 @@
 		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform",
 		"orchestra/foundation": "Allow using orchestra/html with Orchestra Platform"
 	},
-	"autoload": {
-		"psr-0": { 
-			"Orchestra\\Html" : "src/" 
+	"extra": {
+		"branch-alias": {
+			"dev-master": "2.0.x-dev"
 		}
 	},
 	"minimum-stability": "dev"
