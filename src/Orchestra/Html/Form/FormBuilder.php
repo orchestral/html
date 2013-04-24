@@ -34,7 +34,7 @@ class FormBuilder extends AbstractableBuilder {
 	{
 		// Localize Grid instance.
 		$grid         = $this->grid;
-		$attributes   = $grid->attributes;
+		$form         = $grid->attributes;
 		$submitButton = $grid->submitButton;
 
 		if ( ! ($submitButton instanceof Lang))
@@ -46,7 +46,7 @@ class FormBuilder extends AbstractableBuilder {
 			'token'        => $grid->token,
 			'hiddens'      => $grid->hiddens,
 			'row'          => $grid->row,
-			'form'         => $attributes,
+			'form'         => $form,
 			'submitButton' => $submitButton,
 			'errorMessage' => $grid->errorMessage,
 			'fieldsets'    => $grid->fieldsets(),

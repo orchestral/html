@@ -1,6 +1,6 @@
 <?php 
 
-echo Form::open(array_merge($attributes, array('class' => 'form-vertical')));
+echo Form::open(array_merge($form, array('class' => 'form-vertical')));
 
 if ($token) echo Form::token();
 
@@ -31,7 +31,7 @@ foreach ($fieldsets as $fieldset) { ?>
 <?php } ?>
 
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary"><?php echo $submitButton->get(null, 'Submit'); ?></button>
+	<button type="submit" class="btn btn-primary"><?php echo $submitButton; ?></button>
 </div>
 
 <?php echo Form::close(); ?>
