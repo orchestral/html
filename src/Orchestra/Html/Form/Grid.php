@@ -126,7 +126,7 @@ class Grid {
 	 * @param   array       $rows
 	 * @return  void
 	 */
-	public function row($row = null)
+	public function with($row = null)
 	{
 		if (is_null($row)) return $this->row;
 

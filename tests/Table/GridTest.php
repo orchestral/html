@@ -50,6 +50,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($mock, $model->getValue($stub));
 		$this->assertFalse($paginate->getValue($stub));
 		$this->assertTrue(isset($stub->model));
+
+		$paginator = \Mockery::mock('User');
+		$paginator->shouldReceive('paginate')->once()->andReturn($paginator)
+			->shouldReceive('getItems')->once()->andReturn(array('foo'));
+
+		$stub2 = new \Orchestra\Html\Table\Grid(array());
+		$stub2->with($paginator);
 	}
 
 	/**

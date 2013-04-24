@@ -3,7 +3,8 @@
 use Closure, 
 	InvalidArgumentException,
 	Illuminate\Support\Facades\Lang,
-	Illuminate\Support\Fluent;
+	Illuminate\Support\Fluent,
+	Illuminate\Pagination\Paginator;
 
 class Grid {
 
@@ -100,10 +101,15 @@ class Grid {
 	 * @param  bool     $paginate
 	 * @return void
 	 */
-	public function with($model, $paginate = false)
+	public function with($model, $paginate = true)
 	{
 		$this->paginate = $paginate;
 		$this->model    = $model;
+
+		if ($paginate and ( ! $model instanceof Paginator))
+		{
+			$model = $model->paginate();
+		}
 
 		$this->rows(true === $paginate ? $model->getItems() : $model);
 	}

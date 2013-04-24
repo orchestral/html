@@ -7,34 +7,35 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$appMock = \Mockery::mock('Application')
-			->shouldReceive('instance')->andReturn(true);
+		$app = \Mockery::mock('Application');
+		$app->shouldReceive('instance')->andReturn(true);
 
-		$configMock = \Mockery::mock('Config')
-			->shouldReceive('get')
-				->with('orchestra/html::form.fieldset')->andReturn(array(
-					'select'   => array(),
-					'textarea' => array(),
-					'input'    => array(),
-					'password' => array(),
-					'file'     => array(),
-					'radio'    => array(),
-				))
-			->shouldReceive('get')
-				->with('orchestra/html::form.templates', array())->andReturn(array(
-					'input'    => function ($data) { return $data->name; },
-					'textarea' => function ($data) { return $data->name; },
-					'password' => function ($data) { return $data->name; },
-					'file'     => function ($data) { return $data->name; },
-					'radio'    => function ($data) { return $data->name; },
-					'checkbox' => function ($data) { return $data->name; },
-					'select'   => function ($data) { return $data->name; },
-				));
+		$fieldset = array(
+			'select'   => array(),
+			'textarea' => array(),
+			'input'    => array(),
+			'password' => array(),
+			'file'     => array(),
+			'radio'    => array(),
+		);
 
-		\Illuminate\Support\Facades\Config::setFacadeApplication($appMock->getMock());
-		\Illuminate\Support\Facades\Config::swap($configMock->getMock());
+		$template = array(
+			'input'    => function ($data) { return $data->name; },
+			'textarea' => function ($data) { return $data->name; },
+			'password' => function ($data) { return $data->name; },
+			'file'     => function ($data) { return $data->name; },
+			'radio'    => function ($data) { return $data->name; },
+			'checkbox' => function ($data) { return $data->name; },
+			'select'   => function ($data) { return $data->name; },
+		);
 
-		\Illuminate\Support\Facades\Form::setFacadeApplication($appMock->getMock());
+		$config = \Mockery::mock('Config');
+		$config->shouldReceive('get')->with('orchestra/html::form.fieldset')->andReturn($fieldset)
+			->shouldReceive('get')->with('orchestra/html::form.templates', array())->andReturn($template);
+
+		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
+		\Illuminate\Support\Facades\Config::swap($config);
+		\Illuminate\Support\Facades\Form::setFacadeApplication($app);
 	}
 
 	/**
@@ -85,11 +86,11 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * @test
 	 * @group support
 	 */
-	public function testRowMethod()
+	public function testWithMethod()
 	{
 		$mock = new \Illuminate\Support\Fluent;
 		$stub = new \Orchestra\Html\Form\Grid(array());
-		$stub->row($mock);
+		$stub->with($mock);
 
 		$refl = new \ReflectionObject($stub);
 		$row  = $refl->getProperty('row');
@@ -169,12 +170,9 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 
 		$fieldset = $fieldsets->getValue($stub);
 
-		$this->assertInstanceOf('\Orchestra\Html\Form\Fieldset', 
-			$fieldset[0]);
-		$this->assertEquals('Foobar', 
-			$fieldset[0]->name);
-		$this->assertInstanceOf('\Orchestra\Html\Form\Fieldset', 
-			$fieldset[1]);
+		$this->assertInstanceOf('\Orchestra\Html\Form\Fieldset', $fieldset[0]);
+		$this->assertEquals('Foobar', $fieldset[0]->name);
+		$this->assertInstanceOf('\Orchestra\Html\Form\Fieldset', $fieldset[1]);
 		$this->assertNull($fieldset[1]->name);
 	}
 
@@ -186,20 +184,14 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testHiddenMethod()
 	{
-		$formMock = \Mockery::mock('Form')
-			->shouldReceive('hidden')
-				->once()
-				->with('foo', 'foobar', \Mockery::any())
-				->andReturn('hidden_foo')
-			->shouldReceive('hidden')
-				->once()
-				->with('foobar', 'stubbed', \Mockery::any())
-				->andReturn('hidden_foobar');
+		$form = \Mockery::mock('Form');
+		$form->shouldReceive('hidden')->once()->with('foo', 'foobar', \Mockery::any())->andReturn('hidden_foo')
+			->shouldReceive('hidden')->once()->with('foobar', 'stubbed', \Mockery::any())->andReturn('hidden_foobar');
 
-		\Illuminate\Support\Facades\Form::swap($formMock->getMock());
+		\Illuminate\Support\Facades\Form::swap($form);
 
 		$stub = new \Orchestra\Html\Form\Grid(array());
-		$stub->row(new \Illuminate\Support\Fluent(array(
+		$stub->with(new \Illuminate\Support\Fluent(array(
 			'foo'    => 'foobar',
 			'foobar' => 'foo',
 		)));

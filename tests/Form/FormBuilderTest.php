@@ -7,14 +7,12 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$appMock = \Mockery::mock('Application')
-			->shouldReceive('instance')
-				->andReturn(true)
-			->mock();
+		$app = \Mockery::mock('Application');
+		$app->shouldReceive('instance')->andReturn(true);
 
-		\Illuminate\Support\Facades\Config::setFacadeApplication($appMock);
-		\Illuminate\Support\Facades\Lang::setFacadeApplication($appMock);
-		\Illuminate\Support\Facades\View::setFacadeApplication($appMock);
+		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
+		\Illuminate\Support\Facades\Lang::setFacadeApplication($app);
+		\Illuminate\Support\Facades\View::setFacadeApplication($app);
 	}
 
 	/**
@@ -32,13 +30,10 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */	
 	public function testConstructMethod()
 	{
-		$configMock = \Mockery::mock('Config')
-			->shouldReceive('get')
-				->with('orchestra/html::form', array())
-				->once()
-				->andReturn(array());
+		$config = \Mockery::mock('Config');
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
-		\Illuminate\Support\Facades\Config::swap($configMock->getMock());
+		\Illuminate\Support\Facades\Config::swap($config);
 
 		$stub = new \Orchestra\Html\Form\FormBuilder(function () { });
 		
@@ -77,47 +72,39 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRenderMethod()
 	{
-		$langMock = \Mockery::mock('Lang')
-			->shouldReceive('get')
-				->twice()
-				->andReturn(array());
+		$lang = \Mockery::mock('Lang');
+		$lang->shouldReceive('get')->twice()->andReturn(array());
 
-		\Illuminate\Support\Facades\Lang::swap($langMock->getMock());
+		\Illuminate\Support\Facades\Lang::swap($lang);
 
-		$viewMock = \Mockery::mock('View')
-			->shouldReceive('make')
-				->twice()
-				->andReturn(\Mockery::self())
-			->shouldReceive('with')
-				->twice()
-				->andReturn(\Mockery::self())
-			->shouldReceive('render')
-				->twice()
-				->andReturn('mocked');
+		$view = \Mockery::mock('View');
+		$view->shouldReceive('make')->twice()->andReturn($view)
+			->shouldReceive('with')->twice()->andReturn($view)
+			->shouldReceive('render')->twice()->andReturn('mocked');
 
-		\Illuminate\Support\Facades\View::swap($viewMock->getMock());
+		\Illuminate\Support\Facades\View::swap($view);
 
-		$mock_data = new \Illuminate\Support\Fluent(array(
-			'id' => 1, 
+		$data = new \Illuminate\Support\Fluent(array(
+			'id'   => 1, 
 			'name' => 'Laravel'
 		));
 
-		$mock1 = new \Orchestra\Html\Form\FormBuilder(function ($form) use ($mock_data)
+		$mock1 = new \Orchestra\Html\Form\FormBuilder(function ($form) use ($data)
 		{
-			$form->row($mock_data);
+			$form->with($data);
 			$form->attributes(array(
 				'method' => 'POST',
-				'action' => 'http://localhost',
+				'url'    => 'http://localhost',
 				'class'  => 'foo',
 			));
 		});
 
-		$mock2 = new \Orchestra\Html\Form\FormBuilder(function ($form) use ($mock_data)
+		$mock2 = new \Orchestra\Html\Form\FormBuilder(function ($form) use ($data)
 		{
-			$form->row($mock_data);
+			$form->with($data);
 			$form->attributes = array(
 				'method' => 'POST',
-				'action' => 'http://localhost',
+				'url'    => 'http://localhost',
 				'class'  => 'foo'
 			);
 		});
