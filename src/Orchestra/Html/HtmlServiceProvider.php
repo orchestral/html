@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Html;
 
-class HtmlServiceProvider extends \Illuminate\Support\ServiceProvider {
+use \Illuminate\Support\ServiceProvider;
+
+class HtmlServiceProvider extends ServiceProvider {
 	
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,8 +20,6 @@ class HtmlServiceProvider extends \Illuminate\Support\ServiceProvider {
 	{
 		$this->registerHtmlBuilder();
 		$this->registerFormBuilder();
-		$this->registerOrchestraFormBuilder();
-		$this->registerOrchestraTableBuilder();
 	}
 
 	/**
@@ -51,48 +51,12 @@ class HtmlServiceProvider extends \Illuminate\Support\ServiceProvider {
 	}
 
 	/**
-	 * Register the Orchestra\Form builder instance.
-	 *
-	 * @return void
-	 */
-	protected function registerOrchestraFormBuilder()
-	{
-		$this->app['orchestra.form'] = $this->app->share(function($app)
-		{
-			return new Form\Environment;
-		});
-	}
-
-	/**
-	 * Register the Orchestra\Table builder instance.
-	 *
-	 * @return void
-	 */
-	protected function registerOrchestraTableBuilder()
-	{
-		$this->app['orchestra.table'] = $this->app->share(function($app)
-		{
-			return new Table\Environment;
-		});
-	}
-
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->package('orchestra/html', 'orchestra/html');
-	}
-
-	/**
 	 * Get the services provided by the provider.
 	 *
 	 * @return array
 	 */
 	public function provides()
 	{
-		return array('html', 'form', 'orchestra.form', 'orchestra.table');
+		return array('html', 'form');
 	}
 }

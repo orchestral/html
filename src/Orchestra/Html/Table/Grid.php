@@ -105,7 +105,7 @@ class Grid {
 		$this->paginate = $paginate;
 		$this->model    = $model;
 
-		$this->rows(true === $paginate ? $model->results : $model);
+		$this->rows(true === $paginate ? $model->getItems() : $model);
 	}
 
 	/**
