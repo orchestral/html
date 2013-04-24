@@ -11,7 +11,7 @@ return array(
 	|
 	*/
 
-	'emptyMessage'  => 'message.no-record',
+	'emptyMessage'  => 'orchestra/foundation::label.no-record',
 	
 	/*
 	|----------------------------------------------------------------------

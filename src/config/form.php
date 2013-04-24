@@ -23,7 +23,7 @@ return array(
 	|
 	*/
 
-	'submitButton'  => 'label.submit',
+	'submitButton'  => 'orchestra/foundation::label.submit',
 	
 	/*
 	|----------------------------------------------------------------------
