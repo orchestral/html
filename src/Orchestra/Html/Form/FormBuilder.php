@@ -33,17 +33,8 @@ class FormBuilder extends AbstractableBuilder {
 	public function render()
 	{
 		// Localize Grid instance.
-		$grid       = $this->grid;
-		$attributes = $grid->attributes;
-
-		// Build Form attribute, action and method should be unset from attr 
-		// as it is build using Form::open().
-		$formMethod = $attributes['method'];
-		$formAction = $attributes['action'];
-
-		unset($attributes['method']);
-		unset($attributes['action']);
-
+		$grid         = $this->grid;
+		$attributes   = $grid->attributes;
 		$submitButton = $grid->submitButton;
 
 		if ( ! ($submitButton instanceof Lang))
@@ -55,13 +46,9 @@ class FormBuilder extends AbstractableBuilder {
 			'token'        => $grid->token,
 			'hiddens'      => $grid->hiddens,
 			'row'          => $grid->row,
-			'form'         => array(
-				'action' => $formAction,
-				'method' => $formMethod,
-			),
+			'form'         => $attributes,
 			'submitButton' => $submitButton,
 			'errorMessage' => $grid->errorMessage,
-			'attributes'   => $attributes,
 			'fieldsets'    => $grid->fieldsets(),
 		);
 

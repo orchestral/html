@@ -1,6 +1,6 @@
 <?php 
 
-echo Form::open($form['action'], $form['method'], array_merge($attributes, array('class' => 'form-horizontal')));
+echo Form::open(array_merge($attributes, array('class' => 'form-horizontal')));
 
 if ($token) echo Form::token();
 
