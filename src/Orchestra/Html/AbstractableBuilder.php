@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Html;
 
-use Closure,
-	InvalidArgumentException,
-	Illuminate\Support\Contracts\RenderableInterface;
+use Closure;
+use InvalidArgumentException;
+use Illuminate\Support\Contracts\RenderableInterface;
 
 abstract class AbstractableBuilder implements RenderableInterface {
 	

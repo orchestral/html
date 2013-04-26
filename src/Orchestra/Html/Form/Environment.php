@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
-use Closure,
-	Orchestra\Html\AbstractableEnvironment;
+use Closure;
+use Orchestra\Html\AbstractableEnvironment;
 
 class Environment extends AbstractableEnvironment {
 	

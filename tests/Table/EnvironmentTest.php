@@ -1,5 +1,8 @@
 <?php namespace Orchestra\Html\Tests\Table;
 
+use Mockery as m;
+use Orchestra\Html\Table\Environment;
+
 class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -7,12 +10,10 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$appMock = \Mockery::mock('Application')
-			->shouldReceive('instance')
-				->andReturn(true)
-			->mock();
+		$app = m::mock('Application');
+		$app->shouldReceive('instance')->andReturn(true);
 
-		\Illuminate\Support\Facades\Config::setFacadeApplication($appMock);
+		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
 	}
 
 	/**
@@ -20,7 +21,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown()
 	{
-		\Mockery::close();
+		m::close();
 	}
 
 	/**
@@ -30,15 +31,12 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMakeMethod()
 	{
-		$configMock = \Mockery::mock('Config')
-			->shouldReceive('get')
-				->with('orchestra/html::table', array())
-				->once()
-				->andReturn(array());
+		$config = m::mock('Config');
+		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
 
-		\Illuminate\Support\Facades\Config::swap($configMock->getMock());
+		\Illuminate\Support\Facades\Config::swap($config);
 
-		$stub   = new \Orchestra\Html\Table\Environment;
+		$stub   = new Environment;
 		$output = $stub->make(function() {});
 
 		$this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $output);
@@ -51,15 +49,12 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethod()
 	{
-		$configMock = \Mockery::mock('Config')
-			->shouldReceive('get')
-				->with('orchestra/html::table', array())
-				->once()
-				->andReturn(array());
+		$config = m::mock('Config');
+		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
 
-		\Illuminate\Support\Facades\Config::swap($configMock->getMock());
+		\Illuminate\Support\Facades\Config::swap($config);
 		
-		$stub   = new \Orchestra\Html\Table\Environment;
+		$stub   = new Environment;
 		$output = $stub->of('foo', function() {});
 
 		$this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $output);

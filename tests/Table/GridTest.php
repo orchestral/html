@@ -1,6 +1,17 @@
 <?php namespace Orchestra\Html\Tests\Table;
 
+use Mockery as m;
+use Orchestra\Html\Table\Grid;
+
 class GridTest extends \PHPUnit_Framework_TestCase {
+
+	/**
+	 * Teardown the test environment.
+	 */
+	public function tearDown()
+	{
+		m::close();
+	}
 
 	/**
 	 * Test instanceof Orchestra\Html\Table\Grid.
@@ -9,20 +20,20 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testInstanceOfGrid()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array(
-			'emptyMessage' => 'No data',
-			'view'         => 'foo',
+		$stub = new Grid(array(
+			'empty' => 'No data',
+			'view'  => 'foo',
 		));
 
-		$refl         = new \ReflectionObject($stub);
-		$emptyMessage = $refl->getProperty('emptyMessage');
-		$view         = $refl->getProperty('view');
+		$refl  = new \ReflectionObject($stub);
+		$empty = $refl->getProperty('empty');
+		$view  = $refl->getProperty('view');
 
-		$emptyMessage->setAccessible(true);
+		$empty->setAccessible(true);
 		$view->setAccessible(true);
 
 		$this->assertInstanceOf('\Orchestra\Html\Table\Grid', $stub);
-		$this->assertEquals('No data', $emptyMessage->getValue($stub));
+		$this->assertEquals('No data', $empty->getValue($stub));
 		$this->assertEquals('foo', $view->getValue($stub));
 	}
 
@@ -34,7 +45,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	public function testWithMethod()
 	{
 		$mock = array(new \Illuminate\Support\Fluent);
-		$stub = new \Orchestra\Html\Table\Grid(array());
+		$stub = new Grid(array());
 		$stub->with($mock, false);
 
 		$refl     = new \ReflectionObject($stub);
@@ -51,11 +62,11 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($paginate->getValue($stub));
 		$this->assertTrue(isset($stub->model));
 
-		$paginator = \Mockery::mock('User');
+		$paginator = m::mock('User');
 		$paginator->shouldReceive('paginate')->once()->andReturn($paginator)
 			->shouldReceive('getItems')->once()->andReturn(array('foo'));
 
-		$stub2 = new \Orchestra\Html\Table\Grid(array());
+		$stub2 = new Grid(array());
 		$stub2->with($paginator);
 	}
 
@@ -66,7 +77,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testLayoutMethod()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
+		$stub = new Grid(array());
 
 		$refl = new \ReflectionObject($stub);
 		$view = $refl->getProperty('view');
@@ -89,28 +100,28 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethod()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
+		$stub = new Grid(array());
 		$expected = array(
 			new \Illuminate\Support\Fluent(array(
-				'id'              => 'id',
-				'label'           => 'Id',
-				'value'           => 'Foobar',
-				'labelAttributes' => array(),
-				'attributes'      => function ($row) { return array(); }
+				'id'         => 'id',
+				'label'      => 'Id',
+				'value'      => 'Foobar',
+				'header'     => array(),
+				'attributes' => function ($row) { return array(); }
 			)),
 			new \Illuminate\Support\Fluent(array(
-				'id'              => 'foo1',
-				'label'           => 'Foo1',
-				'value'           => 'Foo1 value',
-				'labelAttributes' => array(),
-				'attributes'      => function ($row) { return array(); }
+				'id'         => 'foo1',
+				'label'      => 'Foo1',
+				'value'      => 'Foo1 value',
+				'header'     => array(),
+				'attributes' => function ($row) { return array(); }
 			)),
 			new \Illuminate\Support\Fluent(array(
-				'id'              => 'foo2',
-				'label'           => 'Foo2',
-				'value'           => 'Foo2 value',
-				'labelAttributes' => array(),
-				'attributes'      => function ($row) { return array(); }
+				'id'         => 'foo2',
+				'label'      => 'Foo2',
+				'value'      => 'Foo2 value',
+				'header'     => array(),
+				'attributes' => function ($row) { return array(); }
 			))
 		);
 
@@ -146,8 +157,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethodThrowsException()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
-
+		$stub = new Grid(array());
 		$output = $stub->of('id');
 	}
 
@@ -158,9 +168,9 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAttributesMethod()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
+		$stub = new Grid(array());
 
-		$refl   = new \ReflectionObject($stub);
+		$refl       = new \ReflectionObject($stub);
 		$attributes = $refl->getProperty('attributes');
 		$attributes->setAccessible(true);
 
@@ -183,9 +193,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodCallThrowsException()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
-
-		$stub->invalid_method();
+		$stub = new Grid(array());
+		$stub->invalidMethod();
 	}
 
 	/**
@@ -196,9 +205,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodGetThrowsException()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
-
-		$invalid = $stub->invalid_property;
+		$stub = new Grid(array());
+		$invalid = $stub->invalidProperty;
 	}
 
 	/**
@@ -209,9 +217,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodSetThrowsException()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
-
-		$stub->invalid_property = array('foo');
+		$stub = new Grid(array());
+		$stub->invalidProperty = array('foo');
 	}
 
 	/**
@@ -222,8 +229,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
-
+		$stub = new Grid(array());
 		$stub->attributes = 'foo';
 	}
 
@@ -235,8 +241,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodIssetThrowsException()
 	{
-		$stub = new \Orchestra\Html\Table\Grid(array());
-
-		$invalid = isset($stub->invalid_property) ? true : false;
+		$stub = new Grid(array());
+		$invalid = isset($stub->invalidProperty) ? true : false;
 	}
 }

@@ -3,7 +3,7 @@
 	<tbody>
 <?php foreach ($columns as $col): ?>
 		<tr>
-			<th<?php echo Html::attributes($col->labelAttributes ?: array()); ?>><?php echo $col->label; ?></th>
+			<th<?php echo Html::attributes($col->header ?: array()); ?>><?php echo $col->label; ?></th>
 <?php foreach ($rows as $row): ?>
 			<td<?php echo Html::attributes(call_user_func($col->attributes, $row)); ?>><?php 
 

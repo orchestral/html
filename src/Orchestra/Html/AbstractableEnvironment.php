@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html;
 
-use Closure,
-	InvalidArgumentException;
+use Closure;
+use InvalidArgumentException;
 
 abstract class AbstractableEnvironment {
 
@@ -11,14 +11,6 @@ abstract class AbstractableEnvironment {
 	 * @var array
 	 */
 	protected $names = array();
-
-	/**
-	 * Construct a new environment.
-	 */
-	public function __construct()
-	{
-		$this->names = array();
-	}
 
 	/**
 	 * Create a new Builder instance

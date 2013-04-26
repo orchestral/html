@@ -1,5 +1,8 @@
 <?php namespace Orchestra\Html\Tests;
 
+use Mockery as m;
+use Orchestra\Html\HtmlBuilder;
+
 class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -14,7 +17,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$this->app = \Mockery::mock('\Illuminate\Routing\UrlGenerator');
+		$this->app = m::mock('\Illuminate\Routing\UrlGenerator');
 	}
 
 	/**
@@ -23,7 +26,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	public function tearDown() 
 	{
 		unset($this->app);
-		\Mockery::close();
+		m::close();
 	}
 	/**
 	 * Test Orchestra\Html\HtmlBuilder::create() with content
@@ -32,7 +35,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCreateWithContent()
 	{
-		$stub     = new \Orchestra\Html\HtmlBuilder($this->app);
+		$stub     = new HtmlBuilder($this->app);
 		$expected = '<div class="foo">Bar</div>';
 		$output   = $stub->create('div', 'Bar', array('class' => 'foo'));
 
@@ -46,7 +49,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCreateWithoutContent()
 	{
-		$stub     = new \Orchestra\Html\HtmlBuilder($this->app);
+		$stub     = new HtmlBuilder($this->app);
 		$expected = '<img src="hello.jpg" class="foo">';
 		$output   = $stub->create('img', array(
 			'src'   => 'hello.jpg', 
@@ -71,7 +74,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testEntitiesMethod()
 	{
-		$stub   = new \Orchestra\Html\HtmlBuilder($this->app);
+		$stub   = new HtmlBuilder($this->app);
 		$output = $stub->raw('<img src="foo.jpg">');
 
 		$this->assertEquals('<img src="foo.jpg">', $stub->entities($output));
@@ -87,7 +90,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRawExpressionMethod()
 	{
-		$stub   = new \Orchestra\Html\HtmlBuilder($this->app);
+		$stub   = new HtmlBuilder($this->app);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $stub->raw('hello'));
 	}
 
@@ -98,7 +101,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testDecorateMethod()
 	{
-		$stub   = new \Orchestra\Html\HtmlBuilder($this->app);
+		$stub   = new HtmlBuilder($this->app);
 		
 		$output   = $stub->decorate(array('class' => 'span4 table'), array('id' => 'foobar'));
 		$expected = array('id' => 'foobar', 'class' => 'span4 table');

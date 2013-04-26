@@ -1,9 +1,9 @@
 <?php namespace Orchestra\Html\Form;
 
-use Closure, 
-	InvalidArgumentException,
-	Illuminate\Support\Facades\Form as FormFacade,
-	Illuminate\Support\Fluent;
+use Closure;
+use InvalidArgumentException;
+use Illuminate\Support\Facades\Form as FormFacade;
+use Illuminate\Support\Fluent;
 
 class Grid {
 
@@ -47,14 +47,14 @@ class Grid {
 	 *
 	 * @var string
 	 */
-	public $submitButton = null;
+	public $submit = null;
 
 	/**
 	 * Set the no record message
 	 *
 	 * @var string
 	 */
-	public $errorMessage = null;
+	public $format = null;
 
 	/**
 	 * Selected view path for form layout

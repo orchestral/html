@@ -1,11 +1,11 @@
 <?php namespace Orchestra\Html\Table;
 
-use Closure,
-	Illuminate\Support\Facades\Config,
-	Illuminate\Support\Facades\Lang,
-	Illuminate\Support\Facades\Request,
-	Illuminate\Support\Facades\View,
-	Orchestra\Html\AbstractableBuilder;
+use Closure;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\View;
+use Orchestra\Html\AbstractableBuilder;
 
 class TableBuilder extends AbstractableBuilder {
 
@@ -43,23 +43,19 @@ class TableBuilder extends AbstractableBuilder {
 		if (isset($input['page'])) unset($input['page']);
 
 		$paginate = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
+		$empty    = $grid->empty;
 
-		$emptyMessage = $grid->emptyMessage;
-
-		if ( ! ($emptyMessage instanceof Lang))
-		{
-			$emptyMessage = Lang::get($emptyMessage);
-		}
+		if ( ! ($empty instanceof Lang)) $empty = Lang::get($empty);
 
 		$data = array(
 			'attributes' => array(
 				'row'   => $grid->rows->attributes,
 				'table' => $grid->attributes,
 			),
-			'emptyMessage' => $emptyMessage,
-			'columns'      => $grid->columns(),
-			'rows'         => $grid->rows(),
-			'pagination'   => $paginate,
+			'empty'      => $empty,
+			'columns'    => $grid->columns(),
+			'rows'       => $grid->rows(),
+			'pagination' => $paginate,
 		);
 
 		// Build the view and render it.

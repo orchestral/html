@@ -1,5 +1,8 @@
 <?php namespace Orchestra\Html\Tests\Form;
 
+use Mockery as m;
+use Orchestra\Html\Form\FormBuilder;
+
 class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -7,7 +10,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$app = \Mockery::mock('Application');
+		$app = m::mock('Application');
 		$app->shouldReceive('instance')->andReturn(true);
 
 		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
@@ -20,7 +23,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown()
 	{
-		\Mockery::close();
+		m::close();
 	}
 	
 	/**
@@ -30,12 +33,12 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */	
 	public function testConstructMethod()
 	{
-		$config = \Mockery::mock('Config');
+		$config = m::mock('Config');
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
 		\Illuminate\Support\Facades\Config::swap($config);
 
-		$stub = new \Orchestra\Html\Form\FormBuilder(function () { });
+		$stub = new FormBuilder(function () { });
 		
 		$refl = new \ReflectionObject($stub);
 		$name = $refl->getProperty('name');
@@ -61,7 +64,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodThrowsException()
 	{
-		$stub = new \Orchestra\Html\Form\FormBuilder(function () { });
+		$stub = new FormBuilder(function () { });
 		$stub->someInvalidRequest;
 	}
 	
@@ -72,24 +75,24 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRenderMethod()
 	{
-		$lang = \Mockery::mock('Lang');
-		$lang->shouldReceive('get')->twice()->andReturn(array());
+		$lang = m::mock('Lang');
+		$view = m::mock('View');
 
 		\Illuminate\Support\Facades\Lang::swap($lang);
+		\Illuminate\Support\Facades\View::swap($view);
 
-		$view = \Mockery::mock('View');
+		$lang->shouldReceive('get')->twice()->andReturn(array());
 		$view->shouldReceive('make')->twice()->andReturn($view)
 			->shouldReceive('with')->twice()->andReturn($view)
 			->shouldReceive('render')->twice()->andReturn('mocked');
 
-		\Illuminate\Support\Facades\View::swap($view);
 
 		$data = new \Illuminate\Support\Fluent(array(
 			'id'   => 1, 
 			'name' => 'Laravel'
 		));
 
-		$mock1 = new \Orchestra\Html\Form\FormBuilder(function ($form) use ($data)
+		$mock1 = new FormBuilder(function ($form) use ($data)
 		{
 			$form->with($data);
 			$form->attributes(array(
@@ -99,7 +102,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 			));
 		});
 
-		$mock2 = new \Orchestra\Html\Form\FormBuilder(function ($form) use ($data)
+		$mock2 = new FormBuilder(function ($form) use ($data)
 		{
 			$form->with($data);
 			$form->attributes = array(

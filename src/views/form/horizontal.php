@@ -21,7 +21,7 @@ foreach ($fieldsets as $fieldset) { ?>
 				<?php echo call_user_func($control->field, $row, $control, array()); ?>
 				<?php if( $control->inlineHelp ) : ?><span class="help-inline"><?php echo $control->inlineHelp; ?></span><?php endif; ?>
 				<?php if( $control->help ) : ?><p class="help-block"><?php echo $control->help; ?></p><?php endif; ?>
-				<?php echo $errors->first($control->name, $errorMessage); ?>
+				<?php echo $errors->first($control->name, $format); ?>
 			</div>
 		</div>
 
@@ -31,7 +31,7 @@ foreach ($fieldsets as $fieldset) { ?>
 <?php } ?>
 
 <div class="form-actions">
-	<button type="submit" class="btn btn-primary"><?php echo $submitButton; ?></button>
+	<button type="submit" class="btn btn-primary"><?php echo $submit; ?></button>
 </div>
 
 <?php echo Form::close(); ?>

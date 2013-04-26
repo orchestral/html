@@ -1,10 +1,10 @@
 <?php namespace Orchestra\Html\Form;
 
-use Closure,
-	Illuminate\Support\Facades\Config,
-	Illuminate\Support\Facades\Lang,
-	Illuminate\Support\Facades\View,
-	Orchestra\Html\AbstractableBuilder;
+use Closure;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\View;
+use Orchestra\Html\AbstractableBuilder;
 
 class FormBuilder extends AbstractableBuilder {
 
@@ -32,24 +32,20 @@ class FormBuilder extends AbstractableBuilder {
 	 */
 	public function render()
 	{
-		// Localize Grid instance.
-		$grid         = $this->grid;
-		$form         = $grid->attributes;
-		$submitButton = $grid->submitButton;
+		$grid   = $this->grid;
+		$form   = $grid->attributes;
+		$submit = $grid->submit;
 
-		if ( ! ($submitButton instanceof Lang))
-		{
-			$submitButton = Lang::get($submitButton);
-		}
+		if ( ! ($submit instanceof Lang)) $submit = Lang::get($submit);
 
 		$data = array(
-			'token'        => $grid->token,
-			'hiddens'      => $grid->hiddens,
-			'row'          => $grid->row,
-			'form'         => $form,
-			'submitButton' => $submitButton,
-			'errorMessage' => $grid->errorMessage,
-			'fieldsets'    => $grid->fieldsets(),
+			'token'     => $grid->token,
+			'hiddens'   => $grid->hiddens,
+			'row'       => $grid->row,
+			'form'      => $form,
+			'submit'    => $submit,
+			'format'    => $grid->format,
+			'fieldsets' => $grid->fieldsets(),
 		);
 
 		// Build the view and render it.

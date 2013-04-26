@@ -1,12 +1,12 @@
 <?php namespace Orchestra\Html\Form;
 
-use Closure, 
-	InvalidArgumentException,
-	Illuminate\Support\Facades\Config, 
-	Illuminate\Support\Facades\Lang, 
-	Illuminate\Support\Facades\Html,
-	Illuminate\Support\Facades\Input, 
-	Illuminate\Support\Fluent;
+use Closure;
+use InvalidArgumentException;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Html;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Fluent;
 
 class Fieldset {
 

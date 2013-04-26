@@ -1,5 +1,8 @@
 <?php namespace Orchestra\Support\Tests\Form;
 
+use Mockery as m;
+use Orchestra\Html\Form\Grid;
+
 class GridTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -7,7 +10,9 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$app = \Mockery::mock('Application');
+		$app = m::mock('Application');
+		$config = m::mock('Config');
+
 		$app->shouldReceive('instance')->andReturn(true);
 
 		$fieldset = array(
@@ -29,7 +34,6 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 			'select'   => function ($data) { return $data->name; },
 		);
 
-		$config = \Mockery::mock('Config');
 		$config->shouldReceive('get')->with('orchestra/html::form.fieldset')->andReturn($fieldset)
 			->shouldReceive('get')->with('orchestra/html::form.templates', array())->andReturn($template);
 
@@ -43,36 +47,35 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown()
 	{
-		\Mockery::close();
+		m::close();
 	}
 
 	/**
 	 * Test instanceof Orchestra\Html\Form\Grid.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testInstanceOfGrid()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array(
-			'submitButton' => 'Submit',
-			'attributes'   => array('id' => 'foo'),
-			'view'         => 'foo',
+		$stub = new Grid(array(
+			'submit'     => 'Submit',
+			'attributes' => array('id' => 'foo'),
+			'view'       => 'foo',
 		));
 
 		$stub->attributes = array('class' => 'foobar');
 
-		$refl         = new \ReflectionObject($stub);
-		$attributes   = $refl->getProperty('attributes');
-		$submitButton = $refl->getProperty('submitButton');
-		$view         = $refl->getProperty('view');
+		$refl       = new \ReflectionObject($stub);
+		$attributes = $refl->getProperty('attributes');
+		$submit     = $refl->getProperty('submit');
+		$view       = $refl->getProperty('view');
 
 		$attributes->setAccessible(true);
-		$submitButton->setAccessible(true);
+		$submit->setAccessible(true);
 		$view->setAccessible(true);
 
 		$this->assertInstanceOf('\Orchestra\Html\Form\Grid', $stub);
-		$this->assertEquals('Submit', $submitButton->getValue($stub));
+		$this->assertEquals('Submit', $submit->getValue($stub));
 		$this->assertEquals('foo', $view->getValue($stub));
 
 		$this->assertEquals('foo', $stub->view());
@@ -84,12 +87,11 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\Form\Grid::row() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testWithMethod()
 	{
 		$mock = new \Illuminate\Support\Fluent;
-		$stub = new \Orchestra\Html\Form\Grid(array());
+		$stub = new Grid(array());
 		$stub->with($mock);
 
 		$refl = new \ReflectionObject($stub);
@@ -104,11 +106,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\Form\Grid::layout() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testLayoutMethod()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
+		$stub = new Grid(array());
 
 		$refl = new \ReflectionObject($stub);
 		$view = $refl->getProperty('view');
@@ -128,11 +129,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\Form\Grid::attributes() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testAttributesMethod()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
+		$stub = new Grid(array());
 
 		$refl   = new \ReflectionObject($stub);
 		$attributes = $refl->getProperty('attributes');
@@ -153,12 +153,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\Form\Grid::fieldset() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testFieldsetMethod()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
-
+		$stub      = new Grid(array());
 		$refl      = new \ReflectionObject($stub);
 		$fieldsets = $refl->getProperty('fieldsets');
 		$fieldsets->setAccessible(true);
@@ -180,17 +178,16 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * Test Orchestra\Html\Form\Grid::hidden() method.
 	 *
 	 * @test
-	 * @group support
 	 */
 	public function testHiddenMethod()
 	{
-		$form = \Mockery::mock('Form');
-		$form->shouldReceive('hidden')->once()->with('foo', 'foobar', \Mockery::any())->andReturn('hidden_foo')
-			->shouldReceive('hidden')->once()->with('foobar', 'stubbed', \Mockery::any())->andReturn('hidden_foobar');
+		$form = m::mock('Form');
+		$form->shouldReceive('hidden')->once()->with('foo', 'foobar', m::any())->andReturn('hidden_foo')
+			->shouldReceive('hidden')->once()->with('foobar', 'stubbed', m::any())->andReturn('hidden_foobar');
 
 		\Illuminate\Support\Facades\Form::swap($form);
 
-		$stub = new \Orchestra\Html\Form\Grid(array());
+		$stub = new Grid(array());
 		$stub->with(new \Illuminate\Support\Fluent(array(
 			'foo'    => 'foobar',
 			'foobar' => 'foo',
@@ -216,12 +213,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * exception.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testMagicMethodCallThrowsException()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
-
+		$stub = new Grid(array());
 		$stub->invalidMethod();
 	}
 
@@ -230,12 +225,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * exception.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testMagicMethodGetThrowsException()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
-
+		$stub = new Grid(array());
 		$invalid = $stub->invalidProperty;
 	}
 
@@ -244,12 +237,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * exception.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testMagicMethodSetThrowsException()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
-
+		$stub = new Grid(array());
 		$stub->invalidProperty = array('foo');
 	}
 
@@ -258,12 +249,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * exception when $values is not an array.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
-
+		$stub = new Grid(array());
 		$stub->attributes = 'foo';
 	}
 
@@ -272,12 +261,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 * exception.
 	 *
 	 * @expectedException \InvalidArgumentException
-	 * @group support
 	 */
 	public function testMagicMethodIssetThrowsException()
 	{
-		$stub = new \Orchestra\Html\Form\Grid(array());
-
+		$stub = new Grid(array());
 		$invalid = isset($stub->invalidProperty) ? true : false;
 	}
 }

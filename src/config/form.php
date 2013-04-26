@@ -11,7 +11,7 @@ return array(
 	|
 	*/
 
-	'errorMessage' => '<p class="help-block error">:message</p>',
+	'format' => '<p class="help-block error">:message</p>',
 
 	/*
 	|----------------------------------------------------------------------
@@ -23,7 +23,7 @@ return array(
 	|
 	*/
 
-	'submitButton'  => 'orchestra/foundation::label.submit',
+	'submit' => 'orchestra/foundation::label.submit',
 	
 	/*
 	|----------------------------------------------------------------------

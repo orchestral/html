@@ -1,5 +1,8 @@
 <?php namespace Orchestra\Html\Tests\Table;
 
+use Mockery as m;
+use Orchestra\Html\Table\TableBuilder;
+
 class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -7,15 +10,13 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function setUp()
 	{
-		$appMock = \Mockery::mock('Application')
-			->shouldReceive('instance')
-				->andReturn(true)
-			->mock();
+		$app = m::mock('Application');
+		$app->shouldReceive('instance')->andReturn(true);
 
-		\Illuminate\Support\Facades\Config::setFacadeApplication($appMock);
-		\Illuminate\Support\Facades\Lang::setFacadeApplication($appMock);
-		\Illuminate\Support\Facades\Request::setFacadeApplication($appMock);
-		\Illuminate\Support\Facades\View::setFacadeApplication($appMock);
+		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
+		\Illuminate\Support\Facades\Lang::setFacadeApplication($app);
+		\Illuminate\Support\Facades\Request::setFacadeApplication($app);
+		\Illuminate\Support\Facades\View::setFacadeApplication($app);
 	}
 
 	/**
@@ -23,7 +24,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown()
 	{
-		\Mockery::close();
+		m::close();
 	}
 	
 	/**
@@ -33,15 +34,12 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */	
 	public function testConstructMethod()
 	{
-		$configMock = \Mockery::mock('Config')
-			->shouldReceive('get')
-				->with('orchestra/html::table', array())
-				->once()
-				->andReturn(array());
+		$config = m::mock('Config');
+		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
 
-		\Illuminate\Support\Facades\Config::swap($configMock->getMock());
+		\Illuminate\Support\Facades\Config::swap($config);
 
-		$stub = new \Orchestra\Html\Table\TableBuilder(function () { });
+		$stub = new TableBuilder(function () { });
 		
 		$refl = new \ReflectionObject($stub);
 		$name = $refl->getProperty('name');
@@ -67,8 +65,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodThrowsException()
 	{
-		$stub = new \Orchestra\Html\Table\TableBuilder(function () { });
-		$stub->someInvalidRequest;
+		with(new TableBuilder(function () { }))->someInvalidRequest;
 	}
 	
 	/**
@@ -78,42 +75,31 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRenderMethod()
 	{
-		$requestMock = \Mockery::mock('Request')
-			->shouldReceive('query')
-				->twice()
-				->andReturn(array());
+		$request = m::mock('Request');
+		$lang    = m::mock('Lang');
+		$view    = m::mock('View');
 
-		\Illuminate\Support\Facades\Request::swap($requestMock->getMock());
+		\Illuminate\Support\Facades\Request::swap($request);
+		\Illuminate\Support\Facades\Lang::swap($lang);
+		\Illuminate\Support\Facades\View::swap($view);
 
-		$langMock = \Mockery::mock('Lang')
-			->shouldReceive('get')
-				->twice()
-				->andReturn(array());
+		$request->shouldReceive('query')->twice()->andReturn(array());
+		$lang->shouldReceive('get')->twice()->andReturn(array());
 
-		\Illuminate\Support\Facades\Lang::swap($langMock->getMock());
 
-		$viewMock = \Mockery::mock('View')
-			->shouldReceive('make')
-				->twice()
-				->andReturn(\Mockery::self())
-			->shouldReceive('with')
-				->twice()
-				->andReturn(\Mockery::self())
-			->shouldReceive('render')
-				->twice()
-				->andReturn('mocked');
+		$view->shouldReceive('make')->twice()->andReturn($view)
+			->shouldReceive('with')->twice()->andReturn($view)
+			->shouldReceive('render')->twice()->andReturn('mocked');
 
-		\Illuminate\Support\Facades\View::swap($viewMock->getMock());
-
-		$mock_data = array(
+		$mock = array(
 			new \Illuminate\Support\Fluent(array('id' => 1, 'name' => 'Laravel')),
 			new \Illuminate\Support\Fluent(array('id' => 2, 'name' => 'Illuminate')),
 			new \Illuminate\Support\Fluent(array('id' => 3, 'name' => 'Symfony')),
 		);
 
-		$mock1 = new \Orchestra\Html\Table\TableBuilder(function ($t) use ($mock_data)
+		$mock1 = new TableBuilder(function ($t) use ($mock)
 		{
-			$t->rows($mock_data);
+			$t->rows($mock);
 			$t->attributes(array('class' => 'foo'));
 
 			$t->column('id');
@@ -128,9 +114,9 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 			});
 		});
 
-		$mock2 = new \Orchestra\Html\Table\TableBuilder(function ($t) use ($mock_data)
+		$mock2 = new TableBuilder(function ($t) use ($mock)
 		{
-			$t->rows($mock_data);
+			$t->rows($mock);
 			$t->attributes = array('class' => 'foo');
 
 			$t->column('ID', 'id');

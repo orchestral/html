@@ -1,10 +1,10 @@
 <?php namespace Orchestra\Html\Table;
 
-use Closure, 
-	InvalidArgumentException,
-	Illuminate\Support\Facades\Lang,
-	Illuminate\Support\Fluent,
-	Illuminate\Pagination\Paginator;
+use Closure;
+use InvalidArgumentException;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Fluent;
+use Illuminate\Pagination\Paginator;
 
 class Grid {
 
@@ -55,7 +55,7 @@ class Grid {
 	 *
 	 * @var string
 	 */
-	public $emptyMessage = null;
+	public $empty = null;
 
 	/**
 	 * Selected view path for table layout
@@ -183,9 +183,7 @@ class Grid {
 	 * 				return $row->first_name.' '.$row->last_name; 
 	 * 			};
 	 *
-	 * 			$column->label_attributes(array('class' => 'header-class'));
-	 *
-	 * 			$column->cell_attributes(function ($row) { 
+	 * 			$column->attributes(function ($row) { 
 	 *				return array('data-id' => $row->id);
 	 *			});
 	 *		});
@@ -226,11 +224,11 @@ class Grid {
 		}
 		
 		$column = new Fluent(array(
-			'id'              => $name,
-			'label'           => $label,
-			'value'           => $value,
-			'labelAttributes' => array(),
-			'attributes'      => function ($row) { return array(); },
+			'id'         => $name,
+			'label'      => $label,
+			'value'      => $value,
+			'header'     => array(),
+			'attributes' => function ($row) { return array(); },
 		));
 
 		// run closure
