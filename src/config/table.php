@@ -11,7 +11,7 @@ return array(
 	|
 	*/
 
-	'empty' => 'orchestra/foundation::label.no-record',
+	'empty' => 'orchestra/foundation::label.no-data',
 	
 	/*
 	|----------------------------------------------------------------------
