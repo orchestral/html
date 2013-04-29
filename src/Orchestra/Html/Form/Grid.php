@@ -115,11 +115,11 @@ class Grid {
 	}
 
 	/**
-	 * Attach rows data instead of assigning a model
+	 * Attach rows data instead of assigning a model.
 	 *
 	 * <code>
 	 *		// assign a data
-	 * 		$table->rows(DB::table('users')->get());
+	 * 		$table->with(DB::table('users')->get());
 	 * </code>
 	 *
 	 * @access  public
@@ -131,6 +131,19 @@ class Grid {
 		if (is_null($row)) return $this->row;
 
 		$this->row = $row;
+	}
+
+	/**
+	 * Attach rows data instead of assigning a model.
+	 *
+	 * @access  public
+	 * @param   array       $rows
+	 * @return  void
+	 * @see     self::with()
+	 */
+	public function row($row = null)
+	{
+		return $this->with($row);
 	}
 
 	/**
