@@ -99,6 +99,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$row->setAccessible(true);
 
 		$this->assertEquals($mock, $row->getValue($stub));
+		$this->assertEquals($mock, $stub->row());
 		$this->assertTrue(isset($stub->row));
 	}
 
