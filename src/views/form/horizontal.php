@@ -14,7 +14,7 @@ foreach ($fieldsets as $fieldset) { ?>
 
 		<?php foreach ($fieldset->controls() as $control) { ?>
 		
-		<div class="control-group<?php echo $errors->has($control->name) ? ' error' : '' ?>">
+		<div class="control-group<?php echo $errors->has($control->name) ? ' has-error' : '' ?>">
 			<?php echo Form::label($control->name, $control->label, array('class' => 'control-label')); ?>
 			
 			<div class="controls">

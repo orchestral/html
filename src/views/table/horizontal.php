@@ -1,4 +1,6 @@
-<?php $attributes['table'] = Html::decorate($attributes['table'], array('class' => 'table table-bordered table-striped')); ?>
+<?php 
+
+$attributes['table'] = Html::decorate($attributes['table'], array('class' => 'table table-striped')); ?>
 <table<?php echo Html::attributes($attributes['table']); ?>>
 	<thead>
 		<tr>
