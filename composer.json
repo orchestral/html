@@ -16,10 +16,10 @@
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"illuminate/html": "4.0.*@dev",
 		"orchestra/support": "2.0.*"
 	},
 	"require-dev": {
+		"illuminate/html": "4.0.*",
 		"mockery/mockery": "0.8.0"
 	},
 	"suggest": {
