@@ -77,6 +77,16 @@ class HtmlServiceProvider extends ServiceProvider {
 			return new Table\Environment;
 		});
 	}
+	
+	/**
+	 * Bootstrap the application events.
+	 *
+	 * @return void
+	 */
+	public function boot()
+	{
+		$this->package('orchestra/html', 'orchestra/html');
+	}
 
 	/**
 	 * Get the services provided by the provider.
