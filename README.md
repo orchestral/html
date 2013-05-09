@@ -26,7 +26,6 @@ Next add the service provider in `app/config/app.php`.
 	// ...
 	
 	'Orchestra\Html\HtmlServiceProvider',
-	'Orchestra\Html\PackageServiceProvider',
 ),
 ```
 
