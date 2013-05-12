@@ -1,19 +1,19 @@
 <?php 
 
-$attributes['table'] = Html::decorate($attributes['table'], array('class' => 'table table-striped')); ?>
-<table<?php echo Html::attributes($attributes['table']); ?>>
+$attributes['table'] = HTML::decorate($attributes['table'], array('class' => 'table table-striped')); ?>
+<table<?php echo HTML::attributes($attributes['table']); ?>>
 	<thead>
 		<tr>
 <?php foreach ($columns as $col): ?>
-			<th<?php echo Html::attributes($col->header ?: array()); ?>><?php echo $col->label; ?></th>
+			<th<?php echo HTML::attributes($col->header ?: array()); ?>><?php echo $col->label; ?></th>
 <?php endforeach; ?>
 		</tr>
 	</thead>
 	<tbody>
 <?php foreach ($rows as $row): ?>
-		<tr<?php echo Html::attributes(call_user_func($attributes['row'], $row) ?: array()); ?>>
+		<tr<?php echo HTML::attributes(call_user_func($attributes['row'], $row) ?: array()); ?>>
 <?php foreach ($columns as $col): ?>
-			<td<?php echo Html::attributes(call_user_func($col->attributes, $row)); ?>><?php 
+			<td<?php echo HTML::attributes(call_user_func($col->attributes, $row)); ?>><?php 
 
 				$columnValue = call_user_func($col->value, $row);
 				echo ( !! $col->escape ? e($columnValue) : $columnValue); ?></td>

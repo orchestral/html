@@ -16,7 +16,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 		$html   = m::mock('Html');
 
 		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
-		\Illuminate\Support\Facades\Html::setFacadeApplication($app);
+		\Illuminate\Support\Facades\HTML::setFacadeApplication($app);
 		\Illuminate\Support\Facades\Input::setFacadeApplication($app);
 
 		$fieldset = array(
@@ -45,7 +45,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 		$html->shouldReceive('decorate')->andReturn('foo');
 
 		\Illuminate\Support\Facades\Config::swap($config);
-		\Illuminate\Support\Facades\Html::swap($html);
+		\Illuminate\Support\Facades\HTML::swap($html);
 		\Illuminate\Support\Facades\Input::swap($input);
 	}
 

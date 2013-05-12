@@ -8,7 +8,7 @@ foreach ($hiddens as $hidden) echo $hidden;
 
 foreach ($fieldsets as $fieldset) { ?>
 
-	<fieldset<?php echo Html::attributes($fieldset->attributes ?: array()); ?>>
+	<fieldset<?php echo HTML::attributes($fieldset->attributes ?: array()); ?>>
 		
 		<?php if( $fieldset->name ) : ?><legend><?php echo $fieldset->name ?: '' ?></legend><?php endif; ?>
 

@@ -1,13 +1,13 @@
 <?php 
 
-$attributes['table'] = Html::decorate($attributes['table'], array('class' => 'table table-striped')); ?>
-<table<?php echo Html::attributes($attributes['table']); ?>>
+$attributes['table'] = HTML::decorate($attributes['table'], array('class' => 'table table-striped')); ?>
+<table<?php echo HTML::attributes($attributes['table']); ?>>
 	<tbody>
 <?php foreach ($columns as $col): ?>
 		<tr>
-			<th<?php echo Html::attributes($col->header ?: array()); ?>><?php echo $col->label; ?></th>
+			<th<?php echo HTML::attributes($col->header ?: array()); ?>><?php echo $col->label; ?></th>
 <?php foreach ($rows as $row): ?>
-			<td<?php echo Html::attributes(call_user_func($col->attributes, $row)); ?>><?php 
+			<td<?php echo HTML::attributes(call_user_func($col->attributes, $row)); ?>><?php 
 
 				$columnValue = call_user_func($col->value, $row);
 				echo ( !! $col->escape ? e($columnValue) : $columnValue); ?></td>
