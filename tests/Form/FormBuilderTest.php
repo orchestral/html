@@ -6,19 +6,6 @@ use Orchestra\Html\Form\FormBuilder;
 class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * Setup the test environment.
-	 */
-	public function setUp()
-	{
-		$app = m::mock('Application');
-		$app->shouldReceive('instance')->andReturn(true);
-
-		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
-		\Illuminate\Support\Facades\Lang::setFacadeApplication($app);
-		\Illuminate\Support\Facades\View::setFacadeApplication($app);
-	}
-
-	/**
 	 * Teardown the test environment.
 	 */
 	public function tearDown()
@@ -33,12 +20,13 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */	
 	public function testConstructMethod()
 	{
-		$config = m::mock('Config');
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
-		\Illuminate\Support\Facades\Config::swap($config);
-
-		$stub = new FormBuilder(function () { });
+		$stub = new FormBuilder($app, function () { });
 		
 		$refl = new \ReflectionObject($stub);
 		$name = $refl->getProperty('name');
@@ -64,7 +52,13 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodThrowsException()
 	{
-		$stub = new FormBuilder(function () { });
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new FormBuilder($app, function () { });
 		$stub->someInvalidRequest;
 	}
 	
@@ -75,12 +69,14 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRenderMethod()
 	{
-		$lang = m::mock('Lang');
-		$view = m::mock('View');
 
-		\Illuminate\Support\Facades\Lang::swap($lang);
-		\Illuminate\Support\Facades\View::swap($view);
+		$app = array(
+			'config' => $config = m::mock('Config'),
+			'translator' => $lang = m::mock('Lang'),
+			'view' => $view = m::mock('View'),
+		);
 
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->twice()->andReturn(array());
 		$lang->shouldReceive('get')->twice()->andReturn(array());
 		$view->shouldReceive('make')->twice()->andReturn($view)
 			->shouldReceive('with')->twice()->andReturn($view)
@@ -92,7 +88,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 			'name' => 'Laravel'
 		));
 
-		$mock1 = new FormBuilder(function ($form) use ($data)
+		$mock1 = new FormBuilder($app, function ($form) use ($data)
 		{
 			$form->with($data);
 			$form->attributes(array(
@@ -102,7 +98,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 			));
 		});
 
-		$mock2 = new FormBuilder(function ($form) use ($data)
+		$mock2 = new FormBuilder($app, function ($form) use ($data)
 		{
 			$form->with($data);
 			$form->attributes = array(

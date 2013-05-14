@@ -2,13 +2,16 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\HTML;
-use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Fluent;
 
 class Fieldset {
+
+	/**
+	 * Application instance.
+	 *
+	 * @var Illuminate\Foundation\Application
+	 */
+	protected $app = null;
 
 	/**
 	 * Fieldset name
@@ -49,10 +52,15 @@ class Fieldset {
 	 * Create a new Fieldset instance
 	 *
 	 * @access  public
+	 * @param   Illuminate\Foundation\Application   $app
+	 * @param   string                              $name
+	 * @param   Closure                             $callback
 	 * @return  void
 	 */
-	public function __construct($name, Closure $callback = null) 
+	public function __construct($app, $name, Closure $callback = null) 
 	{
+		$this->app = $app;
+
 		if ($name instanceof Closure)
 		{
 			$callback = $name;
@@ -62,7 +70,7 @@ class Fieldset {
 		if ( ! empty($name)) $this->legend($name);
 
 		// cached configuration option
-		$this->config = Config::get('orchestra/html::form.fieldset');
+		$this->config = $this->app['config']->get('orchestra/html::form.fieldset', array());
 
 		call_user_func($callback, $this);
 	}
@@ -122,10 +130,9 @@ class Fieldset {
 	 */
 	public function control($type, $name, $callback = null)
 	{
-		if ($name instanceof Lang) $name = $name->get();
-		
 		$label   = $name;
 		$config  = $this->config;
+		$app     = $this->app;
 
 		switch (true)
 		{
@@ -158,14 +165,14 @@ class Fieldset {
 		// run closure
 		if (is_callable($callback)) call_user_func($callback, $control);
 
-		$field = function ($row, $control, $templates = array()) use ($type, $config) 
+		$field = function ($row, $control, $templates = array()) use ($type, $config, $app) 
 		{
 			// prep control type information
 			$type    = ($type === 'input:password' ? 'password' : $type);
 			$methods = explode(':', $type);
 
 			$templates = array_merge(
-				Config::get('orchestra/html::form.templates', array()), 
+				$app['config']->get('orchestra/html::form.templates', array()), 
 				$templates
 			);
 			
@@ -173,7 +180,7 @@ class Fieldset {
 			$name = $control->name;
 			
 			// set the value from old input, follow by row value.
-			$value = Input::old($name);
+			$value = $app['request']->old($name);
 
 			if (! is_null($row->{$name}) and is_null($value)) $value = $row->{$name};
 
@@ -194,6 +201,8 @@ class Fieldset {
 				'value'   => $value,
 			));
 
+			$html = $app['html'];
+
 			switch (true)
 			{
 				case (in_array($type, array('select', 'input:select'))) :
@@ -203,7 +212,7 @@ class Fieldset {
 					if ($options instanceof Closure) $options = $options($row, $control);
 
 					$data->method('select')
-						->attributes(HTML::decorate($control->attributes, $config['select']))
+						->attributes($html->decorate($control->attributes, $config['select']))
 						->options($options);
 					break;
 				
@@ -219,37 +228,37 @@ class Fieldset {
 				
 				case (in_array($type, array('textarea', 'input:textarea'))):
 					$data->method('textarea')
-						->attributes(HTML::decorate($control->attributes, $config['textarea']));
+						->attributes($html->decorate($control->attributes, $config['textarea']));
 					break;
 				
 				case (in_array($type, array('password', 'input:password'))) :
 					$data->method('password')
-						->attributes(HTML::decorate($control->attributes, $config['password']));
+						->attributes($html->decorate($control->attributes, $config['password']));
 					break;
 
 				case (in_array($type, array('file', 'input:file'))) :
 					$data->method('file')
-						->attributes(HTML::decorate($control->attributes, $config['file']));
+						->attributes($html->decorate($control->attributes, $config['file']));
 					break;
 				
 				case (isset($methods[0]) and $methods[0] === 'input') :
 					$methods[1] = $methods[1] ?: 'text';
 					$data->method('input')
 						->type($methods[1])
-						->attributes(HTML::decorate($control->attributes, $config['input']));
+						->attributes($html->decorate($control->attributes, $config['input']));
 					break;
 				
 				default :
 					$data->method('input')
 						->type('text')
-						->attributes(HTML::decorate($control->attributes, $config['input']));
+						->attributes($html->decorate($control->attributes, $config['input']));
 
 			}
 
 			return Fieldset::render($templates, $data);
 		};
 
-		 ! is_null($control->field) or $control->field = $field;
+		! is_null($control->field) or $control->field = $field;
 
 		$this->controls[]     = $control;
 		$this->keyMap[$name] = count($this->controls) - 1;

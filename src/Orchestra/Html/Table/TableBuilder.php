@@ -11,16 +11,19 @@ class TableBuilder extends AbstractableBuilder {
 
 	/**
 	 * Create a new Table instance.
-	 * 			
+	 *
 	 * @access public
-	 * @param  Closure  $callback
+	 * @param  Illuminate\Foundation\Application    $app
+	 * @param  Closure                              $callback
 	 * @return void	 
 	 */
-	public function __construct(Closure $callback)
+	public function __construct($app, Closure $callback)
 	{
+		$this->app = $app;
+
 		// Initiate Table\Grid, this wrapper emulate Table designer
 		// script to create the Table.
-		$this->grid = new Grid(Config::get('orchestra/html::table', array()));
+		$this->grid = new Grid($app);
 		
 		$this->extend($callback);
 	}
@@ -33,32 +36,27 @@ class TableBuilder extends AbstractableBuilder {
 	 */
 	public function render()
 	{
-		// localize Table\Grid object
-		$grid  = $this->grid;
+		$grid = $this->grid;
 		
-		// Add paginate value for current listing while appending query string
-		$input = Request::query();
-
-		// we shouldn't append ?page
+		// Add paginate value for current listing while appending query string,
+		// however we also need to remove ?page from being added twice.
+		$input = $this->app['request']->query();
 		if (isset($input['page'])) unset($input['page']);
 
-		$paginate = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
-		$empty    = $grid->empty;
-
-		if ( ! ($empty instanceof Lang)) $empty = Lang::get($empty);
-
+		$pagination = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
+		
 		$data = array(
 			'attributes' => array(
 				'row'   => $grid->rows->attributes,
 				'table' => $grid->attributes,
 			),
-			'empty'      => $empty,
+			'empty'      => $this->app['translator']->get($grid->empty),
 			'columns'    => $grid->columns(),
 			'rows'       => $grid->rows(),
-			'pagination' => $paginate,
+			'pagination' => $pagination,
 		);
 
 		// Build the view and render it.
-		return View::make($grid->view)->with($data)->render();
+		return $this->app['view']->make($grid->view)->with($data)->render();
 	}
 } 

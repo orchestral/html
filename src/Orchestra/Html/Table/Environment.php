@@ -14,7 +14,7 @@ class Environment extends AbstractableEnvironment {
 	 */
 	public function make(Closure $callback)
 	{
-		return new TableBuilder($callback);
+		return new TableBuilder($this->app, $callback);
 	}
 
 	/**

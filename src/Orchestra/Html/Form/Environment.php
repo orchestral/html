@@ -14,7 +14,7 @@ class Environment extends AbstractableEnvironment {
 	 */
 	public function make(Closure $callback)
 	{
-		return new FormBuilder($callback);
+		return new FormBuilder($this->app, $callback);
 	}
 
 	/**

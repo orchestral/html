@@ -31,12 +31,13 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMakeMethod()
 	{
-		$config = m::mock('Config');
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+		
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
-		\Illuminate\Support\Facades\Config::swap($config);
-
-		$stub   = new Environment;
+		$stub   = new Environment($app);
 		$output = $stub->make(function() {});
 
 		$this->assertInstanceOf('\Orchestra\Html\Form\FormBuilder', $output);
@@ -49,12 +50,13 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethod()
 	{
-		$config = m::mock('Config');
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+		
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
-		\Illuminate\Support\Facades\Config::swap($config);
-		
-		$stub   = new Environment;
+		$stub   = new Environment($app);
 		$output = $stub->of('foo', function() {});
 
 		$this->assertInstanceOf('\Orchestra\Html\Form\FormBuilder', $output);

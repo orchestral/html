@@ -7,6 +7,13 @@ use Illuminate\Support\Contracts\RenderableInterface;
 abstract class AbstractableBuilder implements RenderableInterface {
 	
 	/**
+	 * Application instance.
+	 *
+	 * @var Illuminate\Foundation\Application
+	 */
+	protected $app = null;
+	
+	/**
 	 * Name of builder.
 	 *
 	 * @var string
@@ -24,10 +31,11 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	 * Create a new Builder instance.
 	 * 			
 	 * @access public
-	 * @param  Closure      $callback
+	 * @param  Illuminate\Foundation\Application    $app
+	 * @param  Closure                              $callback
 	 * @return void	 
 	 */
-	abstract public function __construct(Closure $callback);
+	abstract public function __construct($app, Closure $callback);
 
 	/**
 	 * Extend decoration. 

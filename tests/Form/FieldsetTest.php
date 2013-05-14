@@ -6,20 +6,21 @@ use Orchestra\Html\Form\Fieldset;
 class FieldsetTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * Setup the test environment.
+	 * Teardown the test environment.
 	 */
-	public function setUp()
+	public function tearDown()
 	{
-		$app    = m::mock('Application');
-		$config = m::mock('Config');
-		$input  = m::mock('Input');
-		$html   = m::mock('Html');
+		m::close();
+	}
 
-		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
-		\Illuminate\Support\Facades\HTML::setFacadeApplication($app);
-		\Illuminate\Support\Facades\Input::setFacadeApplication($app);
-
-		$fieldset = array(
+	/**
+	 * Fieldset config.
+	 * 
+	 * @return array
+	 */
+	private function getFieldsetConfig()
+	{
+		return array(
 			'select'   => array(),
 			'textarea' => array(),
 			'input'    => array(),
@@ -27,8 +28,16 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 			'file'     => array(),
 			'radio'    => array(),
 		);
+	}
 
-		$templates = array(
+	/**
+	 * Get template config.
+	 * 
+	 * @return array
+	 */
+	private function getTemplateConfig()
+	{
+		return array(
 			'input'    => function ($data) { return $data->name; },
 			'textarea' => function ($data) { return $data->name; },
 			'password' => function ($data) { return $data->name; },
@@ -37,24 +46,6 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 			'checkbox' => function ($data) { return $data->name; },
 			'select'   => function ($data) { return $data->name; },
 		);
-
-		$app->shouldReceive('instance')->andReturn(true);
-		$config->shouldReceive('get')->with('orchestra/html::form.fieldset')->andReturn($fieldset)
-			->shouldReceive('get')->with('orchestra/html::form.templates', array())->andReturn($templates);
-		$input->shouldReceive('old')->andReturn(array());
-		$html->shouldReceive('decorate')->andReturn('foo');
-
-		\Illuminate\Support\Facades\Config::swap($config);
-		\Illuminate\Support\Facades\HTML::swap($html);
-		\Illuminate\Support\Facades\Input::swap($input);
-	}
-
-	/**
-	 * Teardown the test environment.
-	 */
-	public function tearDown()
-	{
-		m::close();
 	}
 
 	/**
@@ -64,7 +55,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testInstanceOfFieldset()
 	{
-		$stub = new Fieldset('foo', function ($f)
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, 'foo', function ($f)
 		{
 			$f->attributes(array('class' => 'foo'));
 		});
@@ -87,7 +85,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethod()
 	{
-		$stub = new Fieldset(function ($f)
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function ($f)
 		{
 			$f->control('text', 'id', function ($c)
 			{
@@ -109,7 +114,20 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testControlMethod()
 	{
-		$stub = new Fieldset(function ($f)
+		$app = array(
+			'config' => $config = m::mock('Config'),
+			'request' => $input = m::mock('Input'),
+			'html' => $html = m::mock('Html'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig())
+			->shouldReceive('get')
+				->times(10)->with('orchestra/html::form.templates', array())->andReturn($this->getTemplateConfig());
+		$input->shouldReceive('old')->times(10)->andReturn(array());
+		$html->shouldReceive('decorate')->times(8)->andReturn('foo');
+
+		$stub = new Fieldset($app, function ($f)
 		{
 			$f->control('text', 'text_foo', function ($c)
 			{
@@ -230,7 +248,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethodThrowsException()
 	{
-		$stub = new Fieldset(function ($f) {});
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function ($f) {});
 
 		$output = $stub->of('id');
 	}
@@ -242,7 +267,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAttributesMethod()
 	{
-		$stub = new Fieldset(function () {});
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function () {});
 
 		$refl   = new \ReflectionObject($stub);
 		$attributes = $refl->getProperty('attributes');
@@ -267,7 +299,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodCallThrowsException()
 	{
-		$stub = new Fieldset(function ($f) {});
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function ($f) {});
 		$stub->invalidMethod();
 	}
 
@@ -279,7 +318,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodGetThrowsException()
 	{
-		$stub = new Fieldset(function ($f) {});
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function ($f) {});
 		$invalid = $stub->invalidProperty;
 	}
 
@@ -291,7 +337,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodSetThrowsException()
 	{
-		$stub = new Fieldset(function ($f) {});
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function ($f) {});
 		$stub->invalidProperty = array('foo');
 	}
 
@@ -303,7 +356,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
 	{
-		$stub = new Fieldset(function ($f) {});
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function ($f) {});
 		$stub->attributes = 'foo';
 	}
 
@@ -315,7 +375,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodIssetThrowsException()
 	{
-		$stub    = new Fieldset(function ($f) {});
+		$app = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')
+				->once()->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig());
+
+		$stub = new Fieldset($app, function ($f) {});
 		$invalid = isset($stub->invalidProperty) ? true : false;
 	}
 

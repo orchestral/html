@@ -6,16 +6,21 @@ use Orchestra\Html\Form\Grid;
 class GridTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * Setup the test environment.
+	 * Teardown the test environment.
 	 */
-	public function setUp()
+	public function tearDown()
 	{
-		$app = m::mock('Application');
-		$config = m::mock('Config');
+		m::close();
+	}
 
-		$app->shouldReceive('instance')->andReturn(true);
-
-		$fieldset = array(
+	/**
+	 * Fieldset config.
+	 * 
+	 * @return array
+	 */
+	private function getFieldsetConfig()
+	{
+		return array(
 			'select'   => array(),
 			'textarea' => array(),
 			'input'    => array(),
@@ -23,8 +28,16 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 			'file'     => array(),
 			'radio'    => array(),
 		);
+	}
 
-		$template = array(
+	/**
+	 * Get template config.
+	 * 
+	 * @return array
+	 */
+	private function getTemplateConfig()
+	{
+		return array(
 			'input'    => function ($data) { return $data->name; },
 			'textarea' => function ($data) { return $data->name; },
 			'password' => function ($data) { return $data->name; },
@@ -33,21 +46,6 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 			'checkbox' => function ($data) { return $data->name; },
 			'select'   => function ($data) { return $data->name; },
 		);
-
-		$config->shouldReceive('get')->with('orchestra/html::form.fieldset')->andReturn($fieldset)
-			->shouldReceive('get')->with('orchestra/html::form.templates', array())->andReturn($template);
-
-		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
-		\Illuminate\Support\Facades\Config::swap($config);
-		\Illuminate\Support\Facades\Form::setFacadeApplication($app);
-	}
-
-	/**
-	 * Teardown the test environment.
-	 */
-	public function tearDown()
-	{
-		m::close();
 	}
 
 	/**
@@ -57,11 +55,17 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testInstanceOfGrid()
 	{
-		$stub = new Grid(array(
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array(
 			'submit'     => 'Submit',
 			'attributes' => array('id' => 'foo'),
 			'view'       => 'foo',
 		));
+
+		$stub = new Grid($app);
 
 		$stub->attributes = array('class' => 'foobar');
 
@@ -90,8 +94,14 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testWithMethod()
 	{
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
 		$mock = new \Illuminate\Support\Fluent;
-		$stub = new Grid(array());
+		$stub = new Grid($app);
 		$stub->with($mock);
 
 		$refl = new \ReflectionObject($stub);
@@ -110,7 +120,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testLayoutMethod()
 	{
-		$stub = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
 
 		$refl = new \ReflectionObject($stub);
 		$view = $refl->getProperty('view');
@@ -133,7 +149,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testAttributesMethod()
 	{
-		$stub = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
 
 		$refl   = new \ReflectionObject($stub);
 		$attributes = $refl->getProperty('attributes');
@@ -157,7 +179,17 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testFieldsetMethod()
 	{
-		$stub      = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form.fieldset', array())->twice()->andReturn($this->getFieldsetConfig())
+			->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array(
+				'fieldset' => $this->getFieldsetConfig(),
+				'template' => $this->getTemplateConfig(),
+			));
+
+		$stub      = new Grid($app);
 		$refl      = new \ReflectionObject($stub);
 		$fieldsets = $refl->getProperty('fieldsets');
 		$fieldsets->setAccessible(true);
@@ -182,13 +214,17 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testHiddenMethod()
 	{
-		$form = m::mock('Form');
+		$app  = array(
+			'form' => $form = m::mock('Form'),
+			'config' => $config = m::mock('Config'),
+		);
+
 		$form->shouldReceive('hidden')->once()->with('foo', 'foobar', m::any())->andReturn('hidden_foo')
 			->shouldReceive('hidden')->once()->with('foobar', 'stubbed', m::any())->andReturn('hidden_foobar');
 
-		\Illuminate\Support\Facades\Form::swap($form);
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
-		$stub = new Grid(array());
+		$stub = new Grid($app);
 		$stub->with(new \Illuminate\Support\Fluent(array(
 			'foo'    => 'foobar',
 			'foobar' => 'foo',
@@ -217,7 +253,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodCallThrowsException()
 	{
-		$stub = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
 		$stub->invalidMethod();
 	}
 
@@ -229,7 +271,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodGetThrowsException()
 	{
-		$stub = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
 		$invalid = $stub->invalidProperty;
 	}
 
@@ -241,7 +289,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodSetThrowsException()
 	{
-		$stub = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
 		$stub->invalidProperty = array('foo');
 	}
 
@@ -253,7 +307,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
 	{
-		$stub = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
 		$stub->attributes = 'foo';
 	}
 
@@ -265,7 +325,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodIssetThrowsException()
 	{
-		$stub = new Grid(array());
+		$app  = array(
+			'config' => $config = m::mock('Config'),
+		);
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
 		$invalid = isset($stub->invalidProperty) ? true : false;
 	}
 }

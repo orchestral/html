@@ -6,11 +6,30 @@ use InvalidArgumentException;
 abstract class AbstractableEnvironment {
 
 	/**
+	 * Application instance.
+	 *
+	 * @var Illuminate\Foundation\Application
+	 */
+	protected $app = null;
+
+	/**
 	 * Environment instances.
 	 *
 	 * @var array
 	 */
 	protected $names = array();
+
+	/**
+	 * Construct a new environment.
+	 *
+	 * @access public
+	 * @param  Illuminate\Foundation\Application    $app
+	 * @return void
+	 */
+	public function __construct($app)
+	{
+		$this->app = $app;
+	}
 
 	/**
 	 * Create a new Builder instance

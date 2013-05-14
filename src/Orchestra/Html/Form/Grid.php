@@ -2,10 +2,16 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Support\Facades\Form as FormFacade;
 use Illuminate\Support\Fluent;
 
 class Grid {
+
+	/**
+	 * Application instance.
+	 *
+	 * @var Illuminate\Foundation\Application
+	 */
+	protected $app = null;
 
 	/**
 	 * Enable CSRF token
@@ -70,8 +76,11 @@ class Grid {
 	 * @param   array   $config
 	 * @return  void
 	 */
-	public function __construct($config = array())
+	public function __construct($app)
 	{
+		$this->app = $app;
+		$config = $app['config']->get('orchestra/html::form', array());
+
 		foreach ($config as $key => $value)
 		{
 			if ( ! property_exists($this, $key)) continue;
@@ -176,11 +185,13 @@ class Grid {
 	 * Create a new Fieldset instance
 	 *
 	 * @access  public
+	 * @param   string          $name
+	 * @param   Closure         $callback
 	 * @return  Form\Fieldset
 	 */
 	public function fieldset($name, Closure $callback = null)
 	{
-		return $this->fieldsets[] = new Fieldset($name, $callback);
+		return $this->fieldsets[] = new Fieldset($this->app, $name, $callback);
 	}
 
 	/**
@@ -208,7 +219,7 @@ class Grid {
 
 		if ($callback instanceof Closure) call_user_func($callback, $field);
 
-		$this->hiddens[$name] = FormFacade::hidden($name, $field->value, $field->attributes);
+		$this->hiddens[$name] = $this->app['form']->hidden($name, $field->value, $field->attributes);
 	}
 
 	/**

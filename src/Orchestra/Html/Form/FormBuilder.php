@@ -12,14 +12,17 @@ class FormBuilder extends AbstractableBuilder {
 	 * Create a new Form instance.
 	 * 			
 	 * @access public
-	 * @param  Closure  $callback
+	 * @param  Illuminate\Foundation\Application    $app
+	 * @param  Closure                              $callback
 	 * @return void	 
 	 */
-	public function __construct(Closure $callback)
+	public function __construct($app, Closure $callback)
 	{
+		$this->app = $app;
+
 		// Initiate Form\Grid, this wrapper emulate Form designer
 		// script to create the Form.
-		$this->grid = new Grid(Config::get('orchestra/html::form', array()));
+		$this->grid = new Grid($app);
 		
 		$this->extend($callback);
 	}
@@ -34,21 +37,17 @@ class FormBuilder extends AbstractableBuilder {
 	{
 		$grid   = $this->grid;
 		$form   = $grid->attributes;
-		$submit = $grid->submit;
-
-		if ( ! ($submit instanceof Lang)) $submit = Lang::get($submit);
 
 		$data = array(
 			'token'     => $grid->token,
 			'hiddens'   => $grid->hiddens,
 			'row'       => $grid->row,
 			'form'      => $form,
-			'submit'    => $submit,
+			'submit'    => $this->app['translator']->get($grid->submit),
 			'format'    => $grid->format,
 			'fieldsets' => $grid->fieldsets(),
 		);
 
-		// Build the view and render it.
-		return View::make($grid->view)->with($data)->render();
+		return $this->app['view']->make($grid->view)->with($data)->render();
 	}
 } 

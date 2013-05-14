@@ -61,7 +61,7 @@ class HtmlServiceProvider extends ServiceProvider {
 	{
 		$this->app['orchestra.form'] = $this->app->share(function($app)
 		{
-			return new Form\Environment;
+			return new Form\Environment($app);
 		});
 	}
 
@@ -74,7 +74,7 @@ class HtmlServiceProvider extends ServiceProvider {
 	{
 		$this->app['orchestra.table'] = $this->app->share(function($app)
 		{
-			return new Table\Environment;
+			return new Table\Environment($app);
 		});
 	}
 	

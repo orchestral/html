@@ -2,11 +2,17 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
 
 class Grid {
+
+	/**
+	 * Application instance.
+	 *
+	 * @var Illuminate\Foundation\Application
+	 */
+	protected $app = null;
 
 	/**
 	 * List of rows in array, is used when model is null
@@ -65,13 +71,18 @@ class Grid {
 	protected $view = null;
 
 	/**
-	 * Create a new Grid instance
+	 * Create a new Grid instance.
 	 *
 	 * @access public
+	 * @param  Illuminate\Foundation\Application    $app
 	 * @return void
 	 */
-	public function __construct($config = array())
+	public function __construct($app)
 	{
+		$this->app = $app;
+
+		$config = $app['config']->get('orchestra/html::table', array());
+		
 		foreach ($config as $key => $value)
 		{
 			if ( ! property_exists($this, $key)) continue;
@@ -196,8 +207,6 @@ class Grid {
 	 */
 	public function column($name, $callback = null)
 	{
-		if ($name instanceof Lang) $name = $name->get();
-
 		$value = '';
 		$label = $name;
 
