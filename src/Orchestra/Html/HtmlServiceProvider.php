@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html;
 
 use \Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class HtmlServiceProvider extends ServiceProvider {
 	
@@ -63,6 +64,12 @@ class HtmlServiceProvider extends ServiceProvider {
 		{
 			return new Form\Environment($app);
 		});
+
+		$this->app->booting(function()
+		{
+			$loader = AliasLoader::getInstance();
+			$loader->alias('Orchestra\Form', 'Orchestra\Support\Facades\Form');
+		});
 	}
 
 	/**
@@ -75,6 +82,12 @@ class HtmlServiceProvider extends ServiceProvider {
 		$this->app['orchestra.table'] = $this->app->share(function($app)
 		{
 			return new Table\Environment($app);
+		});
+
+		$this->app->booting(function()
+		{
+			$loader = AliasLoader::getInstance();
+			$loader->alias('Orchestra\Table', 'Orchestra\Support\Facades\Table');
 		});
 	}
 	

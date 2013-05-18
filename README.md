@@ -29,18 +29,6 @@ Next add the service provider in `app/config/app.php`.
 ),
 ```
 
-You might want to add `Orchestra\Support\Facades\Facile` to class aliases in `app/config/app.php`:
-
-```php
-'aliases' => array(
-
-	// ...
-
-	'Orchestra\Form'  => 'Orchestra\Support\Facades\Form',
-	'Orchestra\Table' => 'Orchestra\Support\Facades\Table',
-),
-```
-
 ## Resources
 
 * [Documentation](http://docs.orchestraplatform.com/pages/components/html)
