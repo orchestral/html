@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Html;
 
-use \Illuminate\Support\ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\AliasLoader;
 
 class HtmlServiceProvider extends ServiceProvider {
@@ -79,7 +79,7 @@ class HtmlServiceProvider extends ServiceProvider {
 			return new Table\Environment($app);
 		});
 	}
-	
+
 	/**
 	 * Register aliases.
 	 *
