@@ -152,14 +152,14 @@ class Fieldset {
 		}
 
 		$control = new Fluent(array(
-			'id'      => $name,
-			'name'    => $name,
-			'value'   => null,
-			'label'   => $label,
-			'attributes'  => array(),
-			'options' => array(),
-			'checked' => false,
-			'field'   => null,
+			'id'         => $name,
+			'name'       => $name,
+			'value'      => null,
+			'label'      => $label,
+			'attributes' => array(),
+			'options'    => array(),
+			'checked'    => false,
+			'field'      => null,
 		));
 
 		// run closure
