@@ -48,5 +48,14 @@ abstract class AbstractableEnvironment {
 	 * @param  Closure  $callback
 	 * @return Orchestra\Html\AbstractableBuilder
 	 */
-	abstract public function of($name, Closure $callback = null);
+	public function of($name, Closure $callback = null)
+	{
+		if ( ! isset($this->names[$name]))
+		{
+			$this->names[$name] = $this->make($callback);
+			$this->names[$name]->name = $name;
+		}
+
+		return $this->names[$name];
+	}
 }
