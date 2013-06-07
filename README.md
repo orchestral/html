@@ -3,7 +3,7 @@ Orchestra Platform Html Component
 
 Orchestra\Html extends the functionality of Illuminate\Html with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
 
-[![Build Status](https://travis-ci.org/orchestral/html.png?branch=master)](https://travis-ci.org/orchestral/html)
+[![Build Status](https://travis-ci.org/orchestral/html.png?branch=2.0)](https://travis-ci.org/orchestral/html) [![Coverage Status](https://coveralls.io/repos/orchestral/html/badge.png?branch=2.0)](https://coveralls.io/r/orchestral/html?branch=2.0)
 
 ## Quick Installation
 
