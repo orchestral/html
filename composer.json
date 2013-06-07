@@ -20,7 +20,8 @@
 	},
 	"require-dev": {
 		"mockery/mockery": "0.8.0",
-		"illuminate/html": "4.1.*"
+		"illuminate/html": "4.1.*",
+		"satooshi/php-coveralls": "~0.6"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform",
