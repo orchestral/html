@@ -1,12 +1,14 @@
 {
 	"name": "orchestra/html",
 	"description": "Orchestra Platform Html Component",
-	"keywords": ["orchestra-platform", "laravel"],
+	"homepage": "http://orchestraplatform.com/docs/2.0/components/html/",
+	"keywords": ["orchestra-platform", "orchestral", "laravel"],
 	"license": "MIT",
 	"authors": [
 		{
 			"name": "Mior Muhammad Zaki",
-			"email": "crynobone@gmail.com"
+			"email": "crynobone@gmail.com",
+			"homepage": "https://github.com/crynobone"
 		}
 	],
 	"autoload": {
@@ -16,7 +18,7 @@
 	},
 	"require": {
 		"php": ">=5.3.3",
-		"orchestra/support": "2.0.*"
+		"orchestra/support": "self.version"
 	},
 	"require-dev": {
 		"mockery/mockery": "0.8.0",
