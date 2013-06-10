@@ -48,6 +48,8 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	{
 		// Run the table designer.
 		call_user_func($callback, $this->grid);
+
+		return $this;
 	}
 
 	/**
