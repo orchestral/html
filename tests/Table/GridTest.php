@@ -130,21 +130,21 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 				'id'         => 'id',
 				'label'      => 'Id',
 				'value'      => 'Foobar',
-				'header'     => array(),
+				'headers'    => array(),
 				'attributes' => function ($row) { return array(); }
 			)),
 			new \Illuminate\Support\Fluent(array(
 				'id'         => 'foo1',
 				'label'      => 'Foo1',
 				'value'      => 'Foo1 value',
-				'header'     => array(),
+				'headers'    => array(),
 				'attributes' => function ($row) { return array(); }
 			)),
 			new \Illuminate\Support\Fluent(array(
 				'id'         => 'foo2',
 				'label'      => 'Foo2',
 				'value'      => 'Foo2 value',
-				'header'     => array(),
+				'headers'    => array(),
 				'attributes' => function ($row) { return array(); }
 			))
 		);

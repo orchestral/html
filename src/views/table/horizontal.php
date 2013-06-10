@@ -5,7 +5,7 @@ $attributes['table'] = HTML::decorate($attributes['table'], array('class' => 'ta
 	<thead>
 		<tr>
 <?php foreach ($columns as $col): ?>
-			<th<?php echo HTML::attributes($col->header ?: array()); ?>><?php echo $col->label; ?></th>
+			<th<?php echo HTML::attributes($col->headers ?: array()); ?>><?php echo $col->label; ?></th>
 <?php endforeach; ?>
 		</tr>
 	</thead>

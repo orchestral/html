@@ -236,7 +236,7 @@ class Grid {
 			'id'         => $name,
 			'label'      => $label,
 			'value'      => $value,
-			'header'     => array(),
+			'headers'    => array(),
 			'attributes' => function ($row) { return array(); },
 		));
 
