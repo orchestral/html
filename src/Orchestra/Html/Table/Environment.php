@@ -10,7 +10,7 @@ class Environment extends AbstractableEnvironment {
 	 *
 	 * @access public	
 	 * @param  Closure $callback
-	 * @return Orchestra\Html\Table\TableBuilder
+	 * @return \Orchestra\Html\Table\TableBuilder
 	 */
 	public function make(Closure $callback)
 	{

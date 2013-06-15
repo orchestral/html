@@ -5,7 +5,7 @@ use Orchestra\Support\Expression;
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
 	/**
-	 * Generate a HTML element
+	 * Generate a HTML element.
 	 *
 	 * @access public
 	 * @param  string   $tag
@@ -34,7 +34,8 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	/**
 	 * Convert HTML characters to entities.
 	 *
-	 * The encoding specified in the application configuration file will be used.
+	 * The encoding specified in the application configuration file will be 
+	 * used.
 	 *
 	 * @access public
 	 * @param  string   $value
@@ -52,7 +53,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 * 
 	 * @access public
 	 * @param  string      $value
-	 * @return Expression
+	 * @return \Orchestra\Support\Expression
 	 */
 	public function raw($value)
 	{
@@ -69,8 +70,8 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 */
 	public function decorate($attributes, $defaults = null)
 	{
-		// Special consideration to class, where we need to merge both string from
-		// $attributes and $defaults and take union of both.
+		// Special consideration to class, where we need to merge both string 
+		// from $attributes and $defaults and take union of both.
 		$c1       = isset($defaults['class']) ? $defaults['class'] : '';
 		$c2       = isset($attributes['class']) ? $attributes['class'] : '';
 		$classes  = explode(' ', trim($c1.' '.$c2));
@@ -93,5 +94,4 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
 		return $attributes;
 	}
-
 }

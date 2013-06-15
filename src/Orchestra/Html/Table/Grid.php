@@ -10,61 +10,61 @@ class Grid {
 	/**
 	 * Application instance.
 	 *
-	 * @var Illuminate\Foundation\Application
+	 * @var \Illuminate\Foundation\Application
 	 */
 	protected $app = null;
 
 	/**
-	 * List of rows in array, is used when model is null
+	 * List of rows in array, is used when model is null.
 	 *
 	 * @var array
 	 */
 	protected $rows = null;
 
 	/**
-	 * Eloquent model used for table
+	 * Eloquent model used for table.
 	 *
 	 * @var mixed
 	 */
 	protected $model = null;
 
 	/**
-	 * Table HTML attributes
+	 * Table HTML attributes.
 	 *
 	 * @var array
 	 */
 	protected $attributes = array();
 
 	/**
-	 * All the columns
+	 * All the columns.
 	 *
 	 * @var array
 	 */
 	protected $columns = array();
 
 	/**
-	 * Key map for column overwriting
+	 * Key map for column overwriting.
 	 *
 	 * @var array
 	 */
 	protected $keyMap = array();
 
 	/**
-	 * Enable to attach pagination during rendering
+	 * Enable to attach pagination during rendering.
 	 *
-	 * @var bool
+	 * @var boolean
 	 */
 	protected $paginate = false;
 
 	/**
-	 * Set the no record message
+	 * Set the no record message.
 	 *
 	 * @var string
 	 */
 	public $empty = null;
 
 	/**
-	 * Selected view path for table layout
+	 * Selected view path for table layout.
 	 *
 	 * @var array
 	 */
@@ -74,7 +74,7 @@ class Grid {
 	 * Create a new Grid instance.
 	 *
 	 * @access public
-	 * @param  Illuminate\Foundation\Application    $app
+	 * @param  \Illuminate\Foundation\Application   $app
 	 * @return void
 	 */
 	public function __construct($app)
@@ -97,7 +97,7 @@ class Grid {
 	}
 
 	/**
-	 * Attach Eloquent results as row and allow pagination (if required)
+	 * Attach Eloquent as row and allow pagination (if required).
 	 *
 	 * <code>
 	 *		// add model without pagination
@@ -107,9 +107,9 @@ class Grid {
 	 *		$table->with(User::paginate(30), true);
 	 * </code>
 	 *
-	 * @access public	
-	 * @param  Eloquent $model
-	 * @param  bool     $paginate
+	 * @access public
+	 * @param  \Illuminate\Database\Eloquent\Model  $model
+	 * @param  boolean                              $paginate
 	 * @return void
 	 */
 	public function with($model, $paginate = true)
@@ -126,7 +126,7 @@ class Grid {
 	}
 
 	/**
-	 * Set table layout (view)
+	 * Set table layout (view).
 	 *
 	 * <code>
 	 *		// use default horizontal layout
@@ -158,7 +158,7 @@ class Grid {
 	}
 
 	/**
-	 * Attach rows data instead of assigning a model
+	 * Attach rows data instead of assigning a model.
 	 *
 	 * <code>
 	 *		// assign a data
@@ -200,10 +200,10 @@ class Grid {
 	 *		});
 	 * </code>
 	 *
-	 * @access public			
+	 * @access public		
 	 * @param  mixed    $label
 	 * @param  mixed    $callback
-	 * @return Fluent
+	 * @return \Illuminate\Support\Fluent
 	 */
 	public function column($name, $callback = null)
 	{
@@ -250,12 +250,13 @@ class Grid {
 	}
 
 	/**
-	 * Allow column overwriting
+	 * Allow column overwriting.
 	 *
 	 * @access public
 	 * @param  string   $name
 	 * @param  mixed    $callback
-	 * @return Fluent
+	 * @return \Illuminate\Support\Fluent
+	 * @throws \InvalidArgumentException
 	 */
 	public function of($name, $callback = null)
 	{
@@ -272,7 +273,7 @@ class Grid {
 	}
 
 	/**
-	 * Add or append table HTML attributes
+	 * Add or append table HTML attributes.
 	 *
 	 * @access public
 	 * @param  mixed    $key

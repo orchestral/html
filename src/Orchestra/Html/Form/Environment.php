@@ -6,11 +6,11 @@ use Orchestra\Html\AbstractableEnvironment;
 class Environment extends AbstractableEnvironment {
 	
 	/**
-	 * Create a new Builder instance
+	 * Create a new Builder instance.
 	 *
-	 * @access public	
-	 * @param  Closure $callback
-	 * @return Orchestra\Html\Form\FormBuilder
+	 * @access public
+	 * @param  \Closure $callback
+	 * @return \Orchestra\Html\Form\FormBuilder
 	 */
 	public function make(Closure $callback)
 	{
