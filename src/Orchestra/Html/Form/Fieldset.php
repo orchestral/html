@@ -124,7 +124,7 @@ class Fieldset {
 	 * </code>
 	 *
 	 * @access public
-	 * @param  mixed	$type
+	 * @param  mixed    $type
 	 * @param  mixed    $name
 	 * @param  mixed    $callback
 	 * @return \Illuminate\Support\Fluent

@@ -8,7 +8,7 @@ class Environment extends AbstractableEnvironment {
 	/**
 	 * Create a new Builder instance
 	 *
-	 * @access public	
+	 * @access public
 	 * @param  Closure $callback
 	 * @return \Orchestra\Html\Table\TableBuilder
 	 */
