@@ -8,7 +8,7 @@ abstract class AbstractableEnvironment {
 	/**
 	 * Application instance.
 	 *
-	 * @var Illuminate\Foundation\Application
+	 * @var \Illuminate\Foundation\Application
 	 */
 	protected $app = null;
 
@@ -23,7 +23,7 @@ abstract class AbstractableEnvironment {
 	 * Construct a new environment.
 	 *
 	 * @access public
-	 * @param  Illuminate\Foundation\Application    $app
+	 * @param  \Illuminate\Foundation\Application   $app
 	 * @return void
 	 */
 	public function __construct($app)
@@ -32,11 +32,11 @@ abstract class AbstractableEnvironment {
 	}
 
 	/**
-	 * Create a new Builder instance
+	 * Create a new Builder instance.
 	 *
-	 * @access public	
-	 * @param  Closure $callback
-	 * @return Orchestra\Html\AbstractableBuilder
+	 * @access public
+	 * @param  \Closure $callback
+	 * @return \Orchestra\Html\AbstractableBuilder
 	 */
 	abstract public function make(Closure $callback);
 
@@ -45,8 +45,8 @@ abstract class AbstractableEnvironment {
 	 *
 	 * @access public	
 	 * @param  string   $name
-	 * @param  Closure  $callback
-	 * @return Orchestra\Html\AbstractableBuilder
+	 * @param  \Closure $callback
+	 * @return \Orchestra\Html\AbstractableBuilder
 	 */
 	public function of($name, Closure $callback = null)
 	{

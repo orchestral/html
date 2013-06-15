@@ -9,19 +9,19 @@ class Fieldset {
 	/**
 	 * Application instance.
 	 *
-	 * @var Illuminate\Foundation\Application
+	 * @var \Illuminate\Foundation\Application
 	 */
 	protected $app = null;
 
 	/**
-	 * Fieldset name
+	 * Fieldset name.
 	 *
 	 * @var string
 	 */
 	protected $name = null;
 
 	/**
-	 * Configurations
+	 * Configuration.
 	 *
 	 * @var  array
 	 */
@@ -35,27 +35,27 @@ class Fieldset {
 	protected $attributes = array();
 
 	/**
-	 * All the controls
+	 * Control group.
 	 *
 	 * @var array
 	 */
 	protected $controls = array();
 
 	/**
-	 * Key map for column overwriting
+	 * Key map for column overwriting.
 	 *
 	 * @var array
 	 */
 	protected $keyMap = array();
 
 	/**
-	 * Create a new Fieldset instance
+	 * Create a new Fieldset instance.
 	 *
-	 * @access  public
-	 * @param   Illuminate\Foundation\Application   $app
-	 * @param   string                              $name
-	 * @param   Closure                             $callback
-	 * @return  void
+	 * @access public
+	 * @param  \Illuminate\Foundation\Application   $app
+	 * @param  string                               $name
+	 * @param  \Closure                             $callback
+	 * @return void
 	 */
 	public function __construct($app, $name, Closure $callback = null) 
 	{
@@ -76,12 +76,12 @@ class Fieldset {
 	}
 
 	/**
-	 * Add or append fieldset HTML attributes
+	 * Add or append fieldset HTML attributes.
 	 *
-	 * @access  public
-	 * @param   mixed       $key
-	 * @param   mixed       $value
-	 * @return  void
+	 * @access public
+	 * @param  mixed    $key
+	 * @param  mixed    $value
+	 * @return void
 	 */
 	public function attributes($key = null, $value = null)
 	{
@@ -102,7 +102,7 @@ class Fieldset {
 	}
 
 	/**
-	 * Append a new control to the table.
+	 * Append a new control to the form.
 	 *
 	 * <code>
 	 *		// add a new control using just field name
@@ -123,10 +123,11 @@ class Fieldset {
 	 *		});
 	 * </code>
 	 *
-	 * @access  public			
-	 * @param   mixed       $name
-	 * @param   mixed       $callback
-	 * @return  Fluent
+	 * @access public
+	 * @param  mixed    $type
+	 * @param  mixed    $name
+	 * @param  mixed    $callback
+	 * @return \Illuminate\Support\Fluent
 	 */
 	public function control($type, $name, $callback = null)
 	{

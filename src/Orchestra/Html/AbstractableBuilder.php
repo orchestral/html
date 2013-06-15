@@ -9,7 +9,7 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	/**
 	 * Application instance.
 	 *
-	 * @var Illuminate\Foundation\Application
+	 * @var \Illuminate\Foundation\Application
 	 */
 	protected $app = null;
 	
@@ -31,8 +31,8 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	 * Create a new Builder instance.
 	 * 			
 	 * @access public
-	 * @param  Illuminate\Foundation\Application    $app
-	 * @param  Closure                              $callback
+	 * @param  \Illuminate\Foundation\Application   $app
+	 * @param  \Closure                             $callback
 	 * @return void	 
 	 */
 	abstract public function __construct($app, Closure $callback);
@@ -41,8 +41,8 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	 * Extend decoration. 
 	 *
 	 * @access public
-	 * @param  Closure $callback
-	 * @return void
+	 * @param  \Closure $callback
+	 * @return self
 	 */
 	public function extend(Closure $callback)
 	{
@@ -68,10 +68,11 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	}
 
 	/**
-	 * An alias to render()
+	 * An alias to render().
 	 *
-	 * @access  public
-	 * @see     render()
+	 * @access public
+	 * @return string
+	 * @see    self::render()
 	 */
 	public function __toString()
 	{

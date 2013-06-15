@@ -9,40 +9,40 @@ class Grid {
 	/**
 	 * Application instance.
 	 *
-	 * @var Illuminate\Foundation\Application
+	 * @var \Illuminate\Foundation\Application
 	 */
 	protected $app = null;
 
 	/**
-	 * Enable CSRF token
+	 * Enable CSRF token.
 	 *
 	 * @var boolean
 	 */
 	public $token = false;
 
 	/**
-	 * Hidden fields
+	 * Hidden fields.
 	 *
 	 * @var array
 	 */
 	protected $hiddens = array();
 
 	/**
-	 * List of row in array
+	 * List of row in array.
 	 *
 	 * @var array
 	 */
 	protected $row = null;
 
 	/**
-	 * All the fieldsets
+	 * All the fieldsets.
 	 *
 	 * @var array
 	 */
 	protected $fieldsets = array();
 
 	/**
-	 * Form HTML attributes
+	 * Form HTML attributes.
 	 *
 	 * @var array
 	 */
@@ -56,25 +56,25 @@ class Grid {
 	public $submit = null;
 
 	/**
-	 * Set the no record message
+	 * Set the no record message.
 	 *
 	 * @var string
 	 */
 	public $format = null;
 
 	/**
-	 * Selected view path for form layout
+	 * Selected view path for form layout.
 	 *
 	 * @var array
 	 */
 	protected $view = null;
 
 	/**
-	 * Create a new Grid instance
+	 * Create a new Grid instance.
 	 *
-	 * @access  public
-	 * @param   array   $config
-	 * @return  void
+	 * @access public
+	 * @param  array    $config
+	 * @return void
 	 */
 	public function __construct($app)
 	{
@@ -105,15 +105,16 @@ class Grid {
 	 *		$fieldset->layout('path.to.view');
 	 * </code>
 	 *
-	 * @access  public
-	 * @param   string      $name
-	 * @return  void
+	 * @access public
+	 * @param  string   $name
+	 * @return void
 	 */
 	public function layout($name)
 	{
 		switch ($name)
 		{
 			case 'horizontal' :
+				# passthru;
 			case 'vertical' :
 				$this->view = "orchestra/html::form.{$name}";
 				break;
@@ -131,9 +132,9 @@ class Grid {
 	 * 		$table->with(DB::table('users')->get());
 	 * </code>
 	 *
-	 * @access  public
-	 * @param   array       $rows
-	 * @return  void
+	 * @access public
+	 * @param  array    $rows
+	 * @return void
 	 */
 	public function with($row = null)
 	{
@@ -145,10 +146,10 @@ class Grid {
 	/**
 	 * Attach rows data instead of assigning a model.
 	 *
-	 * @access  public
-	 * @param   array       $rows
-	 * @return  void
-	 * @see     self::with()
+	 * @access public
+	 * @param  array    $rows
+	 * @return void
+	 * @see    self::with()
 	 */
 	public function row($row = null)
 	{
@@ -156,12 +157,12 @@ class Grid {
 	}
 
 	/**
-	 * Add or append fieldset HTML attributes
+	 * Add or append fieldset HTML attributes.
 	 *
-	 * @access  public
-	 * @param   mixed       $key
-	 * @param   mixed       $value
-	 * @return  void
+	 * @access public
+	 * @param  mixed    $key
+	 * @param  mixed    $value
+	 * @return void
 	 */
 	public function attributes($key = null, $value = null)
 	{
@@ -182,12 +183,12 @@ class Grid {
 	}
 
 	/**
-	 * Create a new Fieldset instance
+	 * Create a new Fieldset instance.
 	 *
-	 * @access  public
-	 * @param   string          $name
-	 * @param   Closure         $callback
-	 * @return  Form\Fieldset
+	 * @access public
+	 * @param  string   $name
+	 * @param  \Closure $callback
+	 * @return \Orchestra\Html\Form\Fieldset
 	 */
 	public function fieldset($name, Closure $callback = null)
 	{
@@ -199,7 +200,7 @@ class Grid {
 	 *
 	 * @access public
 	 * @param  string   $name
-	 * @param  Closure  $callback
+	 * @param  \Closure $callback
 	 * @return void
 	 */
 	public function hidden($name, $callback = null)

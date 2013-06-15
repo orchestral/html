@@ -13,8 +13,8 @@ class TableBuilder extends AbstractableBuilder {
 	 * Create a new Table instance.
 	 *
 	 * @access public
-	 * @param  Illuminate\Foundation\Application    $app
-	 * @param  Closure                              $callback
+	 * @param  \Illuminate\Foundation\Application   $app
+	 * @param  \Closure                             $callback
 	 * @return void	 
 	 */
 	public function __construct($app, Closure $callback)
@@ -29,7 +29,7 @@ class TableBuilder extends AbstractableBuilder {
 	}
 
 	/**
-	 * Render the Table
+	 * Render the table.
 	 *
 	 * @access  public
 	 * @return  string
