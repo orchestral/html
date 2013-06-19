@@ -13,8 +13,7 @@ To install through composer, simply put the following in your `composer.json` fi
 {
 	"require": {
 		"orchestra/html": "2.0.*"
-	},
-	"minimum-stability": "dev"
+	}
 }
 ```
 
