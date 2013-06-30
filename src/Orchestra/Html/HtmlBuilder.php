@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Html;
 
+use BadMethodCallException;
 use Orchestra\Support\Expression;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
@@ -170,7 +171,12 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 */
 	public function __call($method, $parameters)
 	{
-		$value = call_user_func_array(array($this, $method), $parameters);
+		if ( ! isset($this->macros[$method]))
+		{
+			throw new BadMethodCallException("Method {$method} does not exist.");
+		}
+
+		$value = call_user_func_array($this->macros[$method], $parameters);
 		
 		if (is_string($value)) return $this->raw($value);
 		

@@ -134,12 +134,10 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 		$link   = $stub->link('foo');
 		$mailto = $stub->mailto('hello@orchestraplatform.com');
 		$ul     = $stub->ul(array('foo' => array('bar' => 'foobar')));
-		$ol     = $stub->listing('ol', array('foo' => array('bar' => 'foobar')));
 
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $image);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $link);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $mailto);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $ul);
-		$this->assertInstanceOf('\Orchestra\Support\Expression', $ol);
 	}
 }
