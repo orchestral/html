@@ -96,31 +96,6 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 	
 	/**
-	 * Generate a link to a JavaScript file.
-	 *
-	 * @param  string  $url
-	 * @param  array   $attributes
-	 * @return \Orchestra\Support\Expression
-	 */
-	public function script($url, $attributes = array())
-	{
-		return $this->raw(parent::script($url, $attributes));
-	}
-	
-	
-	/**
-	 * Generate a link to a CSS file.
-	 *
-	 * @param  string  $url
-	 * @param  array   $attributes
-	 * @return \Orchestra\Support\Expression
-	 */
-	public function style($url, $attributes = array())
-	{
-		return $this->raw(parent::style($url, $attributes));
-	}
-	
-	/**
 	 * Generate an HTML image element.
 	 *
 	 * @param  string  $url
@@ -195,11 +170,9 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 */
 	public function __call($method, $parameters)
 	{
-		$value = parent::__call($method, $parameters);
+		$value = call_user_func_array(array($this, $method), $parameters);
 		
-		if(is_string($value)) {
-			return $this->raw($value);
-		}
+		if(is_string($value)) return $this->raw($value);
 		
 		return $value;
 	}
