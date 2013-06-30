@@ -172,7 +172,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	{
 		$value = call_user_func_array(array($this, $method), $parameters);
 		
-		if(is_string($value)) return $this->raw($value);
+		if (is_string($value)) return $this->raw($value);
 		
 		return $value;
 	}
