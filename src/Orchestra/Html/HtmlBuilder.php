@@ -11,7 +11,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 * @param  string   $tag
 	 * @param  mixed    $value
 	 * @param  array    $attributes
-	 * @return string
+	 * @return \Orchestra\Support\Expression
 	 */
 	public function create($tag = 'div', $value = null, $attributes = array())
 	{
@@ -28,7 +28,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 			$content .= $this->entities($value).'</'.$tag.'>';
 		}
 		
-		return $content;
+		return $this->raw($content);
 	}
 
 	/**
@@ -94,4 +94,87 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
 		return $attributes;
 	}
+	
+	/**
+	 * Generate an HTML image element.
+	 *
+	 * @param  string  $url
+	 * @param  string  $alt
+	 * @param  array   $attributes
+	 * @return \Orchestra\Support\Expression
+	 */
+	public function image($url, $alt = null, $attributes = array())
+	{
+		return $this->raw(parent::image($url, $alt, $attributes));
+	}
+	
+	/**
+	 * Generate a HTML link.
+	 *
+	 * @param  string  $url
+	 * @param  string  $title
+	 * @param  array   $attributes
+	 * @param  bool    $secure
+	 * @return \Orchestra\Support\Expression
+	 */
+	public function link($url, $title = null, $attributes = array(), $secure = null)
+	{
+		return $this->raw(parent::link($url, $title, $attributes, $secure));
+	}
+	
+	/**
+	 * Generate a HTML link to an email address.
+	 * 
+	 * @param  string  $email
+	 * @param  string  $title
+	 * @param  array   $attributes
+	 * @return \Orchestra\Support\Expression
+	 */
+	public function mailto($email, $title = null, $attributes = array())
+	{
+		return $this->raw(parent::mailto($email, $title, $attributes));
+	}
+	
+	/**
+	 * Create a listing HTML element.
+	 *
+	 * @param  string  $type
+	 * @param  array   $list
+	 * @param  array   $attributes
+	 * @return \Orchestra\Support\Expression
+	 */
+	protected function listing($type, $list, $attributes = array())
+	{
+		return $this->raw(parent::listing($type, $list, $attributes));
+	}
+	
+	/**
+	 * Create the HTML for a listing element.
+	 *
+	 * @param  mixed    $key
+	 * @param  string  $type
+	 * @param  string  $value
+	 * @return \Orchestra\Support\Expression
+	 */
+	protected function listingElement($key, $type, $value)
+	{
+		return $this->raw(parent::listingElement($key, $type, $value));
+	}
+	
+	/**
+	 * Dynamically handle calls to the html class.
+	 *
+	 * @param  string  $method
+	 * @param  array   $parameters
+	 * @return mixed
+	 */
+	public function __call($method, $parameters)
+	{
+		$value = call_user_func_array(array($this, $method), $parameters);
+		
+		if(is_string($value)) return $this->raw($value);
+		
+		return $value;
+	}
+	
 }
