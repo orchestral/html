@@ -8,16 +8,16 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * Application instance.
 	 *
-	 * @var Illuminate\Foundation\Application
+	 * @var \Illuminate\Routing\UrlGenerator
 	 */
-	private $app = null;
+	private $url = null;
 
 	/**
 	 * Setup the test environment.
 	 */
 	public function setUp()
 	{
-		$this->app = m::mock('\Illuminate\Routing\UrlGenerator');
+		$this->url = m::mock('\Illuminate\Routing\UrlGenerator');
 	}
 
 	/**
@@ -25,7 +25,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown() 
 	{
-		unset($this->app);
+		unset($this->url);
 		m::close();
 	}
 	/**
@@ -35,7 +35,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCreateWithContent()
 	{
-		$stub     = new HtmlBuilder($this->app);
+		$stub     = new HtmlBuilder($this->url);
 		$expected = '<div class="foo">Bar</div>';
 		$output   = $stub->create('div', 'Bar', array('class' => 'foo'));
 
@@ -49,7 +49,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testCreateWithoutContent()
 	{
-		$stub     = new HtmlBuilder($this->app);
+		$stub     = new HtmlBuilder($this->url);
 		$expected = '<img src="hello.jpg" class="foo">';
 		$output   = $stub->create('img', array(
 			'src'   => 'hello.jpg', 
@@ -74,7 +74,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testEntitiesMethod()
 	{
-		$stub   = new HtmlBuilder($this->app);
+		$stub   = new HtmlBuilder($this->url);
 		$output = $stub->raw('<img src="foo.jpg">');
 
 		$this->assertEquals('<img src="foo.jpg">', $stub->entities($output));
@@ -90,7 +90,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRawExpressionMethod()
 	{
-		$stub   = new HtmlBuilder($this->app);
+		$stub = new HtmlBuilder($this->url);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $stub->raw('hello'));
 	}
 
@@ -101,7 +101,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testDecorateMethod()
 	{
-		$stub   = new HtmlBuilder($this->app);
+		$stub = new HtmlBuilder($this->url);
 		
 		$output   = $stub->decorate(array('class' => 'span4 table'), array('id' => 'foobar'));
 		$expected = array('id' => 'foobar', 'class' => 'span4 table');
@@ -114,5 +114,32 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 		$output   = $stub->decorate(array('id' => 'table'), array('id' => 'foobar', 'class' => 'span4'));
 		$expected = array('id' => 'table', 'class' => 'span4');
 		$this->assertEquals($expected, $output);
+	}
+
+	/**
+	 * Test Orchestra\Html\HtmlBuilder methods use HtmlBuilder::raw() and 
+	 * return Orchestra\Support\Expression.
+	 *
+	 * @test
+	 */
+	public function testHtmlBuilderMethodsReturnAsExpression()
+	{
+		$url = $this->url;
+
+		$url->shouldReceive('asset')->once()->with('foo.png')->andReturn('foo.png')
+			->shouldReceive('to')->once()->with('foo', m::type('Array'), '')->andReturn('foo');
+
+		$stub   = new HtmlBuilder($url);
+		$image  = $stub->image('foo.png');
+		$link   = $stub->link('foo');
+		$mailto = $stub->mailto('hello@orchestraplatform.com');
+		$ul     = $stub->ul(array('foo' => array('bar' => 'foobar')));
+		$ol     = $stub->listing('ol', array('foo' => array('bar' => 'foobar')));
+
+		$this->assertInstanceOf('\Orchestra\Support\Expression', $image);
+		$this->assertInstanceOf('\Orchestra\Support\Expression', $link);
+		$this->assertInstanceOf('\Orchestra\Support\Expression', $mailto);
+		$this->assertInstanceOf('\Orchestra\Support\Expression', $ul);
+		$this->assertInstanceOf('\Orchestra\Support\Expression', $ol);
 	}
 }
