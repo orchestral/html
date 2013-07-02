@@ -130,14 +130,38 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase {
 			->shouldReceive('to')->once()->with('foo', m::type('Array'), '')->andReturn('foo');
 
 		$stub   = new HtmlBuilder($url);
+		$stub->macro('foo', function ()
+		{
+			return 'foo';
+		});
+
+		$stub->macro('foobar', function ()
+		{
+			return new \Illuminate\Support\Fluent;
+		});
+
 		$image  = $stub->image('foo.png');
 		$link   = $stub->link('foo');
 		$mailto = $stub->mailto('hello@orchestraplatform.com');
 		$ul     = $stub->ul(array('foo' => array('bar' => 'foobar')));
+		$foo    = $stub->foo();
+		$foobar = $stub->foobar();
 
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $image);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $link);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $mailto);
 		$this->assertInstanceOf('\Orchestra\Support\Expression', $ul);
+		$this->assertInstanceOf('\Orchestra\Support\Expression', $foo);
+		$this->assertInstanceOf('\Illuminate\Support\Fluent', $foobar);
+	}
+
+	/**
+	 * Test Orchestra\Html\HtmlBuilder::__call() method throws exception.
+	 *
+	 * @expectedException \BadMethodCallException
+	 */
+	public function testMagicCallMethodThrowsException()
+	{
+		with(new HtmlBuilder($this->url))->foo();
 	}
 }
