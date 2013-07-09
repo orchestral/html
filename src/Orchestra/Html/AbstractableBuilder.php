@@ -78,13 +78,4 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	{
 		return $this->render();
 	}
-
-	/**
-	 * Render the decoration.
-	 *
-	 * @abstract
-	 * @access  public
-	 * @return  string
-	 */
-	abstract public function render();
 }
