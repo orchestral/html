@@ -28,7 +28,7 @@ class Fieldset {
 	protected $config = array();
 
 	/**
-	 * Fieldset HTML attributes
+	 * Fieldset HTML attributes.
 	 *
 	 * @var array
 	 */
@@ -51,7 +51,6 @@ class Fieldset {
 	/**
 	 * Create a new Fieldset instance.
 	 *
-	 * @access public
 	 * @param  \Illuminate\Foundation\Application   $app
 	 * @param  string                               $name
 	 * @param  \Closure                             $callback
@@ -78,7 +77,6 @@ class Fieldset {
 	/**
 	 * Add or append fieldset HTML attributes.
 	 *
-	 * @access public
 	 * @param  mixed    $key
 	 * @param  mixed    $value
 	 * @return void
@@ -123,7 +121,6 @@ class Fieldset {
 	 *		});
 	 * </code>
 	 *
-	 * @access public
 	 * @param  mixed    $type
 	 * @param  mixed    $name
 	 * @param  mixed    $callback
@@ -269,11 +266,9 @@ class Fieldset {
 
 	/**
 	 * Render the field.
-	 *
-	 * @static
-	 * @access public
-	 * @param  array            $templates
-	 * @param  Laravel\Fluent   $data
+	 * 
+	 * @param  array                        $templates
+	 * @param  Illuminate\Support\Fluent    $data
 	 * @return string
 	 */
 	public static function render($templates, $data)
@@ -289,12 +284,11 @@ class Fieldset {
 	}
 
 	/**
-	 * Allow control overwriting
+	 * Allow control overwriting.
 	 *
-	 * @access public
 	 * @param  string   $name
 	 * @param  mixed    $callback
-	 * @return Fluent
+	 * @return \Illuminate\Support\Fluent
 	 */
 	public function of($name, $callback = null)
 	{
@@ -317,7 +311,6 @@ class Fieldset {
 	 *     $fieldset->legend('User Information');
 	 * </code>
 	 * 
-	 * @access public
 	 * @param  string $name
 	 * @return mixed
 	 */
@@ -330,8 +323,13 @@ class Fieldset {
 
 	/**
 	 * Magic Method for calling the methods.
+	 *
+	 * @param  string   $method
+	 * @param  array    $parameters
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
-	public function __call($method, array $arguments = array())
+	public function __call($method, array $parameters = array())
 	{
 		if ( ! in_array($method, array('controls', 'name')))
 		{
@@ -343,6 +341,10 @@ class Fieldset {
 
 	/**
 	 * Magic Method for handling dynamic data access.
+	 * 
+	 * @param  string   $key
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
 	public function __get($key)
 	{
@@ -356,6 +358,11 @@ class Fieldset {
 
 	/**
 	 * Magic Method for handling the dynamic setting of data.
+	 *
+	 * @param  string   $key
+	 * @param  mixed    $values
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
 	public function __set($key, $values)
 	{
@@ -373,6 +380,10 @@ class Fieldset {
 
 	/**
 	 * Magic Method for checking dynamically-set data.
+	 * 
+	 * @param  string   $key
+	 * @return boolean
+	 * @throws \InvalidArgumentException
 	 */
 	public function __isset($key)
 	{

@@ -30,7 +30,6 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	/**
 	 * Create a new Builder instance.
 	 * 			
-	 * @access public
 	 * @param  \Illuminate\Foundation\Application   $app
 	 * @param  \Closure                             $callback
 	 * @return void	 
@@ -39,8 +38,7 @@ abstract class AbstractableBuilder implements RenderableInterface {
 
 	/**
 	 * Extend decoration. 
-	 *
-	 * @access public
+	 * 
 	 * @param  \Closure $callback
 	 * @return self
 	 */
@@ -54,6 +52,10 @@ abstract class AbstractableBuilder implements RenderableInterface {
 
 	/**
 	 * Magic method to get Grid instance.
+	 * 
+	 * @param  string   $key
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
 	public function __get($key)
 	{
@@ -70,7 +72,6 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	/**
 	 * An alias to render().
 	 *
-	 * @access public
 	 * @return string
 	 * @see    self::render()
 	 */

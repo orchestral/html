@@ -73,7 +73,6 @@ class Grid {
 	/**
 	 * Create a new Grid instance.
 	 *
-	 * @access public
 	 * @param  \Illuminate\Foundation\Application   $app
 	 * @return void
 	 */
@@ -107,7 +106,6 @@ class Grid {
 	 *		$table->with(User::paginate(30), true);
 	 * </code>
 	 *
-	 * @access public
 	 * @param  \Illuminate\Database\Eloquent\Model  $model
 	 * @param  boolean                              $paginate
 	 * @return void
@@ -139,7 +137,6 @@ class Grid {
 	 *		$table->layout('path.to.view');
 	 * </code>
 	 *
-	 * @access public
 	 * @param  string   $name
 	 * @return void
 	 */
@@ -165,7 +162,6 @@ class Grid {
 	 * 		$table->rows(DB::table('users')->get());
 	 * </code>
 	 *
-	 * @access public		
 	 * @param  array    $rows
 	 * @return void
 	 */
@@ -200,7 +196,6 @@ class Grid {
 	 *		});
 	 * </code>
 	 *
-	 * @access public		
 	 * @param  mixed    $label
 	 * @param  mixed    $callback
 	 * @return \Illuminate\Support\Fluent
@@ -252,7 +247,6 @@ class Grid {
 	/**
 	 * Allow column overwriting.
 	 *
-	 * @access public
 	 * @param  string   $name
 	 * @param  mixed    $callback
 	 * @return \Illuminate\Support\Fluent
@@ -275,7 +269,6 @@ class Grid {
 	/**
 	 * Add or append table HTML attributes.
 	 *
-	 * @access public
 	 * @param  mixed    $key
 	 * @param  mixed    $value
 	 * @return void
@@ -300,21 +293,28 @@ class Grid {
 
 	/**
 	 * Magic Method for calling the methods.
+	 *
+	 * @param  string   $method
+	 * @param  array    $parameters
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
-	public function __call($method, array $arguments = array())
+	public function __call($method, array $parameters = array())
 	{
 		if ( ! in_array($method, array('columns', 'view')))
 		{
 			throw new InvalidArgumentException("Unable to use __call for [{$method}].");
 		}
 
-		unset($arguments);
-
 		return $this->$method;
 	}
 
 	/**
 	 * Magic Method for handling dynamic data access.
+	 *
+	 * @param  string   $key
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
 	public function __get($key)
 	{
@@ -328,6 +328,11 @@ class Grid {
 
 	/**
 	 * Magic Method for handling the dynamic setting of data.
+	 *
+	 * @param  string   $key
+	 * @param  array    $values
+	 * @return void
+	 * @throws \InvalidArgumentException
 	 */
 	public function __set($key, $values)
 	{
@@ -345,6 +350,10 @@ class Grid {
 
 	/**
 	 * Magic Method for checking dynamically-set data.
+	 *
+	 * @param  string   $key
+	 * @return boolean
+	 * @throws \InvalidArgumentException
 	 */
 	public function __isset($key)
 	{

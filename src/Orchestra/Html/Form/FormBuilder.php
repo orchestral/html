@@ -11,7 +11,6 @@ class FormBuilder extends AbstractableBuilder {
 	/**
 	 * Create a new Form instance.
 	 * 			
-	 * @access public
 	 * @param  \Illuminate\Foundation\Application   $app
 	 * @param  Closure                              $callback
 	 * @return void	 
@@ -30,8 +29,7 @@ class FormBuilder extends AbstractableBuilder {
 	/**
 	 * Render the form.
 	 *
-	 * @access  public
-	 * @return  string
+	 * @return string
 	 */
 	public function render()
 	{
