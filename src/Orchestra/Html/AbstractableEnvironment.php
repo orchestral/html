@@ -22,7 +22,6 @@ abstract class AbstractableEnvironment {
 	/**
 	 * Construct a new environment.
 	 *
-	 * @access public
 	 * @param  \Illuminate\Foundation\Application   $app
 	 * @return void
 	 */
@@ -34,7 +33,6 @@ abstract class AbstractableEnvironment {
 	/**
 	 * Create a new Builder instance.
 	 *
-	 * @access public
 	 * @param  \Closure $callback
 	 * @return \Orchestra\Html\AbstractableBuilder
 	 */
@@ -43,7 +41,6 @@ abstract class AbstractableEnvironment {
 	/**
 	 * Create a new builder instance of a named builder.
 	 *
-	 * @access public	
 	 * @param  string   $name
 	 * @param  \Closure $callback
 	 * @return \Orchestra\Html\AbstractableBuilder

@@ -71,8 +71,7 @@ class Grid {
 
 	/**
 	 * Create a new Grid instance.
-	 *
-	 * @access public
+	 * 
 	 * @param  array    $config
 	 * @return void
 	 */
@@ -105,7 +104,6 @@ class Grid {
 	 *		$fieldset->layout('path.to.view');
 	 * </code>
 	 *
-	 * @access public
 	 * @param  string   $name
 	 * @return void
 	 */
@@ -132,7 +130,6 @@ class Grid {
 	 * 		$table->with(DB::table('users')->get());
 	 * </code>
 	 *
-	 * @access public
 	 * @param  array    $rows
 	 * @return void
 	 */
@@ -146,7 +143,6 @@ class Grid {
 	/**
 	 * Attach rows data instead of assigning a model.
 	 *
-	 * @access public
 	 * @param  array    $rows
 	 * @return void
 	 * @see    self::with()
@@ -158,8 +154,7 @@ class Grid {
 
 	/**
 	 * Add or append fieldset HTML attributes.
-	 *
-	 * @access public
+	 * 
 	 * @param  mixed    $key
 	 * @param  mixed    $value
 	 * @return void
@@ -185,7 +180,6 @@ class Grid {
 	/**
 	 * Create a new Fieldset instance.
 	 *
-	 * @access public
 	 * @param  string   $name
 	 * @param  \Closure $callback
 	 * @return \Orchestra\Html\Form\Fieldset
@@ -198,7 +192,6 @@ class Grid {
 	/**
 	 * Add hidden field.
 	 *
-	 * @access public
 	 * @param  string   $name
 	 * @param  \Closure $callback
 	 * @return void
@@ -225,11 +218,14 @@ class Grid {
 
 	/**
 	 * Magic Method for calling the methods.
+	 *
+	 * @param  string   $method
+	 * @param  array    $parameters
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
-	public function __call($method, array $arguments = array())
+	public function __call($method, array $parameters = array())
 	{
-		unset($arguments);
-
 		if ( ! in_array($method, array('fieldsets', 'view', 'hiddens')))
 		{
 			throw new InvalidArgumentException("Unable to use __get for [{$method}].");
@@ -240,6 +236,10 @@ class Grid {
 
 	/**
 	 * Magic Method for handling dynamic data access.
+	 *
+	 * @param  string   $key
+	 * @return mixed
+	 * @throws \InvalidArgumentException
 	 */
 	public function __get($key)
 	{
@@ -253,23 +253,32 @@ class Grid {
 
 	/**
 	 * Magic Method for handling the dynamic setting of data.
+	 *
+	 * @param  string   $key
+	 * @param  array    $parameters
+	 * @return void
+	 * @throws \InvalidArgumentException
 	 */
-	public function __set($key, $arguments)
+	public function __set($key, $parameters)
 	{
 		if ( ! in_array($key, array('attributes')))
 		{
 			throw new InvalidArgumentException("Unable to set [{$key}].");
 		}
-		elseif ( ! is_array($arguments))
+		elseif ( ! is_array($parameters))
 		{
 			throw new InvalidArgumentException("Require values to be an array.");
 		}
 
-		$this->attributes($arguments, null);
+		$this->attributes($parameters, null);
 	}
 
 	/**
 	 * Magic Method for checking dynamically-set data.
+	 * 
+	 * @param  string   $key
+	 * @return boolean
+	 * @throws \InvalidArgumentException
 	 */
 	public function __isset($key)
 	{

@@ -8,7 +8,6 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	/**
 	 * Generate a HTML element.
 	 *
-	 * @access public
 	 * @param  string   $tag
 	 * @param  mixed    $value
 	 * @param  array    $attributes
@@ -38,7 +37,6 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 * The encoding specified in the application configuration file will be 
 	 * used.
 	 *
-	 * @access public
 	 * @param  string   $value
 	 * @return string
 	 */
@@ -52,8 +50,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	/**
 	 * Create a new HTML expression instance are used to inject HTML.
 	 * 
-	 * @access public
-	 * @param  string      $value
+	 * @param  string   $value
 	 * @return \Orchestra\Support\Expression
 	 */
 	public function raw($value)
@@ -63,8 +60,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 
 	/**
 	 * Build a list of HTML attributes from one or two array.
-	 *
-	 * @access public
+	 * 
 	 * @param  array    $attributes
 	 * @param  array    $defaults
 	 * @return array
@@ -99,9 +95,9 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	/**
 	 * Generate an HTML image element.
 	 *
-	 * @param  string  $url
-	 * @param  string  $alt
-	 * @param  array   $attributes
+	 * @param  string   $url
+	 * @param  string   $alt
+	 * @param  array    $attributes
 	 * @return \Orchestra\Support\Expression
 	 */
 	public function image($url, $alt = null, $attributes = array())
@@ -112,10 +108,10 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	/**
 	 * Generate a HTML link.
 	 *
-	 * @param  string  $url
-	 * @param  string  $title
-	 * @param  array   $attributes
-	 * @param  bool    $secure
+	 * @param  string   $url
+	 * @param  string   $title
+	 * @param  array    $attributes
+	 * @param  boolean  $secure
 	 * @return \Orchestra\Support\Expression
 	 */
 	public function link($url, $title = null, $attributes = array(), $secure = null)
@@ -126,9 +122,9 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	/**
 	 * Generate a HTML link to an email address.
 	 * 
-	 * @param  string  $email
-	 * @param  string  $title
-	 * @param  array   $attributes
+	 * @param  string   $email
+	 * @param  string   $title
+	 * @param  array    $attributes
 	 * @return \Orchestra\Support\Expression
 	 */
 	public function mailto($email, $title = null, $attributes = array())
@@ -139,9 +135,9 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	/**
 	 * Create a listing HTML element.
 	 *
-	 * @param  string  $type
-	 * @param  array   $list
-	 * @param  array   $attributes
+	 * @param  string   $type
+	 * @param  array    $list
+	 * @param  array    $attributes
 	 * @return \Orchestra\Support\Expression
 	 */
 	protected function listing($type, $list, $attributes = array())
@@ -153,8 +149,8 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 * Create the HTML for a listing element.
 	 *
 	 * @param  mixed    $key
-	 * @param  string  $type
-	 * @param  string  $value
+	 * @param  string   $type
+	 * @param  string   $value
 	 * @return \Orchestra\Support\Expression
 	 */
 	protected function listingElement($key, $type, $value)
@@ -168,6 +164,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	 * @param  string  $method
 	 * @param  array   $parameters
 	 * @return mixed
+	 * @throws \BadMethodException
 	 */
 	public function __call($method, $parameters)
 	{

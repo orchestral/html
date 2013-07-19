@@ -7,8 +7,7 @@ class Environment extends AbstractableEnvironment {
 	
 	/**
 	 * Create a new Builder instance.
-	 *
-	 * @access public
+	 * 
 	 * @param  \Closure $callback
 	 * @return \Orchestra\Html\Form\FormBuilder
 	 */
