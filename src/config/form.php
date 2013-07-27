@@ -46,10 +46,10 @@ return array(
 	*/
 
 	'fieldset' => array(
-		'select'   => array('class' => 'col col-lg-12 input-with-feedback'),
-		'textarea' => array('class' => 'col col-lg-12 input-with-feedback'),
-		'input'    => array('class' => 'col col-lg-12 input-with-feedback'),
-		'password' => array('class' => 'col col-lg-12 input-with-feedback'),
+		'select'   => array('class' => 'twelve columns input-with-feedback'),
+		'textarea' => array('class' => 'twelve columns input-with-feedback'),
+		'input'    => array('class' => 'twelve columns input-with-feedback'),
+		'password' => array('class' => 'twelve columns input-with-feedback'),
 		'file'     => array(),
 		'radio'    => array(),
 		'checkbox' => array(),
