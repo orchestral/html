@@ -62,7 +62,7 @@ return array(
 				$data->name, 
 				$data->options, 
 				$data->value, 
-				$data->attributes
+				HTML::decorate($data->attributes, array('class' => 'form-control'))
 			);
 		},
 		'checkbox' => function ($data)
@@ -86,21 +86,21 @@ return array(
 			return Form::textarea(
 				$data->name,
 				$data->value,
-				$data->attributes
+				HTML::decorate($data->attributes, array('class' => 'form-control'))
 			);
 		},
 		'password' => function ($data)
 		{
 			return Form::password(
 				$data->name, 
-				$data->attributes
+				HTML::decorate($data->attributes, array('class' => 'form-control'))
 			);
 		},
 		'file' => function ($data)
 		{
 			return Form::file(
 				$data->name,
-				$data->attributes
+				HTML::decorate($data->attributes, array('class' => 'form-control'))
 			);
 		},
 		'input' => function ($data)
@@ -109,7 +109,7 @@ return array(
 				$data->type,
 				$data->name,
 				$data->value, 
-				$data->attributes
+				HTML::decorate($data->attributes, array('class' => 'form-control'))
 			);
 		},
 	),
