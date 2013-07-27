@@ -14,7 +14,7 @@ foreach ($fieldsets as $fieldset) { ?>
 
 		<?php foreach ($fieldset->controls() as $control) { ?>
 
-		<div class="row<?php echo $errors->has($control->name) ? ' has-error' : '' ?>">
+		<div class="form-group<?php echo $errors->has($control->name) ? ' has-error' : '' ?>">
 			<?php echo Form::label($control->name, $control->label); ?>
 			<div>
 				<?php echo call_user_func($control->field, $row, $control, array()); ?>
@@ -35,7 +35,7 @@ foreach ($fieldsets as $fieldset) { ?>
 		<?php /* Fixed row issue on Bootstrap 3 */ ?>
 	</div>
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="twelve columns">
 			<button type="submit" class="btn btn-primary"><?php echo $submit; ?></button>
 		</div>
 	</div>
