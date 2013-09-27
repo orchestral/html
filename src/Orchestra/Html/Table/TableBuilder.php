@@ -48,10 +48,11 @@ class TableBuilder extends AbstractableBuilder {
 				'row'   => $grid->rows->attributes,
 				'table' => $grid->attributes,
 			),
-			'empty'      => $this->app['translator']->get($grid->empty),
 			'columns'    => $grid->columns(),
-			'rows'       => $grid->rows(),
+			'empty'      => $this->app['translator']->get($grid->empty),
+			'grid'       => $grid,
 			'pagination' => $pagination,
+			'rows'       => $grid->rows(),
 		);
 
 		// Build the view and render it.
