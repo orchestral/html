@@ -37,13 +37,14 @@ class FormBuilder extends AbstractableBuilder {
 		$form   = $grid->attributes;
 
 		$data = array(
-			'token'     => $grid->token,
+			'grid'      => $grid,
+			'fieldsets' => $grid->fieldsets(),
+			'form'      => $form,
+			'format'    => $grid->format,
 			'hiddens'   => $grid->hiddens,
 			'row'       => $grid->row,
-			'form'      => $form,
 			'submit'    => $this->app['translator']->get($grid->submit),
-			'format'    => $grid->format,
-			'fieldsets' => $grid->fieldsets(),
+			'token'     => $grid->token,
 		);
 
 		return $this->app['view']->make($grid->view)->with($data)->render();
