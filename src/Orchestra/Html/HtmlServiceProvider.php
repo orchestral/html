@@ -50,7 +50,7 @@ class HtmlServiceProvider extends ServiceProvider {
 		{
 			$form = new \Illuminate\Html\FormBuilder($app['html'], $app['url'], $app['session']->getToken());
 
-			return $form->setSessionStore($app['session']);
+			return $form->setSessionStore($app['session.store']);
 		});
 	}
 
