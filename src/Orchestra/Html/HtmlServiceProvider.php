@@ -102,7 +102,9 @@ class HtmlServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('orchestra/html', 'orchestra/html');
+		$path = realpath(dirname(__DIR__.'/../../'));
+
+		$this->package('orchestra/html', 'orchestra/html', $path);
 	}
 
 	/**
