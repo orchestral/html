@@ -32,13 +32,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 
 	/**
-	 * Convert HTML characters to entities.
-	 *
-	 * The encoding specified in the application configuration file will be 
-	 * used.
-	 *
-	 * @param  string   $value
-	 * @return string
+	 * {@inherit}
 	 */
 	public function entities($value)
 	{
@@ -93,12 +87,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 	
 	/**
-	 * Generate an HTML image element.
-	 *
-	 * @param  string   $url
-	 * @param  string   $alt
-	 * @param  array    $attributes
-	 * @return \Orchestra\Support\Expression
+	 * {@inheritdoc}
 	 */
 	public function image($url, $alt = null, $attributes = array())
 	{
@@ -106,13 +95,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 	
 	/**
-	 * Generate a HTML link.
-	 *
-	 * @param  string   $url
-	 * @param  string   $title
-	 * @param  array    $attributes
-	 * @param  boolean  $secure
-	 * @return \Orchestra\Support\Expression
+	 * {@inheritdoc}
 	 */
 	public function link($url, $title = null, $attributes = array(), $secure = null)
 	{
@@ -120,12 +103,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 	
 	/**
-	 * Generate a HTML link to an email address.
-	 * 
-	 * @param  string   $email
-	 * @param  string   $title
-	 * @param  array    $attributes
-	 * @return \Orchestra\Support\Expression
+	 * {@inheritdoc}
 	 */
 	public function mailto($email, $title = null, $attributes = array())
 	{
@@ -133,12 +111,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 	
 	/**
-	 * Create a listing HTML element.
-	 *
-	 * @param  string   $type
-	 * @param  array    $list
-	 * @param  array    $attributes
-	 * @return \Orchestra\Support\Expression
+	 * {@inheritdoc}
 	 */
 	protected function listing($type, $list, $attributes = array())
 	{
@@ -146,12 +119,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 	
 	/**
-	 * Create the HTML for a listing element.
-	 *
-	 * @param  mixed    $key
-	 * @param  string   $type
-	 * @param  string   $value
-	 * @return \Orchestra\Support\Expression
+	 * {@inheritdoc}
 	 */
 	protected function listingElement($key, $type, $value)
 	{
@@ -159,12 +127,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder {
 	}
 	
 	/**
-	 * Dynamically handle calls to the html class.
-	 *
-	 * @param  string  $method
-	 * @param  array   $parameters
-	 * @return mixed
-	 * @throws \BadMethodException
+	 * {@inheritdoc}
 	 */
 	public function __call($method, $parameters)
 	{
