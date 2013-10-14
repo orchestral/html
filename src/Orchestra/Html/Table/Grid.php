@@ -128,15 +128,13 @@ class Grid extends AbstractableGrid {
 	 */
 	public function layout($name)
 	{
-		switch ($name)
+		if (in_array($name, array('horizontal', 'vertical')))
 		{
-			case 'horizontal' :
-			case 'vertical' :
-				$this->view = "orchestra/html::table.{$name}";
-				break;
-			default :
-				$this->view = $name;
-				break;
+			$this->view = "orchestra/html::table.{$name}";
+		}
+		else
+		{
+			$this->view = $name;
 		}
 	}
 
@@ -188,24 +186,40 @@ class Grid extends AbstractableGrid {
 	 */
 	public function column($name, $callback = null)
 	{
+		list($name, $column) = $this->buildColumn($name, $callback);
+
+		$this->columns[]      = $column;
+		$this->keyMap[$name] = count($this->columns) - 1;
+
+		return $column;
+	}
+
+	/**
+	 * Build control.
+	 *
+	 * @param  mixed    $name
+	 * @param  mixed    $callback
+	 */
+	protected function buildColumn($name, $callback = null)
+	{
 		$value = '';
 		$label = $name;
 
-		switch (true)
+		if (! is_string($label))
 		{
-			case ! is_string($label) :
-				$callback = $name;
-				$name     = '';	
-				$label    = '';
-				break;
-			case is_string($callback) :
-				$name     = mb_strtolower($callback);
-				$callback = null; 
-				break;
-			default :
-				$name  = mb_strtolower($name);
-				$label = ucwords($name);
-				break;
+			$callback = $name;
+			$name     = '';	
+			$label    = '';
+		}
+		elseif (is_string($callback))
+		{
+			$name     = mb_strtolower($callback);
+			$callback = null; 
+		}
+		else
+		{
+			$name  = mb_strtolower($name);
+			$label = ucwords($name);
 		}
 
 		if ( ! empty($name))
@@ -221,12 +235,8 @@ class Grid extends AbstractableGrid {
 			'attributes' => function ($row) { return array(); },
 		));
 
-		// run closure
 		if (is_callable($callback)) call_user_func($callback, $column);
 
-		$this->columns[]      = $column;
-		$this->keyMap[$name] = count($this->columns) - 1;
-
-		return $column;
+		return array($name, $column);
 	}
 }

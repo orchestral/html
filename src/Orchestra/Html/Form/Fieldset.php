@@ -126,7 +126,6 @@ class Fieldset extends AbstractableGrid {
 	/**
 	 * Build control.
 	 *
-	 * @param  mixed    $type
 	 * @param  mixed    $name
 	 * @param  mixed    $callback
 	 */
