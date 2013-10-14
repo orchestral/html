@@ -2,14 +2,15 @@
 
 use Closure;
 use InvalidArgumentException;
+use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
 
 class Fieldset {
 
 	/**
 	 * Application instance.
-	 *
-	 * @var \Illuminate\Foundation\Application
+	 * 	
+	 * @var \Illuminate\Container\Container
 	 */
 	protected $app = null;
 
@@ -50,13 +51,12 @@ class Fieldset {
 
 	/**
 	 * Create a new Fieldset instance.
-	 *
-	 * @param  \Illuminate\Foundation\Application   $app
-	 * @param  string                               $name
-	 * @param  \Closure                             $callback
-	 * @return void
+	 * 
+	 * @param  \Illuminate\Container\Container  $app
+	 * @param  string                           $name
+	 * @param  \Closure                         $callback
 	 */
-	public function __construct($app, $name, Closure $callback = null) 
+	public function __construct(Container $app, $name, Closure $callback = null) 
 	{
 		$this->app = $app;
 
