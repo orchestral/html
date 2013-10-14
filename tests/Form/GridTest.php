@@ -325,6 +325,22 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test Orchestra\Html\Form\Grid::of() method throws exception.
+	 *
+	 * @expectedException \RuntimeException
+	 */
+	public function testOfMethodThrowsException()
+	{
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
+
+		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+
+		$stub = new Grid($app);
+		$stub->of('foo');
+	}
+
+	/**
 	 * Test Orchestra\Html\Form\Grid magic method __isset() throws 
 	 * exception.
 	 *

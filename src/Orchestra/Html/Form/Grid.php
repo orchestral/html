@@ -59,6 +59,17 @@ class Grid extends AbstractableGrid {
 	/**
 	 * {@inheritdoc}
 	 */
+	protected $definition = array(
+		'name'    => null,
+		'__call'  => array('fieldsets', 'view', 'hiddens'),
+		'__get'   => array('attributes', 'row', 'view', 'hiddens'),
+		'__set'   => array('attributes'),
+		'__isset' => array('attributes', 'row', 'view', 'hiddens'),
+	);
+
+	/**
+	 * {@inheritdoc}
+	 */
 	protected function initiate()
 	{
 		$config = $this->app['config']->get('orchestra/html::form', array());
@@ -169,61 +180,5 @@ class Grid extends AbstractableGrid {
 		if ($callback instanceof Closure) call_user_func($callback, $field);
 
 		$this->hiddens[$name] = $this->app['form']->hidden($name, $field->value, $field->attributes);
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __call($method, array $parameters = array())
-	{
-		if ( ! in_array($method, array('fieldsets', 'view', 'hiddens')))
-		{
-			throw new InvalidArgumentException("Unable to use __get for [{$method}].");
-		}
-
-		return $this->$method;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __get($key)
-	{
-		if ( ! in_array($key, array('attributes', 'row', 'view', 'hiddens')))
-		{
-			throw new InvalidArgumentException("Unable to use __get for [{$key}].");
-		}
-
-		return $this->{$key};
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __set($key, $parameters)
-	{
-		if ( ! in_array($key, array('attributes')))
-		{
-			throw new InvalidArgumentException("Unable to set [{$key}].");
-		}
-		elseif ( ! is_array($parameters))
-		{
-			throw new InvalidArgumentException("Require values to be an array.");
-		}
-
-		$this->attributes($parameters, null);
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __isset($key)
-	{
-		if ( ! in_array($key, array('attributes', 'row', 'view', 'hiddens')))
-		{
-			throw new InvalidArgumentException("Unable to use __isset for [{$key}].");
-		}
-
-		return isset($this->{$key});
 	}
 }

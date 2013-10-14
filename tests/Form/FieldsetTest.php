@@ -392,18 +392,4 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 		$stub = new Fieldset($app, function ($f) {});
 		$invalid = isset($stub->invalidProperty) ? true : false;
 	}
-
-	/**
-	 * Test Orchestra\Html\Form\Fieldset::render() throws 
-	 * exception.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testRenderMethodThrowsException()
-	{
-		Fieldset::render(
-			array(),
-			new \Illuminate\Support\Fluent(array('method' => 'foo'))
-		);
-	}
 }

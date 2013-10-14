@@ -30,13 +30,6 @@ class Grid extends AbstractableGrid {
 	protected $columns = array();
 
 	/**
-	 * Key map for column overwriting.
-	 *
-	 * @var array
-	 */
-	protected $keyMap = array();
-
-	/**
 	 * Enable to attach pagination during rendering.
 	 *
 	 * @var boolean
@@ -56,6 +49,17 @@ class Grid extends AbstractableGrid {
 	 * @var array
 	 */
 	protected $view = null;
+
+	/**
+	 * {@inheritdoc}
+	 */
+	protected $definition = array(
+		'name'    => 'columns',
+		'__call'  => array('columns', 'view'),
+		'__get'   => array('attributes', 'columns', 'model', 'paginate', 'view', 'rows'),
+		'__set'   => array('attributes'),
+		'__isset' => array('attributes', 'columns', 'model', 'paginate', 'view'),
+	);
 
 	/**
 	 * {@inheritdoc}
@@ -224,83 +228,5 @@ class Grid extends AbstractableGrid {
 		$this->keyMap[$name] = count($this->columns) - 1;
 
 		return $column;
-	}
-
-	/**
-	 * Allow column overwriting.
-	 *
-	 * @param  string   $name
-	 * @param  mixed    $callback
-	 * @return \Illuminate\Support\Fluent
-	 * @throws \InvalidArgumentException
-	 */
-	public function of($name, $callback = null)
-	{
-		if ( ! isset($this->keyMap[$name]))
-		{
-			throw new InvalidArgumentException("Column name [{$name}] is not available.");
-		}
-
-		$id = $this->keyMap[$name];
-
-		if (is_callable($callback)) call_user_func($callback, $this->columns[$id]);
-
-		return $this->columns[$id];
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __call($method, array $parameters = array())
-	{
-		if ( ! in_array($method, array('columns', 'view')))
-		{
-			throw new InvalidArgumentException("Unable to use __call for [{$method}].");
-		}
-
-		return $this->$method;
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __get($key)
-	{
-		if ( ! in_array($key, array('attributes', 'columns', 'model', 'paginate', 'view', 'rows')))
-		{
-			throw new InvalidArgumentException("Unable to use __get for [{$key}].");
-		}
-		
-		return $this->{$key};
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __set($key, $values)
-	{
-		if ( ! in_array($key, array('attributes')))
-		{
-			throw new InvalidArgumentException("Unable to use __set for [{$key}].");
-		}
-		elseif ( ! is_array($values))
-		{
-			throw new InvalidArgumentException("Require values to be an array.");
-		}
-
-		$this->attributes($values, null);
-	}
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function __isset($key)
-	{
-		if ( ! in_array($key, array('attributes', 'columns', 'model', 'paginate', 'view')))
-		{
-			throw new InvalidArgumentException("Unable to use __isset for [{$key}].");
-		}
-
-		return isset($this->{$key});
 	}
 }
