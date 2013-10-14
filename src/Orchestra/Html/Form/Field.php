@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Html\Form;
 
+use Closure;
 use InvalidArgumentException;
 use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
@@ -50,8 +51,7 @@ class Field {
 				$templates
 			);
 			
-			$data = $me->buildFluentData($row, $control);
-			$me->buildFieldByType($type, $row, $control, $data);
+			$data = $me->buildFieldByType($type, $row, $control);
 
 			return $me->render($templates, $data);
 		};
@@ -59,78 +59,49 @@ class Field {
 
 	/**
 	 * Build field by type.
+	 *
+	 * @param  string                       $type
+	 * @param  \Illuminate\Support\Fluent   $row
+	 * @param  \Illuminate\Support\Fluent   $control
+	 * @return \Illuminate\Support\Fluent
 	 */
-	public function buildFieldByType($type, Fluent $row, Fluent $control, Fluent $data)
+	public function buildFieldByType($type, Fluent $row, Fluent $control)
 	{
+		$data   = $this->buildFluentData($type, $row, $control);
 		$config = $this->config;
+		$html   = $this->app['html'];
 
-		// prep control type information
-		$type    = ($type === 'input:password' ? 'password' : $type);
-		$methods = explode(':', $type);
-		$html    = $this->app['html'];
+		if ($data->method === 'select')
+		{
+			$data->options($this->getOptionList($row, $control));
+		}
+		elseif (in_array($data->method, array('checkbox', 'radio')))
+		{
+			$data->checked($control->checked);
+		}
 
-		if (in_array($type, array('select', 'input:select')))
-		{
-			$data->method('select')
-				->attributes($html->decorate($control->attributes, $config['select']))
-				->options($this->getOptionList($row, $control));
-		}
-		elseif (in_array($type, array('checkbox', 'input:checkbox')))
-		{
-			$data->method('checkbox')
-				->checked($control->checked);
-		}
-		elseif (in_array($type, array('radio', 'input:radio')))
-		{
-			$data->method('radio')
-				->checked($control->checked);
-		}
-		elseif (in_array($type, array('textarea', 'input:textarea')))
-		{
-			$data->method('textarea')
-				->attributes($html->decorate($control->attributes, $config['textarea']));
-		}
-		elseif (in_array($type, array('password', 'input:password'))) 
-		{
-			$data->method('password')
-				->attributes($html->decorate($control->attributes, $config['password']));
-		}
-		elseif (in_array($type, array('file', 'input:file'))) 
-		{
-			$data->method('file')
-				->attributes($html->decorate($control->attributes, $config['file']));
-		}
-		elseif (isset($methods[0]) and $methods[0] === 'input') 
-		{
-			$methods[1] = $methods[1] ?: 'text';
-			$data->method('input')
-				->type($methods[1])
-				->attributes($html->decorate($control->attributes, $config['input']));
-		}
-		else
-		{
-			$data->method('input')
-				->type('text')
-				->attributes($html->decorate($control->attributes, $config['input']));	
-		}
+		$data->attributes($html->decorate($control->attributes, $config[$data->method]));
+
+		return $data;
 	}
 
 	/**
 	 * Build data.
 	 *
+	 * @param  string                       $type
 	 * @param  \Illuminate\Support\Fluent   $row
 	 * @param  \Illuminate\Support\Fluent   $control
 	 * @return \Illuminate\Support\Fluent
 	 */
-	public function buildFluentData($row, $control)
+	public function buildFluentData($type, Fluent $row, Fluent $control)
 	{
 		// set the name of the control
 		$name = $control->name;
-		
+
 		// set the value from old input, follow by row value.
 		$value = $this->app['request']->old($name);
 
-		if (! is_null($row->{$name}) and is_null($value)) $value = $row->{$name};
+		if ( ! is_null($row->{$name}) and is_null($value)) $value = $row->{$name};
 
 		// if the value is set from the closure, we should use it instead of 
 		// value retrieved from attached data
@@ -139,7 +110,7 @@ class Field {
 		// should also check if it's a closure, when this happen run it.
 		if ($value instanceof Closure) $value = $value($row, $control);
 
-		return new Fluent(array(
+		$data = new Fluent(array(
 			'method'     => '',
 			'type'       => '',
 			'options'    => array(),
@@ -148,6 +119,8 @@ class Field {
 			'name'       => $name,
 			'value'      => $value,
 		));
+
+		return $this->resolveFieldType($type, $data);
 	}
 
 	/**
@@ -184,5 +157,39 @@ class Field {
 		}
 
 		return call_user_func($templates[$data->method], $data);
+	}
+
+	/**
+	 * Resolve method name and type.
+	 * 
+	 * @param  string                       $value
+	 * @param  \Illuminate\Support\Fluent   $data
+	 * @return \Illuminate\Support\Fluent
+	 */
+	protected function resolveFieldType($value, $data)
+	{
+		$filterable = array('select', 'checkbox', 'radio', 'textarea', 'password', 'file');
+
+		if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches))
+		{
+			if (in_array($matches[2], $filterable))
+			{
+				$data->method($matches[2]);
+			}
+			else
+			{
+				$data->method('input')->type($matches[2] ?: 'text');
+			}
+		}
+		elseif (in_array($value, $filterable))
+		{
+			$data->method($value);
+		}
+		else
+		{
+			$data->method('input')->type('text');
+		}
+
+		return $data;
 	}
 }

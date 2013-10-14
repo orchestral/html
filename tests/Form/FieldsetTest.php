@@ -44,6 +44,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 			'password' => array(),
 			'file'     => array(),
 			'radio'    => array(),
+			'checkbox' => array(),
 		);
 	}
 
@@ -139,7 +140,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 			->shouldReceive('get')
 				->times(10)->with('orchestra/html::form.templates', array())->andReturn($this->getTemplateConfig());
 		$input->shouldReceive('old')->times(10)->andReturn(array());
-		$html->shouldReceive('decorate')->times(8)->andReturn('foo');
+		$html->shouldReceive('decorate')->times(10)->andReturn('foo');
 
 		$stub = new Fieldset($app, function ($f)
 		{

@@ -109,7 +109,7 @@ class Fieldset extends AbstractableGrid {
 	 */
 	public function control($type, $name, $callback = null)
 	{
-		list($name, $control) = $this->buildControl($type, $name, $callback);
+		list($name, $control) = $this->buildControl($name, $callback);
 		
 		if (is_null($control->field))
 		{
@@ -130,7 +130,7 @@ class Fieldset extends AbstractableGrid {
 	 * @param  mixed    $name
 	 * @param  mixed    $callback
 	 */
-	protected function buildControl($type, $name, $callback = null)
+	protected function buildControl($name, $callback = null)
 	{
 		$label = $name;
 
