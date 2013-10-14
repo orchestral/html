@@ -135,9 +135,9 @@ class Field {
 		// set the value of options, if it's callable run it first
 		$options = $control->options;
 		
-		if ( ! ($options instanceof Closure)) return $options;
-
-		return call_user_func($options, $row, $control);
+		if (($options instanceof Closure)) $options = call_user_func($options, $row, $control);
+		
+		return $options;
 	}
 
 	/**
@@ -174,7 +174,7 @@ class Field {
 		{
 			$value = $matches[2];
 		}
-		else
+		elseif ( ! in_array($value, $filterable))
 		{
 			$value = 'text';
 		}

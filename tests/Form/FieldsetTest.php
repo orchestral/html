@@ -164,7 +164,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase {
 				$c->label('Foo')->value('foobar');
 			});
 
-			$f->control('textarea', 'textarea_foo', function ($c)
+			$f->control('input:textarea', 'textarea_foo', function ($c)
 			{
 				$c->label('Foo')->value('foobar');
 			});
