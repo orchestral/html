@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html\Table;
 
 use Closure;
+use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Request;
@@ -10,13 +11,9 @@ use Orchestra\Html\AbstractableBuilder;
 class TableBuilder extends AbstractableBuilder {
 
 	/**
-	 * Create a new Table instance.
-	 *
-	 * @param  \Illuminate\Foundation\Application   $app
-	 * @param  \Closure                             $callback
-	 * @return void	 
+	 * {@inheritdoc} 
 	 */
-	public function __construct($app, Closure $callback)
+	public function __construct(Container $app, Closure $callback)
 	{
 		$this->app = $app;
 
@@ -28,9 +25,7 @@ class TableBuilder extends AbstractableBuilder {
 	}
 
 	/**
-	 * Render the table.
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function render()
 	{

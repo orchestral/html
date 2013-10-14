@@ -1,19 +1,24 @@
 <?php namespace Orchestra\Html\Tests\Form;
 
 use Mockery as m;
+use Illuminate\Container\Container;
 use Orchestra\Html\Form\Environment;
 
 class EnvironmentTest extends \PHPUnit_Framework_TestCase {
+
+	/**
+	 * Application instance.
+	 *
+	 * @var \Illuminate\Container\Container
+	 */
+	protected $app = null;
 
 	/**
 	 * Setup the test environment.
 	 */
 	public function setUp()
 	{
-		$app = m::mock('Application');
-		$app->shouldReceive('instance')->andReturn(true);
-
-		\Illuminate\Support\Facades\Config::setFacadeApplication($app);
+		$this->app = new Container;
 	}
 
 	/**
@@ -21,6 +26,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function tearDown()
 	{
+		unset($this->app);
 		m::close();
 	}
 
@@ -31,9 +37,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMakeMethod()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 		
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
@@ -50,9 +55,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethod()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 		
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 

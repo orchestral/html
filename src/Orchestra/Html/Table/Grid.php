@@ -4,15 +4,9 @@ use Closure;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
+use Orchestra\Html\AbstractableGrid;
 
-class Grid {
-
-	/**
-	 * Application instance.
-	 *
-	 * @var \Illuminate\Foundation\Application
-	 */
-	protected $app = null;
+class Grid extends AbstractableGrid {
 
 	/**
 	 * List of rows in array, is used when model is null.
@@ -29,25 +23,11 @@ class Grid {
 	protected $model = null;
 
 	/**
-	 * Table HTML attributes.
-	 *
-	 * @var array
-	 */
-	protected $attributes = array();
-
-	/**
 	 * All the columns.
 	 *
 	 * @var array
 	 */
 	protected $columns = array();
-
-	/**
-	 * Key map for column overwriting.
-	 *
-	 * @var array
-	 */
-	protected $keyMap = array();
 
 	/**
 	 * Enable to attach pagination during rendering.
@@ -71,16 +51,22 @@ class Grid {
 	protected $view = null;
 
 	/**
-	 * Create a new Grid instance.
-	 *
-	 * @param  \Illuminate\Foundation\Application   $app
-	 * @return void
+	 * {@inheritdoc}
 	 */
-	public function __construct($app)
-	{
-		$this->app = $app;
+	protected $definition = array(
+		'name'    => 'columns',
+		'__call'  => array('columns', 'view'),
+		'__get'   => array('attributes', 'columns', 'model', 'paginate', 'view', 'rows'),
+		'__set'   => array('attributes'),
+		'__isset' => array('attributes', 'columns', 'model', 'paginate', 'view'),
+	);
 
-		$config = $app['config']->get('orchestra/html::table', array());
+	/**
+	 * {@inheritdoc}
+	 */
+	protected function initiate()
+	{
+		$config = $this->app['config']->get('orchestra/html::table', array());
 		
 		foreach ($config as $key => $value)
 		{
@@ -91,7 +77,7 @@ class Grid {
 		
 		$this->rows = new Fluent(array(
 			'data'       => array(),
-			'attributes' => function ($row) { return array(); },
+			'attributes' => function () { return array(); },
 		));
 	}
 
@@ -242,126 +228,5 @@ class Grid {
 		$this->keyMap[$name] = count($this->columns) - 1;
 
 		return $column;
-	}
-
-	/**
-	 * Allow column overwriting.
-	 *
-	 * @param  string   $name
-	 * @param  mixed    $callback
-	 * @return \Illuminate\Support\Fluent
-	 * @throws \InvalidArgumentException
-	 */
-	public function of($name, $callback = null)
-	{
-		if ( ! isset($this->keyMap[$name]))
-		{
-			throw new InvalidArgumentException("Column name [{$name}] is not available.");
-		}
-
-		$id = $this->keyMap[$name];
-
-		if (is_callable($callback)) call_user_func($callback, $this->columns[$id]);
-
-		return $this->columns[$id];
-	}
-
-	/**
-	 * Add or append table HTML attributes.
-	 *
-	 * @param  mixed    $key
-	 * @param  mixed    $value
-	 * @return void
-	 */
-	public function attributes($key = null, $value = null)
-	{
-		switch (true)
-		{
-			case is_null($key) :
-				return $this->attributes;
-				break;
-
-			case is_array($key) :
-				$this->attributes = array_merge($this->attributes, $key);
-				break;
-
-			default :
-				$this->attributes[$key] = $value;
-				break;
-		}
-	}
-
-	/**
-	 * Magic Method for calling the methods.
-	 *
-	 * @param  string   $method
-	 * @param  array    $parameters
-	 * @return mixed
-	 * @throws \InvalidArgumentException
-	 */
-	public function __call($method, array $parameters = array())
-	{
-		if ( ! in_array($method, array('columns', 'view')))
-		{
-			throw new InvalidArgumentException("Unable to use __call for [{$method}].");
-		}
-
-		return $this->$method;
-	}
-
-	/**
-	 * Magic Method for handling dynamic data access.
-	 *
-	 * @param  string   $key
-	 * @return mixed
-	 * @throws \InvalidArgumentException
-	 */
-	public function __get($key)
-	{
-		if ( ! in_array($key, array('attributes', 'columns', 'model', 'paginate', 'view', 'rows')))
-		{
-			throw new InvalidArgumentException("Unable to use __get for [{$key}].");
-		}
-		
-		return $this->{$key};
-	}
-
-	/**
-	 * Magic Method for handling the dynamic setting of data.
-	 *
-	 * @param  string   $key
-	 * @param  array    $values
-	 * @return void
-	 * @throws \InvalidArgumentException
-	 */
-	public function __set($key, $values)
-	{
-		if ( ! in_array($key, array('attributes')))
-		{
-			throw new InvalidArgumentException("Unable to use __set for [{$key}].");
-		}
-		elseif ( ! is_array($values))
-		{
-			throw new InvalidArgumentException("Require values to be an array.");
-		}
-
-		$this->attributes($values, null);
-	}
-
-	/**
-	 * Magic Method for checking dynamically-set data.
-	 *
-	 * @param  string   $key
-	 * @return boolean
-	 * @throws \InvalidArgumentException
-	 */
-	public function __isset($key)
-	{
-		if ( ! in_array($key, array('attributes', 'columns', 'model', 'paginate', 'view')))
-		{
-			throw new InvalidArgumentException("Unable to use __isset for [{$key}].");
-		}
-
-		return isset($this->{$key});
 	}
 }

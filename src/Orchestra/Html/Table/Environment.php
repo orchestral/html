@@ -6,10 +6,7 @@ use Orchestra\Html\AbstractableEnvironment;
 class Environment extends AbstractableEnvironment {
 	
 	/**
-	 * Create a new Builder instance
-	 *
-	 * @param  Closure $callback
-	 * @return \Orchestra\Html\Table\TableBuilder
+	 * {@inheritdoc}
 	 */
 	public function make(Closure $callback)
 	{

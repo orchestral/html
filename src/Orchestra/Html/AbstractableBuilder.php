@@ -2,6 +2,7 @@
 
 use Closure;
 use InvalidArgumentException;
+use Illuminate\Container\Container;
 use Illuminate\Support\Contracts\RenderableInterface;
 
 abstract class AbstractableBuilder implements RenderableInterface {
@@ -9,9 +10,9 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	/**
 	 * Application instance.
 	 *
-	 * @var \Illuminate\Foundation\Application
-	 */
-	protected $app = null;
+	 * @var \Illuminate\Container\Container
+     */
+    protected $app = null;
 	
 	/**
 	 * Name of builder.
@@ -30,17 +31,16 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	/**
 	 * Create a new Builder instance.
 	 * 			
-	 * @param  \Illuminate\Foundation\Application   $app
-	 * @param  \Closure                             $callback
-	 * @return void	 
+	 * @param  \Illuminate\Container\Container  $app
+	 * @param  \Closure                         $callback
 	 */
-	abstract public function __construct($app, Closure $callback);
+	abstract public function __construct(Container $app, Closure $callback);
 
 	/**
 	 * Extend decoration. 
 	 * 
 	 * @param  \Closure $callback
-	 * @return self
+	 * @return AbstractableBuilder
 	 */
 	public function extend(Closure $callback)
 	{
@@ -61,9 +61,7 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	{
 		if ( ! in_array($key, array('grid', 'name'))) 
 		{
-			throw new InvalidArgumentException(
-				"Unable to get property [{$key}]."
-			);
+			throw new InvalidArgumentException("Unable to get property [{$key}].");
 		}
 		
 		return $this->{$key};
@@ -73,10 +71,17 @@ abstract class AbstractableBuilder implements RenderableInterface {
 	 * An alias to render().
 	 *
 	 * @return string
-	 * @see    self::render()
+	 * @see    AbstractableBuilder::render()
 	 */
 	public function __toString()
 	{
 		return $this->render();
 	}
+
+	/**
+	 * Render the form.
+	 *
+	 * @return string
+	 */
+	public abstract function render();
 }

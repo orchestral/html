@@ -2,13 +2,14 @@
 
 use Closure;
 use InvalidArgumentException;
+use Illuminate\Container\Container;
 
 abstract class AbstractableEnvironment {
 
 	/**
 	 * Application instance.
 	 *
-	 * @var \Illuminate\Foundation\Application
+	 * @var \Illuminate\Container\Container
 	 */
 	protected $app = null;
 
@@ -21,11 +22,10 @@ abstract class AbstractableEnvironment {
 
 	/**
 	 * Construct a new environment.
-	 *
-	 * @param  \Illuminate\Foundation\Application   $app
-	 * @return void
+	 * 
+	 * @param  \Illuminate\Container\Container  $app
 	 */
-	public function __construct($app)
+	public function __construct(Container $app)
 	{
 		$this->app = $app;
 	}
@@ -34,7 +34,7 @@ abstract class AbstractableEnvironment {
 	 * Create a new Builder instance.
 	 *
 	 * @param  \Closure $callback
-	 * @return \Orchestra\Html\AbstractableBuilder
+	 * @return object
 	 */
 	abstract public function make(Closure $callback);
 
@@ -43,7 +43,7 @@ abstract class AbstractableEnvironment {
 	 *
 	 * @param  string   $name
 	 * @param  \Closure $callback
-	 * @return \Orchestra\Html\AbstractableBuilder
+	 * @return object
 	 */
 	public function of($name, Closure $callback = null)
 	{
