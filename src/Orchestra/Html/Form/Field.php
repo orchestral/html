@@ -172,22 +172,20 @@ class Field {
 
 		if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches))
 		{
-			if (in_array($matches[2], $filterable))
-			{
-				$data->method($matches[2]);
-			}
-			else
-			{
-				$data->method('input')->type($matches[2] ?: 'text');
-			}
+			$value = $matches[2];
 		}
-		elseif (in_array($value, $filterable))
+		else
+		{
+			$value = 'text';
+		}
+
+		if (in_array($value, $filterable))
 		{
 			$data->method($value);
 		}
 		else
 		{
-			$data->method('input')->type('text');
+			$data->method('input')->type($value);
 		}
 
 		return $data;
