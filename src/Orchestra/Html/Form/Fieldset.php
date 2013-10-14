@@ -117,8 +117,8 @@ class Fieldset extends AbstractableGrid {
 			$control->field = $field->generate($type);
 		}
 
-		$this->controls[]     = $control;
-		$this->keyMap[$name]  = count($this->controls) - 1;
+		$this->controls[]    = $control;
+		$this->keyMap[$name] = count($this->controls) - 1;
 
 		return $control;
 	}
