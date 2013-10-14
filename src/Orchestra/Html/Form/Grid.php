@@ -3,15 +3,9 @@
 use Closure;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
+use Orchestra\Html\AbstractableGrid;
 
-class Grid {
-
-	/**
-	 * Application instance.
-	 *
-	 * @var \Illuminate\Foundation\Application
-	 */
-	protected $app = null;
+class Grid extends AbstractableGrid {
 
 	/**
 	 * Enable CSRF token.
@@ -42,13 +36,6 @@ class Grid {
 	protected $fieldsets = array();
 
 	/**
-	 * Form HTML attributes.
-	 *
-	 * @var array
-	 */
-	protected $attributes = array();
-
-	/**
 	 * Set submit button message.
 	 *
 	 * @var string
@@ -70,15 +57,11 @@ class Grid {
 	protected $view = null;
 
 	/**
-	 * Create a new Grid instance.
-	 * 
-	 * @param  array    $config
-	 * @return void
+	 * {@inheritdoc}
 	 */
-	public function __construct($app)
+	protected function initiate()
 	{
-		$this->app = $app;
-		$config = $app['config']->get('orchestra/html::form', array());
+		$config = $this->app['config']->get('orchestra/html::form', array());
 
 		foreach ($config as $key => $value)
 		{
@@ -91,7 +74,7 @@ class Grid {
 	}
 
 	/**
-	 * Set fieldset layout (view)
+	 * Set fieldset layout (view).
 	 *
 	 * <code>
 	 *		// use default horizontal layout
@@ -109,16 +92,13 @@ class Grid {
 	 */
 	public function layout($name)
 	{
-		switch ($name)
+		if (in_array($name, array('horizontal', 'vertical')))
 		{
-			case 'horizontal' :
-				# passthru;
-			case 'vertical' :
-				$this->view = "orchestra/html::form.{$name}";
-				break;
-			default :
-				$this->view = $name;
-				break;
+			$this->view = "orchestra/html::form.{$name}";
+		}
+		else
+		{
+			$this->view = $name;
 		}
 	}
 
@@ -131,7 +111,7 @@ class Grid {
 	 * </code>
 	 *
 	 * @param  array    $rows
-	 * @return void
+	 * @return mixed
 	 */
 	public function with($row = null)
 	{
@@ -144,8 +124,8 @@ class Grid {
 	 * Attach rows data instead of assigning a model.
 	 *
 	 * @param  array    $rows
-	 * @return void
-	 * @see    self::with()
+	 * @return mixed
+	 * @see    Grid::with()
 	 */
 	public function row($row = null)
 	{
@@ -153,36 +133,11 @@ class Grid {
 	}
 
 	/**
-	 * Add or append fieldset HTML attributes.
-	 * 
-	 * @param  mixed    $key
-	 * @param  mixed    $value
-	 * @return void
-	 */
-	public function attributes($key = null, $value = null)
-	{
-		switch (true)
-		{
-			case is_null($key) :
-				return $this->attributes;
-				break;
-
-			case is_array($key) :
-				$this->attributes = array_merge($this->attributes, $key);
-				break;
-
-			default :
-				$this->attributes[$key] = $value;
-				break;
-		}
-	}
-
-	/**
 	 * Create a new Fieldset instance.
 	 *
 	 * @param  string   $name
 	 * @param  \Closure $callback
-	 * @return \Orchestra\Html\Form\Fieldset
+	 * @return Fieldset
 	 */
 	public function fieldset($name, Closure $callback = null)
 	{
@@ -217,12 +172,7 @@ class Grid {
 	}
 
 	/**
-	 * Magic Method for calling the methods.
-	 *
-	 * @param  string   $method
-	 * @param  array    $parameters
-	 * @return mixed
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __call($method, array $parameters = array())
 	{
@@ -235,11 +185,7 @@ class Grid {
 	}
 
 	/**
-	 * Magic Method for handling dynamic data access.
-	 *
-	 * @param  string   $key
-	 * @return mixed
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __get($key)
 	{
@@ -252,12 +198,7 @@ class Grid {
 	}
 
 	/**
-	 * Magic Method for handling the dynamic setting of data.
-	 *
-	 * @param  string   $key
-	 * @param  array    $parameters
-	 * @return void
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __set($key, $parameters)
 	{
@@ -274,11 +215,7 @@ class Grid {
 	}
 
 	/**
-	 * Magic Method for checking dynamically-set data.
-	 * 
-	 * @param  string   $key
-	 * @return boolean
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __isset($key)
 	{

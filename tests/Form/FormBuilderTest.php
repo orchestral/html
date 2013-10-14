@@ -1,15 +1,32 @@
 <?php namespace Orchestra\Html\Tests\Form;
 
 use Mockery as m;
+use Illuminate\Container\Container;
 use Orchestra\Html\Form\FormBuilder;
 
 class FormBuilderTest extends \PHPUnit_Framework_TestCase {
+
+	/**
+	 * Application instance.
+	 *
+	 * @var \Illuminate\Container\Container
+	 */
+	protected $app = null;
+
+	/**
+	 * Setup the test environment.
+	 */
+	public function setUp()
+	{
+		$this->app = new Container;
+	}
 
 	/**
 	 * Teardown the test environment.
 	 */
 	public function tearDown()
 	{
+		unset($this->app);
 		m::close();
 	}
 	
@@ -20,9 +37,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */	
 	public function testConstructMethod()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
@@ -52,9 +68,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodThrowsException()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
 
@@ -69,19 +84,16 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRenderMethod()
 	{
-
-		$app = array(
-			'config' => $config = m::mock('Config'),
-			'translator' => $lang = m::mock('Lang'),
-			'view' => $view = m::mock('View'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
+		$app['translator'] = $lang = m::mock('Lang');
+		$app['view'] = $view = m::mock('View');
 
 		$config->shouldReceive('get')->with('orchestra/html::form', array())->twice()->andReturn(array());
 		$lang->shouldReceive('get')->twice()->andReturn(array());
 		$view->shouldReceive('make')->twice()->andReturn($view)
 			->shouldReceive('with')->twice()->andReturn($view)
 			->shouldReceive('render')->twice()->andReturn('mocked');
-
 
 		$data = new \Illuminate\Support\Fluent(array(
 			'id'   => 1, 

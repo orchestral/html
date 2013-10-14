@@ -1,15 +1,32 @@
 <?php namespace Orchestra\Html\Tests\Table;
 
 use Mockery as m;
+use Illuminate\Container\Container;
 use Orchestra\Html\Table\TableBuilder;
 
 class TableBuilderTest extends \PHPUnit_Framework_TestCase {
+
+	/**
+	 * Application instance.
+	 *
+	 * @var \Illuminate\Container\Container
+	 */
+	protected $app = null;
+
+	/**
+	 * Setup the test environment.
+	 */
+	public function setUp()
+	{
+		$this->app = new Container;
+	}
 
 	/**
 	 * Teardown the test environment.
 	 */
 	public function tearDown()
 	{
+		unset($this->app);
 		m::close();
 	}
 	
@@ -20,9 +37,8 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */	
 	public function testConstructMethod()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 
 		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
 
@@ -52,9 +68,8 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMagicMethodThrowsException()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 
 		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
 
@@ -68,12 +83,12 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRenderMethod()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-			'request' => $request = m::mock('Request'),
-			'translator' => $lang = m::mock('Lang'),
-			'view' => $view = m::mock('View'),
-		);
+
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
+		$app['request'] = $request = m::mock('Request');
+		$app['translator'] = $lang = m::mock('Lang');
+		$app['view'] = $view = m::mock('View');
 
 		$config->shouldReceive('get')->with('orchestra/html::table', array())->twice()->andReturn(array());
 		$request->shouldReceive('query')->twice()->andReturn(array());

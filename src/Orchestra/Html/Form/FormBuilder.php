@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
@@ -9,13 +10,9 @@ use Orchestra\Html\AbstractableBuilder;
 class FormBuilder extends AbstractableBuilder {
 
 	/**
-	 * Create a new Form instance.
-	 * 			
-	 * @param  \Illuminate\Foundation\Application   $app
-	 * @param  Closure                              $callback
-	 * @return void	 
+	 * {@inheritdoc} 
 	 */
-	public function __construct($app, Closure $callback)
+	public function __construct(Container $app, Closure $callback)
 	{
 		$this->app = $app;
 
@@ -27,9 +24,7 @@ class FormBuilder extends AbstractableBuilder {
 	}
 
 	/**
-	 * Render the form.
-	 *
-	 * @return string
+	 * {@inheritdoc}
 	 */
 	public function render()
 	{

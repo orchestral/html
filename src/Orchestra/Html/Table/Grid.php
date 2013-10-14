@@ -4,15 +4,9 @@ use Closure;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
+use Orchestra\Html\AbstractableGrid;
 
-class Grid {
-
-	/**
-	 * Application instance.
-	 *
-	 * @var \Illuminate\Foundation\Application
-	 */
-	protected $app = null;
+class Grid extends AbstractableGrid {
 
 	/**
 	 * List of rows in array, is used when model is null.
@@ -27,13 +21,6 @@ class Grid {
 	 * @var mixed
 	 */
 	protected $model = null;
-
-	/**
-	 * Table HTML attributes.
-	 *
-	 * @var array
-	 */
-	protected $attributes = array();
 
 	/**
 	 * All the columns.
@@ -71,16 +58,11 @@ class Grid {
 	protected $view = null;
 
 	/**
-	 * Create a new Grid instance.
-	 *
-	 * @param  \Illuminate\Foundation\Application   $app
-	 * @return void
+	 * {@inheritdoc}
 	 */
-	public function __construct($app)
+	protected function initiate()
 	{
-		$this->app = $app;
-
-		$config = $app['config']->get('orchestra/html::table', array());
+		$config = $this->app['config']->get('orchestra/html::table', array());
 		
 		foreach ($config as $key => $value)
 		{
@@ -91,7 +73,7 @@ class Grid {
 		
 		$this->rows = new Fluent(array(
 			'data'       => array(),
-			'attributes' => function ($row) { return array(); },
+			'attributes' => function () { return array(); },
 		));
 	}
 
@@ -267,37 +249,7 @@ class Grid {
 	}
 
 	/**
-	 * Add or append table HTML attributes.
-	 *
-	 * @param  mixed    $key
-	 * @param  mixed    $value
-	 * @return void
-	 */
-	public function attributes($key = null, $value = null)
-	{
-		switch (true)
-		{
-			case is_null($key) :
-				return $this->attributes;
-				break;
-
-			case is_array($key) :
-				$this->attributes = array_merge($this->attributes, $key);
-				break;
-
-			default :
-				$this->attributes[$key] = $value;
-				break;
-		}
-	}
-
-	/**
-	 * Magic Method for calling the methods.
-	 *
-	 * @param  string   $method
-	 * @param  array    $parameters
-	 * @return mixed
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __call($method, array $parameters = array())
 	{
@@ -310,11 +262,7 @@ class Grid {
 	}
 
 	/**
-	 * Magic Method for handling dynamic data access.
-	 *
-	 * @param  string   $key
-	 * @return mixed
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __get($key)
 	{
@@ -327,12 +275,7 @@ class Grid {
 	}
 
 	/**
-	 * Magic Method for handling the dynamic setting of data.
-	 *
-	 * @param  string   $key
-	 * @param  array    $values
-	 * @return void
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __set($key, $values)
 	{
@@ -349,11 +292,7 @@ class Grid {
 	}
 
 	/**
-	 * Magic Method for checking dynamically-set data.
-	 *
-	 * @param  string   $key
-	 * @return boolean
-	 * @throws \InvalidArgumentException
+	 * {@inheritdoc}
 	 */
 	public function __isset($key)
 	{

@@ -1,15 +1,32 @@
 <?php namespace Orchestra\Html\Tests\Table;
 
 use Mockery as m;
+use Illuminate\Container\Container;
 use Orchestra\Html\Table\Environment;
 
 class EnvironmentTest extends \PHPUnit_Framework_TestCase {
+
+	/**
+	 * Application instance.
+	 *
+	 * @var \Illuminate\Container\Container
+	 */
+	protected $app = null;
+
+	/**
+	 * Setup the test environment.
+	 */
+	public function setUp()
+	{
+		$this->app = new Container;
+	}
 
 	/**
 	 * Teardown the test environment.
 	 */
 	public function tearDown()
 	{
+		unset($this->app);
 		m::close();
 	}
 
@@ -20,9 +37,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testMakeMethod()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 		
 		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
 
@@ -39,9 +55,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testOfMethod()
 	{
-		$app = array(
-			'config' => $config = m::mock('Config'),
-		);
+		$app = $this->app;
+		$app['config'] = $config = m::mock('Config');
 		
 		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
 		
