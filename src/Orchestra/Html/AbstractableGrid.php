@@ -117,6 +117,8 @@ abstract class AbstractableGrid {
 	 */
 	public function __call($method, array $parameters = array())
 	{
+		unset($parameters);
+		
 		if ( ! in_array($method, $this->definition['__call']))
 		{
 			throw new InvalidArgumentException("Unable to use __call for [{$method}].");
