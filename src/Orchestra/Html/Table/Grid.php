@@ -4,9 +4,8 @@ use Closure;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
-use Orchestra\Html\AbstractableGrid;
 
-class Grid extends AbstractableGrid {
+class Grid extends \Orchestra\Html\Abstractable\Grid {
 
 	/**
 	 * List of rows in array, is used when model is null.

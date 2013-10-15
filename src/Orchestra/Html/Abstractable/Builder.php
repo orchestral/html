@@ -1,11 +1,11 @@
-<?php namespace Orchestra\Html;
+<?php namespace Orchestra\Html\Abstractable;
 
 use Closure;
 use InvalidArgumentException;
 use Illuminate\Container\Container;
 use Illuminate\Support\Contracts\RenderableInterface;
 
-abstract class AbstractableBuilder implements RenderableInterface {
+abstract class Builder implements RenderableInterface {
 	
 	/**
 	 * Application instance.

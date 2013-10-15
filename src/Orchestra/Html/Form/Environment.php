@@ -1,9 +1,8 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use Orchestra\Html\AbstractableEnvironment;
 
-class Environment extends AbstractableEnvironment {
+class Environment extends \Orchestra\Html\Abstractable\Environment {
 	
 	/**
 	 * {@inheritdoc}

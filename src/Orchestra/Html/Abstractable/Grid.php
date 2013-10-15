@@ -1,11 +1,11 @@
-<?php namespace Orchestra\Html;
+<?php namespace Orchestra\Html\Abstractable;
 
 use InvalidArgumentException;
 use RuntimeException;
 use Illuminate\Container\Container;
 use Orchestra\Support\Str;
 
-abstract class AbstractableGrid {
+abstract class Grid {
 
 	/**
 	 * Application instance.
