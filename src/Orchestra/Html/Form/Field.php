@@ -24,13 +24,37 @@ class Field {
 	/**
 	 * Create a new Field instance.
 	 * 
-	 * @param \Illuminate\Container\Container   $app
-	 * @param array                             $config
+	 * @param  \Illuminate\Container\Container  $app
+	 * @param  array                            $config
 	 */
 	public function __construct(Container $app, array $config = array())
 	{
-		$this->app    = $app;
+		$this->app = $app;
+
+		$this->setConfig($config);
+	}
+
+	/**
+	 * Set configuration.
+	 *
+	 * @param  array   $config
+	 * @return Field
+	 */
+	public function setConfig(array $config = array())
+	{
 		$this->config = $config;
+
+		return $this;
+	}
+
+	/**
+	 * Get configuration.
+	 *
+	 * @return array
+	 */
+	public function getConfig()
+	{
+		return $this->config;
 	}
 
 	/**
@@ -135,9 +159,9 @@ class Field {
 		// set the value of options, if it's callable run it first
 		$options = $control->options;
 		
-		if ( ! ($options instanceof Closure)) return $options;
-
-		return call_user_func($options, $row, $control);
+		if (($options instanceof Closure)) $options = call_user_func($options, $row, $control);
+		
+		return $options;
 	}
 
 	/**
@@ -172,22 +196,20 @@ class Field {
 
 		if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches))
 		{
-			if (in_array($matches[2], $filterable))
-			{
-				$data->method($matches[2]);
-			}
-			else
-			{
-				$data->method('input')->type($matches[2] ?: 'text');
-			}
+			$value = $matches[2];
 		}
-		elseif (in_array($value, $filterable))
+		elseif ( ! in_array($value, $filterable))
+		{
+			$value = 'text';
+		}
+
+		if (in_array($value, $filterable))
 		{
 			$data->method($value);
 		}
 		else
 		{
-			$data->method('input')->type('text');
+			$data->method('input')->type($value);
 		}
 
 		return $data;

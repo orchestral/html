@@ -40,7 +40,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 		
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub   = new Environment($app);
 		$output = $stub->make(function() {});
@@ -58,7 +59,8 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 		
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub   = new Environment($app);
 		$output = $stub->of('foo', function() {});

@@ -152,7 +152,7 @@ class Grid extends AbstractableGrid {
 	 */
 	public function fieldset($name, Closure $callback = null)
 	{
-		return $this->fieldsets[] = new Fieldset($this->app, $name, $callback);
+		return $this->fieldsets[] = new Fieldset($this->app, $name, $callback, new Field($this->app));
 	}
 
 	/**

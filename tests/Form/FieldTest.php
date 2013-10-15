@@ -31,6 +31,19 @@ class FieldTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Test Orchestra\Html\Form\Field configuration methods.
+	 *
+	 * @test
+	 */
+	public function testConfigMethods()
+	{
+		$config = array('foo' => 'foobar');
+		$stub   = new Field($this->app, $config);
+
+		$this->assertEquals($config, $stub->getConfig());
+	}
+
+	/**
 	 * Test Orchestra\Html\Form\Field::render() throws exception.
 	 *
 	 * @expectedException \InvalidArgumentException
