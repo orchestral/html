@@ -2,6 +2,7 @@
 
 use Mockery as m;
 use Illuminate\Container\Container;
+use Illuminate\Support\Fluent;
 use Orchestra\Html\Table\Grid;
 
 class GridTest extends \PHPUnit_Framework_TestCase {
@@ -40,13 +41,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array(
-			'empty' => 'No data',
-			'view'  => 'foo',
-		));
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array(
+				'empty' => 'No data',
+				'view'  => 'foo',
+			));
 
-		$stub = new Grid($app);
-
+		$stub  = new Grid($app);
 		$refl  = new \ReflectionObject($stub);
 		$empty = $refl->getProperty('empty');
 		$view  = $refl->getProperty('view');
@@ -69,9 +70,10 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->twice()->andReturn(array());
+		$config->shouldReceive('get')->twice()
+			->with('orchestra/html::table', array())->andReturn(array());
 
-		$mock = array(new \Illuminate\Support\Fluent);
+		$mock = array(new Fluent);
 		$stub = new Grid($app);
 		$stub->with($mock, false);
 
@@ -107,7 +109,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 
@@ -135,25 +138,26 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$expected = array(
-			new \Illuminate\Support\Fluent(array(
+			new Fluent(array(
 				'id'         => 'id',
 				'label'      => 'Id',
 				'value'      => 'Foobar',
 				'headers'    => array(),
 				'attributes' => function ($row) { return array(); }
 			)),
-			new \Illuminate\Support\Fluent(array(
+			new Fluent(array(
 				'id'         => 'foo1',
 				'label'      => 'Foo1',
 				'value'      => 'Foo1 value',
 				'headers'    => array(),
 				'attributes' => function ($row) { return array(); }
 			)),
-			new \Illuminate\Support\Fluent(array(
+			new Fluent(array(
 				'id'         => 'foo2',
 				'label'      => 'Foo2',
 				'value'      => 'Foo2 value',
@@ -197,7 +201,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$output = $stub->of('id');
@@ -213,7 +218,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 
@@ -243,7 +249,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->invalidMethod();
@@ -260,7 +267,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$invalid = $stub->invalidProperty;
@@ -277,7 +285,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->invalidProperty = array('foo');
@@ -294,7 +303,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->attributes = 'foo';
@@ -311,7 +321,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$invalid = isset($stub->invalidProperty) ? true : false;

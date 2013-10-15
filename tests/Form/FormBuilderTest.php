@@ -40,7 +40,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new FormBuilder($app, function () { });
 		
@@ -89,7 +90,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase {
 		$app['translator'] = $lang = m::mock('Lang');
 		$app['view'] = $view = m::mock('View');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->twice()->andReturn(array());
+		$config->shouldReceive('get')->twice()
+			->with('orchestra/html::form', array())->andReturn(array());
 		$lang->shouldReceive('get')->twice()->andReturn(array());
 		$view->shouldReceive('make')->twice()->andReturn($view)
 			->shouldReceive('with')->twice()->andReturn($view)

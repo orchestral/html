@@ -75,14 +75,14 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array(
-			'submit'     => 'Submit',
-			'attributes' => array('id' => 'foo'),
-			'view'       => 'foo',
-		));
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array(
+				'submit'     => 'Submit',
+				'attributes' => array('id' => 'foo'),
+				'view'       => 'foo',
+			));
 
 		$stub = new Grid($app);
-
 		$stub->attributes = array('class' => 'foobar');
 
 		$refl       = new \ReflectionObject($stub);
@@ -113,7 +113,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$mock = new \Illuminate\Support\Fluent;
 		$stub = new Grid($app);
@@ -138,7 +139,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 
@@ -166,7 +168,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 
@@ -195,11 +198,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form.fieldset', array())->twice()->andReturn($this->getFieldsetConfig())
-			->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array(
-				'fieldset' => $this->getFieldsetConfig(),
-				'template' => $this->getTemplateConfig(),
-			));
+		$config->shouldReceive('get')->twice()
+				->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig())
+			->shouldReceive('get')->once()
+				->with('orchestra/html::form', array())->andReturn(array(
+					'fieldset' => $this->getFieldsetConfig(),
+					'template' => $this->getTemplateConfig(),
+				));
 
 		$stub      = new Grid($app);
 		$refl      = new \ReflectionObject($stub);
@@ -230,10 +235,13 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app['config'] = $config = m::mock('Config');
 		$app['form'] = $form = m::mock('Form');
 
-		$form->shouldReceive('hidden')->once()->with('foo', 'foobar', m::any())->andReturn('hidden_foo')
-			->shouldReceive('hidden')->once()->with('foobar', 'stubbed', m::any())->andReturn('hidden_foobar');
+		$form->shouldReceive('hidden')->once()
+				->with('foo', 'foobar', m::any())->andReturn('hidden_foo')
+			->shouldReceive('hidden')->once()
+				->with('foobar', 'stubbed', m::any())->andReturn('hidden_foobar');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->with(new \Illuminate\Support\Fluent(array(
@@ -267,7 +275,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->invalidMethod();
@@ -284,7 +293,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$invalid = $stub->invalidProperty;
@@ -301,7 +311,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->invalidProperty = array('foo');
@@ -318,7 +329,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->attributes = 'foo';
@@ -334,7 +346,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$stub->of('foo');
@@ -351,7 +364,8 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::form', array())->andReturn(array());
 
 		$stub = new Grid($app);
 		$invalid = isset($stub->invalidProperty) ? true : false;

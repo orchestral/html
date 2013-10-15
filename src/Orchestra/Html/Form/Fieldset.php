@@ -16,18 +16,18 @@ class Fieldset extends AbstractableGrid {
 	protected $name = null;
 
 	/**
-	 * Configuration.
-	 *
-	 * @var  array
-	 */
-	protected $config = array();
-
-	/**
 	 * Control group.
 	 *
 	 * @var array
 	 */
 	protected $controls = array();
+
+	/**
+	 * Field instance.
+	 *
+	 * @var Field
+	 */
+	protected $field = null;
 
 	/**
 	 * {@inheritdoc}
@@ -46,10 +46,13 @@ class Fieldset extends AbstractableGrid {
 	 * @param  \Illuminate\Container\Container  $app
 	 * @param  string                           $name
 	 * @param  \Closure                         $callback
+	 * @param  Field                            $field
 	 */
-	public function __construct(Container $app, $name, Closure $callback = null) 
+	public function __construct(Container $app, $name, Closure $callback = null, Field $field = null) 
 	{
+		$this->field = $field ?: new Field($app);
 		parent::__construct($app);
+
 		$this->buildBasic($name, $callback);
 	}
 
@@ -58,7 +61,9 @@ class Fieldset extends AbstractableGrid {
 	 */
 	protected function initiate() 
 	{
-		$this->config = $this->app['config']->get('orchestra/html::form.fieldset', array());
+		$this->field->setConfig(
+			$this->app['config']->get('orchestra/html::form.fieldset', array())
+		);
 	}
 	
 	/**
@@ -113,8 +118,7 @@ class Fieldset extends AbstractableGrid {
 		
 		if (is_null($control->field))
 		{
-			$field = new Field($this->app, $this->config);
-			$control->field = $field->generate($type);
+			$control->field = $this->field->generate($type);
 		}
 
 		$this->controls[]    = $control;

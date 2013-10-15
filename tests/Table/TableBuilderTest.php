@@ -2,6 +2,7 @@
 
 use Mockery as m;
 use Illuminate\Container\Container;
+use Illuminate\Support\Fluent;
 use Orchestra\Html\Table\TableBuilder;
 
 class TableBuilderTest extends \PHPUnit_Framework_TestCase {
@@ -40,7 +41,8 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		$stub = new TableBuilder($app, function () { });
 		
@@ -71,7 +73,8 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->once()->andReturn(array());
+		$config->shouldReceive('get')->once()
+			->with('orchestra/html::table', array())->andReturn(array());
 
 		with(new TableBuilder($app, function () { }))->someInvalidRequest;
 	}
@@ -83,14 +86,14 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 	 */
 	public function testRenderMethod()
 	{
-
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
 		$app['request'] = $request = m::mock('Request');
 		$app['translator'] = $lang = m::mock('Lang');
 		$app['view'] = $view = m::mock('View');
 
-		$config->shouldReceive('get')->with('orchestra/html::table', array())->twice()->andReturn(array());
+		$config->shouldReceive('get')->twice()
+			->with('orchestra/html::table', array())->andReturn(array());
 		$request->shouldReceive('query')->twice()->andReturn(array());
 		$lang->shouldReceive('get')->twice()->andReturn(array());
 
@@ -99,9 +102,9 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase {
 			->shouldReceive('render')->twice()->andReturn('mocked');
 
 		$mock = array(
-			new \Illuminate\Support\Fluent(array('id' => 1, 'name' => 'Laravel')),
-			new \Illuminate\Support\Fluent(array('id' => 2, 'name' => 'Illuminate')),
-			new \Illuminate\Support\Fluent(array('id' => 3, 'name' => 'Symfony')),
+			new Fluent(array('id' => 1, 'name' => 'Laravel')),
+			new Fluent(array('id' => 2, 'name' => 'Illuminate')),
+			new Fluent(array('id' => 3, 'name' => 'Symfony')),
 		);
 
 		$mock1 = new TableBuilder($app, function ($t) use ($mock)

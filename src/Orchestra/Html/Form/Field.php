@@ -24,13 +24,37 @@ class Field {
 	/**
 	 * Create a new Field instance.
 	 * 
-	 * @param \Illuminate\Container\Container   $app
-	 * @param array                             $config
+	 * @param  \Illuminate\Container\Container  $app
+	 * @param  array                            $config
 	 */
 	public function __construct(Container $app, array $config = array())
 	{
-		$this->app    = $app;
+		$this->app = $app;
+
+		$this->setConfig($config);
+	}
+
+	/**
+	 * Set configuration.
+	 *
+	 * @param  array   $config
+	 * @return Field
+	 */
+	public function setConfig(array $config = array())
+	{
 		$this->config = $config;
+
+		return $this;
+	}
+
+	/**
+	 * Get configuration.
+	 *
+	 * @return array
+	 */
+	public function getConfig()
+	{
+		return $this->config;
 	}
 
 	/**
