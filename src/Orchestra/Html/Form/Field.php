@@ -85,11 +85,11 @@ class Field {
 	 * Build field by type.
 	 *
 	 * @param  string                       $type
-	 * @param  \Illuminate\Support\Fluent   $row
+	 * @param  mixed                        $row
 	 * @param  \Illuminate\Support\Fluent   $control
 	 * @return \Illuminate\Support\Fluent
 	 */
-	public function buildFieldByType($type, Fluent $row, Fluent $control)
+	public function buildFieldByType($type, $row, Fluent $control)
 	{
 		$data   = $this->buildFluentData($type, $row, $control);
 		$config = $this->config;
@@ -113,11 +113,11 @@ class Field {
 	 * Build data.
 	 *
 	 * @param  string                       $type
-	 * @param  \Illuminate\Support\Fluent   $row
+	 * @param  mixed                        $row
 	 * @param  \Illuminate\Support\Fluent   $control
 	 * @return \Illuminate\Support\Fluent
 	 */
-	public function buildFluentData($type, Fluent $row, Fluent $control)
+	public function buildFluentData($type, $row, Fluent $control)
 	{
 		// set the name of the control
 		$name = $control->name;
@@ -149,12 +149,12 @@ class Field {
 
 	/**
 	 * Get options from control.
-	 *
-	 * @param  \Illuminate\Support\Fluent   $row
+	 * 
+	 * @param  mixed                        $row
 	 * @param  \Illuminate\Support\Fluent   $control
 	 * @return array
 	 */
-	protected function getOptionList(Fluent $row, Fluent $control)
+	protected function getOptionList($row, Fluent $control)
 	{
 		// set the value of options, if it's callable run it first
 		$options = $control->options;
