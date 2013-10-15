@@ -3,6 +3,7 @@
 use InvalidArgumentException;
 use RuntimeException;
 use Illuminate\Container\Container;
+use Orchestra\Support\Str;
 
 abstract class AbstractableGrid {
 
@@ -105,6 +106,37 @@ abstract class AbstractableGrid {
 		if (is_callable($callback)) call_user_func($callback, $this->{$type}[$id]);
 
 		return $this->{$type}[$id];
+	}
+
+	/**
+	 * Build basic name, label and callback option.
+	 *
+	 * @param  mixed   $name
+	 * @param  mixed   $callback
+	 * @return array
+	 */
+	protected function buildFluentAttributes($name, $callback = null)
+	{
+		$label = $name;
+
+		if ( ! is_string($label))
+		{
+			$callback = $label;
+			$name     = '';	
+			$label    = '';
+		}
+		elseif (is_string($callback))
+		{
+			$name     = Str::lower($callback);
+			$callback = null; 
+		}
+		else
+		{
+			$name  = Str::lower($name);
+			$label = Str::title($name);
+		}
+
+		return array($label, $name, $callback);
 	}
 
 	/**

@@ -135,24 +135,7 @@ class Fieldset extends AbstractableGrid {
 	 */
 	protected function buildControl($name, $callback = null)
 	{
-		$label = $name;
-
-		if ( ! is_string($label))
-		{
-			$callback = $label;
-			$label    = '';
-			$name     = '';
-		}
-		elseif (is_string($callback))
-		{
-			$name     = mb_strtolower($callback);
-			$callback = null;
-		}
-		else
-		{
-			$name  = mb_strtolower($name);
-			$label = ucwords($name);
-		}
+		list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
 		$control = new Fluent(array(
 			'id'         => $name,

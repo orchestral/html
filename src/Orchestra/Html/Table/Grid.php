@@ -202,29 +202,15 @@ class Grid extends AbstractableGrid {
 	 */
 	protected function buildColumn($name, $callback = null)
 	{
-		$value = '';
-		$label = $name;
-
-		if (! is_string($label))
-		{
-			$callback = $name;
-			$name     = '';	
-			$label    = '';
-		}
-		elseif (is_string($callback))
-		{
-			$name     = mb_strtolower($callback);
-			$callback = null; 
-		}
-		else
-		{
-			$name  = mb_strtolower($name);
-			$label = ucwords($name);
-		}
+		list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
 		if ( ! empty($name))
 		{
 			$value = function ($row) use ($name) { return $row->{$name}; };
+		}
+		else 
+		{
+			$value = '';
 		}
 		
 		$column = new Fluent(array(
