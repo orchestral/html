@@ -3,9 +3,8 @@
 use Closure;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
-use Orchestra\Html\AbstractableGrid;
 
-class Grid extends AbstractableGrid {
+class Grid extends \Orchestra\Html\Abstractable\Grid {
 
 	/**
 	 * Enable CSRF token.

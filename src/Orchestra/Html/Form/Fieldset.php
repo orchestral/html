@@ -4,9 +4,8 @@ use Closure;
 use InvalidArgumentException;
 use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
-use Orchestra\Html\AbstractableGrid;
 
-class Fieldset extends AbstractableGrid {
+class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 
 	/**
 	 * Fieldset name.

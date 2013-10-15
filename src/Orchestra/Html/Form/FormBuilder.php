@@ -5,9 +5,8 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
-use Orchestra\Html\AbstractableBuilder;
 
-class FormBuilder extends AbstractableBuilder {
+class FormBuilder extends \Orchestra\Html\Abstractable\Builder {
 
 	/**
 	 * {@inheritdoc} 

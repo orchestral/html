@@ -1,10 +1,10 @@
-<?php namespace Orchestra\Html;
+<?php namespace Orchestra\Html\Abstractable;
 
 use Closure;
 use InvalidArgumentException;
 use Illuminate\Container\Container;
 
-abstract class AbstractableEnvironment {
+abstract class Environment {
 
 	/**
 	 * Application instance.
