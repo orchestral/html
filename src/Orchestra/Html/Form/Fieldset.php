@@ -50,6 +50,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 	public function __construct(Container $app, $name, Closure $callback = null, Field $field = null) 
 	{
 		$this->field = $field ?: new Field($app);
+
 		parent::__construct($app);
 
 		$this->buildBasic($name, $callback);
@@ -67,9 +68,9 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 	
 	/**
 	 * Build basic fieldset.
-	 *
-	 * @param  string       $name
-	 * @param  \Closure     $callback
+	 * 
+	 * @param  string   $name
+	 * @param  \Closure $callback
 	 * @return void
 	 */
 	protected function buildBasic($name, Closure $callback = null)
@@ -106,7 +107,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 	 *		});
 	 * </code>
 	 *
-	 * @param  mixed    $type
+	 * @param  string   $type
 	 * @param  mixed    $name
 	 * @param  mixed    $callback
 	 * @return \Illuminate\Support\Fluent

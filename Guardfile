@@ -3,5 +3,5 @@ guard :phpunit, :all_on_start => false, :tests_path => 'tests/', :cli => '--colo
 	watch(%r{^.+Test\.php$})
 
 	# When a file is edited, try to run its associated test.
-	watch(%r{^src/(.+)/(.+)\.php$}) { |m| "tests/#{m[2]}Test.php"}
+	watch(%r{^src/Orchestra/Html/(.+)\.php$}) { |m| "tests/#{m[1]}Test.php"}
 end

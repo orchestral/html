@@ -27,8 +27,8 @@ class FormBuilder extends \Orchestra\Html\Abstractable\Builder {
 	 */
 	public function render()
 	{
-		$grid   = $this->grid;
-		$form   = $grid->attributes;
+		$grid = $this->grid;
+		$form = $grid->attributes;
 
 		$data = array(
 			'grid'      => $grid,
