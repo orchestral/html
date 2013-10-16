@@ -151,7 +151,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid {
 	 */
 	public function fieldset($name, Closure $callback = null)
 	{
-		return $this->fieldsets[] = new Fieldset($this->app, $name, $callback, new Field($this->app));
+		return $this->fieldsets[] = new Fieldset($this->app, $name, $callback);
 	}
 
 	/**

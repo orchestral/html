@@ -2,9 +2,9 @@
 
 use Mockery as m;
 use Illuminate\Container\Container;
-use Orchestra\Html\Form\Field;
+use Orchestra\Html\Form\Control;
 
-class FieldTest extends \PHPUnit_Framework_TestCase {
+class ControlTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * Application instance.
@@ -31,26 +31,26 @@ class FieldTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test Orchestra\Html\Form\Field configuration methods.
+	 * Test Orchestra\Html\Form\Control configuration methods.
 	 *
 	 * @test
 	 */
 	public function testConfigMethods()
 	{
 		$config = array('foo' => 'foobar');
-		$stub   = new Field($this->app, $config);
+		$stub   = new Control($this->app, $config);
 
 		$this->assertEquals($config, $stub->getConfig());
 	}
 
 	/**
-	 * Test Orchestra\Html\Form\Field::render() throws exception.
+	 * Test Orchestra\Html\Form\Control::render() throws exception.
 	 *
 	 * @expectedException \InvalidArgumentException
 	 */
 	public function testRenderMethodThrowsException()
 	{
-		$stub = new Field($this->app, array());
+		$stub = new Control($this->app, array());
 
 		$stub->render(
 			array(),

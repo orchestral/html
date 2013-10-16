@@ -197,6 +197,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 	{
 		$app = $this->app;
 		$app['config'] = $config = m::mock('Config');
+		$app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
 		$config->shouldReceive('get')->twice()
 				->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig())
@@ -205,6 +206,7 @@ class GridTest extends \PHPUnit_Framework_TestCase {
 					'fieldset' => $this->getFieldsetConfig(),
 					'template' => $this->getTemplateConfig(),
 				));
+		$control->shouldReceive('setConfig')->twice()->with($this->getFieldsetConfig())->andReturn(null);
 
 		$stub      = new Grid($app);
 		$refl      = new \ReflectionObject($stub);
