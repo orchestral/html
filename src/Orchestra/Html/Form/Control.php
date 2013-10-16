@@ -5,7 +5,7 @@ use InvalidArgumentException;
 use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
 
-class Field {
+class Control {
 	
 	/**
 	 * Application instance.

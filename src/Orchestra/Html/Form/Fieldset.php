@@ -22,11 +22,11 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 	protected $controls = array();
 
 	/**
-	 * Field instance.
+	 * Field control instance.
 	 *
-	 * @var Field
+	 * @var Control
 	 */
-	protected $field = null;
+	protected $control = null;
 
 	/**
 	 * {@inheritdoc}
@@ -45,11 +45,10 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 	 * @param  \Illuminate\Container\Container  $app
 	 * @param  string                           $name
 	 * @param  \Closure                         $callback
-	 * @param  Field                            $field
 	 */
-	public function __construct(Container $app, $name, Closure $callback = null, Field $field = null) 
+	public function __construct(Container $app, $name, Closure $callback = null) 
 	{
-		$this->field = $field ?: new Field($app);
+		$this->control = $app['orchestra.form.control'];
 
 		parent::__construct($app);
 
@@ -61,7 +60,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 	 */
 	protected function initiate() 
 	{
-		$this->field->setConfig(
+		$this->control->setConfig(
 			$this->app['config']->get('orchestra/html::form.fieldset', array())
 		);
 	}
@@ -118,7 +117,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid {
 		
 		if (is_null($control->field))
 		{
-			$control->field = $this->field->generate($type);
+			$control->field = $this->control->generate($type);
 		}
 
 		$this->controls[]    = $control;

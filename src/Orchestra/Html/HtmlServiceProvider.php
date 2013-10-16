@@ -61,6 +61,11 @@ class HtmlServiceProvider extends ServiceProvider {
 	 */
 	protected function registerOrchestraFormBuilder()
 	{
+		$this->app['orchestra.form.control'] = $this->app->share(function($app)
+		{
+			return new Form\Control($app);
+		});
+
 		$this->app['orchestra.form'] = $this->app->share(function($app)
 		{
 			return new Form\Environment($app);
@@ -112,6 +117,6 @@ class HtmlServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('html', 'form', 'orchestra.form', 'orchestra.table');
+		return array('html', 'form', 'orchestra.form', 'orchestra.form.control', 'orchestra.table');
 	}
 }
