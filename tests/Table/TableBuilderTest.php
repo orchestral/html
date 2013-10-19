@@ -5,146 +5,144 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Table\TableBuilder;
 
-class TableBuilderTest extends \PHPUnit_Framework_TestCase {
+class TableBuilderTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * Application instance.
+     *
+     * @var \Illuminate\Container\Container
+     */
+    protected $app = null;
 
-	/**
-	 * Application instance.
-	 *
-	 * @var \Illuminate\Container\Container
-	 */
-	protected $app = null;
+    /**
+     * Setup the test environment.
+     */
+    public function setUp()
+    {
+        $this->app = new Container;
+    }
 
-	/**
-	 * Setup the test environment.
-	 */
-	public function setUp()
-	{
-		$this->app = new Container;
-	}
+    /**
+     * Teardown the test environment.
+     */
+    public function tearDown()
+    {
+        unset($this->app);
+        m::close();
+    }
 
-	/**
-	 * Teardown the test environment.
-	 */
-	public function tearDown()
-	{
-		unset($this->app);
-		m::close();
-	}
-	
-	/**
-	 * Test construct a new Orchestra\Html\Table\TableBuilder.
-	 *
-	 * @test
-	 */	
-	public function testConstructMethod()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test construct a new Orchestra\Html\Table\TableBuilder.
+     *
+     * @test
+     */
+    public function testConstructMethod()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new TableBuilder($app, function () { });
-		
-		$refl = new \ReflectionObject($stub);
-		$name = $refl->getProperty('name');
-		$grid = $refl->getProperty('grid');
-		
-		$name->setAccessible(true);
-		$grid->setAccessible(true);
+        $stub = new TableBuilder($app, function () {
+            //
+        });
 
-		$this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $stub);
-		$this->assertInstanceOf('\Orchestra\Html\Abstractable\Builder', $stub);
-		$this->assertInstanceOf('\Illuminate\Support\Contracts\RenderableInterface', $stub);
-		
-		$this->assertNull($name->getValue($stub));
-		$this->assertNull($stub->name);
-		$this->assertInstanceOf('\Orchestra\Html\Table\Grid', $grid->getValue($stub));
-		$this->assertInstanceOf('\Orchestra\Html\Table\Grid', $stub->grid);
-	}
+        $refl = new \ReflectionObject($stub);
+        $name = $refl->getProperty('name');
+        $grid = $refl->getProperty('grid');
 
-	/**
-	 * test Orchestra\Html\Table\TableBuilder::__get() throws an exception.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testMagicMethodThrowsException()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+        $name->setAccessible(true);
+        $grid->setAccessible(true);
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $stub);
+        $this->assertInstanceOf('\Orchestra\Html\Abstractable\Builder', $stub);
+        $this->assertInstanceOf('\Illuminate\Support\Contracts\RenderableInterface', $stub);
 
-		with(new TableBuilder($app, function () { }))->someInvalidRequest;
-	}
-	
-	/**
-	 * test Orchestra\Html\Table\TableBuilder::render() method.
-	 *
-	 * @test
-	 */
-	public function testRenderMethod()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
-		$app['request'] = $request = m::mock('Request');
-		$app['translator'] = $lang = m::mock('Lang');
-		$app['view'] = $view = m::mock('View');
+        $this->assertNull($name->getValue($stub));
+        $this->assertNull($stub->name);
+        $this->assertInstanceOf('\Orchestra\Html\Table\Grid', $grid->getValue($stub));
+        $this->assertInstanceOf('\Orchestra\Html\Table\Grid', $stub->grid);
+    }
 
-		$config->shouldReceive('get')->twice()
-			->with('orchestra/html::table', array())->andReturn(array());
-		$request->shouldReceive('query')->twice()->andReturn(array());
-		$lang->shouldReceive('get')->twice()->andReturn(array());
+    /**
+     * test Orchestra\Html\Table\TableBuilder::__get() throws an exception.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicMethodThrowsException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$view->shouldReceive('make')->twice()->andReturn($view)
-			->shouldReceive('with')->twice()->andReturn($view)
-			->shouldReceive('render')->twice()->andReturn('mocked');
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$mock = array(
-			new Fluent(array('id' => 1, 'name' => 'Laravel')),
-			new Fluent(array('id' => 2, 'name' => 'Illuminate')),
-			new Fluent(array('id' => 3, 'name' => 'Symfony')),
-		);
+        with(new TableBuilder($app, function () {
+            //
+        }))->someInvalidRequest;
+    }
 
-		$mock1 = new TableBuilder($app, function ($t) use ($mock)
-		{
-			$t->rows($mock);
-			$t->attributes(array('class' => 'foo'));
+    /**
+     * test Orchestra\Html\Table\TableBuilder::render() method.
+     *
+     * @test
+     */
+    public function testRenderMethod()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
+        $app['request'] = $request = m::mock('Request');
+        $app['translator'] = $lang = m::mock('Lang');
+        $app['view'] = $view = m::mock('View');
 
-			$t->column('id');
-			$t->column(function ($c) 
-			{
-				$c->id = 'name';
-				$c->label('Name');
-				$c->value(function ($row)
-				{
-					return $row->name;
-				});
-			});
-		});
+        $config->shouldReceive('get')->twice()
+            ->with('orchestra/html::table', array())->andReturn(array());
+        $request->shouldReceive('query')->twice()->andReturn(array('page' => 2, 'q' => 'user'));
+        $lang->shouldReceive('get')->twice()->andReturn(array());
 
-		$mock2 = new TableBuilder($app, function ($t) use ($mock)
-		{
-			$t->rows($mock);
-			$t->attributes = array('class' => 'foo');
+        $view->shouldReceive('make')->twice()->andReturn($view)
+            ->shouldReceive('with')->twice()->andReturn($view)
+            ->shouldReceive('render')->twice()->andReturn('mocked');
 
-			$t->column('ID', 'id');
-			$t->column('name', function ($c)
-			{
-				$c->value(function ($row)
-				{
-					return '<strong>'.$row->name.'</strong>';
-				});
-			});
-		});
+        $mock = array(
+            new Fluent(array('id' => 1, 'name' => 'Laravel')),
+            new Fluent(array('id' => 2, 'name' => 'Illuminate')),
+            new Fluent(array('id' => 3, 'name' => 'Symfony')),
+        );
 
-		ob_start();
-		echo $mock1;
-		$output = ob_get_contents();
-		ob_end_clean();
+        $mock1 = new TableBuilder($app, function ($t) use ($mock) {
+            $t->rows($mock);
+            $t->attributes(array('class' => 'foo'));
 
-		$this->assertEquals('mocked', $output);
-		$this->assertEquals('mocked', $mock2->render());
-	}
+            $t->column('id');
+            $t->column(function ($c) {
+                $c->id = 'name';
+                $c->label('Name');
+                $c->value(function ($row) {
+                    return $row->name;
+                });
+            });
+        });
+
+        $mock2 = new TableBuilder($app, function ($t) use ($mock) {
+            $t->rows($mock);
+            $t->attributes = array('class' => 'foo');
+
+            $t->column('ID', 'id');
+            $t->column('name', function ($c) {
+                $c->value(function ($row) {
+                    return '<strong>'.$row->name.'</strong>';
+                });
+            });
+        });
+
+        ob_start();
+        echo $mock1;
+        $output = ob_get_contents();
+        ob_end_clean();
+
+        $this->assertEquals('mocked', $output);
+        $this->assertEquals('mocked', $mock2->render());
+    }
 }
