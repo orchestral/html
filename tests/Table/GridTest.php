@@ -5,326 +5,341 @@ use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Table\Grid;
 
-class GridTest extends \PHPUnit_Framework_TestCase {
+class GridTest extends \PHPUnit_Framework_TestCase
+{
+    /**
+     * Application instance.
+     *
+     * @var \Illuminate\Container\Container
+     */
+    protected $app = null;
 
-	/**
-	 * Application instance.
-	 *
-	 * @var \Illuminate\Container\Container
-	 */
-	protected $app = null;
+    /**
+     * Setup the test environment.
+     */
+    public function setUp()
+    {
+        $this->app = new Container;
+    }
 
-	/**
-	 * Setup the test environment.
-	 */
-	public function setUp()
-	{
-		$this->app = new Container;
-	}
+    /**
+     * Teardown the test environment.
+     */
+    public function tearDown()
+    {
+        unset($this->app);
+        m::close();
+    }
 
-	/**
-	 * Teardown the test environment.
-	 */
-	public function tearDown()
-	{
-		unset($this->app);
-		m::close();
-	}
+    /**
+     * Test instanceof Orchestra\Html\Table\Grid.
+     *
+     * @test
+     */
+    public function testInstanceOfGrid()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-	/**
-	 * Test instanceof Orchestra\Html\Table\Grid.
-	 *
-	 * @test
-	 */
-	public function testInstanceOfGrid()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array(
+                'empty' => 'No data',
+                'view'  => 'foo',
+            ));
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array(
-				'empty' => 'No data',
-				'view'  => 'foo',
-			));
+        $stub  = new Grid($app);
+        $refl  = new \ReflectionObject($stub);
+        $empty = $refl->getProperty('empty');
+        $rows  = $refl->getProperty('rows');
+        $view  = $refl->getProperty('view');
 
-		$stub  = new Grid($app);
-		$refl  = new \ReflectionObject($stub);
-		$empty = $refl->getProperty('empty');
-		$view  = $refl->getProperty('view');
+        $empty->setAccessible(true);
+        $rows->setAccessible(true);
+        $view->setAccessible(true);
 
-		$empty->setAccessible(true);
-		$view->setAccessible(true);
+        $this->assertInstanceOf('\Orchestra\Html\Table\Grid', $stub);
+        $this->assertEquals('No data', $empty->getValue($stub));
+        $this->assertEquals('foo', $view->getValue($stub));
+        $this->assertEquals(array(), value($rows->getValue($stub)->attributes));
+    }
 
-		$this->assertInstanceOf('\Orchestra\Html\Table\Grid', $stub);
-		$this->assertEquals('No data', $empty->getValue($stub));
-		$this->assertEquals('foo', $view->getValue($stub));
-	}
+    /**
+     * Test Orchestra\Html\Table\Grid::with() method.
+     *
+     * @test
+     */
+    public function testWithMethod()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-	/**
-	 * Test Orchestra\Html\Table\Grid::with() method.
-	 *
-	 * @test
-	 */
-	public function testWithMethod()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+        $config->shouldReceive('get')->twice()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$config->shouldReceive('get')->twice()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $mock = array(new Fluent);
+        $stub = new Grid($app);
+        $stub->with($mock, false);
 
-		$mock = array(new Fluent);
-		$stub = new Grid($app);
-		$stub->with($mock, false);
+        $refl     = new \ReflectionObject($stub);
+        $rows     = $refl->getProperty('rows');
+        $model    = $refl->getProperty('model');
+        $paginate = $refl->getProperty('paginate');
 
-		$refl     = new \ReflectionObject($stub);
-		$rows     = $refl->getProperty('rows');
-		$model    = $refl->getProperty('model');
-		$paginate = $refl->getProperty('paginate');
+        $rows->setAccessible(true);
+        $model->setAccessible(true);
+        $paginate->setAccessible(true);
 
-		$rows->setAccessible(true);
-		$model->setAccessible(true);
-		$paginate->setAccessible(true);
+        $this->assertEquals($mock, $rows->getValue($stub)->data);
+        $this->assertEquals($mock, $model->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
+        $this->assertTrue(isset($stub->model));
 
-		$this->assertEquals($mock, $rows->getValue($stub)->data);
-		$this->assertEquals($mock, $model->getValue($stub));
-		$this->assertFalse($paginate->getValue($stub));
-		$this->assertTrue(isset($stub->model));
+        $paginator = m::mock('User');
+        $paginator->shouldReceive('paginate')->once()->andReturn($paginator)
+            ->shouldReceive('getItems')->once()->andReturn(array('foo'));
 
-		$paginator = m::mock('User');
-		$paginator->shouldReceive('paginate')->once()->andReturn($paginator)
-			->shouldReceive('getItems')->once()->andReturn(array('foo'));
+        $stub2 = new Grid($app);
+        $stub2->with($paginator);
+    }
 
-		$stub2 = new Grid($app);
-		$stub2->with($paginator);
-	}
+    /**
+     * Test Orchestra\Html\Table\Grid::layout() method.
+     *
+     * @test
+     */
+    public function testLayoutMethod()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-	/**
-	 * Test Orchestra\Html\Table\Grid::layout() method.
-	 *
-	 * @test
-	 */
-	public function testLayoutMethod()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $stub = new Grid($app);
 
-		$stub = new Grid($app);
+        $refl = new \ReflectionObject($stub);
+        $view = $refl->getProperty('view');
+        $view->setAccessible(true);
 
-		$refl = new \ReflectionObject($stub);
-		$view = $refl->getProperty('view');
-		$view->setAccessible(true);
+        $stub->layout('horizontal');
+        $this->assertEquals('orchestra/html::table.horizontal', $view->getValue($stub));
 
-		$stub->layout('horizontal');
-		$this->assertEquals('orchestra/html::table.horizontal', $view->getValue($stub));
+        $stub->layout('vertical');
+        $this->assertEquals('orchestra/html::table.vertical', $view->getValue($stub));
 
-		$stub->layout('vertical');
-		$this->assertEquals('orchestra/html::table.vertical', $view->getValue($stub));
+        $stub->layout('foo');
+        $this->assertEquals('foo', $view->getValue($stub));
+    }
 
-		$stub->layout('foo');
-		$this->assertEquals('foo', $view->getValue($stub));
-	}
+    /**
+     * Test Orchestra\Html\Table\Grid::of() method.
+     *
+     * @test
+     */
+    public function testOfMethod()
+    {
+        $me  = $this;
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-	/**
-	 * Test Orchestra\Html\Table\Grid::of() method.
-	 *
-	 * @test
-	 */
-	public function testOfMethod()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $stub = new Grid($app);
+        $stub->with(array(
+            new Fluent(array('foo1' => 'Foo1')),
+        ), false);
 
-		$stub = new Grid($app);
-		$expected = array(
-			new Fluent(array(
-				'id'         => 'id',
-				'label'      => 'Id',
-				'value'      => 'Foobar',
-				'headers'    => array(),
-				'attributes' => function ($row) { return array(); }
-			)),
-			new Fluent(array(
-				'id'         => 'foo1',
-				'label'      => 'Foo1',
-				'value'      => 'Foo1 value',
-				'headers'    => array(),
-				'attributes' => function ($row) { return array(); }
-			)),
-			new Fluent(array(
-				'id'         => 'foo2',
-				'label'      => 'Foo2',
-				'value'      => 'Foo2 value',
-				'headers'    => array(),
-				'attributes' => function ($row) { return array(); }
-			))
-		);
+        $expected = array(
+            new Fluent(array(
+                'id'         => 'id',
+                'label'      => 'Id',
+                'value'      => function ($row) {
+                    return $row->id;
+                },
+                'headers'    => array(),
+                'attributes' => function ($row) {
+                    return array();
+                }
+            )),
+            new Fluent(array(
+                'id'         => 'foo1',
+                'label'      => 'Foo1',
+                'value'      => 'Foo1 value',
+                'headers'    => array(),
+                'attributes' => function ($row) {
+                    return array();
+                }
+            )),
+            new Fluent(array(
+                'id'         => 'foo2',
+                'label'      => 'Foo2',
+                'value'      => 'Foo2 value',
+                'headers'    => array(),
+                'attributes' => function ($row) {
+                    return array();
+                }
+            ))
+        );
 
-		$stub->column('id', function ($c)
-		{
-			$c->value('Foobar');
-		});
+        $stub->column('id');
 
-		$stub->column(function ($c)
-		{
-			$c->id('foo1')->label('Foo1');
-			$c->value('Foo1 value');
-		});
+        $stub->column(function ($c) {
+            $c->id('foo1')->label('Foo1');
+            $c->value('Foo1 value');
+        });
 
-		$stub->column('Foo2', 'foo2')->value('Foo2 value');
+        $stub->column('Foo2', 'foo2')->value('Foo2 value');
 
-		$stub->attributes = array('class' => 'foo');
+        $stub->attributes = array('class' => 'foo');
 
-		$output = $stub->of('id');
+        $output = $stub->of('id', function ($fluent) use ($me) {
+            $me->assertInstanceOf('\Illuminate\Support\Fluent', $fluent);
+        });
 
-		$this->assertEquals('Foobar', $output->value);
-		$this->assertEquals('Id', $output->label);
-		$this->assertEquals('id', $output->id);
+        $this->assertEquals('Id', $output->label);
+        $this->assertEquals('id', $output->id);
+        $this->assertEquals(array(), call_user_func($output->attributes, new Fluent));
+        $this->assertEquals(5, call_user_func($output->value, new Fluent(array('id' => 5))));
 
-		$this->assertEquals(array('class' => 'foo'), $stub->attributes);
-		$this->assertEquals($expected, $stub->columns());
-	}
+        $this->assertEquals(array('class' => 'foo'), $stub->attributes);
+        $this->assertEquals($expected, $stub->columns());
+    }
 
-	/**
-	 * Test Orchestra\Html\Table\Grid::of() method throws exception.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testOfMethodThrowsException()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test Orchestra\Html\Table\Grid::of() method throws exception.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testOfMethodThrowsException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new Grid($app);
-		$output = $stub->of('id');
-	}
+        $stub = new Grid($app);
+        $stub->of('id');
+    }
 
-	/**
-	 * Test Orchestra\Html\Table\Grid::attributes() method.
-	 *
-	 * @test
-	 */
-	public function testAttributesMethod()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test Orchestra\Html\Table\Grid::attributes() method.
+     *
+     * @test
+     */
+    public function testAttributesMethod()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new Grid($app);
+        $stub = new Grid($app);
 
-		$refl       = new \ReflectionObject($stub);
-		$attributes = $refl->getProperty('attributes');
-		$attributes->setAccessible(true);
+        $refl       = new \ReflectionObject($stub);
+        $attributes = $refl->getProperty('attributes');
+        $attributes->setAccessible(true);
 
-		$stub->attributes(array('class' => 'foo'));
+        $stub->attributes(array('class' => 'foo'));
 
-		$this->assertEquals(array('class' => 'foo'), $attributes->getValue($stub));
-		$this->assertEquals(array('class' => 'foo'), $stub->attributes());
+        $this->assertEquals(array('class' => 'foo'), $attributes->getValue($stub));
+        $this->assertEquals(array('class' => 'foo'), $stub->attributes());
 
-		$stub->attributes('id', 'foobar');
+        $stub->attributes('id', 'foobar');
 
-		$this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $attributes->getValue($stub));
-		$this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $stub->attributes());
-	}
+        $this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $attributes->getValue($stub));
+        $this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $stub->attributes());
+    }
 
-	/**
-	 * Test Orchestra\Html\Table\Grid magic method __call() throws 
-	 * exception.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testMagicMethodCallThrowsException()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test Orchestra\Html\Table\Grid magic method __call() throws
+     * exception.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicMethodCallThrowsException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new Grid($app);
-		$stub->invalidMethod();
-	}
+        $stub = new Grid($app);
+        $stub->invalidMethod();
+    }
 
-	/**
-	 * Test Orchestra\Html\Table\Grid magic method __get() throws 
-	 * exception.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testMagicMethodGetThrowsException()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test Orchestra\Html\Table\Grid magic method __get() throws
+     * exception.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicMethodGetThrowsException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new Grid($app);
-		$invalid = $stub->invalidProperty;
-	}
+        $stub = new Grid($app);
+        $stub->invalidProperty;
+    }
 
-	/**
-	 * Test Orchestra\Html\Table\Grid magic method __set() throws 
-	 * exception.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testMagicMethodSetThrowsException()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test Orchestra\Html\Table\Grid magic method __set() throws
+     * exception.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicMethodSetThrowsException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new Grid($app);
-		$stub->invalidProperty = array('foo');
-	}
+        $stub = new Grid($app);
+        $stub->invalidProperty = array('foo');
+    }
 
-	/**
-	 * Test Orchestra\Html\Table\Grid magic method __set() throws 
-	 * exception when $values is not an array.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test Orchestra\Html\Table\Grid magic method __set() throws
+     * exception when $values is not an array.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new Grid($app);
-		$stub->attributes = 'foo';
-	}
+        $stub = new Grid($app);
+        $stub->attributes = 'foo';
+    }
 
-	/**
-	 * Test Orchestra\Html\Table\Grid magic method __isset() throws 
-	 * exception.
-	 *
-	 * @expectedException \InvalidArgumentException
-	 */
-	public function testMagicMethodIssetThrowsException()
-	{
-		$app = $this->app;
-		$app['config'] = $config = m::mock('Config');
+    /**
+     * Test Orchestra\Html\Table\Grid magic method __isset() throws
+     * exception.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testMagicMethodIssetThrowsException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-		$config->shouldReceive('get')->once()
-			->with('orchestra/html::table', array())->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
 
-		$stub = new Grid($app);
-		$invalid = isset($stub->invalidProperty) ? true : false;
-	}
+        $stub = new Grid($app);
+        isset($stub->invalidProperty) ? true : false;
+    }
 }

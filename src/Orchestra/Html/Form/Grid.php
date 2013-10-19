@@ -4,180 +4,179 @@ use Closure;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 
-class Grid extends \Orchestra\Html\Abstractable\Grid {
+class Grid extends \Orchestra\Html\Abstractable\Grid
+{
+    /**
+     * Enable CSRF token.
+     *
+     * @var boolean
+     */
+    public $token = false;
 
-	/**
-	 * Enable CSRF token.
-	 *
-	 * @var boolean
-	 */
-	public $token = false;
+    /**
+     * Hidden fields.
+     *
+     * @var array
+     */
+    protected $hiddens = array();
 
-	/**
-	 * Hidden fields.
-	 *
-	 * @var array
-	 */
-	protected $hiddens = array();
+    /**
+     * List of row in array.
+     *
+     * @var array
+     */
+    protected $row = null;
 
-	/**
-	 * List of row in array.
-	 *
-	 * @var array
-	 */
-	protected $row = null;
+    /**
+     * All the fieldsets.
+     *
+     * @var array
+     */
+    protected $fieldsets = array();
 
-	/**
-	 * All the fieldsets.
-	 *
-	 * @var array
-	 */
-	protected $fieldsets = array();
+    /**
+     * Set submit button message.
+     *
+     * @var string
+     */
+    public $submit = null;
 
-	/**
-	 * Set submit button message.
-	 *
-	 * @var string
-	 */
-	public $submit = null;
+    /**
+     * Set the no record message.
+     *
+     * @var string
+     */
+    public $format = null;
 
-	/**
-	 * Set the no record message.
-	 *
-	 * @var string
-	 */
-	public $format = null;
+    /**
+     * Selected view path for form layout.
+     *
+     * @var array
+     */
+    protected $view = null;
 
-	/**
-	 * Selected view path for form layout.
-	 *
-	 * @var array
-	 */
-	protected $view = null;
+    /**
+     * {@inheritdoc}
+     */
+    protected $definition = array(
+        'name'    => null,
+        '__call'  => array('fieldsets', 'view', 'hiddens'),
+        '__get'   => array('attributes', 'row', 'view', 'hiddens'),
+        '__set'   => array('attributes'),
+        '__isset' => array('attributes', 'row', 'view', 'hiddens'),
+    );
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected $definition = array(
-		'name'    => null,
-		'__call'  => array('fieldsets', 'view', 'hiddens'),
-		'__get'   => array('attributes', 'row', 'view', 'hiddens'),
-		'__set'   => array('attributes'),
-		'__isset' => array('attributes', 'row', 'view', 'hiddens'),
-	);
+    /**
+     * {@inheritdoc}
+     */
+    protected function initiate()
+    {
+        $config = $this->app['config']->get('orchestra/html::form', array());
 
-	/**
-	 * {@inheritdoc}
-	 */
-	protected function initiate()
-	{
-		$config = $this->app['config']->get('orchestra/html::form', array());
+        foreach ($config as $key => $value) {
+            if (property_exists($this, $key)) {
+                $this->{$key} = $value;
+            }
+        }
 
-		foreach ($config as $key => $value)
-		{
-			if ( ! property_exists($this, $key)) continue;
+        $this->row = array();
+    }
 
-			$this->{$key} = $value;
-		}
+    /**
+     * Set fieldset layout (view).
+     *
+     * <code>
+     *      // use default horizontal layout
+     *      $fieldset->layout('horizontal');
+     *
+     *      // use default vertical layout
+     *      $fieldset->layout('vertical');
+     *
+     *      // define fieldset using custom view
+     *      $fieldset->layout('path.to.view');
+     * </code>
+     *
+     * @param  string   $name
+     * @return void
+     */
+    public function layout($name)
+    {
+        if (in_array($name, array('horizontal', 'vertical'))) {
+            $this->view = "orchestra/html::form.{$name}";
+        } else {
+            $this->view = $name;
+        }
+    }
 
-		$this->row = array();
-	}
+    /**
+     * Attach rows data instead of assigning a model.
+     *
+     * <code>
+     *      // assign a data
+     *      $table->with(DB::table('users')->get());
+     * </code>
+     *
+     * @param  array    $rows
+     * @return mixed
+     */
+    public function with($row = null)
+    {
+        if (is_null($row)) {
+            return $this->row;
+        }
 
-	/**
-	 * Set fieldset layout (view).
-	 *
-	 * <code>
-	 *		// use default horizontal layout
-	 *		$fieldset->layout('horizontal');
-	 *
-	 * 		// use default vertical layout
-	 * 		$fieldset->layout('vertical');
-	 *
-	 *		// define fieldset using custom view
-	 *		$fieldset->layout('path.to.view');
-	 * </code>
-	 *
-	 * @param  string   $name
-	 * @return void
-	 */
-	public function layout($name)
-	{
-		if (in_array($name, array('horizontal', 'vertical')))
-		{
-			$this->view = "orchestra/html::form.{$name}";
-		}
-		else
-		{
-			$this->view = $name;
-		}
-	}
+        $this->row = $row;
+    }
 
-	/**
-	 * Attach rows data instead of assigning a model.
-	 *
-	 * <code>
-	 *		// assign a data
-	 * 		$table->with(DB::table('users')->get());
-	 * </code>
-	 *
-	 * @param  array    $rows
-	 * @return mixed
-	 */
-	public function with($row = null)
-	{
-		if (is_null($row)) return $this->row;
+    /**
+     * Attach rows data instead of assigning a model.
+     *
+     * @param  array    $rows
+     * @return mixed
+     * @see    Grid::with()
+     */
+    public function row($row = null)
+    {
+        return $this->with($row);
+    }
 
-		$this->row = $row;
-	}
+    /**
+     * Create a new Fieldset instance.
+     *
+     * @param  string   $name
+     * @param  \Closure $callback
+     * @return Fieldset
+     */
+    public function fieldset($name, Closure $callback = null)
+    {
+        return $this->fieldsets[] = new Fieldset($this->app, $name, $callback);
+    }
 
-	/**
-	 * Attach rows data instead of assigning a model.
-	 *
-	 * @param  array    $rows
-	 * @return mixed
-	 * @see    Grid::with()
-	 */
-	public function row($row = null)
-	{
-		return $this->with($row);
-	}
+    /**
+     * Add hidden field.
+     *
+     * @param  string   $name
+     * @param  \Closure $callback
+     * @return void
+     */
+    public function hidden($name, $callback = null)
+    {
+        $value = null;
 
-	/**
-	 * Create a new Fieldset instance.
-	 *
-	 * @param  string   $name
-	 * @param  \Closure $callback
-	 * @return Fieldset
-	 */
-	public function fieldset($name, Closure $callback = null)
-	{
-		return $this->fieldsets[] = new Fieldset($this->app, $name, $callback);
-	}
+        if (isset($this->row) and isset($this->row->{$name})) {
+            $value = $this->row->{$name};
+        }
 
-	/**
-	 * Add hidden field.
-	 *
-	 * @param  string   $name
-	 * @param  \Closure $callback
-	 * @return void
-	 */
-	public function hidden($name, $callback = null)
-	{
-		$value = null;
-		
-		if (isset($this->row) and isset($this->row->{$name})) 
-		{
-			$value = $this->row->{$name};
-		}
+        $field = new Fluent(array(
+            'name'       => $name,
+            'value'      => $value ?: '',
+            'attributes' => array(),
+        ));
 
-		$field = new Fluent(array(
-			'name'       => $name,
-			'value'      => $value ?: '',
-			'attributes' => array(),
-		));
+        if ($callback instanceof Closure) {
+            call_user_func($callback, $field);
+        }
 
-		if ($callback instanceof Closure) call_user_func($callback, $field);
-
-		$this->hiddens[$name] = $this->app['form']->hidden($name, $field->value, $field->attributes);
-	}
+        $this->hiddens[$name] = $this->app['form']->hidden($name, $field->value, $field->attributes);
+    }
 }

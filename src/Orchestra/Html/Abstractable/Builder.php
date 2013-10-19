@@ -5,83 +5,82 @@ use InvalidArgumentException;
 use Illuminate\Container\Container;
 use Illuminate\Support\Contracts\RenderableInterface;
 
-abstract class Builder implements RenderableInterface {
-	
-	/**
-	 * Application instance.
-	 *
-	 * @var \Illuminate\Container\Container
+abstract class Builder implements RenderableInterface
+{
+    /**
+     * Application instance.
+     *
+     * @var \Illuminate\Container\Container
      */
     protected $app = null;
-	
-	/**
-	 * Name of builder.
-	 *
-	 * @var string
-	 */
-	public $name = null;
 
-	/**
-	 * Grid instance.
-	 *
-	 * @var object
-	 */
-	protected $grid = null;
+    /**
+     * Name of builder.
+     *
+     * @var string
+     */
+    public $name = null;
 
-	/**
-	 * Create a new Builder instance.
-	 * 			
-	 * @param  \Illuminate\Container\Container  $app
-	 * @param  \Closure                         $callback
-	 */
-	abstract public function __construct(Container $app, Closure $callback);
+    /**
+     * Grid instance.
+     *
+     * @var object
+     */
+    protected $grid = null;
 
-	/**
-	 * Extend decoration. 
-	 * 
-	 * @param  \Closure $callback
-	 * @return AbstractableBuilder
-	 */
-	public function extend(Closure $callback)
-	{
-		// Run the table designer.
-		call_user_func($callback, $this->grid);
+    /**
+     * Create a new Builder instance.
+     *
+     * @param  \Illuminate\Container\Container  $app
+     * @param  \Closure                         $callback
+     */
+    abstract public function __construct(Container $app, Closure $callback);
 
-		return $this;
-	}
+    /**
+     * Extend decoration.
+     *
+     * @param  \Closure $callback
+     * @return AbstractableBuilder
+     */
+    public function extend(Closure $callback)
+    {
+        // Run the table designer.
+        call_user_func($callback, $this->grid);
 
-	/**
-	 * Magic method to get Grid instance.
-	 * 
-	 * @param  string   $key
-	 * @return mixed
-	 * @throws \InvalidArgumentException
-	 */
-	public function __get($key)
-	{
-		if ( ! in_array($key, array('grid', 'name'))) 
-		{
-			throw new InvalidArgumentException("Unable to get property [{$key}].");
-		}
-		
-		return $this->{$key};
-	}
+        return $this;
+    }
 
-	/**
-	 * An alias to render().
-	 *
-	 * @return string
-	 * @see    AbstractableBuilder::render()
-	 */
-	public function __toString()
-	{
-		return $this->render();
-	}
+    /**
+     * Magic method to get Grid instance.
+     *
+     * @param  string   $key
+     * @return mixed
+     * @throws \InvalidArgumentException
+     */
+    public function __get($key)
+    {
+        if (! in_array($key, array('grid', 'name'))) {
+            throw new InvalidArgumentException("Unable to get property [{$key}].");
+        }
 
-	/**
-	 * Render the form.
-	 *
-	 * @return string
-	 */
-	public abstract function render();
+        return $this->{$key};
+    }
+
+    /**
+     * An alias to render().
+     *
+     * @return string
+     * @see    AbstractableBuilder::render()
+     */
+    public function __toString()
+    {
+        return $this->render();
+    }
+
+    /**
+     * Render the form.
+     *
+     * @return string
+     */
+    abstract public function render();
 }

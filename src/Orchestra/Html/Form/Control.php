@@ -5,213 +5,208 @@ use InvalidArgumentException;
 use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
 
-class Control {
-	
-	/**
-	 * Application instance.
-	 *
-	 * @var Illuminate\Container\Container
-	 */
-	protected $app = null;
+class Control
+{
+    /**
+     * Application instance.
+     *
+     * @var Illuminate\Container\Container
+     */
+    protected $app = null;
 
-	/**
-	 * Configuration.
-	 *
-	 * @var  array
-	 */
-	protected $config = array();
+    /**
+     * Configuration.
+     *
+     * @var  array
+     */
+    protected $config = array();
 
-	/**
-	 * Create a new Field instance.
-	 * 
-	 * @param  \Illuminate\Container\Container  $app
-	 * @param  array                            $config
-	 */
-	public function __construct(Container $app, array $config = array())
-	{
-		$this->app = $app;
+    /**
+     * Create a new Field instance.
+     *
+     * @param  \Illuminate\Container\Container  $app
+     * @param  array                            $config
+     */
+    public function __construct(Container $app, array $config = array())
+    {
+        $this->app = $app;
 
-		$this->setConfig($config);
-	}
+        $this->setConfig($config);
+    }
 
-	/**
-	 * Set configuration.
-	 *
-	 * @param  array   $config
-	 * @return Field
-	 */
-	public function setConfig(array $config = array())
-	{
-		$this->config = $config;
+    /**
+     * Set configuration.
+     *
+     * @param  array   $config
+     * @return Field
+     */
+    public function setConfig(array $config = array())
+    {
+        $this->config = $config;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	/**
-	 * Get configuration.
-	 *
-	 * @return array
-	 */
-	public function getConfig()
-	{
-		return $this->config;
-	}
+    /**
+     * Get configuration.
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->config;
+    }
 
-	/**
-	 * Generate Field.
-	 *
-	 * @param  string   $type
-	 * @return \Closure
-	 */
-	public function generate($type)
-	{
-		$me = $this;
-		$config = $this->app['config'];
+    /**
+     * Generate Field.
+     *
+     * @param  string   $type
+     * @return \Closure
+     */
+    public function generate($type)
+    {
+        $me = $this;
+        $config = $this->app['config'];
 
-		return function ($row, $control, $templates = array()) use ($config, $me, $type) 
-		{
-			$templates = array_merge(
-				$config->get('orchestra/html::form.templates', array()),
-				$templates
-			);
-			
-			$data = $me->buildFieldByType($type, $row, $control);
+        return function ($row, $control, $templates = array()) use ($config, $me, $type) {
+            $templates = array_merge(
+                $config->get('orchestra/html::form.templates', array()),
+                $templates
+            );
 
-			return $me->render($templates, $data);
-		};
-	}
+            $data = $me->buildFieldByType($type, $row, $control);
 
-	/**
-	 * Build field by type.
-	 *
-	 * @param  string                       $type
-	 * @param  mixed                        $row
-	 * @param  \Illuminate\Support\Fluent   $control
-	 * @return \Illuminate\Support\Fluent
-	 */
-	public function buildFieldByType($type, $row, Fluent $control)
-	{
-		$data   = $this->buildFluentData($type, $row, $control);
-		$config = $this->config;
-		$html   = $this->app['html'];
+            return $me->render($templates, $data);
+        };
+    }
 
-		if ($data->method === 'select')
-		{
-			$data->options($this->getOptionList($row, $control));
-		}
-		elseif (in_array($data->method, array('checkbox', 'radio')))
-		{
-			$data->checked($control->checked);
-		}
+    /**
+     * Build field by type.
+     *
+     * @param  string                       $type
+     * @param  mixed                        $row
+     * @param  \Illuminate\Support\Fluent   $control
+     * @return \Illuminate\Support\Fluent
+     */
+    public function buildFieldByType($type, $row, Fluent $control)
+    {
+        $data   = $this->buildFluentData($type, $row, $control);
+        $config = $this->config;
+        $html   = $this->app['html'];
 
-		$data->attributes($html->decorate($control->attributes, $config[$data->method]));
+        if ($data->method === 'select') {
+            $data->options($this->getOptionList($row, $control));
+        } elseif (in_array($data->method, array('checkbox', 'radio'))) {
+            $data->checked($control->checked);
+        }
 
-		return $data;
-	}
+        $data->attributes($html->decorate($control->attributes, $config[$data->method]));
 
-	/**
-	 * Build data.
-	 *
-	 * @param  string                       $type
-	 * @param  mixed                        $row
-	 * @param  \Illuminate\Support\Fluent   $control
-	 * @return \Illuminate\Support\Fluent
-	 */
-	public function buildFluentData($type, $row, Fluent $control)
-	{
-		// set the name of the control
-		$name = $control->name;
+        return $data;
+    }
 
-		// set the value from old input, follow by row value.
-		$value = $this->app['request']->old($name);
+    /**
+     * Build data.
+     *
+     * @param  string                       $type
+     * @param  mixed                        $row
+     * @param  \Illuminate\Support\Fluent   $control
+     * @return \Illuminate\Support\Fluent
+     */
+    public function buildFluentData($type, $row, Fluent $control)
+    {
+        // set the name of the control
+        $name = $control->name;
 
-		if ( ! is_null($row->{$name}) and is_null($value)) $value = $row->{$name};
+        // set the value from old input, follow by row value.
+        $value = $this->app['request']->old($name);
 
-		// if the value is set from the closure, we should use it instead of 
-		// value retrieved from attached data
-		if ( ! is_null($control->value)) $value = $control->value;
+        if (! is_null($row->{$name}) and is_null($value)) {
+            $value = $row->{$name};
+        }
 
-		// should also check if it's a closure, when this happen run it.
-		if ($value instanceof Closure) $value = $value($row, $control);
+        // if the value is set from the closure, we should use it instead of
+        // value retrieved from attached data
+        if (! is_null($control->value)) {
+            $value = $control->value;
+        }
 
-		$data = new Fluent(array(
-			'method'     => '',
-			'type'       => '',
-			'options'    => array(),
-			'checked'    => false,
-			'attributes' => array(),
-			'name'       => $name,
-			'value'      => $value,
-		));
+        // should also check if it's a closure, when this happen run it.
+        if ($value instanceof Closure) {
+            $value = $value($row, $control);
+        }
 
-		return $this->resolveFieldType($type, $data);
-	}
+        $data = new Fluent(array(
+            'method'     => '',
+            'type'       => '',
+            'options'    => array(),
+            'checked'    => false,
+            'attributes' => array(),
+            'name'       => $name,
+            'value'      => $value,
+        ));
 
-	/**
-	 * Get options from control.
-	 * 
-	 * @param  mixed                        $row
-	 * @param  \Illuminate\Support\Fluent   $control
-	 * @return array
-	 */
-	protected function getOptionList($row, Fluent $control)
-	{
-		// set the value of options, if it's callable run it first
-		$options = $control->options;
-		
-		if (($options instanceof Closure)) $options = call_user_func($options, $row, $control);
-		
-		return $options;
-	}
+        return $this->resolveFieldType($type, $data);
+    }
 
-	/**
-	 * Render the field.
-	 * 
-	 * @param  array                        $templates
-	 * @param  Illuminate\Support\Fluent    $data
-	 * @return string
-	 */
-	public function render($templates, $data)
-	{
-		if ( ! isset($templates[$data->method]))
-		{
-			throw new InvalidArgumentException(
-				"Form template for [{$data->method}] is not available."
-			);
-		}
+    /**
+     * Get options from control.
+     *
+     * @param  mixed                        $row
+     * @param  \Illuminate\Support\Fluent   $control
+     * @return array
+     */
+    protected function getOptionList($row, Fluent $control)
+    {
+        // set the value of options, if it's callable run it first
+        $options = $control->options;
 
-		return call_user_func($templates[$data->method], $data);
-	}
+        if ($options instanceof Closure) {
+            $options = call_user_func($options, $row, $control);
+        }
 
-	/**
-	 * Resolve method name and type.
-	 * 
-	 * @param  string                       $value
-	 * @param  \Illuminate\Support\Fluent   $data
-	 * @return \Illuminate\Support\Fluent
-	 */
-	protected function resolveFieldType($value, $data)
-	{
-		$filterable = array('select', 'checkbox', 'radio', 'textarea', 'password', 'file');
+        return $options;
+    }
 
-		if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches))
-		{
-			$value = $matches[2];
-		}
-		elseif ( ! in_array($value, $filterable))
-		{
-			$value = 'text';
-		}
+    /**
+     * Render the field.
+     *
+     * @param  array                        $templates
+     * @param  Illuminate\Support\Fluent    $data
+     * @return string
+     */
+    public function render($templates, $data)
+    {
+        if (! isset($templates[$data->method])) {
+            throw new InvalidArgumentException("Form template for [{$data->method}] is not available.");
+        }
 
-		if (in_array($value, $filterable))
-		{
-			$data->method($value);
-		}
-		else
-		{
-			$data->method('input')->type($value);
-		}
+        return call_user_func($templates[$data->method], $data);
+    }
 
-		return $data;
-	}
+    /**
+     * Resolve method name and type.
+     *
+     * @param  string                       $value
+     * @param  \Illuminate\Support\Fluent   $data
+     * @return \Illuminate\Support\Fluent
+     */
+    protected function resolveFieldType($value, $data)
+    {
+        $filterable = array('select', 'checkbox', 'radio', 'textarea', 'password', 'file');
+
+        if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
+            $value = $matches[2];
+        } elseif (! in_array($value, $filterable)) {
+            $value = 'text';
+        }
+
+        if (in_array($value, $filterable)) {
+            $data->method($value);
+        } else {
+            $data->method('input')->type($value);
+        }
+
+        return $data;
+    }
 }
