@@ -1,7 +1,7 @@
 Orchestra Platform Html Component
 ==============
 
-Orchestra\Html extends the functionality of Illuminate\Html with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
+`Orchestra\Html` extends the functionality of Illuminate\Html with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
 
 [![Latest Stable Version](https://poser.pugx.org/orchestra/html/v/stable.png)](https://packagist.org/packages/orchestra/html) 
 [![Total Downloads](https://poser.pugx.org/orchestra/html/downloads.png)](https://packagist.org/packages/orchestra/html) 
