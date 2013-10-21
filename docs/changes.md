@@ -3,6 +3,10 @@ HTML Change Log
 
 ## Version 2.0
 
+### v2.0.9
+
+* Implement [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding standard.
+
 ### v2.0.8
 
 * Huge internal refactor to reduce code complexity, which would result to increase in performance.
