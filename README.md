@@ -6,7 +6,8 @@ Orchestra Platform Html Component
 [![Latest Stable Version](https://poser.pugx.org/orchestra/html/v/stable.png)](https://packagist.org/packages/orchestra/html) 
 [![Total Downloads](https://poser.pugx.org/orchestra/html/downloads.png)](https://packagist.org/packages/orchestra/html) 
 [![Build Status](https://travis-ci.org/orchestral/html.png?branch=2.0)](https://travis-ci.org/orchestral/html) 
-[![Coverage Status](https://coveralls.io/repos/orchestral/html/badge.png?branch=2.0)](https://coveralls.io/r/orchestral/html?branch=2.0)
+[![Coverage Status](https://coveralls.io/repos/orchestral/html/badge.png?branch=2.0)](https://coveralls.io/r/orchestral/html?branch=2.0) 
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/html/badges/quality-score.png?s=8f6fa828398be2155999264f1979d557f9300f3d)](https://scrutinizer-ci.com/g/orchestral/html/) 
 
 ## Quick Installation
 
