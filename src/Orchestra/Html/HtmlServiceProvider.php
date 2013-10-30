@@ -33,7 +33,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerHtmlBuilder()
     {
-        $this->app['html'] = $this->app->share(function ($app) {
+        $this->app->bindShared('html', function ($app) {
             return new HtmlBuilder($app['url']);
         });
     }
@@ -45,7 +45,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerFormBuilder()
     {
-        $this->app['form'] = $this->app->share(function ($app) {
+        $this->app->bindShared('form', function ($app) {
             $form = new \Illuminate\Html\FormBuilder($app['html'], $app['url'], $app['session']->getToken());
 
             return $form->setSessionStore($app['session.store']);
@@ -59,11 +59,11 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerOrchestraFormBuilder()
     {
-        $this->app['orchestra.form.control'] = $this->app->share(function ($app) {
+        $this->app->bindShared('orchestra.form.control', function ($app) {
             return new Form\Control($app);
         });
 
-        $this->app['orchestra.form'] = $this->app->share(function ($app) {
+        $this->app->bindShared('orchestra.form', function ($app) {
             return new Form\Environment($app);
         });
     }
@@ -75,7 +75,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerOrchestraTableBuilder()
     {
-        $this->app['orchestra.table'] = $this->app->share(function ($app) {
+        $this->app->bindShared('orchestra.table', function ($app) {
             return new Table\Environment($app);
         });
     }
