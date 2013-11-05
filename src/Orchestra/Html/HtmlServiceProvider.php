@@ -23,7 +23,6 @@ class HtmlServiceProvider extends ServiceProvider
         $this->registerFormBuilder();
         $this->registerOrchestraFormBuilder();
         $this->registerOrchestraTableBuilder();
-        $this->registerAliases();
     }
 
     /**
@@ -77,20 +76,6 @@ class HtmlServiceProvider extends ServiceProvider
     {
         $this->app->bindShared('orchestra.table', function ($app) {
             return new Table\Environment($app);
-        });
-    }
-
-    /**
-     * Register aliases.
-     *
-     * @return void
-     */
-    protected function registerAliases()
-    {
-        $this->app->booting(function () {
-            $loader = AliasLoader::getInstance();
-            $loader->alias('Orchestra\Form', 'Orchestra\Support\Facades\Form');
-            $loader->alias('Orchestra\Table', 'Orchestra\Support\Facades\Table');
         });
     }
 
