@@ -1,7 +1,6 @@
 <?php namespace Orchestra\Html;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Foundation\AliasLoader;
 
 class HtmlServiceProvider extends ServiceProvider
 {

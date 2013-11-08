@@ -1,7 +1,6 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid

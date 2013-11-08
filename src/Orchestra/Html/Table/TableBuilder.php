@@ -2,10 +2,6 @@
 
 use Closure;
 use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\View;
 
 class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 {

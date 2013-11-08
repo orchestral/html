@@ -2,9 +2,6 @@
 
 use Closure;
 use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\View;
 
 class FormBuilder extends \Orchestra\Html\Abstractable\Builder
 {

@@ -1,7 +1,6 @@
 <?php namespace Orchestra\Html\Abstractable;
 
 use Closure;
-use InvalidArgumentException;
 use Illuminate\Container\Container;
 
 abstract class Environment
