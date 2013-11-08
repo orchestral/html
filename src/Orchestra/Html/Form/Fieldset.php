@@ -1,7 +1,6 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use InvalidArgumentException;
 use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
 

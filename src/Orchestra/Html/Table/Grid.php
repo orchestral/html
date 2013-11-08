@@ -1,7 +1,5 @@
 <?php namespace Orchestra\Html\Table;
 
-use Closure;
-use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
 
