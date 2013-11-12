@@ -115,7 +115,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      $table->with(DB::table('users')->get());
      * </code>
      *
-     * @param  array    $rows
+     * @param  array|stdClass  $rows
      * @return mixed
      */
     public function with($row = null)
