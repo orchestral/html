@@ -1,7 +1,9 @@
 <?php namespace Orchestra\Html\Table;
 
+use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Contracts\ArrayableInterface;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {
@@ -84,26 +86,32 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * <code>
      *      // add model without pagination
-     *      $table->with(User::all());
+     *      $table->with(User::all(), false);
      *
      *      // add model with pagination
      *      $table->with(User::paginate(30), true);
      * </code>
      *
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  boolean                              $paginate
+     * @param  mixed   $model
+     * @param  boolean $paginate
      * @return void
      */
     public function with($model, $paginate = true)
     {
-        $this->paginate = $paginate;
-        $this->model    = $model;
+        $this->model = $model;
 
-        if ($paginate and ( ! $model instanceof Paginator)) {
-            $model = $model->paginate();
+        if ($model instanceof Paginator) {
+            $this->rows($model->getItems());
+            $paginate = true;
+        } elseif ($paginate === true and method_exists($model, 'paginate')) {
+            $this->rows($model->paginate());
+        } elseif (is_array($model) or $model instanceof ArrayableInterface) {
+            $this->rows($model);
+        } else {
+            throw new InvalidArgumentException("Unable to convert \$model to array.");
         }
 
-        $this->rows(true === $paginate ? $model->getItems() : $model);
+        $this->paginate = $paginate;
     }
 
     /**

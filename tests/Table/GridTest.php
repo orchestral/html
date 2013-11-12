@@ -73,7 +73,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $app = $this->app;
         $app['config'] = $config = m::mock('Config');
 
-        $config->shouldReceive('get')->twice()
+        $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());
 
         $mock = array(new Fluent);
@@ -93,13 +93,68 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($mock, $model->getValue($stub));
         $this->assertFalse($paginate->getValue($stub));
         $this->assertTrue(isset($stub->model));
+    }
 
-        $paginator = m::mock('User');
-        $paginator->shouldReceive('paginate')->once()->andReturn($paginator)
-            ->shouldReceive('getItems')->once()->andReturn(array('foo'));
+    /**
+     * Test Orchestra\Html\Table\Grid::with() method given a
+     * Illuminate\Pagination\Paginator instance.
+     *
+     * @test
+     */
+    public function testWithMethodGivenPaginatorInstance()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
 
-        $stub2 = new Grid($app);
-        $stub2->with($paginator);
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
+
+        $model = m::mock('\Illuminate\Pagination\Paginator');
+        $model->shouldReceive('getItems')->once()->andReturn(array('foo'));
+
+        $stub = new Grid($app);
+        $stub->with($model);
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::with() method given a
+     * Illuminate\Support\Contracts\ArrayableInterface instance.
+     *
+     * @test
+     */
+    public function testWithMethodGivenModelBuilderInstance()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
+
+        $model = m::mock('\Illuminate\Database\Eloquent\Builder[paginate]');
+        $model->shouldReceive('paginate')->once()->andReturn(array('foo'));
+
+        $stub = new Grid($app);
+        $stub->with($model);
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::with() method throws an exceptions
+     * when $model can't be converted to array
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testWithMethodThrowsAnException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
+
+        $model = 'Foo';
+
+        $stub = new Grid($app);
+        $stub->with($model, false);
     }
 
     /**
