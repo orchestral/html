@@ -117,8 +117,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Html\Table\Grid::with() method given a
-     * Illuminate\Support\Contracts\ArrayableInterface instance.
+     * Test Orchestra\Html\Table\Grid::with() method given a paginable
+     * instance.
      *
      * @test
      */
@@ -132,6 +132,27 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $model = m::mock('\Illuminate\Database\Eloquent\Builder[paginate]');
         $model->shouldReceive('paginate')->once()->andReturn(array('foo'));
+
+        $stub = new Grid($app);
+        $stub->with($model);
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::with() method given a
+     * Illuminate\Support\Contracts\ArrayableInterface instance.
+     *
+     * @test
+     */
+    public function testWithMethodGivenArrayableInterfaceInstance()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
+
+        $model = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+        $model->shouldReceive('toArray')->once()->andReturn(array('foo'));
 
         $stub = new Grid($app);
         $stub->with($model);

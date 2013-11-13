@@ -105,7 +105,9 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             $paginate = true;
         } elseif ($paginate === true and method_exists($model, 'paginate')) {
             $this->rows($model->paginate());
-        } elseif (is_array($model) or $model instanceof ArrayableInterface) {
+        } elseif ($model instanceof ArrayableInterface) {
+            $this->rows($model->toArray());
+        } elseif (is_array($model)) {
             $this->rows($model);
         } else {
             throw new InvalidArgumentException("Unable to convert \$model to array.");
