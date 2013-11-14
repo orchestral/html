@@ -115,7 +115,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      $table->with(DB::table('users')->get());
      * </code>
      *
-     * @param  array|stdClass  $rows
+     * @param  array|stdClass  $row
      * @return mixed
      */
     public function with($row = null)
@@ -123,6 +123,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         if (is_null($row)) {
             return $this->row;
         }
+
+        is_array($row) and $row = new Fluent($row);
 
         $this->row = $row;
     }
