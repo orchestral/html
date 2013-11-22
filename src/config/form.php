@@ -46,18 +46,51 @@ return array(
     */
 
     'fieldset' => array(
-        'select'   => array('class' => 'twelve columns input-with-feedback'),
-        'textarea' => array('class' => 'twelve columns input-with-feedback'),
+        'checkbox' => array(),
+        'file'     => array(),
         'input'    => array('class' => 'twelve columns input-with-feedback'),
         'password' => array('class' => 'twelve columns input-with-feedback'),
-        'file'     => array(),
         'radio'    => array(),
-        'checkbox' => array(),
+        'select'   => array('class' => 'twelve columns input-with-feedback'),
+        'textarea' => array('class' => 'twelve columns input-with-feedback'),
     ),
 
     'templates' => array(
-        'select' => function($data)
-        {
+        'checkbox' => function ($data) {
+            return Form::checkbox(
+                $data->name,
+                $data->value,
+                $data->checked
+            );
+        },
+        'file' => function ($data) {
+            return Form::file(
+                $data->name,
+                HTML::decorate($data->attributes, array('class' => 'form-control'))
+            );
+        },
+        'input' => function ($data) {
+            return Form::input(
+                $data->type,
+                $data->name,
+                $data->value,
+                HTML::decorate($data->attributes, array('class' => 'form-control'))
+            );
+        },
+        'password' => function ($data) {
+            return Form::password(
+                $data->name,
+                HTML::decorate($data->attributes, array('class' => 'form-control'))
+            );
+        },
+        'radio' => function ($data) {
+            return Form::radio(
+                $data->name,
+                $data->value,
+                $data->checked
+            );
+        },
+        'select' => function ($data) {
             return Form::select(
                 $data->name,
                 $data->options,
@@ -65,48 +98,8 @@ return array(
                 HTML::decorate($data->attributes, array('class' => 'form-control'))
             );
         },
-        'checkbox' => function ($data)
-        {
-            return Form::checkbox(
-                $data->name,
-                $data->value,
-                $data->checked
-            );
-        },
-        'radio' => function ($data)
-        {
-            return Form::radio(
-                $data->name,
-                $data->value,
-                $data->checked
-            );
-        },
-        'textarea' => function ($data)
-        {
+        'textarea' => function ($data) {
             return Form::textarea(
-                $data->name,
-                $data->value,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
-            );
-        },
-        'password' => function ($data)
-        {
-            return Form::password(
-                $data->name,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
-            );
-        },
-        'file' => function ($data)
-        {
-            return Form::file(
-                $data->name,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
-            );
-        },
-        'input' => function ($data)
-        {
-            return Form::input(
-                $data->type,
                 $data->name,
                 $data->value,
                 HTML::decorate($data->attributes, array('class' => 'form-control'))
