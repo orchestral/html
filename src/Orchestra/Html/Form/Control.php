@@ -193,7 +193,7 @@ class Control
      */
     protected function resolveFieldType($value, $data)
     {
-        $filterable = array('select', 'checkbox', 'radio', 'textarea', 'password', 'file');
+        $filterable = array('button', 'checkbox', 'file', 'password', 'radio', 'select', 'textarea');
 
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
