@@ -46,7 +46,7 @@ return array(
     */
 
     'fieldset' => array(
-        'button'   => array('class' => 'btn'),
+        'button'   => array(),
         'checkbox' => array(),
         'file'     => array(),
         'input'    => array('class' => 'twelve columns input-with-feedback'),
@@ -60,7 +60,7 @@ return array(
         'button' => function ($data) {
             return Form::button(
                 $data->value,
-                $data->attributes
+                HTML::decorate($data->attributes, array('class' => 'btn'))
             );
         },
         'checkbox' => function ($data) {
