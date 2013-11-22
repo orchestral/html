@@ -40,13 +40,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     private function getFieldsetConfig()
     {
         return array(
+            'button'   => array(),
+            'checkbox' => array(),
+            'input'    => array(),
+            'file'     => array(),
+            'password' => array(),
+            'radio'    => array(),
             'select'   => array(),
             'textarea' => array(),
-            'input'    => array(),
-            'password' => array(),
-            'file'     => array(),
-            'radio'    => array(),
-            'checkbox' => array(),
         );
     }
 
@@ -58,25 +59,28 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     private function getTemplateConfig()
     {
         return array(
-            'input'    => function ($data) {
-                return $data->name;
-            },
-            'textarea' => function ($data) {
-                return $data->name;
-            },
-            'password' => function ($data) {
-                return $data->name;
-            },
-            'file'     => function ($data) {
-                return $data->name;
-            },
-            'radio'    => function ($data) {
+            'button' => function ($data) {
                 return $data->name;
             },
             'checkbox' => function ($data) {
                 return $data->name;
             },
-            'select'   => function ($data) {
+            'file' => function ($data) {
+                return $data->name;
+            },
+            'input' => function ($data) {
+                return $data->name;
+            },
+            'password' => function ($data) {
+                return $data->name;
+            },
+            'radio' => function ($data) {
+                return $data->name;
+            },
+            'select' => function ($data) {
+                return $data->name;
+            },
+            'textarea' => function ($data) {
                 return $data->name;
             },
         );
@@ -159,13 +163,21 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
 
         $config->shouldReceive('get')->once()
                 ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig())
-            ->shouldReceive('get')->times(10)
+            ->shouldReceive('get')->times(11)
                 ->with('orchestra/html::form.templates', array())->andReturn($this->getTemplateConfig());
-        $input->shouldReceive('old')->times(10)->andReturn(array());
-        $html->shouldReceive('decorate')->times(10)->andReturn('foo');
+        $input->shouldReceive('old')->times(11)->andReturn(array());
+        $html->shouldReceive('decorate')->times(11)->andReturn('foo');
 
         $stub = new Fieldset($app, function ($f) {
-            $f->control('text', 'text_foo', function ($c) {
+            $f->control('button', 'button_foo', function ($c) {
+                $c->label('Foo')->value('foobar');
+            });
+
+            $f->control('checkbox', 'checkbox_foo', function ($c) {
+                $c->label('Foo')->value('foobar')->checked(true);
+            });
+
+            $f->control('file', 'file_foo', function ($c) {
                 $c->label('Foo')->value('foobar');
             });
 
@@ -173,23 +185,15 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
                 $c->label('Foo')->value('foobar');
             });
 
-            $f->control('password', 'password_foo', function ($c) {
-                $c->label('Foo')->value('foobar');
-            });
-
-            $f->control('file', 'file_foo', function ($c) {
-                $c->label('Foo')->value('foobar');
-            });
-
             $f->control('input:textarea', 'textarea_foo', function ($c) {
                 $c->label('Foo')->value('foobar');
             });
 
-            $f->control('radio', 'radio_foo', function ($c) {
-                $c->label('Foo')->value('foobar')->checked(true);
+            $f->control('password', 'password_foo', function ($c) {
+                $c->label('Foo')->value('foobar');
             });
 
-            $f->control('checkbox', 'checkbox_foo', function ($c) {
+            $f->control('radio', 'radio_foo', function ($c) {
                 $c->label('Foo')->value('foobar')->checked(true);
             });
 
@@ -202,6 +206,10 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
                 });
             });
 
+            $f->control('text', 'text_foo', function ($c) {
+                $c->label('Foo')->value('foobar');
+            });
+
             $f->control('text', 'a', 'A');
 
             $f->control('text', function ($c) {
@@ -209,45 +217,50 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
             });
         });
 
-        $output = $stub->of('text_foo');
+        $output = $stub->of('button_foo');
 
-        $this->assertEquals('text_foo', $output->id);
-        $this->assertEquals('text_foo', call_user_func($output->field, new Fluent, $output));
-
-        $output = $stub->of('email_foo');
-
-        $this->assertEquals('email_foo', $output->id);
-        $this->assertEquals('email_foo', call_user_func($output->field, new Fluent, $output));
-
-        $output = $stub->of('password_foo');
-
-        $this->assertEquals('password_foo', $output->id);
-        $this->assertEquals('password_foo', call_user_func($output->field, new Fluent, $output));
-
-        $output = $stub->of('file_foo');
-
-        $this->assertEquals('file_foo', $output->id);
-        $this->assertEquals('file_foo', call_user_func($output->field, new Fluent, $output));
-
-        $output = $stub->of('textarea_foo');
-
-        $this->assertEquals('textarea_foo', $output->id);
-        $this->assertEquals('textarea_foo', call_user_func($output->field, new Fluent, $output));
-
-        $output = $stub->of('radio_foo');
-
-        $this->assertEquals('radio_foo', $output->id);
-        $this->assertEquals('radio_foo', call_user_func($output->field, new Fluent, $output));
+        $this->assertEquals('button_foo', $output->id);
+        $this->assertEquals('button_foo', call_user_func($output->field, new Fluent, $output));
 
         $output = $stub->of('checkbox_foo');
 
         $this->assertEquals('checkbox_foo', $output->id);
         $this->assertEquals('checkbox_foo', call_user_func($output->field, new Fluent, $output));
 
+        $output = $stub->of('email_foo');
+
+        $this->assertEquals('email_foo', $output->id);
+        $this->assertEquals('email_foo', call_user_func($output->field, new Fluent, $output));
+
+        $output = $stub->of('file_foo');
+
+        $this->assertEquals('file_foo', $output->id);
+        $this->assertEquals('file_foo', call_user_func($output->field, new Fluent, $output));
+
+        $output = $stub->of('password_foo');
+
+        $this->assertEquals('password_foo', $output->id);
+        $this->assertEquals('password_foo', call_user_func($output->field, new Fluent, $output));
+
+        $output = $stub->of('radio_foo');
+
+        $this->assertEquals('radio_foo', $output->id);
+        $this->assertEquals('radio_foo', call_user_func($output->field, new Fluent, $output));
+
         $output = $stub->of('select_foo');
 
         $this->assertEquals('select_foo', $output->id);
         $this->assertEquals('select_foo', call_user_func($output->field, new Fluent, $output));
+
+        $output = $stub->of('text_foo');
+
+        $this->assertEquals('text_foo', $output->id);
+        $this->assertEquals('text_foo', call_user_func($output->field, new Fluent, $output));
+
+        $output = $stub->of('textarea_foo');
+
+        $this->assertEquals('textarea_foo', $output->id);
+        $this->assertEquals('textarea_foo', call_user_func($output->field, new Fluent, $output));
 
         $output = $stub->of('a');
 
