@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Html\Table;
 
 use InvalidArgumentException;
-use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Contracts\ArrayableInterface;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
@@ -218,7 +218,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             $value = '';
         }
 
-        $column = new Fluent(array(
+        $column = new Column(array(
             'id'         => $name,
             'label'      => $label,
             'value'      => $value,

@@ -3,6 +3,7 @@
 use Mockery as m;
 use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
+use Orchestra\Html\Table\Column;
 use Orchestra\Html\Table\Grid;
 
 class GridTest extends \PHPUnit_Framework_TestCase
@@ -227,7 +228,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         ), false);
 
         $expected = array(
-            new Fluent(array(
+            new Column(array(
                 'id'         => 'id',
                 'label'      => 'Id',
                 'value'      => function ($row) {
@@ -238,7 +239,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
                     return array();
                 }
             )),
-            new Fluent(array(
+            new Column(array(
                 'id'         => 'foo1',
                 'label'      => 'Foo1',
                 'value'      => 'Foo1 value',
@@ -247,7 +248,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
                     return array();
                 }
             )),
-            new Fluent(array(
+            new Column(array(
                 'id'         => 'foo2',
                 'label'      => 'Foo2',
                 'value'      => 'Foo2 value',

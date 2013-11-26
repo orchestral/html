@@ -7,10 +7,9 @@ $attributes['table'] = HTML::decorate($attributes['table'], array('class' => 'ta
         <tr>
             <th<?php echo HTML::attributes($col->headers ?: array()); ?>><?php echo $col->label; ?></th>
 <?php foreach ($rows as $row): ?>
-            <td<?php echo HTML::attributes(call_user_func($col->attributes, $row)); ?>><?php
-
-                $columnValue = call_user_func($col->value, $row);
-                echo ( !! $col->escape ? e($columnValue) : $columnValue); ?></td>
+            <td<?php echo HTML::attributes(call_user_func($col->attributes, $row)); ?>>
+            	<?php echo $col->getValue($row); ?>
+            </td>
 <?php endforeach; ?>
         </tr>
 <?php endforeach; ?>
