@@ -134,7 +134,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
     {
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
-        $control = new Fluent(array(
+        $control = new Field(array(
             'id'         => $name,
             'name'       => $name,
             'value'      => null,

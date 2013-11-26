@@ -136,7 +136,7 @@ class Control
             $value = $value($row, $control);
         }
 
-        $data = new Fluent(array(
+        $data = new Field(array(
             'method'     => '',
             'type'       => '',
             'options'    => array(),
