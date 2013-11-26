@@ -3,6 +3,16 @@ HTML Change Log
 
 ## Version 2.0
 
+### v2.0.10
+
+* Allow creation of `Form::button` from Form Builder.
+* Add additional to array convertion as `Orchestra\Html\Table\Grid::with()` should be able to take any time of:
+  - Array
+  - `Illuminate\Support\Contracts\ArrayableInterface`
+  - `Illuminate\Pagination\Paginator` instance
+  - Database Query Builder (Fluent and Eloquent)
+* `Orchestra\Html\Table\Grid::with()` to convert array to `Illuminate\Support\Fluent` to provide an object-like usage.
+
 ### v2.0.9
 
 * Implement [PSR-2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md) coding standard.
