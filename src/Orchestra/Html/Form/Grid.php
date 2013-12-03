@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Contracts\FormPresenterInterface as Presenter;
 use Illuminate\Support\Fluent;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
@@ -179,5 +181,46 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         }
 
         $this->hiddens[$name] = $this->app['form']->hidden($name, $field->value, $field->attributes);
+    }
+
+    /**
+     * Setup form configuration.
+     *
+     * @param  \Orchestra\Support\Contracts\FormPresenterInterface  $listener
+     * @param  string                                               $url
+     * @param  \Illuminate\Database\Eloquent\Model                  $model
+     * @param  array                                                $attributes
+     * @return array
+     */
+    public function resource(Presenter $listener, $url, Model $model, array $attributes = array())
+    {
+        $method = 'POST';
+
+        if ($model->exists) {
+            $url = "{$url}/{$model->getKey()}";
+            $method = 'PUT';
+        }
+
+        return $this->simple($listener, $url, $model, $method, $attributes);
+    }
+
+    /**
+     * Setup simple form configuration.
+     *
+     * @param  \Orchestra\Support\Contracts\FormPresenterInterface  $listener
+     * @param  string                                               $url
+     * @param  mixed                                                $model
+     * @param  string                                               $method
+     * @param  array                                                $attributes
+     * @return array
+     */
+    public function simple(Presenter $listener, $url, $model, $method = 'POST', array $attributes = array())
+    {
+        $url = $listener->handles($url);
+        $attributes = array_merge($attributes, compact('url', 'method'));
+
+        $this->with($model);
+        $this->attributes($attributes);
+        $listener->formLayout($this);
     }
 }
