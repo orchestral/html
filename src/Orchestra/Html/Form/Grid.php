@@ -217,7 +217,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     public function simple(Presenter $listener, $url, $model, array $attributes = array())
     {
-        $method = isset($attributes['method']) ? $attributes['method'] : 'POST';
+        $method = array_get($attributes, 'method', 'POST');
         $url    = $listener->handles($url);
 
         $attributes = array_merge($attributes, compact('url', 'method'));
