@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Html\Form;
 
-interface FormPresenterInterface
+interface PresenterInterface
 {
     /**
      * Build form action URL.
