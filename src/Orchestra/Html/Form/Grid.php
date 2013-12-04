@@ -202,7 +202,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
 
         $attributes['method'] = $method;
 
-        return $this->simple($listener, $url, $model, $attributes);
+        return $this->setup($listener, $url, $model, $attributes);
     }
 
     /**
@@ -214,7 +214,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  array                                $attributes
      * @return array
      */
-    public function simple(PresenterInterface $listener, $url, $model, array $attributes = array())
+    public function setup(PresenterInterface $listener, $url, $model, array $attributes = array())
     {
         $method = array_get($attributes, 'method', 'POST');
         $url    = $listener->handles($url);
