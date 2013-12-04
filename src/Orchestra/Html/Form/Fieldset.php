@@ -2,7 +2,6 @@
 
 use Closure;
 use Illuminate\Container\Container;
-use Illuminate\Support\Fluent;
 
 class Fieldset extends \Orchestra\Html\Abstractable\Grid
 {

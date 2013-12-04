@@ -10,7 +10,7 @@ class Control
     /**
      * Application instance.
      *
-     * @var Illuminate\Container\Container
+     * @var \Illuminate\Container\Container
      */
     protected $app = null;
 
@@ -172,10 +172,10 @@ class Control
      * Render the field.
      *
      * @param  array                        $templates
-     * @param  Illuminate\Support\Fluent    $data
+     * @param  \Illuminate\Support\Fluent   $data
      * @return string
      */
-    public function render($templates, $data)
+    public function render($templates, Fluent $data)
     {
         if (! isset($templates[$data->method])) {
             throw new InvalidArgumentException("Form template for [{$data->method}] is not available.");
@@ -191,7 +191,7 @@ class Control
      * @param  \Illuminate\Support\Fluent   $data
      * @return \Illuminate\Support\Fluent
      */
-    protected function resolveFieldType($value, $data)
+    protected function resolveFieldType($value, Fluent $data)
     {
         $filterable = array('button', 'checkbox', 'file', 'password', 'radio', 'select', 'textarea');
 
