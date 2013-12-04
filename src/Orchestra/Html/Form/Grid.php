@@ -3,7 +3,6 @@
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Fluent;
-use Orchestra\Support\Contracts\FormPresenterInterface as Presenter;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {
@@ -186,13 +185,13 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     /**
      * Setup form configuration.
      *
-     * @param  \Orchestra\Support\Contracts\FormPresenterInterface  $listener
-     * @param  string                                               $url
-     * @param  \Illuminate\Database\Eloquent\Model                  $model
-     * @param  array                                                $attributes
+     * @param  PresenterInterface                   $listener
+     * @param  string                               $url
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  array                                $attributes
      * @return array
      */
-    public function resource(Presenter $listener, $url, Model $model, array $attributes = array())
+    public function resource(PresenterInterface $listener, $url, Model $model, array $attributes = array())
     {
         $method = 'POST';
 
@@ -209,13 +208,13 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     /**
      * Setup simple form configuration.
      *
-     * @param  \Orchestra\Support\Contracts\FormPresenterInterface  $listener
-     * @param  string                                               $url
-     * @param  mixed                                                $model
-     * @param  array                                                $attributes
+     * @param  PresenterInterface                   $listener
+     * @param  string                               $url
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  array                                $attributes
      * @return array
      */
-    public function simple(Presenter $listener, $url, $model, array $attributes = array())
+    public function simple(PresenterInterface $listener, $url, $model, array $attributes = array())
     {
         $method = array_get($attributes, 'method', 'POST');
         $url    = $listener->handles($url);
