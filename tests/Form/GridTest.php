@@ -390,4 +390,54 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub = new Grid($app);
         $invalid = isset($stub->invalidProperty) ? true : false;
     }
+
+    /**
+     * Test Orchestra\Html\Form\Grid::resource() method as POST to create.
+     *
+     * @test
+     */
+    public function testResourceMethodAsPost()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::form', array())->andReturn(array());
+
+        $listener = m::mock('\Orchestra\Html\Form\PresenterInterface');
+        $model = m::mock('\Illuminate\Database\Eloquent\Model');
+
+        $listener->shouldReceive('handles')->once()
+                ->with('orchestra::users')->andReturn('orchestra::users')
+            ->shouldReceive('setupForm')->once();
+
+        $stub = new Grid($app);
+        $stub->resource($listener, 'orchestra::users', $model);
+    }
+
+    /**
+     * Test Orchestra\Html\Form\Grid::resource() method as PUT to update.
+     *
+     * @test
+     */
+    public function testResourceMethodAsPut()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::form', array())->andReturn(array());
+
+        $listener = m::mock('\Orchestra\Html\Form\PresenterInterface');
+        $model = m::mock('\Illuminate\Database\Eloquent\Model');
+        $model->exists = true;
+        $model->shouldReceive('getKey')->once()->andReturn(20);
+
+        $listener->shouldReceive('handles')->once()
+                ->with('orchestra::users/20')->andReturn('orchestra::users/20')
+            ->shouldReceive('setupForm')->once();
+
+        $stub = new Grid($app);
+        $stub->resource($listener, 'orchestra::users', $model);
+    }
 }
