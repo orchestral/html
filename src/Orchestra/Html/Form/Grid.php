@@ -201,7 +201,9 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             $method = 'PUT';
         }
 
-        return $this->simple($listener, $url, $model, $method, $attributes);
+        $attributes['method'] = $method;
+
+        return $this->simple($listener, $url, $model, $attributes);
     }
 
     /**
@@ -210,17 +212,20 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  \Orchestra\Support\Contracts\FormPresenterInterface  $listener
      * @param  string                                               $url
      * @param  mixed                                                $model
-     * @param  string                                               $method
      * @param  array                                                $attributes
      * @return array
      */
-    public function simple(Presenter $listener, $url, $model, $method = 'POST', array $attributes = array())
+    public function simple(Presenter $listener, $url, $model, array $attributes = array())
     {
-        $url = $listener->handles($url);
+        $method = isset($attributes['method']) ? $attributes['method'] : 'POST';
+        $url    = $listener->handles($url);
+
         $attributes = array_merge($attributes, compact('url', 'method'));
 
         $this->with($model);
         $this->attributes($attributes);
-        $listener->formLayout($this);
+        $listener->setupForm($this);
+
+        return $this;
     }
 }
