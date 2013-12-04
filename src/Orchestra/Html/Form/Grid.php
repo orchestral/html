@@ -2,8 +2,8 @@
 
 use Closure;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Contracts\FormPresenterInterface as Presenter;
 use Illuminate\Support\Fluent;
+use Orchestra\Support\Contracts\FormPresenterInterface as Presenter;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {
