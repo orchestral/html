@@ -7,6 +7,7 @@ HTML Change Log
 
 * `HTML::image()`, `HTML::link()`, `HTML::create()`, `HTML::ol()`, `HTML::ul()` and macro will utilize `HTML::raw()`.
 * Predefined package path to avoid additional overhead to guest package path.
+* Add `Orchestra\Html\Form\Grid::resource()` and `Orchestra\Html\Form\Grid::setup()` to simplify some code generation via `Orchestra\Html\Form\PresenterInterface` contract.
 
 ## Version 2.0
 
