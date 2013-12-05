@@ -31,6 +31,7 @@ Mark a string to be excluded from being escaped.
 echo HTML::link('foo', HTML::raw('<img src="foo.jpg">'));
 
 // will output <a href="foo"><img src="foo.jpg"></a>
+```
 
 ## Decorate HTML
 
@@ -38,7 +39,7 @@ Decorate method allow developer to define HTML attributes collection as `HTML::a
 
 ```php
 return HTML::decorate(
-	['class' => 'foo'], 
+	['class' => 'foo'],
 	['id' => 'foo', 'class' => 'span5']
 );
 
