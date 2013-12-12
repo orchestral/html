@@ -1,7 +1,7 @@
 {
 	"name": "orchestra/html",
 	"description": "Orchestra Platform 2 Html Component",
-	"homepage": "http://orchestraplatform.com/docs/2.0/components/html/",
+	"homepage": "http://orchestraplatform.com/docs/latest/components/html/",
 	"keywords": ["orchestra-platform", "orchestral", "laravel"],
 	"license": "MIT",
 	"authors": [
