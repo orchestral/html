@@ -59,12 +59,31 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
      * @param  array    $defaults
      * @return array
      */
-    public function decorate($attributes, $defaults = null)
+    public function decorate(array $attributes, array $defaults = array())
+    {
+        $class = $this->buildClassDecorate($attributes, $defaults);
+
+        $attributes = array_merge($defaults, $attributes);
+
+        empty($class) or $attributes['class'] = $class;
+
+        return $attributes;
+    }
+
+    /**
+     * Build class attribute from one or two array.
+     *
+     * @param  array    $attributes
+     * @param  array    $defaults
+     * @return array
+     */
+    protected function buildClassDecorate(array $attributes, array $defaults = array())
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults and take union of both.
-        $default   = isset($defaults['class']) ? $defaults['class'] : '';
-        $attribute = isset($attributes['class']) ? $attributes['class'] : '';
+        $default   = array_get($defaults, 'class', '');
+        $attribute = array_get($attributes, 'class', '');
+
         $classes   = explode(' ', trim($default.' '.$attribute));
         $current   = array_unique($classes);
         $excludes  = array();
@@ -76,12 +95,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
             }
         }
 
-        $class      = implode(' ', array_diff($current, $excludes));
-        $attributes = array_merge($defaults, $attributes);
-
-        empty($class) or $attributes['class'] = $class;
-
-        return $attributes;
+        return implode(' ', array_diff($current, $excludes));
     }
 
     /**
