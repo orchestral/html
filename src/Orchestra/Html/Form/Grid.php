@@ -219,7 +219,10 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         $method = array_get($attributes, 'method', 'POST');
         $url    = $listener->handles($url);
 
-        $attributes = array_merge($attributes, compact('url', 'method'));
+        $attributes = array_merge($attributes, array(
+            'url'    => $url,
+            'method' => $method,
+        ));
 
         $this->with($model);
         $this->attributes($attributes);
