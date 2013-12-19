@@ -24,7 +24,10 @@
 		"mockery/mockery": "0.8.*",
 		"illuminate/container": "4.1.*",
 		"illuminate/database": "4.1.*",
-		"illuminate/html": "4.1.*"
+		"illuminate/html": "4.1.*",
+		"illuminate/routing": "4.1.*",
+		"illuminate/translation": "4.1.*",
+		"illuminate/view": "4.1.*"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform 2",

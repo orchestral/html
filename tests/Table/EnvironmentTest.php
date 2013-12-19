@@ -38,7 +38,10 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     public function testMakeMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('Config');
+        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
+        $app['request'] = m::mock('\Illuminate\Http\Request');
+        $app['translator'] = m::mock('\Illuminate\Translation\Translator');
+        $app['view'] = m::mock('\Illuminate\View\Environment');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());
@@ -59,7 +62,10 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     public function testOfMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('Config');
+        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
+        $app['request'] = m::mock('\Illuminate\Http\Request');
+        $app['translator'] = m::mock('\Illuminate\Translation\Translator');
+        $app['view'] = m::mock('\Illuminate\View\Environment');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());

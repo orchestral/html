@@ -35,7 +35,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    private function getFieldsetConfig()
+    private function getFieldsetTemplate()
     {
         return array(
             'select'   => array(),
@@ -214,13 +214,13 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->twice()
-                ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetConfig())
+                ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate())
             ->shouldReceive('get')->once()
                 ->with('orchestra/html::form', array())->andReturn(array(
-                    'fieldset' => $this->getFieldsetConfig(),
+                    'fieldset' => $this->getFieldsetTemplate(),
                     'template' => $this->getTemplateConfig(),
                 ));
-        $control->shouldReceive('setConfig')->twice()->with($this->getFieldsetConfig())->andReturn(null);
+        $control->shouldReceive('setTemplate')->twice()->with($this->getFieldsetTemplate())->andReturn(null);
 
         $stub      = new Grid($app);
         $refl      = new \ReflectionObject($stub);

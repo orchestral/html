@@ -3,30 +3,15 @@
 use Mockery as m;
 use Illuminate\Container\Container;
 use Orchestra\Html\Form\FormBuilder;
+use Orchestra\Html\Form\Grid;
 
 class FormBuilderTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Application instance.
-     *
-     * @var \Illuminate\Container\Container
-     */
-    protected $app = null;
-
-    /**
-     * Setup the test environment.
-     */
-    public function setUp()
-    {
-        $this->app = new Container;
-    }
-
     /**
      * Teardown the test environment.
      */
     public function tearDown()
     {
-        unset($this->app);
         m::close();
     }
 
@@ -37,13 +22,18 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructMethod()
     {
-        $app = $this->app;
-        $app['config'] = $config = m::mock('Config');
+        $app = new Container;
+        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', array())->andReturn(array());
 
-        $stub = new FormBuilder($app, function () { });
+        $request = m::mock('\Illuminate\Http\Request');
+        $translator = m::mock('\Illuminate\Translation\Translator');
+        $view = m::mock('\Illuminate\View\Environment');
+        $grid = new Grid($app);
+
+        $stub = new FormBuilder($request, $translator, $view, $grid);
 
         $refl = new \ReflectionObject($stub);
         $name = $refl->getProperty('name');
@@ -69,12 +59,18 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicMethodThrowsException()
     {
-        $app = $this->app;
-        $app['config'] = $config = m::mock('Config');
+        $app = new Container;
+        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
 
-        $config->shouldReceive('get')->with('orchestra/html::form', array())->once()->andReturn(array());
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::form', array())->andReturn(array());
 
-        $stub = new FormBuilder($app, function () { });
+        $request = m::mock('\Illuminate\Http\Request');
+        $translator = m::mock('\Illuminate\Translation\Translator');
+        $view = m::mock('\Illuminate\View\Environment');
+        $grid = new Grid($app);
+
+        $stub = new FormBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
     }
 
@@ -85,14 +81,18 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethod()
     {
-        $app = $this->app;
-        $app['config'] = $config = m::mock('Config');
-        $app['translator'] = $lang = m::mock('Lang');
-        $app['view'] = $view = m::mock('View');
+        $app = new Container;
+        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
 
-        $config->shouldReceive('get')->twice()
+        $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', array())->andReturn(array());
-        $lang->shouldReceive('get')->twice()->andReturn(array());
+
+        $request = m::mock('\Illuminate\Http\Request');
+        $translator = m::mock('\Illuminate\Translation\Translator');
+        $view = m::mock('\Illuminate\View\Environment');
+        $grid = new Grid($app);
+
+        $translator->shouldReceive('get')->twice()->andReturn(array());
         $view->shouldReceive('make')->twice()->andReturn($view)
             ->shouldReceive('with')->twice()->andReturn($view)
             ->shouldReceive('render')->twice()->andReturn('mocked');
@@ -102,8 +102,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
             'name' => 'Laravel'
         ));
 
-        $mock1 = new FormBuilder($app, function ($form) use ($data)
-        {
+        $stub1 = new FormBuilder($request, $translator, $view, $grid);
+        $stub1->extend(function ($form) use ($data) {
             $form->with($data);
             $form->attributes(array(
                 'method' => 'POST',
@@ -112,8 +112,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
             ));
         });
 
-        $mock2 = new FormBuilder($app, function ($form) use ($data)
-        {
+        $stub2 = new FormBuilder($request, $translator, $view, $grid);
+        $stub2->extend(function ($form) use ($data) {
             $form->with($data);
             $form->attributes = array(
                 'method' => 'POST',
@@ -123,11 +123,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
         });
 
         ob_start();
-        echo $mock1;
+        echo $stub1;
         $output = ob_get_contents();
         ob_end_clean();
 
         $this->assertEquals('mocked', $output);
-        $this->assertEquals('mocked', $mock2->render());
+        $this->assertEquals('mocked', $stub2->render());
     }
 }

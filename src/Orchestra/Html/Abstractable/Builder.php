@@ -2,17 +2,40 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Container\Container;
+use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
+use Illuminate\View\Environment as View;
 use Illuminate\Support\Contracts\RenderableInterface;
 
 abstract class Builder implements RenderableInterface
 {
     /**
-     * Application instance.
+     * Request instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Http\Request
      */
-    protected $app = null;
+    protected $request;
+
+    /**
+     * Translator instance.
+     *
+     * @var \Illuminate\Translation\Translator
+     */
+    protected $translator;
+
+    /**
+     * View instance.
+     *
+     * @var \Illuminate\View\Environment
+     */
+    protected $view;
+
+    /**
+     * Grid instance.
+     *
+     * @var object
+     */
+    protected $grid;
 
     /**
      * Name of builder.
@@ -22,19 +45,14 @@ abstract class Builder implements RenderableInterface
     public $name = null;
 
     /**
-     * Grid instance.
-     *
-     * @var object
-     */
-    protected $grid = null;
-
-    /**
      * Create a new Builder instance.
      *
-     * @param  \Illuminate\Container\Container  $app
-     * @param  \Closure                         $callback
+     * @var \Illuminate\Http\Request           $request
+     * @var \Illuminate\Translation\Translator $translator
+     * @var \Illuminate\View\Environment       $view
+     * @var Grid                               $grid
      */
-    abstract public function __construct(Container $app, Closure $callback);
+    abstract public function __construct(Request $request, Translator $translator, View $view, $grid);
 
     /**
      * Extend decoration.
