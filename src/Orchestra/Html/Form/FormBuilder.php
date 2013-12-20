@@ -1,22 +1,21 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use Illuminate\Container\Container;
+use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
+use Illuminate\View\Environment as View;
 
 class FormBuilder extends \Orchestra\Html\Abstractable\Builder
 {
     /**
      * {@inheritdoc}
      */
-    public function __construct(Container $app, Closure $callback)
+    public function __construct(Request $request, Translator $translator, View $view, $grid)
     {
-        $this->app = $app;
-
-        // Initiate Form\Grid, this wrapper emulate Form designer
-        // script to create the Form.
-        $this->grid = new Grid($app);
-
-        $this->extend($callback);
+        $this->request    = $request;
+        $this->translator = $translator;
+        $this->view       = $view;
+        $this->grid       = $grid;
     }
 
     /**
@@ -34,10 +33,10 @@ class FormBuilder extends \Orchestra\Html\Abstractable\Builder
             'format'    => $grid->format,
             'hiddens'   => $grid->hiddens,
             'row'       => $grid->row,
-            'submit'    => $this->app['translator']->get($grid->submit),
+            'submit'    => $this->translator->get($grid->submit),
             'token'     => $grid->token,
         );
 
-        return $this->app['view']->make($grid->view)->with($data)->render();
+        return $this->view->make($grid->view)->with($data)->render();
     }
 }

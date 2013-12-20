@@ -58,7 +58,7 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerOrchestraFormBuilder()
     {
         $this->app->bindShared('orchestra.form.control', function ($app) {
-            return new Form\Control($app);
+            return new Form\Control($app['config'], $app['html'], $app['request']);
         });
 
         $this->app->bindShared('orchestra.form', function ($app) {

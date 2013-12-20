@@ -1,22 +1,21 @@
 <?php namespace Orchestra\Html\Table;
 
 use Closure;
-use Illuminate\Container\Container;
+use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
+use Illuminate\View\Environment as View;
 
 class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 {
     /**
      * {@inheritdoc}
      */
-    public function __construct(Container $app, Closure $callback)
+    public function __construct(Request $request, Translator $translator, View $view, $grid)
     {
-        $this->app = $app;
-
-        // Initiate Table\Grid, this wrapper emulate Table designer
-        // script to create the Table.
-        $this->grid = new Grid($app);
-
-        $this->extend($callback);
+        $this->request    = $request;
+        $this->translator = $translator;
+        $this->view       = $view;
+        $this->grid       = $grid;
     }
 
     /**
@@ -28,7 +27,7 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 
         // Add paginate value for current listing while appending query string,
         // however we also need to remove ?page from being added twice.
-        $input = $this->app['request']->query();
+        $input = $this->request->query();
 
         if (isset($input['page'])) {
             unset($input['page']);
@@ -42,13 +41,13 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
                 'table' => $grid->attributes,
             ),
             'columns'    => $grid->columns(),
-            'empty'      => $this->app['translator']->get($grid->empty),
+            'empty'      => $this->translator->get($grid->empty),
             'grid'       => $grid,
             'pagination' => $pagination,
             'rows'       => $grid->rows(),
         );
 
         // Build the view and render it.
-        return $this->app['view']->make($grid->view)->with($data)->render();
+        return $this->view->make($grid->view)->with($data)->render();
     }
 }

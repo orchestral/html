@@ -138,7 +138,7 @@ abstract class Grid
      * @return mixed
      * @throws \InvalidArgumentException
      */
-    public function __call($method, array $parameters = array())
+    public function __call($method, array $parameters)
     {
         unset($parameters);
 

@@ -2,59 +2,76 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Container\Container;
+use Illuminate\Config\Repository;
+use Illuminate\Html\HtmlBuilder;
+use Illuminate\Http\Request;
 use Illuminate\Support\Fluent;
 
 class Control
 {
     /**
-     * Application instance.
+     * Config instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Config\Repository
      */
-    protected $app = null;
+    protected $config;
 
     /**
-     * Configuration.
+     * Html builder instance.
+     *
+     * @var \Illuminate\Html\HtmlBuilder
+     */
+    protected $html;
+
+    /**
+     * Request instance.
+     *
+     * @var \Illuminate\Http\Request
+     */
+    protected $request;
+
+    /**
+     * Template configuration.
      *
      * @var  array
      */
-    protected $config = array();
+    protected $template = array();
 
     /**
      * Create a new Field instance.
      *
-     * @param  \Illuminate\Container\Container  $app
-     * @param  array                            $config
+     * @param  \Illuminate\Config\Repository    $config
+     * @param  \Illuminate\Html\HtmlBuilder     $html
+     * @param  \Illuminate\Http\Request         $request
      */
-    public function __construct(Container $app, array $config = array())
+    public function __construct(Repository $config, HtmlBuilder $html, Request $request)
     {
-        $this->app = $app;
-
-        $this->setConfig($config);
+        $this->config  = $config;
+        $this->html    = $html;
+        $this->request = $request;
     }
 
     /**
-     * Set configuration.
+     * Set template.
      *
-     * @param  array   $config
+     * @param  array   $template
      * @return Field
      */
-    public function setConfig(array $config = array())
+    public function setTemplate(array $template = array())
     {
-        $this->config = $config;
+        $this->template = $template;
 
         return $this;
     }
 
     /**
-     * Get configuration.
+     * Get template.
      *
      * @return array
      */
-    public function getConfig()
+    public function getTemplate()
     {
-        return $this->config;
+        return $this->template;
     }
 
     /**
@@ -66,7 +83,7 @@ class Control
     public function generate($type)
     {
         $me = $this;
-        $config = $this->app['config'];
+        $config = $this->config;
 
         return function ($row, $control, $templates = array()) use ($config, $me, $type) {
             $templates = array_merge(
@@ -90,9 +107,9 @@ class Control
      */
     public function buildFieldByType($type, $row, Fluent $control)
     {
-        $data   = $this->buildFluentData($type, $row, $control);
-        $config = $this->config;
-        $html   = $this->app['html'];
+        $data     = $this->buildFluentData($type, $row, $control);
+        $template = $this->template;
+        $html     = $this->html;
 
         if ($data->method === 'select') {
             $data->options($this->getOptionList($row, $control));
@@ -100,7 +117,7 @@ class Control
             $data->checked($control->checked);
         }
 
-        $data->attributes($html->decorate($control->attributes, $config[$data->method]));
+        $data->attributes($html->decorate($control->attributes, $template[$data->method]));
 
         return $data;
     }
@@ -119,7 +136,7 @@ class Control
         $name = $control->name;
 
         // set the value from old input, follow by row value.
-        $value = $this->app['request']->old($name);
+        $value = $this->request->old($name);
 
         if (! is_null($row->{$name}) and is_null($value)) {
             $value = $row->{$name};

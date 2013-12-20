@@ -58,7 +58,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
      */
     protected function initiate()
     {
-        $this->control->setConfig(
+        $this->control->setTemplate(
             $this->app['config']->get('orchestra/html::form.fieldset', array())
         );
     }

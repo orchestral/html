@@ -1,33 +1,16 @@
 <?php namespace Orchestra\Html\Tests\Form;
 
 use Mockery as m;
-use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Form\Control;
 
 class ControlTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Application instance.
-     *
-     * @var \Illuminate\Container\Container
-     */
-    protected $app = null;
-
-    /**
-     * Setup the test environment.
-     */
-    public function setUp()
-    {
-        $this->app = new Container;
-    }
-
-    /**
      * Teardown the test environment.
      */
     public function tearDown()
     {
-        unset($this->app);
         m::close();
     }
 
@@ -36,12 +19,19 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      *
      * @test
      */
-    public function testConfigMethods()
+    public function testTemplateMethods()
     {
-        $config = array('foo' => 'foobar');
-        $stub   = new Control($this->app, $config);
+        $template = array('foo' => 'foobar');
 
-        $this->assertEquals($config, $stub->getConfig());
+        $config = m::mock('\Illuminate\Config\Repository');
+        $html = m::mock('\Illuminate\Html\HtmlBuilder');
+        $request = m::mock('\Illuminate\Http\Request');
+
+        $stub = new Control($config, $html, $request);
+
+        $stub->setTemplate($template);
+
+        $this->assertEquals($template, $stub->getTemplate());
     }
 
      /**
@@ -51,8 +41,9 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildFluentDataMethod()
     {
-        $app = $this->app;
-        $app['request'] = $request = m::mock('Request');
+        $config = m::mock('\Illuminate\Config\Repository');
+        $html = m::mock('\Illuminate\Html\HtmlBuilder');
+        $request = m::mock('\Illuminate\Http\Request');
 
         $request->shouldReceive('old')->once()->with('foobar')->andReturn(null);
 
@@ -66,7 +57,7 @@ class ControlTest extends \PHPUnit_Framework_TestCase
             'name' => 'foobar',
         ));
 
-        $stub = new Control($app, array());
+        $stub = new Control($config, $html, $request);
         $stub->buildFluentData('text', $row, $control);
     }
 
@@ -77,7 +68,11 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethodThrowsException()
     {
-        $stub = new Control($this->app, array());
+        $config = m::mock('\Illuminate\Config\Repository');
+        $html = m::mock('\Illuminate\Html\HtmlBuilder');
+        $request = m::mock('\Illuminate\Http\Request');
+
+        $stub = new Control($config, $html, $request);
 
         $stub->render(
             array(),

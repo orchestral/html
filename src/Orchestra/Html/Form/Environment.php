@@ -9,6 +9,13 @@ class Environment extends \Orchestra\Html\Abstractable\Environment
      */
     public function make(Closure $callback)
     {
-        return new FormBuilder($this->app, $callback);
+        $builder = new FormBuilder(
+            $this->app['request'],
+            $this->app['translator'],
+            $this->app['view'],
+            new Grid($this->app)
+        );
+
+        return $builder->extend($callback);
     }
 }
