@@ -1,6 +1,5 @@
 <?php namespace Orchestra\Html\Form;
 
-use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 use Illuminate\View\Environment as View;
