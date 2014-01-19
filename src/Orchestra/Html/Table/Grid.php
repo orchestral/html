@@ -103,7 +103,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         if ($model instanceof Paginator) {
             $this->rows($model->getItems());
             $paginate = true;
-        } elseif ($paginate === true and method_exists($model, 'paginate')) {
+        } elseif ($paginate === true && method_exists($model, 'paginate')) {
             $this->rows($model->paginate());
         } elseif ($model instanceof ArrayableInterface) {
             $this->rows($model->toArray());

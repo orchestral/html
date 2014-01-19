@@ -144,7 +144,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
             'field'      => null,
         ));
 
-        is_callable($callback) and call_user_func($callback, $control);
+        is_callable($callback) && call_user_func($callback, $control);
 
         return array($name, $control);
     }

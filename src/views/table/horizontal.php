@@ -18,7 +18,7 @@ $attributes['table'] = HTML::decorate($attributes['table'], array('class' => 'ta
             </td>
 <?php endforeach; ?>
         </tr>
-<?php endforeach; if ( ! count($rows) and $empty): ?>
+<?php endforeach; if ( ! count($rows) && $empty): ?>
         <tr class="norecords">
             <td colspan="<?php echo count($columns); ?>"><?php echo $empty; ?></td>
         </tr>
