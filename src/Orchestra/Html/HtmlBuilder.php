@@ -30,7 +30,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     }
 
     /**
-     * {@inherit}
+     * {@inheritdoc}
      */
     public function entities($value)
     {
@@ -65,7 +65,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
 
         $attributes = array_merge($defaults, $attributes);
 
-        empty($class) or $attributes['class'] = $class;
+        empty($class) || $attributes['class'] = $class;
 
         return $attributes;
     }
@@ -80,7 +80,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     protected function buildClassDecorate(array $attributes, array $defaults = array())
     {
         // Special consideration to class, where we need to merge both string
-        // from $attributes and $defaults and take union of both.
+        // from $attributes and $defaults, then take union of both.
         $default   = array_get($defaults, 'class', '');
         $attribute = array_get($attributes, 'class', '');
 

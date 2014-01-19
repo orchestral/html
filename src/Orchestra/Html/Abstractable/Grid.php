@@ -89,7 +89,7 @@ abstract class Grid
     {
         $type = $this->definition['name'];
 
-        if (is_null($type) or ! property_exists($this, $type)) {
+        if (is_null($type) || ! property_exists($this, $type)) {
             throw new RuntimeException("Not supported.");
         } elseif (! isset($this->keyMap[$name])) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");

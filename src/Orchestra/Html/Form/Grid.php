@@ -125,7 +125,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             return $this->row;
         }
 
-        is_array($row) and $row = new Fluent($row);
+        is_array($row) && $row = new Fluent($row);
 
         $this->row = $row;
     }
@@ -165,7 +165,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     {
         $value = null;
 
-        if (isset($this->row) and isset($this->row->{$name})) {
+        if (isset($this->row) && isset($this->row->{$name})) {
             $value = $this->row->{$name};
         }
 

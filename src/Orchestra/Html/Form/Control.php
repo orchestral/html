@@ -138,7 +138,7 @@ class Control
         // set the value from old input, follow by row value.
         $value = $this->request->old($name);
 
-        if (! is_null($row->{$name}) and is_null($value)) {
+        if (! is_null($row->{$name}) && is_null($value)) {
             $value = $row->{$name};
         }
 
