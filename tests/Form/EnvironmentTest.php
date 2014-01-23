@@ -41,7 +41,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
         $app['request'] = m::mock('\Illuminate\Http\Request');
         $app['translator'] = m::mock('\Illuminate\Translation\Translator');
-        $app['view'] = m::mock('\Illuminate\View\Environment');
+        $app['view'] = m::mock('\Illuminate\View\Factory');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', array())->andReturn(array());
@@ -65,7 +65,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
         $app['request'] = m::mock('\Illuminate\Http\Request');
         $app['translator'] = m::mock('\Illuminate\Translation\Translator');
-        $app['view'] = m::mock('\Illuminate\View\Environment');
+        $app['view'] = m::mock('\Illuminate\View\Factory');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', array())->andReturn(array());

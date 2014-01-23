@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
-use Illuminate\View\Environment as View;
+use Illuminate\View\Factory as View;
 
 class FormBuilder extends \Orchestra\Html\Abstractable\Builder
 {

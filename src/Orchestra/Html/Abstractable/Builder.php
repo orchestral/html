@@ -4,7 +4,7 @@ use Closure;
 use InvalidArgumentException;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
-use Illuminate\View\Environment as View;
+use Illuminate\View\Factory as View;
 use Illuminate\Support\Contracts\RenderableInterface;
 
 abstract class Builder implements RenderableInterface
@@ -26,7 +26,7 @@ abstract class Builder implements RenderableInterface
     /**
      * View instance.
      *
-     * @var \Illuminate\View\Environment
+     * @var \Illuminate\View\Factory
      */
     protected $view;
 
@@ -49,7 +49,7 @@ abstract class Builder implements RenderableInterface
      *
      * @var \Illuminate\Http\Request           $request
      * @var \Illuminate\Translation\Translator $translator
-     * @var \Illuminate\View\Environment       $view
+     * @var \Illuminate\View\Factory           $view
      * @var Grid                               $grid
      */
     abstract public function __construct(Request $request, Translator $translator, View $view, $grid);

@@ -30,7 +30,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Environment');
+        $view = m::mock('\Illuminate\View\Factory');
         $grid = new Grid($app);
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
@@ -67,7 +67,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Environment');
+        $view = m::mock('\Illuminate\View\Factory');
         $grid = new Grid($app);
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
@@ -89,7 +89,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Environment');
+        $view = m::mock('\Illuminate\View\Factory');
         $grid = new Grid($app);
 
         $translator->shouldReceive('get')->twice()->andReturn(array());

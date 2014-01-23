@@ -31,7 +31,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Environment');
+        $view = m::mock('\Illuminate\View\Factory');
         $grid = new Grid($app);
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
@@ -68,7 +68,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Environment');
+        $view = m::mock('\Illuminate\View\Factory');
         $grid = new Grid($app);
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
@@ -90,7 +90,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Environment');
+        $view = m::mock('\Illuminate\View\Factory');
         $grid = new Grid($app);
 
         $request->shouldReceive('query')->twice()->andReturn(array('page' => 2, 'q' => 'user'));
