@@ -1,15 +1,15 @@
-<?php namespace Orchestra\Html\Table;
+<?php namespace Orchestra\Html\Form;
 
 use Closure;
 
-class Environment extends \Orchestra\Html\Abstractable\Environment
+class Factory extends \Orchestra\Html\Abstractable\Factory
 {
     /**
      * {@inheritdoc}
      */
     public function make(Closure $callback)
     {
-        $builder = new TableBuilder(
+        $builder = new FormBuilder(
             $this->app['request'],
             $this->app['translator'],
             $this->app['view'],

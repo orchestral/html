@@ -3,7 +3,7 @@
 use Closure;
 use Illuminate\Container\Container;
 
-abstract class Environment
+abstract class Factory
 {
     /**
      * Application instance.
@@ -13,14 +13,14 @@ abstract class Environment
     protected $app = null;
 
     /**
-     * Environment instances.
+     * Factory instances.
      *
      * @var array
      */
     protected $names = array();
 
     /**
-     * Construct a new environment.
+     * Construct a new factory.
      *
      * @param  \Illuminate\Container\Container  $app
      */

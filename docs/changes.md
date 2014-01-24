@@ -8,6 +8,7 @@ title: HTML Change Log
 
 * Bump minimum version to PHP v5.4.0.
 * Update to use `Illuminate\View\Factory`.
+* Rename Environment to Factory.
 
 ## Version 2.1 {#v2-1}
 

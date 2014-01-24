@@ -1,10 +1,10 @@
-<?php namespace Orchestra\Html\Tests\Table;
+<?php namespace Orchestra\Html\Tests\Form;
 
 use Mockery as m;
 use Illuminate\Container\Container;
-use Orchestra\Html\Table\Environment;
+use Orchestra\Html\Form\Factory;
 
-class EnvironmentTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Application instance.
@@ -14,7 +14,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     protected $app = null;
 
     /**
-     * Setup the test environment.
+     * Setup the test Factory.
      */
     public function setUp()
     {
@@ -22,7 +22,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Teardown the test environment.
+     * Teardown the test Factory.
      */
     public function tearDown()
     {
@@ -31,7 +31,7 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test Orchestra\Html\Table\Environment::make() method.
+     * Test Orchestra\Html\Table\Factory::make() method.
      *
      * @test
      */
@@ -44,18 +44,18 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $app['view'] = m::mock('\Illuminate\View\Factory');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
+            ->with('orchestra/html::form', array())->andReturn(array());
 
-        $stub   = new Environment($app);
+        $stub   = new Factory($app);
         $output = $stub->make(function () {
             //
         });
 
-        $this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $output);
+        $this->assertInstanceOf('\Orchestra\Html\Form\FormBuilder', $output);
     }
 
     /**
-     * Test Orchestra\Html\Table\Environment::of() method.
+     * Test Orchestra\Html\Form\Factory::of() method.
      *
      * @test
      */
@@ -68,13 +68,13 @@ class EnvironmentTest extends \PHPUnit_Framework_TestCase
         $app['view'] = m::mock('\Illuminate\View\Factory');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
+            ->with('orchestra/html::form', array())->andReturn(array());
 
-        $stub   = new Environment($app);
+        $stub   = new Factory($app);
         $output = $stub->of('foo', function () {
             //
         });
 
-        $this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $output);
+        $this->assertInstanceOf('\Orchestra\Html\Form\FormBuilder', $output);
     }
 }
