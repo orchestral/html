@@ -10,7 +10,7 @@ abstract class Factory
      *
      * @var \Illuminate\Container\Container
      */
-    protected $app = null;
+    protected $app;
 
     /**
      * Factory instances.

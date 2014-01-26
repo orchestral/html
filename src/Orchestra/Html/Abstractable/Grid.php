@@ -12,7 +12,7 @@ abstract class Grid
      *
      * @var \Illuminate\Container\Container
      */
-    protected $app = null;
+    protected $app;
 
     /**
      * Grid attributes.
