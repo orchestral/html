@@ -10,7 +10,7 @@ abstract class Environment
      *
      * @var \Illuminate\Container\Container
      */
-    protected $app = null;
+    protected $app;
 
     /**
      * Environment instances.
