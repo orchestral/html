@@ -131,7 +131,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());
 
-        $model = m::mock('\Illuminate\Database\Eloquent\Builder[paginate]');
+        $model = m::mock('\Illuminate\Database\Eloquent\Builder')->makePartial();
         $model->shouldReceive('paginate')->once()->andReturn(array('foo'));
 
         $stub = new Grid($app);
