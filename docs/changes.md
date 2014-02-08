@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 2.1 {#v2-1}
 
+### v2.1.1 {#v2-1-1}
+
+* Fixes `FatalErrorException` being thrown when inheriting abstract method.
+
 ### v2.1.0 {#v2-1-0}
 
 * `HTML::image()`, `HTML::link()`, `HTML::create()`, `HTML::ol()`, `HTML::ul()` and macro will utilize `HTML::raw()`.
