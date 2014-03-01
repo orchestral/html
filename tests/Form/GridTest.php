@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Support\Tests\Form;
+<?php namespace Orchestra\Html\Form\TestCase;
 
 use Mockery as m;
 use Illuminate\Container\Container;
