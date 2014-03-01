@@ -154,12 +154,24 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Html\HtmlBuilder::__call() persist since we're using
+     * static for macros (this won't happen before).
+     *
+     * @test
+     */
+    public function testMagicCallMethodPersistWhenItShouldnt()
+    {
+        $this->assertInstanceOf('\Orchestra\Support\Expression', with(new HtmlBuilder($this->url))->foo());
+        $this->assertInstanceOf('\Illuminate\Support\Fluent', with(new HtmlBuilder($this->url))->foobar());
+    }
+
+    /**
      * Test Orchestra\Html\HtmlBuilder::__call() method throws exception.
      *
      * @expectedException \BadMethodCallException
      */
     public function testMagicCallMethodThrowsException()
     {
-        with(new HtmlBuilder($this->url))->foo();
+        with(new HtmlBuilder($this->url))->missing();
     }
 }
