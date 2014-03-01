@@ -143,11 +143,11 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
      */
     public function __call($method, $parameters)
     {
-        if (! isset($this->macros[$method])) {
+        if (! static::hasMacro($method)) {
             throw new BadMethodCallException("Method {$method} does not exist.");
         }
 
-        $value = call_user_func_array($this->macros[$method], $parameters);
+        $value = call_user_func_array(static::$macros[$method], $parameters);
 
         if (is_string($value)) {
             return $this->raw($value);
