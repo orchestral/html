@@ -126,7 +126,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $url = $this->url;
 
-        $url->shouldReceive('asset')->once()->with('foo.png')->andReturn('foo.png')
+        $url->shouldReceive('asset')->once()->with('foo.png', false)->andReturn('foo.png')
             ->shouldReceive('to')->once()->with('foo', m::type('Array'), '')->andReturn('foo');
 
         $stub   = new HtmlBuilder($url);
