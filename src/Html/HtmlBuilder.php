@@ -101,9 +101,9 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     /**
      * {@inheritdoc}
      */
-    public function image($url, $alt = null, $attributes = array())
+    public function image($url, $alt = null, $attributes = array(), $secure = null)
     {
-        return $this->raw(parent::image($url, $alt, $attributes));
+        return $this->raw(parent::image($url, $alt, $attributes, $secure));
     }
 
     /**
