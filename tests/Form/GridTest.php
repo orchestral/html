@@ -220,7 +220,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
                     'fieldset' => $this->getFieldsetTemplate(),
                     'template' => $this->getTemplateConfig(),
                 ));
-        $control->shouldReceive('setTemplate')->twice()->with($this->getFieldsetTemplate())->andReturn(null);
+        $control->shouldReceive('setTemplate')->twice()->with($this->getFieldsetTemplate())->andReturn(null)
+            ->shouldReceive('generate')->twice();
 
         $stub      = new Grid($app);
         $refl      = new \ReflectionObject($stub);
@@ -230,20 +231,24 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Orchestra\Support\Collection', $fieldsets->getValue($stub));
         $this->assertEquals(array(), $fieldsets->getValue($stub)->toArray());
 
-        $stub->fieldset('Foobar', function ($f) {
-            //
-        });
 
         $stub->fieldset(function ($f) {
-            //
+            $f->control('text', 'email');
+        });
+        $stub->fieldset('Foobar', function ($f) {
+            $f->control('text', 'email');
         });
 
         $fieldset = $fieldsets->getValue($stub);
 
         $this->assertInstanceOf('\Orchestra\Html\Form\Fieldset', $fieldset[0]);
-        $this->assertEquals('Foobar', $fieldset[0]->name);
+        $this->assertNull($fieldset[0]->name);
+        $this->assertInstanceOf('\Orchestra\Html\Form\Field', $stub->find('email'));
+
         $this->assertInstanceOf('\Orchestra\Html\Form\Fieldset', $fieldset[1]);
-        $this->assertNull($fieldset[1]->name);
+        $this->assertEquals('Foobar', $fieldset[1]->name);
+        $this->assertInstanceOf('\Orchestra\Html\Form\Field', $stub->find('foobar.email'));
+        $this->assertEquals('email', $stub->find('foobar.email')->name);
     }
 
     /**
@@ -283,6 +288,25 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $data = $hiddens->getValue($stub);
         $this->assertEquals('hidden_foo', $data['foo']);
         $this->assertEquals('hidden_foobar', $data['foobar']);
+    }
+
+    /**
+     * Test Orchestra\Html\Form\Grid::find() throws
+     * exception.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testFindMethodThrowsException()
+    {
+        $app = $this->app;
+        $app['config'] = $config = m::mock('Config');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::form', array())->andReturn(array());
+
+        $stub = new Grid($app);
+
+        $stub->find('foobar.email');
     }
 
     /**
