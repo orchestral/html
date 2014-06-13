@@ -41,7 +41,7 @@ class Control
      * Create a new Field instance.
      *
      * @param  \Illuminate\Config\Repository    $config
-     * @param  \Illuminate\Html\HtmlBuilder     $html
+     * @param  \Orchestra\Html\HtmlBuilder      $html
      * @param  \Illuminate\Http\Request         $request
      */
     public function __construct(Repository $config, HtmlBuilder $html, Request $request)
