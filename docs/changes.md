@@ -2,7 +2,12 @@
 title: HTML Change Log
 
 ---
+
 ## Version 2.2 {#v2-2}
+
+### v2.2.1 {#v2-2-1}
+
+* Allow control to be accessed from `Orchestra\Html\Form\Grid` context via a new `find()` method.
 
 ### v2.2.0 {#v2-2-0}
 
