@@ -227,7 +227,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $fieldsets = $refl->getProperty('fieldsets');
         $fieldsets->setAccessible(true);
 
-        $this->assertEquals(array(), $fieldsets->getValue($stub));
+        $this->assertInstanceOf('\Orchestra\Support\Collection', $fieldsets->getValue($stub));
+        $this->assertEquals(array(), $fieldsets->getValue($stub)->toArray());
 
         $stub->fieldset('Foobar', function ($f) {
             //

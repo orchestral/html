@@ -3,6 +3,7 @@
 use Closure;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Fluent;
+use Orchestra\Support\Collection;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {
@@ -30,9 +31,9 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     /**
      * All the fieldsets.
      *
-     * @var array
+     * @var \Orchestra\Support\Collection
      */
-    protected $fieldsets = array();
+    protected $fieldsets;
 
     /**
      * Set submit button message.
@@ -71,6 +72,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     protected function initiate()
     {
+        $this->fieldsets = new Collection;
+
         $config = $this->app['config']->get('orchestra/html::form', array());
 
         foreach ($config as $key => $value) {
@@ -151,7 +154,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     public function fieldset($name, Closure $callback = null)
     {
-        return $this->fieldsets[] = new Fieldset($this->app, $name, $callback);
+        return $this->fieldsets->push(new Fieldset($this->app, $name, $callback));
     }
 
     /**
