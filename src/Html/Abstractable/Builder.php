@@ -58,12 +58,12 @@ abstract class Builder implements RenderableInterface
      * Extend decoration.
      *
      * @param  \Closure $callback
-     * @return AbstractableBuilder
+     * @return Builder
      */
-    public function extend(Closure $callback)
+    public function extend(Closure $callback = null)
     {
         // Run the table designer.
-        call_user_func($callback, $this->grid);
+        ! is_null($callback) && call_user_func($callback, $this->grid);
 
         return $this;
     }
@@ -88,7 +88,7 @@ abstract class Builder implements RenderableInterface
      * An alias to render().
      *
      * @return string
-     * @see    AbstractableBuilder::render()
+     * @see    Builder::render()
      */
     public function __toString()
     {

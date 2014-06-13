@@ -7,7 +7,7 @@ class Environment extends \Orchestra\Html\Abstractable\Environment
     /**
      * {@inheritdoc}
      */
-    public function make(Closure $callback)
+    public function make(Closure $callback = null)
     {
         $builder = new TableBuilder(
             $this->app['request'],
