@@ -27,7 +27,8 @@
 		"illuminate/html": "4.2.*",
 		"illuminate/routing": "4.2.*",
 		"illuminate/translation": "4.2.*",
-		"illuminate/view": "4.2.*"
+		"illuminate/view": "4.2.*",
+		"patchwork/utf8": "1.1.*"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform 2",

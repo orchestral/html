@@ -167,4 +167,14 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
 
         $this->name = $name;
     }
+
+    /**
+     * Get fieldset name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
 }
