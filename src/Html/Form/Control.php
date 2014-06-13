@@ -133,25 +133,8 @@ class Control
     public function buildFluentData($type, $row, Fluent $control)
     {
         // set the name of the control
-        $name = $control->name;
-
-        // set the value from old input, follow by row value.
-        $value = $this->request->old($name);
-
-        if (! is_null($row->{$name}) && is_null($value)) {
-            $value = $row->{$name};
-        }
-
-        // if the value is set from the closure, we should use it instead of
-        // value retrieved from attached data
-        if (! is_null($control->value)) {
-            $value = $control->value;
-        }
-
-        // should also check if it's a closure, when this happen run it.
-        if ($value instanceof Closure) {
-            $value = $value($row, $control);
-        }
+        $name  = $control->name;
+        $value = $this->resolveFieldValue($name, $row, $control);
 
         $data = new Field(array(
             'method'     => '',
@@ -225,5 +208,36 @@ class Control
         }
 
         return $data;
+    }
+
+    /**
+     * Resolve field value.
+     *
+     * @param  string                       $name
+     * @param  mixed                        $row
+     * @param  \Illuminate\Support\Fluent   $control
+     * @return mixed
+     */
+    protected function resolveFieldValue($name, $row, Fluent $control)
+    {
+        // set the value from old input, follow by row value.
+        $value = $this->request->old($name);
+
+        if (!is_null($row->{$name}) && is_null($value)) {
+            $value = $row->{$name};
+        }
+
+        // if the value is set from the closure, we should use it instead of
+        // value retrieved from attached data
+        if (!is_null($control->value)) {
+            $value = $control->value;
+        }
+
+        // should also check if it's a closure, when this happen run it.
+        if ($value instanceof Closure) {
+            $value = $value($row, $control);
+        }
+
+        return $value;
     }
 }
