@@ -52,7 +52,7 @@ abstract class Builder implements RenderableInterface
      * @var \Illuminate\View\Environment       $view
      * @var Grid                               $grid
      */
-    abstract public function __construct(Request $request, Translator $translator, View $view, $grid);
+    abstract public function __construct(Request $request, Translator $translator, View $view, Grid $grid);
 
     /**
      * Extend decoration.

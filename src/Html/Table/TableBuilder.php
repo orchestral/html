@@ -3,13 +3,14 @@
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 use Illuminate\View\Environment as View;
+use Orchestra\Html\Abstractable\Grid as AbstractableGrid;
 
 class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 {
     /**
      * {@inheritdoc}
      */
-    public function __construct(Request $request, Translator $translator, View $view, $grid)
+    public function __construct(Request $request, Translator $translator, View $view, AbstractableGrid $grid)
     {
         $this->request    = $request;
         $this->translator = $translator;
