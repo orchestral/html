@@ -156,7 +156,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     {
         $app = $this->app;
         $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-        $app['html'] = $html = m::mock('\Illuminate\Html\HtmlBuilder');
+        $app['html'] = $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
         $app['orchestra.form.control'] = $control = new Control($config, $html, $request);

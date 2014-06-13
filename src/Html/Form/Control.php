@@ -3,7 +3,7 @@
 use Closure;
 use InvalidArgumentException;
 use Illuminate\Config\Repository;
-use Illuminate\Html\HtmlBuilder;
+use Orchestra\Html\HtmlBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Fluent;
 
