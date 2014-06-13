@@ -26,6 +26,7 @@
 		"illuminate/container": "4.2.*",
 		"illuminate/database": "4.2.*",
 		"illuminate/html": "4.2.*",
+		"illuminate/pagination": "4.2.*",
 		"illuminate/routing": "4.2.*",
 		"illuminate/translation": "4.2.*",
 		"illuminate/view": "4.2.*",

@@ -7,7 +7,7 @@ class Factory extends \Orchestra\Html\Abstractable\Factory
     /**
      * {@inheritdoc}
      */
-    public function make(Closure $callback)
+    public function make(Closure $callback = null)
     {
         $builder = new TableBuilder(
             $this->app['request'],

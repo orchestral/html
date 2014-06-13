@@ -75,9 +75,9 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
         if ($name instanceof Closure) {
             $callback = $name;
             $name     = null;
-        } elseif (! empty($name)) {
-            $this->legend($name);
         }
+
+        ! empty($name) && $this->legend($name);
 
         call_user_func($callback, $this);
     }
