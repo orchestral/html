@@ -4,7 +4,7 @@ title: HTML Change Log
 ---
 ## Version 2.2 {#v2-2}
 
-### v2.2.0@dev {#v2-2-0}
+### v2.2.0 {#v2-2-0}
 
 * Bump minimum version to PHP v5.4.0.
 * Update to use `Illuminate\View\Factory`.

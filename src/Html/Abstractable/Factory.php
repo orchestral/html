@@ -32,10 +32,10 @@ abstract class Factory
     /**
      * Create a new Builder instance.
      *
-     * @param  \Closure $callback
+     * @param  \Closure|null    $callback
      * @return object
      */
-    abstract public function make(Closure $callback);
+    abstract public function make(Closure $callback = null);
 
     /**
      * Create a new builder instance of a named builder.
