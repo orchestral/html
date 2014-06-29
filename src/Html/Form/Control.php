@@ -111,7 +111,7 @@ class Control
         $template = $this->template;
         $html     = $this->html;
 
-        if ($data->method === 'select') {
+        if (in_array($data->method, array('checkboxes', 'select'))) {
             $data->options($this->getOptionList($row, $control));
         } elseif (in_array($data->method, array('checkbox', 'radio'))) {
             $data->checked($control->checked);
@@ -193,7 +193,7 @@ class Control
      */
     protected function resolveFieldType($value, Fluent $data)
     {
-        $filterable = array('button', 'checkbox', 'file', 'password', 'radio', 'select', 'textarea');
+        $filterable = array('button', 'checkbox', 'checkboxes', 'file', 'password', 'radio', 'select', 'textarea');
 
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
