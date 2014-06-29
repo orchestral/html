@@ -111,7 +111,7 @@ class Control
         $template = $this->template;
         $html     = $this->html;
 
-        if (in_array($data->method, array('checkbox', 'select'))) {
+        if (in_array($data->method, array('checkboxes', 'select'))) {
             $data->options($this->getOptionList($row, $control));
         } elseif (in_array($data->method, array('checkbox', 'radio'))) {
             $data->checked($control->checked);
