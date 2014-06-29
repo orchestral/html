@@ -77,7 +77,7 @@ return array(
 				$temp = Form::checkbox(
 					$data->name . '[]',
 					$id,
-					($id == $data->checked)
+					($id === $data->checked)
 				);
 				// add text
 				$temp .= ' ' . $label;
@@ -85,9 +85,6 @@ return array(
 				$checkbox_holder[] = $temp;
 			}
 			return implode('<br>',$checkbox_holder);
-
-
-			return Form::checkboxes($data->name, $data->options, $data->checkd);
         },
         'file' => function ($data) {
             return Form::file(
