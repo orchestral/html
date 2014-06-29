@@ -63,7 +63,14 @@ return array(
                 HTML::decorate($data->attributes, array('class' => 'btn'))
             );
         },
-        'checkbox' => function ($data) {
+		'checkbox' => function ($data) {
+				return Form::checkbox(
+					$data->name,
+					$data->value,
+					$data->checked
+				);
+		},
+        'checkboxes' => function ($data) {
 			$checkbox_holder = array();
 			foreach($data->options as $id => $label)
 			{
