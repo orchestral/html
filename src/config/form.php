@@ -64,11 +64,23 @@ return array(
             );
         },
         'checkbox' => function ($data) {
-            return Form::checkbox(
-                $data->name,
-                $data->value,
-                $data->checked
-            );
+			$checkbox_holder = array();
+			foreach($data->options as $id => $label)
+			{
+				$temp = Form::checkbox(
+					$data->name . '[]',
+					$id,
+					($id == $data->checked)
+				);
+				// add text
+				$temp .= ' ' . $label;
+
+				$checkbox_holder[] = $temp;
+			}
+			return implode('<br>',$checkbox_holder);
+
+
+			return Form::checkboxes($data->name, $data->options, $data->checkd);
         },
         'file' => function ($data) {
             return Form::file(
