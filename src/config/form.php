@@ -63,21 +63,14 @@ return array(
                 HTML::decorate($data->attributes, array('class' => 'btn'))
             );
         },
-		'checkbox' => function ($data) {
-				return Form::checkbox(
-					$data->name,
-					$data->value,
-					$data->checked
-				);
-		},
-        'checkboxes' => function ($data) {
+        'checkbox' => function ($data) {
 			$checkbox_holder = array();
 			foreach($data->options as $id => $label)
 			{
 				$temp = Form::checkbox(
 					$data->name . '[]',
 					$id,
-					($id === $data->checked)
+					($id == $data->checked)
 				);
 				// add text
 				$temp .= ' ' . $label;
