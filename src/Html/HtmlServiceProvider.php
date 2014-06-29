@@ -23,7 +23,7 @@ class HtmlServiceProvider extends ServiceProvider
         $this->registerFormBuilder();
         $this->registerOrchestraFormBuilder();
         $this->registerOrchestraTableBuilder();
-		$this->registerCustomFormMacros();
+        $this->registerCustomFormMacros();
     }
 
     /**
