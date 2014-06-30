@@ -5,6 +5,11 @@ title: HTML Change Log
 
 ## Version 2.2 {#v2-2}
 
+### v2.2.2 {#v2-2-2}
+
+* Allow support for `checkboxes` form.
+* Utilize `data_get()` and `array_*()` helpers.
+
 ### v2.2.1 {#v2-2-1}
 
 * Allow control to be accessed from `Orchestra\Html\Form\Grid` context via a new `find()` method.
@@ -16,6 +21,11 @@ title: HTML Change Log
 * Rename Environment to Factory.
 
 ## Version 2.1 {#v2-1}
+
+### v2.1.5 {#v2-1-5}
+
+* Allow support for `checkboxes` form.
+* Utilize `data_get()` and `array_*()` helpers.
 
 ### v2.1.4 {#v2-1-4}
 
