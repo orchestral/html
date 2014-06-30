@@ -170,7 +170,9 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
 
         $stub = new Fieldset($app, function ($f) {
             $f->control('button', 'button_foo', function ($c) {
-                $c->label('Foo')->value('foobar');
+                $c->label('Foo')->value(function() {
+                    return 'foobar';
+                });
             });
 
             $f->control('checkbox', 'checkbox_foo', function ($c) {
