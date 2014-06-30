@@ -2,6 +2,7 @@
 
 use Illuminate\Support\ServiceProvider;
 
+
 class HtmlServiceProvider extends ServiceProvider
 {
     /**
@@ -22,6 +23,7 @@ class HtmlServiceProvider extends ServiceProvider
         $this->registerFormBuilder();
         $this->registerOrchestraFormBuilder();
         $this->registerOrchestraTableBuilder();
+        $this->registerCustomFormMacros();
     }
 
     /**
@@ -78,6 +80,37 @@ class HtmlServiceProvider extends ServiceProvider
         });
     }
 
+
+
+	/**
+	 * Register the custom form macros.
+	 *
+	 * @return void
+	 */
+	protected function registerCustomFormMacros()
+	{
+		\Form::macro('checkboxes', function($name, $options, $checked, $attributes)
+		{
+			$checkbox_holder = array();
+			foreach($options as $id => $label)
+			{
+				$identifier = str_replace('[]', '',$name) . '_'. $id; // {$nameWithout[]}_{$id}
+				$temp = \Form::checkbox(
+					$name . (strpos('[]',$name) ? '': '[]'),
+					$id,
+					($id === $checked),
+					array('id' => $identifier)
+				);
+				// add text
+				$temp .= ' ' .\Form::label($identifier, $label);
+
+				$checkbox_holder[] = $temp;
+			}
+
+			return implode('<br>',$checkbox_holder);
+		});
+	}
+
     /**
      * Bootstrap the application events.
      *
@@ -99,4 +132,5 @@ class HtmlServiceProvider extends ServiceProvider
     {
         return array('html', 'form', 'orchestra.form', 'orchestra.form.control', 'orchestra.table');
     }
+
 }
