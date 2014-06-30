@@ -1,7 +1,6 @@
 <?php namespace Orchestra\Html;
 
 use Illuminate\Support\ServiceProvider;
-use Orchestra\Support\Str;
 
 class HtmlServiceProvider extends ServiceProvider
 {

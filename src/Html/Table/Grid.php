@@ -212,7 +212,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
 
         if (! empty($name)) {
             $value = function ($row) use ($name) {
-                return $row->{$name};
+                return data_get($row, $name);
             };
         } else {
             $value = '';
