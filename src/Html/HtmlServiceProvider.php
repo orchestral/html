@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html;
 
 use Illuminate\Support\ServiceProvider;
+use Orchestra\Support\Str;
 
 
 class HtmlServiceProvider extends ServiceProvider
@@ -23,7 +24,7 @@ class HtmlServiceProvider extends ServiceProvider
         $this->registerFormBuilder();
         $this->registerOrchestraFormBuilder();
         $this->registerOrchestraTableBuilder();
-        $this->registerCustomFormMacros();
+        $this->registerCheckboxesFormMacro();
     }
 
     /**
@@ -64,7 +65,7 @@ class HtmlServiceProvider extends ServiceProvider
         });
 
         $this->app->bindShared('orchestra.form', function ($app) {
-            return new Form\Factory($app);
+            return new Form\Environment($app);
         });
     }
 
@@ -76,40 +77,46 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerOrchestraTableBuilder()
     {
         $this->app->bindShared('orchestra.table', function ($app) {
-            return new Table\Factory($app);
+            return new Table\Environment($app);
         });
     }
 
+    /**
+     * Register the custom checkboxes form macro.
+     *
+     * @return void
+     */
+    protected function registerCheckboxesFormMacro()
+    {
+        $form = $this->app['form'];
 
+        $form->macro('checkboxes', function ($name, $options, $checked, $attributes) use ($form) {
+            $group = array();
 
-	/**
-	 * Register the custom form macros.
-	 *
-	 * @return void
-	 */
-	protected function registerCustomFormMacros()
-	{
-		\Form::macro('checkboxes', function($name, $options, $checked, $attributes)
-		{
-			$checkbox_holder = array();
-			foreach($options as $id => $label)
-			{
-				$identifier = str_replace('[]', '',$name) . '_'. $id; // {$nameWithout[]}_{$id}
-				$temp = \Form::checkbox(
-					$name . (strpos('[]',$name) ? '': '[]'),
-					$id,
-					($id === $checked),
-					array('id' => $identifier)
-				);
-				// add text
-				$temp .= ' ' .\Form::label($identifier, $label);
+            foreach ($options as $id => $label) {
+                $identifier = sprintf('%s_%s', str_replace('[]', '', $name), $id);
 
-				$checkbox_holder[] = $temp;
-			}
+                if (! Str::endsWith($name, '[]')) {
+                    $name = sprint('%s[]', $name);
+                }
 
-			return implode('<br>',$checkbox_holder);
-		});
-	}
+                $attributes['id'] = $identifier;
+
+                $control = $form->checkbox(
+                    $name,
+                    $id,
+                    in_array($id, (array) $checked),
+                    $attributes
+                );
+
+                $label = $form->label($identifier, $label);
+
+                $group[] = implode(' ', array($control, $label));
+            }
+
+            return implode('<br>', $group);
+        });
+    }
 
     /**
      * Bootstrap the application events.
@@ -132,5 +139,4 @@ class HtmlServiceProvider extends ServiceProvider
     {
         return array('html', 'form', 'orchestra.form', 'orchestra.form.control', 'orchestra.table');
     }
-
 }
