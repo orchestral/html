@@ -220,22 +220,25 @@ class Control
      */
     protected function resolveFieldValue($name, $row, Fluent $control)
     {
-        // set the value from old input, follow by row value.
+        // Set the value from old input, followed by row value.
         $value = $this->request->old($name);
+        $model = data_get($row, $name);
 
-        if (!is_null($row->{$name}) && is_null($value)) {
-            $value = $row->{$name};
+        if (! is_null($model) && is_null($value)) {
+            $value = $model;
         }
 
-        // if the value is set from the closure, we should use it instead of
-        // value retrieved from attached data
-        if (!is_null($control->value)) {
-            $value = $control->value;
+        if (is_null($control->value)) {
+            return $value;
         }
 
-        // should also check if it's a closure, when this happen run it.
+        $value = $control->value;
+
+        // If the value is set from the closure, we should use it instead of
+        // value retrieved from attached data. Should also check if it's a
+        // closure, when this happen run it.
         if ($value instanceof Closure) {
-            $value = $value($row, $control);
+            $value = call_user_func($value, $row, $control);
         }
 
         return $value;
