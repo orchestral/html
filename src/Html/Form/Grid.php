@@ -178,11 +178,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     public function hidden($name, $callback = null)
     {
-        $value = null;
-
-        if (isset($this->row) && isset($this->row->{$name})) {
-            $value = $this->row->{$name};
-        }
+        $value = data_get($this->row, $name);
 
         $field = new Fluent(array(
             'name'       => $name,
