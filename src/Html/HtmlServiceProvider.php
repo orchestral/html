@@ -95,7 +95,7 @@ class HtmlServiceProvider extends ServiceProvider
             foreach ($options as $id => $label) {
                 $name = str_replace('[]', '', $name);
                 $identifier = sprintf('%s_%s', $name, $id);
-                
+
                 $attributes['id'] = $identifier;
 
                 $control = $form->checkbox(

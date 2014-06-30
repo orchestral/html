@@ -82,18 +82,17 @@ class Control
      */
     public function generate($type)
     {
-        $me = $this;
         $config = $this->config;
 
-        return function ($row, $control, $templates = array()) use ($config, $me, $type) {
+        return function ($row, $control, $templates = array()) use ($config, $type) {
             $templates = array_merge(
                 $config->get('orchestra/html::form.templates', array()),
                 $templates
             );
 
-            $data = $me->buildFieldByType($type, $row, $control);
+            $data = $this->buildFieldByType($type, $row, $control);
 
-            return $me->render($templates, $data);
+            return $this->render($templates, $data);
         };
     }
 
