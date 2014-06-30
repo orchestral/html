@@ -93,16 +93,13 @@ class HtmlServiceProvider extends ServiceProvider
             $group = array();
 
             foreach ($options as $id => $label) {
-                $identifier = sprintf('%s_%s', str_replace('[]', '', $name), $id);
-
-                if (! Str::endsWith($name, '[]')) {
-                    $name = sprint('%s[]', $name);
-                }
-
+                $name = str_replace('[]', '', $name);
+                $identifier = sprintf('%s_%s', $name, $id);
+                
                 $attributes['id'] = $identifier;
 
                 $control = $form->checkbox(
-                    $name,
+                    sprintf('%s[]', $name),
                     $id,
                     in_array($id, (array) $checked),
                     $attributes
