@@ -81,8 +81,6 @@ class HtmlServiceProvider extends ServiceProvider
         });
     }
 
-
-
     /**
      * Register the custom checkboxes form macro.
      *
@@ -141,5 +139,4 @@ class HtmlServiceProvider extends ServiceProvider
     {
         return array('html', 'form', 'orchestra.form', 'orchestra.form.control', 'orchestra.table');
     }
-
 }
