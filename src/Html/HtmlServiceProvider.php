@@ -1,8 +1,6 @@
 <?php namespace Orchestra\Html;
 
 use Illuminate\Support\ServiceProvider;
-use Orchestra\Support\Str;
-
 
 class HtmlServiceProvider extends ServiceProvider
 {
@@ -96,7 +94,7 @@ class HtmlServiceProvider extends ServiceProvider
             foreach ($options as $id => $label) {
                 $name = str_replace('[]', '', $name);
                 $identifier = sprintf('%s_%s', $name, $id);
-                
+
                 $attributes['id'] = $identifier;
 
                 $control = $form->checkbox(
