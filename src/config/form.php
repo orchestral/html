@@ -64,10 +64,11 @@ return array(
             );
         },
         'checkbox' => function ($data) {
-            return Form::checkbox(
+            return Form::checkboxes(
                 $data->name,
-                $data->value,
-                $data->checked
+                $data->options,
+                $data->checked,
+                $data->attributes
             );
         },
         'file' => function ($data) {

@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html;
 
 use Illuminate\Support\ServiceProvider;
+use Orchestra\Support\Str;
 
 class HtmlServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,7 @@ class HtmlServiceProvider extends ServiceProvider
         $this->registerFormBuilder();
         $this->registerOrchestraFormBuilder();
         $this->registerOrchestraTableBuilder();
+        $this->registerCheckboxesFormMacro();
     }
 
     /**
@@ -75,6 +77,40 @@ class HtmlServiceProvider extends ServiceProvider
     {
         $this->app->bindShared('orchestra.table', function ($app) {
             return new Table\Factory($app);
+        });
+    }
+
+    /**
+     * Register the custom checkboxes form macro.
+     *
+     * @return void
+     */
+    protected function registerCheckboxesFormMacro()
+    {
+        $form = $this->app['form'];
+
+        $form->macro('checkboxes', function ($name, $options, $checked, $attributes) use ($form) {
+            $group = array();
+
+            foreach ($options as $id => $label) {
+                $name = str_replace('[]', '', $name);
+                $identifier = sprintf('%s_%s', $name, $id);
+
+                $attributes['id'] = $identifier;
+
+                $control = $form->checkbox(
+                    sprintf('%s[]', $name),
+                    $id,
+                    in_array($id, (array) $checked),
+                    $attributes
+                );
+
+                $label = $form->label($identifier, $label);
+
+                $group[] = implode(' ', array($control, $label));
+            }
+
+            return implode('<br>', $group);
         });
     }
 

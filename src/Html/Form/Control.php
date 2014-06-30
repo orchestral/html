@@ -82,18 +82,17 @@ class Control
      */
     public function generate($type)
     {
-        $me = $this;
         $config = $this->config;
 
-        return function ($row, $control, $templates = array()) use ($config, $me, $type) {
+        return function ($row, $control, $templates = array()) use ($config, $type) {
             $templates = array_merge(
                 $config->get('orchestra/html::form.templates', array()),
                 $templates
             );
 
-            $data = $me->buildFieldByType($type, $row, $control);
+            $data = $this->buildFieldByType($type, $row, $control);
 
-            return $me->render($templates, $data);
+            return $this->render($templates, $data);
         };
     }
 
@@ -111,7 +110,7 @@ class Control
         $template = $this->template;
         $html     = $this->html;
 
-        if ($data->method === 'select') {
+        if (in_array($data->method, array('checkboxes', 'select'))) {
             $data->options($this->getOptionList($row, $control));
         } elseif (in_array($data->method, array('checkbox', 'radio'))) {
             $data->checked($control->checked);
@@ -193,7 +192,7 @@ class Control
      */
     protected function resolveFieldType($value, Fluent $data)
     {
-        $filterable = array('button', 'checkbox', 'file', 'password', 'radio', 'select', 'textarea');
+        $filterable = array('button', 'checkbox', 'checkboxes', 'file', 'password', 'radio', 'select', 'textarea');
 
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
