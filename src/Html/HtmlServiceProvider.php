@@ -3,7 +3,6 @@
 use Illuminate\Support\ServiceProvider;
 use Orchestra\Support\Str;
 
-
 class HtmlServiceProvider extends ServiceProvider
 {
     /**
@@ -65,7 +64,7 @@ class HtmlServiceProvider extends ServiceProvider
         });
 
         $this->app->bindShared('orchestra.form', function ($app) {
-            return new Form\Environment($app);
+            return new Form\Factory($app);
         });
     }
 
@@ -77,7 +76,7 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerOrchestraTableBuilder()
     {
         $this->app->bindShared('orchestra.table', function ($app) {
-            return new Table\Environment($app);
+            return new Table\Factory($app);
         });
     }
 
