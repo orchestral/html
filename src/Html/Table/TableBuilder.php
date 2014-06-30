@@ -27,11 +27,7 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 
         // Add paginate value for current listing while appending query string,
         // however we also need to remove ?page from being added twice.
-        $input = $this->request->query();
-
-        if (isset($input['page'])) {
-            unset($input['page']);
-        }
+        $input = array_except($this->request->query(), array('page'));
 
         $pagination = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
 
