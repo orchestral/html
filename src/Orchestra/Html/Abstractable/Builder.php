@@ -76,11 +76,4 @@ abstract class Builder implements RenderableInterface
     {
         return $this->render();
     }
-
-    /**
-     * Render the form.
-     *
-     * @return string
-     */
-    abstract public function render();
 }
