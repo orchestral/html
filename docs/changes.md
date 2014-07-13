@@ -42,6 +42,10 @@ title: HTML Change Log
 
 ## Version 2.0 {#v2-0}
 
+### v2.0.11 {#v2-0-11}
+
+* Remove `abstract public function render()` from `Orchestra\Html\Abstractable\Builder` to avoid exception to be thrown in some environment.
+
 ### v2.0.10 {#v2-0-10}
 
 * Allow creation of `Form::button` from Form Builder.
