@@ -256,7 +256,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  string   $orderKey
      * @return void
      */
-    public function sortable($sortKey, $orderKey)
+    public function sortable($sortKey = 'sort', $orderKey = 'order')
     {
         $model = $this->resolveQueryBuilderFromModel();
 
@@ -314,6 +314,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Resolve query builder from model instance.
+     *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      * @throws \InvalidArgumentException
      */
