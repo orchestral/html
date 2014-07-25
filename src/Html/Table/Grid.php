@@ -1,12 +1,17 @@
 <?php namespace Orchestra\Html\Table;
 
 use InvalidArgumentException;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Fluent;
 use Illuminate\Support\Contracts\ArrayableInterface;
+use Orchestra\Support\Traits\QueryFilterTrait;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {
+    use QueryFilterTrait;
+
     /**
      * List of rows in array, is used when model is null.
      *
@@ -110,43 +115,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
-     * Get rows collection.
-     *
-     * @return array
-     */
-    protected function query()
-    {
-        if (empty($this->rows->data)) {
-            $this->buildRowsFromModel($this->model);
-        }
-
-        return $this->rows->data;
-    }
-
-    /**
-     * Get rows from model instance.
-     *
-     * @param  $model
-     * @return void
-     * @throws \InvalidArgumentException
-     */
-    protected function buildRowsFromModel($model)
-    {
-        if ($model instanceof Paginator) {
-            $this->setRowsData($model->getItems());
-            $this->paginate = true;
-        } elseif ($this->paginate === true && method_exists($model, 'paginate')) {
-            $this->setRowsData($model->paginate());
-        } elseif ($model instanceof ArrayableInterface) {
-            $this->setRowsData($model->toArray());
-        } elseif (is_array($model)) {
-            $this->setRowsData($model);
-        } else {
-            throw new InvalidArgumentException("Unable to convert \$model to array.");
-        }
-    }
-
-    /**
      * Set table layout (view).
      *
      * <code>
@@ -190,7 +158,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             return $this->query();
         }
 
-        $this->setRowsData($rows);
+        return $this->setRowsData($rows);
     }
 
     /**
@@ -217,7 +185,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      });
      * </code>
      *
-     * @param  mixed    $label
+     * @param  mixed    $name
      * @param  mixed    $callback
      * @return \Illuminate\Support\Fluent
      */
@@ -236,6 +204,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  mixed    $name
      * @param  mixed    $callback
+     * @return array
      */
     protected function buildColumn($name, $callback = null)
     {
@@ -267,13 +236,95 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Execute searchable filter on model instance.
+     *
+     * @param  array    $attributes
+     * @param  string   $key
+     * @return void
+     */
+    public function searchable(array $attributes, $key = 'q')
+    {
+        $model = $this->resolveQueryBuilderFromModel();
+
+        $this->model = $this->setupWildcardQueryFilter($model, $key, $attributes);
+    }
+
+    /**
+     * Execute sortable query filter on model instance.
+     *
+     * @param  string   $sortKey
+     * @param  string   $orderKey
+     * @return void
+     */
+    public function sortable($sortKey, $orderKey)
+    {
+        $model = $this->resolveQueryBuilderFromModel();
+
+        $this->model = $this->setupBasicQueryFilter($model, array(
+            'sort'  => $this->app['request']->input($sortKey),
+            'order' => $this->app['request']->input($orderKey),
+        ));
+    }
+
+    /**
+     * Get rows from model instance.
+     *
+     * @param  $model
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    protected function buildRowsFromModel($model)
+    {
+        if ($model instanceof Paginator) {
+            $this->setRowsData($model->getItems());
+            $this->paginate = true;
+        } elseif ($this->paginate === true && method_exists($model, 'paginate')) {
+            $this->setRowsData($model->paginate($this->perPage));
+        } elseif ($model instanceof ArrayableInterface) {
+            $this->setRowsData($model->toArray());
+        } elseif (is_array($model)) {
+            $this->setRowsData($model);
+        } else {
+            throw new InvalidArgumentException("Unable to convert \$model to array.");
+        }
+    }
+
+    /**
      * Set rows data.
      *
-     * @param  array $rows
-     * @return void
+     * @param  array    $rows
+     * @return array
      */
     protected function setRowsData(array $rows = array())
     {
-        $this->rows->data = $rows;
+        return $this->rows->data = $rows;
+    }
+    /**
+     * Get rows collection.
+     *
+     * @return array
+     */
+    protected function query()
+    {
+        if (empty($this->rows->data)) {
+            $this->buildRowsFromModel($this->model);
+        }
+
+        return $this->rows->data;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
+     * @throws \InvalidArgumentException
+     */
+    protected function resolveQueryBuilderFromModel()
+    {
+        $model = $this->model;
+
+        if (! ($model instanceof QueryBuilder || $model instanceof EloquentBuilder)) {
+            throw new InvalidArgumentException("Unable to load Query Builder from \$model");
+        }
+
+        return $model;
     }
 }
