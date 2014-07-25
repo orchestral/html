@@ -133,14 +133,14 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     protected function buildRowsFromModel($model)
     {
         if ($model instanceof Paginator) {
-            $this->rows($model->getItems());
+            $this->setRowsData($model->getItems());
             $this->paginate = true;
         } elseif ($this->paginate === true && method_exists($model, 'paginate')) {
-            $this->rows($model->paginate());
+            $this->setRowsData($model->paginate());
         } elseif ($model instanceof ArrayableInterface) {
-            $this->rows($model->toArray());
+            $this->setRowsData($model->toArray());
         } elseif (is_array($model)) {
-            $this->rows($model);
+            $this->setRowsData($model);
         } else {
             throw new InvalidArgumentException("Unable to convert \$model to array.");
         }
@@ -190,7 +190,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             return $this->query();
         }
 
-        $this->rows->data = $rows;
+        $this->setRowsData($rows);
     }
 
     /**
@@ -264,5 +264,16 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         }
 
         return array($name, $column);
+    }
+
+    /**
+     * Set rows data.
+     *
+     * @param  array $rows
+     * @return void
+     */
+    protected function setRowsData(array $rows = array())
+    {
+        $this->rows->data = $rows;
     }
 }
