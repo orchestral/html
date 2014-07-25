@@ -10,6 +10,7 @@ class Column extends \Illuminate\Support\Fluent
      */
     public function getValue($row)
     {
+
         $escape = $this->get('escape', false);
         $value  = call_user_func($this->attributes['value'], $row);
 
