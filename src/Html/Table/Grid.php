@@ -36,6 +36,13 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     protected $paginate = false;
 
     /**
+     * The number of models/entities to return for pagination.
+     *
+     * @var int|null
+     */
+    protected $perPage;
+
+    /**
      * Set the no record message.
      *
      * @var string
@@ -98,12 +105,37 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     public function with($model, $paginate = true)
     {
-        $this->model = $model;
+        $this->model    = $model;
+        $this->paginate = $paginate;
+    }
 
+    /**
+     * Get rows collection.
+     *
+     * @return array
+     */
+    protected function query()
+    {
+        if (empty($this->rows->data)) {
+            $this->buildRowsFromModel($this->model);
+        }
+
+        return $this->rows->data;
+    }
+
+    /**
+     * Get rows from model instance.
+     *
+     * @param  $model
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    protected function buildRowsFromModel($model)
+    {
         if ($model instanceof Paginator) {
             $this->rows($model->getItems());
-            $paginate = true;
-        } elseif ($paginate === true && method_exists($model, 'paginate')) {
+            $this->paginate = true;
+        } elseif ($this->paginate === true && method_exists($model, 'paginate')) {
             $this->rows($model->paginate());
         } elseif ($model instanceof ArrayableInterface) {
             $this->rows($model->toArray());
@@ -112,8 +144,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         } else {
             throw new InvalidArgumentException("Unable to convert \$model to array.");
         }
-
-        $this->paginate = $paginate;
     }
 
     /**
@@ -151,12 +181,13 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * </code>
      *
      * @param  array    $rows
-     * @return void
+     * @return array
+     * @throws \InvalidArgumentException
      */
     public function rows(array $rows = null)
     {
         if (is_null($rows)) {
-            return $this->rows->data;
+            return $this->query();
         }
 
         $this->rows->data = $rows;

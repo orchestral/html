@@ -90,7 +90,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $model->setAccessible(true);
         $paginate->setAccessible(true);
 
-        $this->assertEquals($mock, $rows->getValue($stub)->data);
+        $this->assertEquals($mock, $stub->rows());
         $this->assertEquals($mock, $model->getValue($stub));
         $this->assertFalse($paginate->getValue($stub));
         $this->assertTrue(isset($stub->model));
@@ -104,6 +104,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenPaginatorInstance()
     {
+        $expected = array('foo');
+
         $app = $this->app;
         $app['config'] = $config = m::mock('Config');
 
@@ -111,10 +113,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
             ->with('orchestra/html::table', array())->andReturn(array());
 
         $model = m::mock('\Illuminate\Pagination\Paginator');
-        $model->shouldReceive('getItems')->once()->andReturn(array('foo'));
+        $model->shouldReceive('getItems')->once()->andReturn($expected);
 
         $stub = new Grid($app);
         $stub->with($model);
+
+        $this->assertEquals($expected, $stub->rows());
     }
 
     /**
@@ -125,6 +129,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenModelBuilderInstance()
     {
+        $expected = array('foo');
+
         $app = $this->app;
         $app['config'] = $config = m::mock('Config');
 
@@ -132,10 +138,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
             ->with('orchestra/html::table', array())->andReturn(array());
 
         $model = m::mock('\Illuminate\Database\Eloquent\Builder')->makePartial();
-        $model->shouldReceive('paginate')->once()->andReturn(array('foo'));
+        $model->shouldReceive('paginate')->once()->andReturn($expected);
 
         $stub = new Grid($app);
         $stub->with($model);
+
+        $this->assertEquals($expected, $stub->rows());
     }
 
     /**
@@ -146,6 +154,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenArrayableInterfaceInstance()
     {
+        $expected = array('foo');
+
         $app = $this->app;
         $app['config'] = $config = m::mock('Config');
 
@@ -153,10 +163,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
             ->with('orchestra/html::table', array())->andReturn(array());
 
         $model = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
-        $model->shouldReceive('toArray')->once()->andReturn(array('foo'));
+        $model->shouldReceive('toArray')->once()->andReturn($expected);
 
         $stub = new Grid($app);
         $stub->with($model);
+
+        $this->assertEquals($expected, $stub->rows());
     }
 
     /**
@@ -177,6 +189,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $stub = new Grid($app);
         $stub->with($model, false);
+
+        $stub->rows();
     }
 
     /**
