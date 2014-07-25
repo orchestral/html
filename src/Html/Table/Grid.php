@@ -34,6 +34,15 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @var boolean
      */
     protected $paginate = false;
+    protected $perPage = 10;
+
+
+    /**
+     * Enable sorting of the table
+     *
+     * @var array
+     */
+    protected $sortable = array();
 
     /**
      * Set the no record message.
@@ -54,9 +63,9 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     protected $definition = array(
         'name'    => 'columns',
-        '__call'  => array('columns', 'view'),
-        '__get'   => array('attributes', 'columns', 'model', 'paginate', 'view', 'rows'),
-        '__set'   => array('attributes'),
+        '__call'  => array('columns', 'view', 'sortable'),
+        '__get'   => array('attributes', 'sortable', 'columns', 'model', 'paginate', 'view', 'rows', 'searchable'),
+        '__set'   => array('attributes', 'perPage'),
         '__isset' => array('attributes', 'columns', 'model', 'paginate', 'view'),
     );
 
@@ -82,6 +91,32 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Set sortable columns
+     *
+     * <code>
+     *      $table->sortable(['title', 'description', ...]);
+     * </code>
+     *
+     * @param array $sortable
+     */
+    public function sortable(array $sortable)
+	{
+		$this->sortable = $sortable;
+	}
+
+    public function paginate($amount)
+    {
+        // check if row-data is already set, because if it is,
+        // we cant paginate..
+        if(isset($this->rows->data) && count($this->rows->data) > 0)
+        {
+            throw new \LogicException("Paginate() should be called before with()");
+        }
+        $this->paginate = true;
+        $this->perPage = $amount;
+    }
+
+    /**
      * Attach Eloquent as row and allow pagination (if required).
      *
      * <code>
@@ -96,24 +131,29 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  boolean $paginate
      * @return void
      */
-    public function with($model, $paginate = true)
+    public function with($model)
     {
         $this->model = $model;
 
-        if ($model instanceof Paginator) {
-            $this->rows($model->getItems());
-            $paginate = true;
-        } elseif ($paginate === true && method_exists($model, 'paginate')) {
-            $this->rows($model->paginate());
-        } elseif ($model instanceof ArrayableInterface) {
+		if($this->paginate == true )
+        {
+             $model->paginate($this->perPage);
+            $this->rows($model->toArray());
+		}
+        else
+        {
+            $model->get();
+           $model->toArray();
+            $this->rows($model->toArray());
+        }
+
+       if ($model instanceof ArrayableInterface) {
             $this->rows($model->toArray());
         } elseif (is_array($model)) {
             $this->rows($model);
         } else {
             throw new InvalidArgumentException("Unable to convert \$model to array.");
         }
-
-        $this->paginate = $paginate;
     }
 
     /**
@@ -156,10 +196,12 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     public function rows(array $rows = null)
     {
         if (is_null($rows)) {
+
             return $this->rows->data;
         }
 
         $this->rows->data = $rows;
+       ;
     }
 
     /**
@@ -205,6 +247,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  mixed    $name
      * @param  mixed    $callback
+     * @return array    array
      */
     protected function buildColumn($name, $callback = null)
     {

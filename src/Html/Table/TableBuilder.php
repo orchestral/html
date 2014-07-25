@@ -29,7 +29,9 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
         // however we also need to remove ?page from being added twice.
         $input = array_except($this->request->query(), array('page'));
 
-        $pagination = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
+       // $pagination = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
+        $pagination = '';
+        $rows = $grid->rows();
 
         $data = array(
             'attributes' => array(
@@ -40,7 +42,8 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
             'empty'      => $this->translator->get($grid->empty),
             'grid'       => $grid,
             'pagination' => $pagination,
-            'rows'       => $grid->rows(),
+            'sortable'   => $grid->sortable,
+            'rows'       => $rows,
         );
 
         // Build the view and render it.
