@@ -23,16 +23,11 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructMethod()
     {
-        $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
+        $grid = new Grid($this->getContainer());
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
         $view = m::mock('\Illuminate\View\Environment');
-        $grid = new Grid($app);
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
 
@@ -60,16 +55,11 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicMethodThrowsException()
     {
-        $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
+        $grid = new Grid($this->getContainer());
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
         $view = m::mock('\Illuminate\View\Environment');
-        $grid = new Grid($app);
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -82,16 +72,11 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethod()
     {
-        $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
+        $grid = new Grid($this->getContainer());
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
         $view = m::mock('\Illuminate\View\Environment');
-        $grid = new Grid($app);
 
         $request->shouldReceive('query')->twice()->andReturn(array('page' => 2, 'q' => 'user'));
         $translator->shouldReceive('get')->twice()->andReturn(array());
@@ -140,5 +125,21 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('mocked', $output);
         $this->assertEquals('mocked', $stub2->render());
+    }
+
+    /**
+     * Get app container.
+     *
+     * @return Container
+     */
+    protected function getContainer()
+    {
+        $app = new Container;
+        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::table', array())->andReturn(array());
+
+        return $app;
     }
 }
