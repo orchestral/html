@@ -235,17 +235,17 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string   $sortKey
      * @param  string   $orderKey
+     * @param  string   $sortKey
      * @return void
      */
-    public function sortable($sortKey = 'sort', $orderKey = 'order')
+    public function sortable($orderKey = 'order', $sortKey = 'sort')
     {
         $model = $this->resolveQueryBuilderFromModel();
 
-        $this->model = $this->setupBasicQueryFilter($model, array(
-            'sort'  => $this->app['request']->input($sortKey),
+        $this->model = $this->setupBasicQueryFilter($model, $d = array(
             'order' => $this->app['request']->input($orderKey),
+            'sort'  => $this->app['request']->input($sortKey),
         ));
     }
 
