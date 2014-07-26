@@ -8,11 +8,18 @@ use Illuminate\Support\Contracts\ArrayableInterface;
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {
     /**
-     * List of rows in array, is used when model is null.
+     * All the columns.
      *
      * @var array
      */
-    protected $rows = null;
+    protected $columns = array();
+
+    /**
+     * Set the no record message.
+     *
+     * @var string
+     */
+    public $empty = null;
 
     /**
      * Eloquent model used for table.
@@ -22,11 +29,11 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     protected $model = null;
 
     /**
-     * All the columns.
+     * List of rows in array, is used when model is null.
      *
      * @var array
      */
-    protected $columns = array();
+    protected $rows = null;
 
     /**
      * Enable to attach pagination during rendering.
@@ -34,13 +41,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @var boolean
      */
     protected $paginate = false;
-
-    /**
-     * Set the no record message.
-     *
-     * @var string
-     */
-    public $empty = null;
 
     /**
      * Selected view path for table layout.
