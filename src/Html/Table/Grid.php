@@ -13,11 +13,18 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     use QueryFilterTrait;
 
     /**
-     * List of rows in array, is used when model is null.
+     * All the columns.
      *
      * @var array
      */
-    protected $rows = null;
+    protected $columns = array();
+
+    /**
+     * Set the no record message.
+     *
+     * @var string
+     */
+    public $empty = null;
 
     /**
      * Eloquent model used for table.
@@ -27,11 +34,11 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     protected $model = null;
 
     /**
-     * All the columns.
+     * List of rows in array, is used when model is null.
      *
      * @var array
      */
-    protected $columns = array();
+    protected $rows = null;
 
     /**
      * Enable to attach pagination during rendering.
@@ -46,13 +53,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @var int|null
      */
     protected $perPage;
-
-    /**
-     * Set the no record message.
-     *
-     * @var string
-     */
-    public $empty = null;
 
     /**
      * Selected view path for table layout.
@@ -200,42 +200,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
-     * Build control.
-     *
-     * @param  mixed    $name
-     * @param  mixed    $callback
-     * @return array
-     */
-    protected function buildColumn($name, $callback = null)
-    {
-        list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
-
-        if (! empty($name)) {
-            $value = function ($row) use ($name) {
-                return data_get($row, $name);
-            };
-        } else {
-            $value = '';
-        }
-
-        $column = new Column(array(
-            'id'         => $name,
-            'label'      => $label,
-            'value'      => $value,
-            'headers'    => array(),
-            'attributes' => function ($row) {
-                return array();
-            },
-        ));
-
-        if (is_callable($callback)) {
-            call_user_func($callback, $column);
-        }
-
-        return array($name, $column);
-    }
-
-    /**
      * Setup pagination.
      *
      * @param  int|null $perPage
@@ -283,6 +247,42 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             'sort'  => $this->app['request']->input($sortKey),
             'order' => $this->app['request']->input($orderKey),
         ));
+    }
+
+    /**
+     * Build control.
+     *
+     * @param  mixed    $name
+     * @param  mixed    $callback
+     * @return array
+     */
+    protected function buildColumn($name, $callback = null)
+    {
+        list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
+
+        if (! empty($name)) {
+            $value = function ($row) use ($name) {
+                return data_get($row, $name);
+            };
+        } else {
+            $value = '';
+        }
+
+        $column = new Column(array(
+            'id'         => $name,
+            'label'      => $label,
+            'value'      => $value,
+            'headers'    => array(),
+            'attributes' => function ($row) {
+                    return array();
+                },
+        ));
+
+        if (is_callable($callback)) {
+            call_user_func($callback, $column);
+        }
+
+        return array($name, $column);
     }
 
     /**
