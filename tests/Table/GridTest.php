@@ -133,6 +133,52 @@ class GridTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Html\Table\Grid::with() method given a
+     * Query Builder instance when paginated.
+     *
+     * @test
+     */
+    public function testWithMethodGivenQueryBuilderInstanceWhenPaginated()
+    {
+        $expected = array('foo');
+        $stub = new Grid($this->getContainer());
+
+        $model = m::mock('\Illuminate\Database\Query\Builder');
+        $arrayable = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+
+        $model->shouldReceive('paginate')->once()->with(25)->andReturn($arrayable);
+        $arrayable->shouldReceive('toArray')->once()->andReturn($expected);
+
+        $stub->paginate(25);
+        $stub->with($model);
+
+        $this->assertEquals($expected, $stub->rows());
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::with() method given a
+     * Query Builder instance when not paginated.
+     *
+     * @test
+     */
+    public function testWithMethodGivenQueryBuilderInstanceWhenNotPaginated()
+    {
+        $expected = array('foo');
+        $stub = new Grid($this->getContainer());
+
+        $model = m::mock('\Illuminate\Database\Query\Builder');
+        $arrayable = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+
+        $model->shouldReceive('get')->once()->andReturn($arrayable);
+        $arrayable->shouldReceive('toArray')->once()->andReturn($expected);
+
+        $stub->with($model);
+        $stub->paginate(null);
+
+        $this->assertEquals($expected, $stub->rows());
+    }
+
+    /**
      * Test Orchestra\Html\Table\Grid::with() method throws an exceptions
      * when $model can't be converted to array
      *

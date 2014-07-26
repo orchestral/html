@@ -286,6 +286,24 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Convert the model to Paginator when available or convert it
+     * to a collection.
+     *
+     * @param  mixed    $model
+     * @return \Illuminate\Support\Contracts\ArrayableInterface|array
+     */
+    protected function buildModel($model)
+    {
+        if ($this->paginate === true && method_exists($model, 'paginate')) {
+            $model = $model->paginate($this->perPage);
+        } elseif ($this->isQueryBuilder($model)) {
+            $model = $model->get();
+        }
+
+        return $model;
+    }
+
+    /**
      * Get rows from model instance.
      *
      * @param  $model
@@ -294,12 +312,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     protected function buildRowsFromModel($model)
     {
-        // Convert the model to Paginator when available.
-        if ($this->paginate === true && method_exists($model, 'paginate')) {
-            $this->model = $model = $model->paginate($this->perPage);
-        } elseif ($this->isQueryBuilder($model)) {
-            $this->model = $model = $model->get();
-        }
+        $this->model = $model = $this->buildModel($model);
 
         if ($model instanceof Paginator) {
             $this->setRowsData($model->getItems());
