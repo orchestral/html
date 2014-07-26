@@ -236,6 +236,23 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Setup pagination.
+     *
+     * @param  int|null $perPage
+     * @return void
+     */
+    public function paginate($perPage)
+    {
+        if (filter_var($perPage, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)))) {
+            $this->perPage = $perPage;
+            $this->paginate = true;
+        } else {
+            $this->perPage = null;
+            $this->paginate = false;
+        }
+    }
+
+    /**
      * Execute searchable filter on model instance.
      *
      * @param  array    $attributes
@@ -280,6 +297,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         // Convert the model to Paginator when available.
         if ($this->paginate === true && method_exists($model, 'paginate')) {
             $this->model = $model = $model->paginate($this->perPage);
+        } elseif ($this->isQueryBuilder($model)) {
+            $this->model = $model = $model->get();
         }
 
         if ($model instanceof Paginator) {
@@ -328,10 +347,21 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     {
         $model = $this->model;
 
-        if (! ($model instanceof QueryBuilder || $model instanceof EloquentBuilder)) {
+        if (! $this->isQueryBuilder($model)) {
             throw new InvalidArgumentException("Unable to load Query Builder from \$model");
         }
 
         return $model;
+    }
+
+    /**
+     * Check if given $model is a query builder.
+     *
+     * @param  mixed    $model
+     * @return bool
+     */
+    protected function isQueryBuilder($model)
+    {
+        return ($model instanceof QueryBuilder || $model instanceof EloquentBuilder);
     }
 }

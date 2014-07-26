@@ -254,6 +254,41 @@ class GridTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Html\Table\Grid::paginate() method.
+     *
+     * @test
+     */
+    public function testPaginateMethod()
+    {
+        $stub = new Grid($this->getContainer());
+        $refl = new \ReflectionObject($stub);
+
+        $perPage  = $refl->getProperty('perPage');
+        $paginate = $refl->getProperty('paginate');
+
+        $perPage->setAccessible(true);
+        $paginate->setAccessible(true);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
+
+        $stub->paginate(25);
+
+        $this->assertEquals(25, $perPage->getValue($stub));
+        $this->assertTrue($paginate->getValue($stub));
+
+        $stub->paginate(2.5);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
+
+        $stub->paginate(-10);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
+    }
+
+    /**
      * Test Orchestra\Html\Table\Grid::searchable() method.
      *
      * @test
