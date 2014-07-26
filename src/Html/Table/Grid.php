@@ -274,8 +274,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             'value'      => $value,
             'headers'    => array(),
             'attributes' => function ($row) {
-                    return array();
-                },
+                return array();
+            },
         ));
 
         if (is_callable($callback)) {
