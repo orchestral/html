@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 2.1 {#v2-1}
 
+### v2.1.6@dev {#v2-1-6}
+
+* Allow to retrieve instance of `Illuminate\Http\Request` and `Illuminate\Translation\Translator` from within Form and Table builder.
+
 ### v2.1.5 {#v2-1-5}
 
 * Allow support for `checkboxes` form.
