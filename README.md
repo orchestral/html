@@ -1,15 +1,30 @@
-Orchestra Platform Html Component
+HTML Component for Orchestra Platform 2
 ==============
 
-`Orchestra\Html` extends the functionality of Illuminate\Html with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
+HTML Component extends the functionality of `Illuminate\Html` with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
 
-[![Latest Stable Version](https://poser.pugx.org/orchestra/html/v/stable.png)](https://packagist.org/packages/orchestra/html) 
-[![Total Downloads](https://poser.pugx.org/orchestra/html/downloads.png)](https://packagist.org/packages/orchestra/html) 
-[![Build Status](https://travis-ci.org/orchestral/html.svg?branch=2.1)](https://travis-ci.org/orchestral/html) 
-[![Coverage Status](https://coveralls.io/repos/orchestral/html/badge.png?branch=2.1)](https://coveralls.io/r/orchestral/html?branch=2.1) 
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/html/badges/quality-score.png?s=8f6fa828398be2155999264f1979d557f9300f3d)](https://scrutinizer-ci.com/g/orchestral/html/) 
+[![Latest Stable Version](https://poser.pugx.org/orchestra/html/v/stable.png)](https://packagist.org/packages/orchestra/html)
+[![Total Downloads](https://poser.pugx.org/orchestra/html/downloads.png)](https://packagist.org/packages/orchestra/html)
+[![Build Status](https://travis-ci.org/orchestral/html.svg?branch=2.1)](https://travis-ci.org/orchestral/html)
+[![Coverage Status](https://coveralls.io/repos/orchestral/html/badge.png?branch=2.1)](https://coveralls.io/r/orchestral/html?branch=2.1)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/html/badges/quality-score.png?b=2.1)](https://scrutinizer-ci.com/g/orchestral/html/)
 
-## Quick Installation
+## Table of Content
+
+* [Version Compatibility](#version-compatibility)
+* [Installation](#installation)
+* [Configuration](#configuration)
+* [Usage](#usage)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/html/changes#v2-1)
+
+## Version Compatibility
+
+Laravel    | HTML
+:----------|:----------
+ 4.0.x     | 2.0.x
+ 4.1.x     | 2.1.x
+
+## Installation
 
 To install through composer, simply put the following in your `composer.json` file:
 
@@ -20,6 +35,18 @@ To install through composer, simply put the following in your `composer.json` fi
 	}
 }
 ```
+
+And then run `composer install` from the terminal.
+
+### Quick Installation
+
+Above installation can also be simplify by using the following command:
+
+```bash
+composer require "orchestra/html=2.1.*"
+```
+
+## Configuration
 
 Next add the service provider in `app/config/app.php`.
 
@@ -32,7 +59,72 @@ Next add the service provider in `app/config/app.php`.
 ),
 ```
 
+### Aliases
+
+You might want to add the following to class aliases in `app/config/app.php`:
+
+```php
+'aliases' => array(
+
+	// ...
+
+	'Orchestra\Form' => 'Orchestra\Support\Facades\Form',
+	'Orchestra\Table' => 'Orchestra\Support\Facades\Table',
+),
+```
+
+## Usage
+
+`Orchestra\Html\HtmlBuilder` is a small improvement from `Illuminate\Html\HtmlBuilder`.
+
+> Advise to use this only when manipulating HTML outside of view, otherwise it's better (and faster) to use html.
+
+## Create HTML
+
+Create a HTML tag from within your libraries/extension using following code:
+
+```php
+return HTML::create('p', 'Some awesome information');
+
+// will return <p>Some awesome information</p>
+```
+
+You can customize the HTML attibutes by adding third parameter.
+
+```php
+return HTML::create('p', 'Another awesomeness', ['id' => 'foo']);
+
+// will return <p id="foo">Another awesomeness</p>
+```
+
+## Raw HTML Entities
+
+Mark a string to be excluded from being escaped.
+
+```php
+return HTML::link('foo', HTML::raw('<img src="foo.jpg">'));
+
+// will return <a href="foo"><img src="foo.jpg"></a>
+```
+
+## Decorate HTML
+
+Decorate method allow developer to define HTML attributes collection as `HTML::attributes` method, with the addition of including default attributes array as second parameter.
+
+```php
+return HTML::decorate(['class' => 'foo'], ['id' => 'foo', 'class' => 'span5']);
+
+// will return array('class' => 'foo span5', 'id' => 'foo');
+```
+
+It also support replacement of default attributes if such requirement is needed.
+
+```php
+return HTML::decorate(['class' => 'foo !span5'], ['class' => 'bar span5']);
+
+// will return array('class' => 'foo bar');
+```
+
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/html)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/html/changes#v2-1)
