@@ -1,7 +1,9 @@
 <?php namespace Orchestra\Html;
 
 use BadMethodCallException;
+use Illuminate\Support\Arr;
 use Orchestra\Support\Expression;
+use Orchestra\Support\Str;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
 {
@@ -81,15 +83,15 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults, then take union of both.
-        $default   = array_get($defaults, 'class', '');
-        $attribute = array_get($attributes, 'class', '');
+        $default   = Arr::get($defaults, 'class', '');
+        $attribute = Arr::get($attributes, 'class', '');
 
         $classes   = explode(' ', trim($default.' '.$attribute));
         $current   = array_unique($classes);
         $excludes  = array();
 
         foreach ($current as $c) {
-            if (starts_with($c, '!')) {
+            if (Str::startsWith($c, '!')) {
                 $excludes[] = substr($c, 1);
                 $excludes[] = $c;
             }

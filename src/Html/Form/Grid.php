@@ -3,6 +3,7 @@
 use Closure;
 use InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Fluent;
 use Orchestra\Support\Collection;
 use Orchestra\Support\Str;
@@ -249,7 +250,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     public function setup(PresenterInterface $listener, $url, $model, array $attributes = array())
     {
-        $method = array_get($attributes, 'method', 'POST');
+        $method = Arr::get($attributes, 'method', 'POST');
         $url    = $listener->handles($url);
 
         $attributes = array_merge($attributes, array(

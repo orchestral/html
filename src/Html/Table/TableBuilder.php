@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html\Table;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Translation\Translator;
 use Illuminate\View\Factory as View;
 use Orchestra\Html\Abstractable\Grid as AbstractableGrid;
@@ -27,7 +28,9 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 
         // Add paginate value for current listing while appending query string,
         // however we also need to remove ?page from being added twice.
-        $input = array_except($this->request->query(), array('page'));
+        $input = Arr::except($this->request->query(), array('page'));
+
+        $rows = $grid->rows();
 
         $pagination = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
 
@@ -40,7 +43,7 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
             'empty'      => $this->translator->get($grid->empty),
             'grid'       => $grid,
             'pagination' => $pagination,
-            'rows'       => $grid->rows(),
+            'rows'       => $rows,
         );
 
         // Build the view and render it.

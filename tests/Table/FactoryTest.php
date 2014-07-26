@@ -7,26 +7,10 @@ use Orchestra\Html\Table\Factory;
 class FactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Application instance.
-     *
-     * @var \Illuminate\Container\Container
-     */
-    protected $app = null;
-
-    /**
-     * Setup the test Factory.
-     */
-    public function setUp()
-    {
-        $this->app = new Container;
-    }
-
-    /**
-     * Teardown the test Factory.
+     * Teardown the test environment.
      */
     public function tearDown()
     {
-        unset($this->app);
         m::close();
     }
 
@@ -37,16 +21,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMethod()
     {
-        $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-        $app['request'] = m::mock('\Illuminate\Http\Request');
-        $app['translator'] = m::mock('\Illuminate\Translation\Translator');
-        $app['view'] = m::mock('\Illuminate\View\Factory');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
-
-        $stub   = new Factory($app);
+        $stub   = new Factory($this->getContainer());
         $output = $stub->make(function () {
             //
         });
@@ -61,7 +36,22 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testOfMethod()
     {
-        $app = $this->app;
+        $stub   = new Factory($this->getContainer());
+        $output = $stub->of('foo', function () {
+            //
+        });
+
+        $this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $output);
+    }
+
+    /**
+     * Get app container.
+     *
+     * @return Container
+     */
+    protected function getContainer()
+    {
+        $app = new Container;
         $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
         $app['request'] = m::mock('\Illuminate\Http\Request');
         $app['translator'] = m::mock('\Illuminate\Translation\Translator');
@@ -70,11 +60,6 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());
 
-        $stub   = new Factory($app);
-        $output = $stub->of('foo', function () {
-            //
-        });
-
-        $this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $output);
+        return $app;
     }
 }

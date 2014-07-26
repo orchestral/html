@@ -5,6 +5,12 @@ title: HTML Change Log
 
 ## Version 2.2 {#v2-2}
 
+### v2.2.3@dev {#v2-2-3}
+
+* Add `Orchestra\Html\Table\Grid::searchable()` and `Orchestra\Html\Table\Grid::sortable()` to facilitate searching and sorting.
+* Allow to retrieve instance of `Illuminate\Http\Request` and `Illuminate\Translation\Translator` from within Form and Table builder.
+* Utilize `Illuminate\Support\Arr`.
+
 ### v2.2.2 {#v2-2-2}
 
 * Allow support for `checkboxes` form.
@@ -21,6 +27,10 @@ title: HTML Change Log
 * Rename Environment to Factory.
 
 ## Version 2.1 {#v2-1}
+
+### v2.1.6@dev {#v2-1-6}
+
+* Allow to retrieve instance of `Illuminate\Http\Request` and `Illuminate\Translation\Translator` from within Form and Table builder.
 
 ### v2.1.5 {#v2-1-5}
 

@@ -63,7 +63,7 @@ abstract class Builder implements RenderableInterface
     public function extend(Closure $callback = null)
     {
         // Run the table designer.
-        ! is_null($callback) && call_user_func($callback, $this->grid);
+        ! is_null($callback) && call_user_func($callback, $this->grid, $this->request, $this->translator);
 
         return $this;
     }
