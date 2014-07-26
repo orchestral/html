@@ -254,6 +254,87 @@ class GridTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Html\Table\Grid::searchable() method.
+     *
+     * @test
+     */
+    public function testSearchableMethod()
+    {
+        $attributes = array('email', 'fullname');
+
+        $stub = m::mock('\Orchestra\Html\Table\Grid[setupWildcardQueryFilter]', array($this->getContainer()))
+                    ->shouldAllowMockingProtectedMethods();
+
+        $model = m::mock('\Illuminate\Database\Query\Builder');
+
+        $stub->shouldReceive('setupWildcardQueryFilter')->once()->with($model, 'q', $attributes)->andReturnNull();
+
+        $stub->with($model);
+
+        $this->assertNull($stub->searchable($attributes));
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::searchable() method
+     * throws exception when model is not a query builder.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSearchableMethodThrowsException()
+    {
+        $attributes = array('email', 'fullname');
+
+        $stub = new Grid($this->getContainer());
+
+        $stub->with('Foo');
+
+        $stub->searchable($attributes);
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::sortable() method.
+     *
+     * @test
+     */
+    public function testSortableMethod()
+    {
+        $app = $this->getContainer();
+        $app['request'] = $request = m::mock('\Illuminate\Http\Request');
+
+        $request->shouldReceive('input')->once()->with('sort')->andReturn('email')
+            ->shouldReceive('input')->once()->with('order')->andReturn('desc');
+
+        $stub = m::mock('\Orchestra\Html\Table\Grid[setupBasicQueryFilter]', array($app))
+            ->shouldAllowMockingProtectedMethods();
+
+        $model = m::mock('\Illuminate\Database\Query\Builder');
+
+        $stub->shouldReceive('setupBasicQueryFilter')->once()
+            ->with($model, array('sort' => 'email', 'order' => 'desc'))->andReturnNull();
+
+        $stub->with($model);
+
+        $this->assertNull($stub->sortable());
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::sortable() method
+     * throws exception when model is not a query builder.
+     *
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSortableMethodThrowsException()
+    {
+        $attributes = array('email', 'fullname');
+
+        $stub = new Grid($this->getContainer());
+
+        $stub->with('Foo');
+
+        $stub->sortable($attributes);
+    }
+
+    /**
      * Test Orchestra\Html\Table\Grid::attributes() method.
      *
      * @test
