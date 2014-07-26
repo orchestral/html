@@ -246,7 +246,9 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     {
         $model = $this->resolveQueryBuilderFromModel();
 
-        $this->model = $this->setupWildcardQueryFilter($model, $key, $attributes);
+        $value = $this->app['request']->input($key);
+
+        $this->model = $this->setupWildcardQueryFilter($model, $value, $attributes);
     }
 
     /**

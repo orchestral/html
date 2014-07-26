@@ -261,13 +261,18 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testSearchableMethod()
     {
         $attributes = array('email', 'fullname');
+        $app = $this->getContainer();
 
-        $stub = m::mock('\Orchestra\Html\Table\Grid[setupWildcardQueryFilter]', array($this->getContainer()))
+        $app['request'] = $request = m::mock('\Illuminate\Http\Request');
+
+        $request->shouldReceive('input')->once()->with('q')->andReturn('orchestra*');
+
+        $stub = m::mock('\Orchestra\Html\Table\Grid[setupWildcardQueryFilter]', array($app))
                     ->shouldAllowMockingProtectedMethods();
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
 
-        $stub->shouldReceive('setupWildcardQueryFilter')->once()->with($model, 'q', $attributes)->andReturnNull();
+        $stub->shouldReceive('setupWildcardQueryFilter')->once()->with($model, 'orchestra*', $attributes)->andReturnNull();
 
         $stub->with($model);
 
