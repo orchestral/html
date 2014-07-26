@@ -44,6 +44,9 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
             'grid'       => $grid,
             'pagination' => $pagination,
             'rows'       => $rows,
+            'sortable'   => $grid->sortable,
+            'sortKey'    => $grid->sortKey,
+            'orderKey'   => $grid->orderKey
         );
 
         // Build the view and render it.

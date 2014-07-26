@@ -54,7 +54,27 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     protected $perPage;
 
+	/**
+	 * The sort key used by the sorting system
+	 *
+	 * @var string
+	 */
+	protected $sortKey =  'sort_by';
+
+	/**
+	 * The order by key used by the sorting system
+	 *
+	 * @var string
+	 */
+	protected $orderKey = 'order';
+
     /**
+     * Columns are sortable
+     *
+     * @var array
+     */
+    protected $sortable = array();
+	/**
      * Selected view path for table layout.
      *
      * @var array
@@ -67,7 +87,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     protected $definition = array(
         'name'    => 'columns',
         '__call'  => array('columns', 'view'),
-        '__get'   => array('attributes', 'columns', 'model', 'paginate', 'view', 'rows'),
+        '__get'   => array('attributes', 'sortKey', 'orderKey', 'sortable', 'columns', 'model', 'paginate', 'view', 'rows'),
         '__set'   => array('attributes'),
         '__isset' => array('attributes', 'columns', 'model', 'paginate', 'view'),
     );
@@ -235,17 +255,17 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string   $sortKey
      * @param  string   $orderKey
+     * @param  string   $sortKey
      * @return void
      */
-    public function sortable($sortKey = 'sort', $orderKey = 'order')
+    public function sortable(array $columns)
     {
         $model = $this->resolveQueryBuilderFromModel();
-
-        $this->model = $this->setupBasicQueryFilter($model, array(
-            'sort'  => $this->app['request']->input($sortKey),
-            'order' => $this->app['request']->input($orderKey),
+		$this->sortable = $columns;
+        $this->model = $this->setupBasicQueryFilter($model, $d = array(
+            'order' => $this->app['request']->input($this->sortKey),
+            'sort'  => $this->app['request']->input($this->orderKey),
         ));
     }
 
