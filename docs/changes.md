@@ -8,6 +8,7 @@ title: HTML Change Log
 ### v2.2.3@dev {#v2-2-3}
 
 * Add `Orchestra\Html\Table\Grid::searchable()` and `Orchestra\Html\Table\Grid::sortable()` to facilitate searching and sorting.
+* Utilize `Illuminate\Support\Arr`.
 
 ### v2.2.2 {#v2-2-2}
 
