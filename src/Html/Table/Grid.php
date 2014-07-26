@@ -277,11 +277,14 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     protected function buildRowsFromModel($model)
     {
+        // Convert the model to Paginator when available.
+        if ($this->paginate === true && method_exists($model, 'paginate')) {
+            $this->model = $model = $model->paginate($this->perPage);
+        }
+
         if ($model instanceof Paginator) {
             $this->setRowsData($model->getItems());
             $this->paginate = true;
-        } elseif ($this->paginate === true && method_exists($model, 'paginate')) {
-            $this->setRowsData($model->paginate($this->perPage));
         } elseif ($model instanceof ArrayableInterface) {
             $this->setRowsData($model->toArray());
         } elseif (is_array($model)) {
