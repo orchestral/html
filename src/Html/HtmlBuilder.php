@@ -2,6 +2,7 @@
 
 use BadMethodCallException;
 use Orchestra\Support\Expression;
+use Orchestra\Support\Str;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
 {
@@ -89,7 +90,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
         $excludes  = array();
 
         foreach ($current as $c) {
-            if (starts_with($c, '!')) {
+            if (Str::startsWith($c, '!')) {
                 $excludes[] = substr($c, 1);
                 $excludes[] = $c;
             }
