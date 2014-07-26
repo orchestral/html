@@ -13,11 +13,18 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     use QueryFilterTrait;
 
     /**
-     * List of rows in array, is used when model is null.
+     * All the columns.
      *
      * @var array
      */
-    protected $rows = null;
+    protected $columns = array();
+
+    /**
+     * Set the no record message.
+     *
+     * @var string
+     */
+    public $empty = null;
 
     /**
      * Eloquent model used for table.
@@ -27,11 +34,11 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     protected $model = null;
 
     /**
-     * All the columns.
+     * List of rows in array, is used when model is null.
      *
      * @var array
      */
-    protected $columns = array();
+    protected $rows = null;
 
     /**
      * Enable to attach pagination during rendering.
@@ -46,13 +53,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @var int|null
      */
     protected $perPage;
-
-    /**
-     * Set the no record message.
-     *
-     * @var string
-     */
-    public $empty = null;
 
     /**
      * Selected view path for table layout.
@@ -200,39 +200,20 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
-     * Build control.
+     * Setup pagination.
      *
-     * @param  mixed    $name
-     * @param  mixed    $callback
-     * @return array
+     * @param  int|null $perPage
+     * @return void
      */
-    protected function buildColumn($name, $callback = null)
+    public function paginate($perPage)
     {
-        list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
-
-        if (! empty($name)) {
-            $value = function ($row) use ($name) {
-                return data_get($row, $name);
-            };
+        if (filter_var($perPage, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)))) {
+            $this->perPage = $perPage;
+            $this->paginate = true;
         } else {
-            $value = '';
+            $this->perPage = null;
+            $this->paginate = false;
         }
-
-        $column = new Column(array(
-            'id'         => $name,
-            'label'      => $label,
-            'value'      => $value,
-            'headers'    => array(),
-            'attributes' => function ($row) {
-                return array();
-            },
-        ));
-
-        if (is_callable($callback)) {
-            call_user_func($callback, $column);
-        }
-
-        return array($name, $column);
     }
 
     /**
@@ -269,6 +250,60 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Build control.
+     *
+     * @param  mixed    $name
+     * @param  mixed    $callback
+     * @return array
+     */
+    protected function buildColumn($name, $callback = null)
+    {
+        list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
+
+        if (! empty($name)) {
+            $value = function ($row) use ($name) {
+                return data_get($row, $name);
+            };
+        } else {
+            $value = '';
+        }
+
+        $column = new Column(array(
+            'id'         => $name,
+            'label'      => $label,
+            'value'      => $value,
+            'headers'    => array(),
+            'attributes' => function ($row) {
+                return array();
+            },
+        ));
+
+        if (is_callable($callback)) {
+            call_user_func($callback, $column);
+        }
+
+        return array($name, $column);
+    }
+
+    /**
+     * Convert the model to Paginator when available or convert it
+     * to a collection.
+     *
+     * @param  mixed    $model
+     * @return \Illuminate\Support\Contracts\ArrayableInterface|array
+     */
+    protected function buildModel($model)
+    {
+        if ($this->paginate === true && method_exists($model, 'paginate')) {
+            $model = $model->paginate($this->perPage);
+        } elseif ($this->isQueryBuilder($model)) {
+            $model = $model->get();
+        }
+
+        return $model;
+    }
+
+    /**
      * Get rows from model instance.
      *
      * @param  $model
@@ -277,11 +312,11 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     protected function buildRowsFromModel($model)
     {
+        $this->model = $model = $this->buildModel($model);
+
         if ($model instanceof Paginator) {
             $this->setRowsData($model->getItems());
             $this->paginate = true;
-        } elseif ($this->paginate === true && method_exists($model, 'paginate')) {
-            $this->setRowsData($model->paginate($this->perPage));
         } elseif ($model instanceof ArrayableInterface) {
             $this->setRowsData($model->toArray());
         } elseif (is_array($model)) {
@@ -325,10 +360,21 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     {
         $model = $this->model;
 
-        if (! ($model instanceof QueryBuilder || $model instanceof EloquentBuilder)) {
+        if (! $this->isQueryBuilder($model)) {
             throw new InvalidArgumentException("Unable to load Query Builder from \$model");
         }
 
         return $model;
+    }
+
+    /**
+     * Check if given $model is a query builder.
+     *
+     * @param  mixed    $model
+     * @return bool
+     */
+    protected function isQueryBuilder($model)
+    {
+        return ($model instanceof QueryBuilder || $model instanceof EloquentBuilder);
     }
 }

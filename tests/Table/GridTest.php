@@ -133,6 +133,52 @@ class GridTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test Orchestra\Html\Table\Grid::with() method given a
+     * Query Builder instance when paginated.
+     *
+     * @test
+     */
+    public function testWithMethodGivenQueryBuilderInstanceWhenPaginated()
+    {
+        $expected = array('foo');
+        $stub = new Grid($this->getContainer());
+
+        $model = m::mock('\Illuminate\Database\Query\Builder');
+        $arrayable = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+
+        $model->shouldReceive('paginate')->once()->with(25)->andReturn($arrayable);
+        $arrayable->shouldReceive('toArray')->once()->andReturn($expected);
+
+        $stub->paginate(25);
+        $stub->with($model);
+
+        $this->assertEquals($expected, $stub->rows());
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::with() method given a
+     * Query Builder instance when not paginated.
+     *
+     * @test
+     */
+    public function testWithMethodGivenQueryBuilderInstanceWhenNotPaginated()
+    {
+        $expected = array('foo');
+        $stub = new Grid($this->getContainer());
+
+        $model = m::mock('\Illuminate\Database\Query\Builder');
+        $arrayable = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+
+        $model->shouldReceive('get')->once()->andReturn($arrayable);
+        $arrayable->shouldReceive('toArray')->once()->andReturn($expected);
+
+        $stub->with($model);
+        $stub->paginate(null);
+
+        $this->assertEquals($expected, $stub->rows());
+    }
+
+    /**
      * Test Orchestra\Html\Table\Grid::with() method throws an exceptions
      * when $model can't be converted to array
      *
@@ -251,6 +297,41 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer());
         $stub->of('id');
+    }
+
+    /**
+     * Test Orchestra\Html\Table\Grid::paginate() method.
+     *
+     * @test
+     */
+    public function testPaginateMethod()
+    {
+        $stub = new Grid($this->getContainer());
+        $refl = new \ReflectionObject($stub);
+
+        $perPage  = $refl->getProperty('perPage');
+        $paginate = $refl->getProperty('paginate');
+
+        $perPage->setAccessible(true);
+        $paginate->setAccessible(true);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
+
+        $stub->paginate(25);
+
+        $this->assertEquals(25, $perPage->getValue($stub));
+        $this->assertTrue($paginate->getValue($stub));
+
+        $stub->paginate(2.5);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
+
+        $stub->paginate(-10);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
     }
 
     /**

@@ -171,6 +171,28 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Find control that match the given id.
+     *
+     * @param  string   $name
+     * @return Field|null
+     */
+    public function find($name)
+    {
+        if (Str::contains($name, '.')) {
+            list($fieldset, $control) = explode('.', $name, 2);
+        } else {
+            $fieldset = 'fieldset-0';
+            $control = $name;
+        }
+
+        if (! array_key_exists($fieldset, $this->keyMap)) {
+            throw new InvalidArgumentException("Name [{$name}] is not available.");
+        }
+
+        return $this->keyMap[$fieldset]->of($control);
+    }
+
+    /**
      * Add hidden field.
      *
      * @param  string   $name
@@ -192,28 +214,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         }
 
         $this->hiddens[$name] = $this->app['form']->hidden($name, $field->value, $field->attributes);
-    }
-
-    /**
-     * Find control that match the given id.
-     *
-     * @param  string   $name
-     * @return Field|null
-     */
-    public function find($name)
-    {
-        if (Str::contains($name, '.')) {
-            list($fieldset, $control) = explode('.', $name, 2);
-        } else {
-            $fieldset = 'fieldset-0';
-            $control = $name;
-        }
-
-        if (! array_key_exists($fieldset, $this->keyMap)) {
-            throw new InvalidArgumentException("Name [{$name}] is not available.");
-        }
-
-        return $this->keyMap[$fieldset]->of($control);
     }
 
     /**
