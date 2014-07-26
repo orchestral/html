@@ -22,16 +22,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructMethod()
     {
-        $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', array())->andReturn(array());
+        $grid = new Grid($this->getContainer());
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
         $view = m::mock('\Illuminate\View\Environment');
-        $grid = new Grid($app);
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
 
@@ -59,16 +54,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicMethodThrowsException()
     {
-        $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', array())->andReturn(array());
+        $grid = new Grid($this->getContainer());
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
         $view = m::mock('\Illuminate\View\Environment');
-        $grid = new Grid($app);
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -81,16 +71,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethod()
     {
-        $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', array())->andReturn(array());
+        $grid = new Grid($this->getContainer());
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
         $view = m::mock('\Illuminate\View\Environment');
-        $grid = new Grid($app);
 
         $translator->shouldReceive('get')->twice()->andReturn(array());
         $view->shouldReceive('make')->twice()->andReturn($view)
@@ -129,5 +114,21 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('mocked', $output);
         $this->assertEquals('mocked', $stub2->render());
+    }
+
+    /**
+     * Get app container.
+     *
+     * @return Container
+     */
+    protected function getContainer()
+    {
+        $app = new Container;
+        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
+
+        $config->shouldReceive('get')->once()
+            ->with('orchestra/html::form', array())->andReturn(array());
+
+        return $app;
     }
 }
