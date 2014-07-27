@@ -54,19 +54,19 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      */
     protected $perPage;
 
-	/**
-	 * The sort key used by the sorting system
-	 *
-	 * @var string
-	 */
-	protected $sortKey =  'sort_by';
+    /**
+     * The sort key used by the sorting system
+     *
+     * @var string
+     */
+    protected $sortKey =  'sort_by';
 
-	/**
-	 * The order by key used by the sorting system
-	 *
-	 * @var string
-	 */
-	protected $orderKey = 'order';
+    /**
+     * The order by key used by the sorting system
+     *
+     * @var string
+     */
+    protected $orderKey = 'order';
 
     /**
      * Columns are sortable
@@ -74,7 +74,22 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @var array
      */
     protected $sortable = array();
-	/**
+
+    /**
+     * Columns that are searchable
+     *
+     * @var array
+     */
+    protected $searchable = array();
+
+    /**
+     * Search variable in the url
+     *
+     * @var string
+     */
+    protected $key = 'q';
+
+    /**
      * Selected view path for table layout.
      *
      * @var array
@@ -87,7 +102,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     protected $definition = array(
         'name'    => 'columns',
         '__call'  => array('columns', 'view'),
-        '__get'   => array('attributes', 'sortKey', 'orderKey', 'sortable', 'columns', 'model', 'paginate', 'view', 'rows'),
+        '__get'   => array('attributes', 'sortKey', 'key', 'orderKey', 'sortable', 'searchable', 'columns', 'model', 'paginate', 'view', 'rows'),
         '__set'   => array('attributes'),
         '__isset' => array('attributes', 'columns', 'model', 'paginate', 'view'),
     );
@@ -108,8 +123,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         $this->rows = new Fluent(array(
             'data'       => array(),
             'attributes' => function () {
-                return array();
-            },
+                    return array();
+                },
         ));
     }
 
@@ -243,13 +258,15 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  string   $key
      * @return void
      */
-    public function searchable(array $attributes, $key = 'q')
+    public function searchable(array $columns, $key = 'q')
     {
         $model = $this->resolveQueryBuilderFromModel();
+        $this->searchable = $columns;
+        $this->key = $key;
 
         $value = $this->app['request']->input($key);
 
-        $this->model = $this->setupWildcardQueryFilter($model, $value, $attributes);
+        $this->model = $this->setupWildcardQueryFilter($model, $value, $this->searchable);
     }
 
     /**
@@ -262,7 +279,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     public function sortable(array $columns)
     {
         $model = $this->resolveQueryBuilderFromModel();
-		$this->sortable = $columns;
+        $this->sortable = $columns;
         $this->model = $this->setupBasicQueryFilter($model, $d = array(
             'order' => $this->app['request']->input($this->sortKey),
             'sort'  => $this->app['request']->input($this->orderKey),
@@ -294,8 +311,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             'value'      => $value,
             'headers'    => array(),
             'attributes' => function ($row) {
-                return array();
-            },
+                    return array();
+                },
         ));
 
         if (is_callable($callback)) {
