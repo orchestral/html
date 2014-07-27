@@ -34,6 +34,13 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 
         $pagination = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
 
+        if(count($grid->searchable) > 0)
+        {
+            \Orchestra\Site::set('header::search-form', \Input::get($grid->key, ''));
+            \Orchestra\Site::set('header::search-key', $grid->key);
+        }
+
+
         $data = array(
             'attributes' => array(
                 'row'   => $grid->rows->attributes,
@@ -44,6 +51,9 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
             'grid'       => $grid,
             'pagination' => $pagination,
             'rows'       => $rows,
+            'sortable'   => $grid->sortable,
+            'sortKey'    => $grid->sortKey,
+            'orderKey'   => $grid->orderKey
         );
 
         // Build the view and render it.
