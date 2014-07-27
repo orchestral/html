@@ -124,7 +124,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             'data'       => array(),
             'attributes' => function () {
                     return array();
-                },
+            },
         ));
     }
 
@@ -312,7 +312,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             'headers'    => array(),
             'attributes' => function ($row) {
                     return array();
-                },
+            },
         ));
 
         if (is_callable($callback)) {
