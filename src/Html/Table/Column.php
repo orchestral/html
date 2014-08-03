@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Html\Table;
 
-class Column extends \Illuminate\Support\Fluent
+use Illuminate\Support\Fluent;
+
+class Column extends Fluent
 {
     /**
      * Get value of column.

@@ -92,9 +92,10 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      $table->with(User::paginate(30), true);
      * </code>
      *
-     * @param  mixed   $model
-     * @param  boolean $paginate
+     * @param  mixed    $model
+     * @param  bool     $paginate
      * @return void
+     * @throws \InvalidArgumentException
      */
     public function with($model, $paginate = true)
     {
@@ -162,15 +163,15 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * </code>
      *
      * @param  array    $rows
-     * @return void
+     * @return array
      */
     public function rows(array $rows = null)
     {
-        if (is_null($rows)) {
-            return $this->rows->data;
+        if (! is_null($rows)) {
+            $this->rows->data = $rows;
         }
 
-        $this->rows->data = $rows;
+        return $this->rows->data;
     }
 
     /**
@@ -197,8 +198,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      });
      * </code>
      *
-     * @param  mixed    $label
-     * @param  mixed    $callback
+     * @param  mixed        $name
+     * @param  mixed|null   $callback
      * @return \Illuminate\Support\Fluent
      */
     public function column($name, $callback = null)
@@ -216,6 +217,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  mixed    $name
      * @param  mixed    $callback
+     * @return array
      */
     protected function buildColumn($name, $callback = null)
     {

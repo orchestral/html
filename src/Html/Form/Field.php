@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Html\Form;
 
-class Field extends \Illuminate\Support\Fluent
+use Illuminate\Support\Fluent;
+
+class Field extends Fluent
 {
     /**
      * Get value of column.

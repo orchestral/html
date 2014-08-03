@@ -2,8 +2,9 @@
 
 use Closure;
 use Illuminate\Container\Container;
+use Orchestra\Html\Abstractable\Grid;
 
-class Fieldset extends \Orchestra\Html\Abstractable\Grid
+class Fieldset extends Grid
 {
     /**
      * Fieldset name.
@@ -128,6 +129,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  mixed    $name
      * @param  mixed    $callback
+     * @return array
      */
     protected function buildControl($name, $callback = null)
     {
@@ -161,11 +163,11 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
      */
     public function legend($name = null)
     {
-        if (is_null($name)) {
-            return $this->name;
+        if (! is_null($name)) {
+            $this->name = $name;
         }
 
-        $this->name = $name;
+        return $this->name;
     }
 
     /**

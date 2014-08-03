@@ -3,9 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 use Illuminate\View\Environment as View;
+use Orchestra\Html\Abstractable\Builder;
 use Orchestra\Html\Abstractable\Grid as AbstractableGrid;
 
-class FormBuilder extends \Orchestra\Html\Abstractable\Builder
+class FormBuilder extends Builder
 {
     /**
      * {@inheritdoc}

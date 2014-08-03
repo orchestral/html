@@ -174,6 +174,7 @@ class Control
      * @param  array                        $templates
      * @param  \Illuminate\Support\Fluent   $data
      * @return string
+     * @throws \InvalidArgumentException
      */
     public function render($templates, Fluent $data)
     {

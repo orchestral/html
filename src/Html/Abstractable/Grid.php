@@ -29,6 +29,13 @@ abstract class Grid
     protected $keyMap = array();
 
     /**
+     * Meta attributes.
+     *
+     * @var array
+     */
+    protected $meta = array();
+
+    /**
      * Grid Definition.
      *
      * @var array
@@ -49,6 +56,7 @@ abstract class Grid
     public function __construct(Container $app)
     {
         $this->app = $app;
+
         $this->initiate();
     }
 
@@ -70,20 +78,25 @@ abstract class Grid
     {
         if (is_null($key)) {
             return $this->attributes;
-        } elseif (is_array($key)) {
+        }
+
+        if (is_array($key)) {
             $this->attributes = array_merge($this->attributes, $key);
         } else {
             $this->attributes[$key] = $value;
         }
+
+        return null;
     }
 
     /**
      * Allow column overwriting.
      *
-     * @param  string   $name
-     * @param  mixed    $callback
+     * @param  string       $name
+     * @param  mixed|null   $callback
      * @return \Illuminate\Support\Fluent
      * @throws \InvalidArgumentException
+     * @throws \RuntimeException
      */
     public function of($name, $callback = null)
     {
@@ -102,6 +115,30 @@ abstract class Grid
         }
 
         return $this->{$type}[$id];
+    }
+
+    /**
+     * Get meta value.
+     *
+     * @param  string   $key
+     * @param  mixed|null $default
+     * @return mixed
+     */
+    public function get($key, $default = null)
+    {
+        return array_get($this->meta, $key, $default);
+    }
+
+    /**
+     * Set meta value.
+     *
+     * @param  string   $key
+     * @param  mixed    $value
+     * @return array
+     */
+    public function set($key, $value)
+    {
+        return array_set($this->meta, $key, $value);
     }
 
     /**
@@ -173,15 +210,15 @@ abstract class Grid
      * @return void
      * @throws \InvalidArgumentException
      */
-    public function __set($key, $values)
+    public function __set($key, $parameters)
     {
         if (! in_array($key, $this->definition['__set'])) {
             throw new InvalidArgumentException("Unable to use __set for [{$key}].");
-        } elseif (! is_array($values)) {
+        } elseif (! is_array($parameters)) {
             throw new InvalidArgumentException("Require values to be an array.");
         }
 
-        $this->attributes($values, null);
+        $this->attributes($parameters, null);
     }
 
     /**
