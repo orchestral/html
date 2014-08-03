@@ -104,14 +104,17 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      $table->with(User::paginate(30), true);
      * </code>
      *
-     * @param  mixed   $model
-     * @param  boolean $paginate
-     * @return void
+     * @param  mixed    $model
+     * @param  bool     $paginate
+     * @return $this
+     * @throws \InvalidArgumentException
      */
     public function with($model, $paginate = true)
     {
         $this->model    = $model;
         $this->paginate = $paginate;
+
+        return $this;
     }
 
     /**
@@ -129,7 +132,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * </code>
      *
      * @param  string   $name
-     * @return void
+     * @return $this
      */
     public function layout($name)
     {
@@ -138,6 +141,18 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         } else {
             $this->view = $name;
         }
+
+        return $this;
+    }
+
+    /**
+     * Get whether current setup is paginated.
+     *
+     * @return bool
+     */
+    public function paginated()
+    {
+        return $this->paginate;
     }
 
     /**
@@ -185,8 +200,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      });
      * </code>
      *
-     * @param  mixed    $name
-     * @param  mixed    $callback
+     * @param  mixed        $name
+     * @param  mixed|null   $callback
      * @return \Illuminate\Support\Fluent
      */
     public function column($name, $callback = null)
@@ -203,17 +218,22 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * Setup pagination.
      *
      * @param  int|null $perPage
-     * @return void
+     * @return $this
      */
     public function paginate($perPage)
     {
-        if (filter_var($perPage, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)))) {
+        if (filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
+            $this->perPage = null;
+            $this->paginate = $perPage;
+        } elseif (filter_var($perPage, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)))) {
             $this->perPage = $perPage;
             $this->paginate = true;
         } else {
             $this->perPage = null;
             $this->paginate = false;
         }
+
+        return $this;
     }
 
     /**
@@ -229,23 +249,42 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
 
         $value = $this->app['request']->input($key);
 
+        $this->set('search', array(
+            'attributes' => $attributes,
+            'key'        => $key,
+            'value'      => $value,
+        ));
+
         $this->model = $this->setupWildcardQueryFilter($model, $value, $attributes);
     }
 
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string   $sortKey
-     * @param  string   $orderKey
+     * @param  string   $orderByKey
+     * @param  string   $directionKey
      * @return void
      */
-    public function sortable($sortKey = 'sort', $orderKey = 'order')
+    public function sortable($orderByKey = 'order_by', $directionKey = 'direction')
     {
         $model = $this->resolveQueryBuilderFromModel();
 
+        $orderByValue   = $this->app['request']->input($orderByKey);
+        $directionValue = $this->app['request']->input($directionKey);
+
+        $this->set('filter.order_by', array(
+            'key'   => $orderByKey,
+            'value' => $orderByValue,
+        ));
+
+        $this->set('filter.direction', array(
+            'key'   => $directionKey,
+            'value' => $directionValue,
+        ));
+
         $this->model = $this->setupBasicQueryFilter($model, array(
-            'sort'  => $this->app['request']->input($sortKey),
-            'order' => $this->app['request']->input($orderKey),
+            'order_by'  => $orderByValue,
+            'direction' => $directionValue,
         ));
     }
 

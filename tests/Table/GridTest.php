@@ -332,6 +332,16 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($perPage->getValue($stub));
         $this->assertFalse($paginate->getValue($stub));
+
+        $stub->paginate(true);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertTrue($paginate->getValue($stub));
+
+        $stub->paginate(false);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
     }
 
     /**
@@ -358,6 +368,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub->with($model);
 
         $this->assertNull($stub->searchable($attributes));
+
+        $this->assertEquals($attributes, $stub->get('search.attributes'));
+        $this->assertEquals('q', $stub->get('search.key'));
+        $this->assertEquals('orchestra*', $stub->get('search.value'));
     }
 
     /**
@@ -387,8 +401,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $app = $this->getContainer();
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
-        $request->shouldReceive('input')->once()->with('sort')->andReturn('email')
-            ->shouldReceive('input')->once()->with('order')->andReturn('desc');
+        $request->shouldReceive('input')->once()->with('order_by')->andReturn('email')
+            ->shouldReceive('input')->once()->with('direction')->andReturn('desc');
 
         $stub = m::mock('\Orchestra\Html\Table\Grid[setupBasicQueryFilter]', array($app))
             ->shouldAllowMockingProtectedMethods();
@@ -396,11 +410,14 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $model = m::mock('\Illuminate\Database\Query\Builder');
 
         $stub->shouldReceive('setupBasicQueryFilter')->once()
-            ->with($model, array('sort' => 'email', 'order' => 'desc'))->andReturnNull();
+            ->with($model, array('order_by' => 'email', 'direction' => 'desc'))->andReturnNull();
 
         $stub->with($model);
 
         $this->assertNull($stub->sortable());
+
+        $this->assertEquals(array('key' => 'order_by', 'value' => 'email'), $stub->get('filter.order_by'));
+        $this->assertEquals(array('key' => 'direction', 'value' => 'desc'), $stub->get('filter.direction'));
     }
 
     /**

@@ -58,7 +58,7 @@ abstract class Builder implements RenderableInterface
      * Extend decoration.
      *
      * @param  \Closure $callback
-     * @return Builder
+     * @return $this
      */
     public function extend(Closure $callback = null)
     {

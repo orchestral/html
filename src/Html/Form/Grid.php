@@ -103,7 +103,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * </code>
      *
      * @param  string   $name
-     * @return void
+     * @return $this
      */
     public function layout($name)
     {
@@ -112,6 +112,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         } else {
             $this->view = $name;
         }
+
+        return $this;
     }
 
     /**
@@ -119,27 +121,27 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * <code>
      *      // assign a data
-     *      $table->with(DB::table('users')->get());
+     *      $form->with(DB::table('users')->get());
      * </code>
      *
-     * @param  array|stdClass|\Illuminate\Database\Eloquent\Model   $row
+     * @param  array|\stdClass|\Illuminate\Database\Eloquent\Model  $row
      * @return mixed
      */
     public function with($row = null)
     {
-        if (is_null($row)) {
-            return $this->row;
-        }
-
         is_array($row) && $row = new Fluent($row);
 
-        $this->row = $row;
+        if (! is_null($row)) {
+            $this->row = $row;
+        }
+
+        return $this->row;
     }
 
     /**
      * Attach rows data instead of assigning a model.
      *
-     * @param  array    $rows
+     * @param  array    $row
      * @return mixed
      * @see    Grid::with()
      */
@@ -175,6 +177,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  string   $name
      * @return Field|null
+     * @throws \InvalidArgumentException
      */
     public function find($name)
     {
@@ -223,7 +226,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  string                               $url
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  array                                $attributes
-     * @return array
+     * @return $this
      */
     public function resource(PresenterInterface $listener, $url, Model $model, array $attributes = array())
     {
@@ -246,7 +249,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  string                               $url
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  array                                $attributes
-     * @return array
+     * @return $this
      */
     public function setup(PresenterInterface $listener, $url, $model, array $attributes = array())
     {

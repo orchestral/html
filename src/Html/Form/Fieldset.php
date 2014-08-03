@@ -128,6 +128,7 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  mixed    $name
      * @param  mixed    $callback
+     * @return array
      */
     protected function buildControl($name, $callback = null)
     {
@@ -161,11 +162,11 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
      */
     public function legend($name = null)
     {
-        if (is_null($name)) {
-            return $this->name;
+        if (! is_null($name)) {
+            $this->name = $name;
         }
 
-        $this->name = $name;
+        return $this->name;
     }
 
     /**
