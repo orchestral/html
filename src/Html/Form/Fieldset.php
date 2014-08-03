@@ -2,9 +2,8 @@
 
 use Closure;
 use Illuminate\Container\Container;
-use Orchestra\Html\Abstractable\Grid;
 
-class Fieldset extends Grid
+class Fieldset extends \Orchestra\Html\Abstractable\Grid
 {
     /**
      * Fieldset name.

@@ -153,7 +153,6 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         return $this->paginate;
     }
 
-
     /**
      * Attach rows data instead of assigning a model.
      *
