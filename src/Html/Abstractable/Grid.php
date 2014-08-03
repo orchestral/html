@@ -118,6 +118,17 @@ abstract class Grid
     }
 
     /**
+     * Forget meta value.
+     *
+     * @param  string   $key
+     * @return void
+     */
+    public function forget($key)
+    {
+        array_forget($this->meta, $key);
+    }
+
+    /**
      * Get meta value.
      *
      * @param  string   $key
