@@ -249,23 +249,42 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
 
         $value = $this->app['request']->input($key);
 
+        $this->set('search', array(
+            'attributes' => $attributes,
+            'key'        => $key,
+            'value'      => $value,
+        ));
+
         $this->model = $this->setupWildcardQueryFilter($model, $value, $attributes);
     }
 
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string   $orderKey
-     * @param  string   $sortKey
+     * @param  string   $orderByKey
+     * @param  string   $directionKey
      * @return void
      */
-    public function sortable($orderKey = 'order', $sortKey = 'sort')
+    public function sortable($orderByKey = 'order_by', $directionKey = 'direction')
     {
         $model = $this->resolveQueryBuilderFromModel();
 
-        $this->model = $this->setupBasicQueryFilter($model, $d = array(
-            'order' => $this->app['request']->input($orderKey),
-            'sort'  => $this->app['request']->input($sortKey),
+        $orderByValue   = $this->app['request']->input($orderByKey);
+        $directionValue = $this->app['request']->input($directionKey);
+
+        $this->set('filter.order_by', array(
+            'key'   => $orderByKey,
+            'value' => $orderByValue,
+        ));
+
+        $this->set('filter.direction', array(
+            'key'   => $directionKey,
+            'value' => $directionValue,
+        ));
+
+        $this->model = $this->setupBasicQueryFilter($model, array(
+            'order_by'  => $orderByValue,
+            'direction' => $directionValue,
         ));
     }
 
