@@ -5,7 +5,7 @@ title: HTML Change Log
 
 ## Version 2.1 {#v2-1}
 
-### v2.1.6@dev {#v2-1-6}
+### v2.1.6 {#v2-1-6}
 
 * Allow to retrieve instance of `Illuminate\Http\Request` and `Illuminate\Translation\Translator` from within Form and Table builder.
 * Add `Orchestra\Html\Table\Grid::paginated()` helper method to access pagination state for current table.
