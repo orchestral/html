@@ -106,13 +106,15 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  mixed    $model
      * @param  bool     $paginate
-     * @return void
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function with($model, $paginate = true)
     {
         $this->model    = $model;
         $this->paginate = $paginate;
+
+        return $this;
     }
 
     /**
@@ -130,7 +132,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * </code>
      *
      * @param  string   $name
-     * @return void
+     * @return $this
      */
     public function layout($name)
     {
@@ -139,6 +141,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         } else {
             $this->view = $name;
         }
+
+        return $this;
     }
 
     /**
@@ -214,17 +218,22 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * Setup pagination.
      *
      * @param  int|null $perPage
-     * @return void
+     * @return $this
      */
     public function paginate($perPage)
     {
-        if (filter_var($perPage, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)))) {
+        if (filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
+            $this->perPage = null;
+            $this->paginate = $perPage;
+        } elseif (filter_var($perPage, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)))) {
             $this->perPage = $perPage;
             $this->paginate = true;
         } else {
             $this->perPage = null;
             $this->paginate = false;
         }
+
+        return $this;
     }
 
     /**

@@ -332,6 +332,16 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNull($perPage->getValue($stub));
         $this->assertFalse($paginate->getValue($stub));
+
+        $stub->paginate(true);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertTrue($paginate->getValue($stub));
+
+        $stub->paginate(false);
+
+        $this->assertNull($perPage->getValue($stub));
+        $this->assertFalse($paginate->getValue($stub));
     }
 
     /**

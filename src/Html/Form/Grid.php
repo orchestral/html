@@ -103,7 +103,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * </code>
      *
      * @param  string   $name
-     * @return void
+     * @return $this
      */
     public function layout($name)
     {
@@ -112,6 +112,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         } else {
             $this->view = $name;
         }
+
+        return $this;
     }
 
     /**
@@ -224,7 +226,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  string                               $url
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  array                                $attributes
-     * @return array
+     * @return $this
      */
     public function resource(PresenterInterface $listener, $url, Model $model, array $attributes = array())
     {
@@ -247,7 +249,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  string                               $url
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  array                                $attributes
-     * @return array
+     * @return $this
      */
     public function setup(PresenterInterface $listener, $url, $model, array $attributes = array())
     {
