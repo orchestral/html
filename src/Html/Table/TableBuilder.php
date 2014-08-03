@@ -29,7 +29,7 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
         // however we also need to remove ?page from being added twice.
         $input = array_except($this->request->query(), array('page'));
 
-        $pagination = (true === $grid->paginate ? $grid->model->appends($input)->links() : '');
+        $pagination = (true === $grid->paginated() ? $grid->model->appends($input)->links() : '');
 
         $data = array(
             'attributes' => array(

@@ -143,6 +143,17 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     }
 
     /**
+     * Get whether current setup is paginated.
+     *
+     * @return bool
+     */
+    public function paginated()
+    {
+        return $this->paginate;
+    }
+
+
+    /**
      * Attach rows data instead of assigning a model.
      *
      * <code>
