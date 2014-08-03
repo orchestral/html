@@ -104,9 +104,10 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      $table->with(User::paginate(30), true);
      * </code>
      *
-     * @param  mixed   $model
-     * @param  boolean $paginate
+     * @param  mixed    $model
+     * @param  bool     $paginate
      * @return void
+     * @throws \InvalidArgumentException
      */
     public function with($model, $paginate = true)
     {
@@ -138,6 +139,16 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         } else {
             $this->view = $name;
         }
+    }
+
+    /**
+     * Get whether current setup is paginated.
+     *
+     * @return bool
+     */
+    public function paginated()
+    {
+        return $this->paginate;
     }
 
     /**
@@ -185,8 +196,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *      });
      * </code>
      *
-     * @param  mixed    $name
-     * @param  mixed    $callback
+     * @param  mixed        $name
+     * @param  mixed|null   $callback
      * @return \Illuminate\Support\Fluent
      */
     public function column($name, $callback = null)
