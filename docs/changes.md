@@ -9,6 +9,7 @@ title: HTML Change Log
 
 * Add `Orchestra\Html\Table\Grid::searchable()` and `Orchestra\Html\Table\Grid::sortable()` to facilitate searching and sorting.
 * Allow to retrieve instance of `Illuminate\Http\Request` and `Illuminate\Translation\Translator` from within Form and Table builder.
+* Add `Orchestra\Html\Table\Grid::paginated()` helper method to access pagination state for current table.
 * Utilize `Illuminate\Support\Arr`.
 
 ### v2.2.2 {#v2-2-2}
@@ -28,7 +29,7 @@ title: HTML Change Log
 
 ## Version 2.1 {#v2-1}
 
-### v2.1.6@dev {#v2-1-6}
+### v2.1.6 {#v2-1-6}
 
 * Allow to retrieve instance of `Illuminate\Http\Request` and `Illuminate\Translation\Translator` from within Form and Table builder.
 * Add `Orchestra\Html\Table\Grid::paginated()` helper method to access pagination state for current table.
