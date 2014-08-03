@@ -94,7 +94,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      *
      * @param  mixed    $model
      * @param  bool     $paginate
-     * @return void
+     * @return $this
      * @throws \InvalidArgumentException
      */
     public function with($model, $paginate = true)
@@ -115,6 +115,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         }
 
         $this->paginate = $paginate;
+
+        return $this;
     }
 
     /**
@@ -132,7 +134,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * </code>
      *
      * @param  string   $name
-     * @return void
+     * @return $this
      */
     public function layout($name)
     {
@@ -141,6 +143,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         } else {
             $this->view = $name;
         }
+
+        return $this;
     }
 
     /**
