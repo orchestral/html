@@ -18,6 +18,7 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
+		"illuminate/html": "4.3.*",
 		"orchestra/support": "2.3.*"
 	},
 	"require-dev": {
@@ -25,7 +26,6 @@
 		"illuminate/config": "4.3.*",
 		"illuminate/container": "4.3.*",
 		"illuminate/database": "4.3.*",
-		"illuminate/html": "4.3.*",
 		"illuminate/pagination": "4.3.*",
 		"illuminate/routing": "4.3.*",
 		"illuminate/translation": "4.3.*",

@@ -3,6 +3,12 @@ title: HTML Change Log
 
 ---
 
+## Version 2.3 {#v2-3}
+
+### v2.3.0@dev {#v2-3-0}
+
+* Explicitly require `illuminate/html`.
+
 ## Version 2.2 {#v2-2}
 
 ### v2.2.3 {#v2-2-3}
