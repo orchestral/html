@@ -1,5 +1,8 @@
 <?php
 
+use Orchestra\Support\Facades\Form;
+use Orchestra\Support\Facades\HTML;
+
 return array(
 
     /*
