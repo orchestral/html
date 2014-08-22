@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 2.2 {#v2-2}
 
+### v2.2.4@dev {#v2-2-4}
+
+* Allow `Orchestra\Html\Form\Factory` to handle all request to `Illuminate\Html\FormBuilder`.
+
 ### v2.2.3 {#v2-2-3}
 
 * Add `Orchestra\Html\Table\Grid::searchable()` and `Orchestra\Html\Table\Grid::sortable()` to facilitate searching and sorting.
