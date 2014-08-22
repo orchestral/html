@@ -1,6 +1,10 @@
 <?php namespace Orchestra\Html;
 
+use Illuminate\Html\FormBuilder;
 use Illuminate\Support\ServiceProvider;
+use Orchestra\Html\Form\Control;
+use Orchestra\Html\Form\Environment as FormFactory;
+use Orchestra\Html\Table\Environment as TableFactory;
 
 class HtmlServiceProvider extends ServiceProvider
 {
@@ -45,7 +49,7 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerFormBuilder()
     {
         $this->app->bindShared('form', function ($app) {
-            $form = new \Illuminate\Html\FormBuilder($app['html'], $app['url'], $app['session']->getToken());
+            $form = new FormBuilder($app['html'], $app['url'], $app['session']->getToken());
 
             return $form->setSessionStore($app['session.store']);
         });
@@ -59,11 +63,11 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerOrchestraFormBuilder()
     {
         $this->app->bindShared('orchestra.form.control', function ($app) {
-            return new Form\Control($app['config'], $app['html'], $app['request']);
+            return new Control($app['config'], $app['html'], $app['request']);
         });
 
         $this->app->bindShared('orchestra.form', function ($app) {
-            return new Form\Environment($app);
+            return new FormFactory($app);
         });
     }
 
@@ -75,7 +79,7 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerOrchestraTableBuilder()
     {
         $this->app->bindShared('orchestra.table', function ($app) {
-            return new Table\Environment($app);
+            return new TableFactory($app);
         });
     }
 
