@@ -40,7 +40,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Orchestra\Html\Table\TableBuilder', $stub);
         $this->assertInstanceOf('\Orchestra\Html\Abstractable\Builder', $stub);
-        $this->assertInstanceOf('\Illuminate\Support\Contracts\RenderableInterface', $stub);
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\RenderableInterface', $stub);
 
         $this->assertNull($name->getValue($stub));
         $this->assertNull($stub->name);

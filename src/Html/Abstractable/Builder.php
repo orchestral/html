@@ -2,10 +2,10 @@
 
 use Closure;
 use InvalidArgumentException;
+use Illuminate\Contracts\Support\RenderableInterface;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 use Illuminate\View\Factory as View;
-use Illuminate\Support\Contracts\RenderableInterface;
 
 abstract class Builder implements RenderableInterface
 {

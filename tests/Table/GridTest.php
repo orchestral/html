@@ -115,7 +115,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Orchestra\Html\Table\Grid::with() method given a
-     * Illuminate\Support\Contracts\ArrayableInterface instance.
+     * Illuminate\Contracts\Support\ArrayableInterface instance.
      *
      * @test
      */
@@ -124,7 +124,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $expected = array('foo');
         $stub = new Grid($this->getContainer());
 
-        $model = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+        $model = m::mock('\Illuminate\Contracts\Support\ArrayableInterface');
         $model->shouldReceive('toArray')->once()->andReturn($expected);
 
         $stub->with($model);
@@ -144,7 +144,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub = new Grid($this->getContainer());
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
-        $arrayable = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+        $arrayable = m::mock('\Illuminate\Contracts\Support\ArrayableInterface');
 
         $model->shouldReceive('paginate')->once()->with(25)->andReturn($arrayable);
         $arrayable->shouldReceive('toArray')->once()->andReturn($expected);
@@ -167,7 +167,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub = new Grid($this->getContainer());
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
-        $arrayable = m::mock('\Illuminate\Support\Contracts\ArrayableInterface');
+        $arrayable = m::mock('\Illuminate\Contracts\Support\ArrayableInterface');
 
         $model->shouldReceive('get')->once()->andReturn($arrayable);
         $arrayable->shouldReceive('toArray')->once()->andReturn($expected);

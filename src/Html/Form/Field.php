@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Html\Form;
 
-use Illuminate\Support\Contracts\RenderableInterface;
+use Illuminate\Contracts\Support\RenderableInterface;
 use Illuminate\Support\Fluent;
 
 class Field extends Fluent

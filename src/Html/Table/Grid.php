@@ -1,11 +1,11 @@
 <?php namespace Orchestra\Html\Table;
 
 use InvalidArgumentException;
+use Illuminate\Contracts\Support\ArrayableInterface;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\Contracts\ArrayableInterface;
 use Orchestra\Support\Traits\QueryFilterTrait;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
@@ -329,7 +329,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * to a collection.
      *
      * @param  mixed    $model
-     * @return \Illuminate\Support\Contracts\ArrayableInterface|array
+     * @return \Illuminate\Contracts\Support\ArrayableInterface|array
      */
     protected function buildModel($model)
     {
