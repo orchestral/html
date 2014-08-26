@@ -42,7 +42,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFieldMethodWhenGivenRenderable()
     {
-        $renderable = m::mock('\Illuminate\Support\Contracts\RenderableInterface');
+        $renderable = m::mock('\Illuminate\Contracts\Support\RenderableInterface');
 
         $renderable->shouldReceive('render')->once()->andReturn('foo');
 
