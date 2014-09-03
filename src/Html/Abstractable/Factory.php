@@ -1,14 +1,14 @@
 <?php namespace Orchestra\Html\Abstractable;
 
 use Closure;
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 
 abstract class Factory
 {
     /**
      * Application instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Contracts\Container\Container
      */
     protected $app;
 
@@ -22,7 +22,7 @@ abstract class Factory
     /**
      * Construct a new factory.
      *
-     * @param  \Illuminate\Container\Container  $app
+     * @param  \Illuminate\Contracts\Container\Container  $app
      */
     public function __construct(Container $app)
     {

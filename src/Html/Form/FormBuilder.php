@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Html\Form;
 
+use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
-use Illuminate\View\Factory as View;
 use Orchestra\Html\Abstractable\Builder;
 use Orchestra\Html\Abstractable\Grid as AbstractableGrid;
 

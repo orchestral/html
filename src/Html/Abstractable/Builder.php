@@ -3,9 +3,9 @@
 use Closure;
 use InvalidArgumentException;
 use Illuminate\Contracts\Support\RenderableInterface;
+use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
-use Illuminate\View\Factory as View;
 
 abstract class Builder implements RenderableInterface
 {
@@ -26,7 +26,7 @@ abstract class Builder implements RenderableInterface
     /**
      * View instance.
      *
-     * @var \Illuminate\View\Factory
+     * @var \Illuminate\Contracts\View\Factory
      */
     protected $view;
 
@@ -49,7 +49,7 @@ abstract class Builder implements RenderableInterface
      *
      * @var \Illuminate\Http\Request           $request
      * @var \Illuminate\Translation\Translator $translator
-     * @var \Illuminate\View\Factory           $view
+     * @var \Illuminate\Contracts\View\Factory $view
      * @var Grid                               $grid
      */
     abstract public function __construct(Request $request, Translator $translator, View $view, Grid $grid);
@@ -88,7 +88,7 @@ abstract class Builder implements RenderableInterface
      * An alias to render().
      *
      * @return string
-     * @see    Builder::render()
+     * @see    static::render()
      */
     public function __toString()
     {

@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 
 class Fieldset extends \Orchestra\Html\Abstractable\Grid
 {
@@ -40,9 +40,9 @@ class Fieldset extends \Orchestra\Html\Abstractable\Grid
     /**
      * Create a new Fieldset instance.
      *
-     * @param  \Illuminate\Container\Container  $app
-     * @param  string                           $name
-     * @param  \Closure                         $callback
+     * @param  \Illuminate\Contracts\Container\Container    $app
+     * @param  string                                       $name
+     * @param  \Closure                                     $callback
      */
     public function __construct(Container $app, $name, Closure $callback = null)
     {

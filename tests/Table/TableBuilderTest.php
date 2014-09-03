@@ -27,7 +27,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
 
@@ -59,7 +59,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -76,7 +76,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $request->shouldReceive('query')->twice()->andReturn(array('page' => 2, 'q' => 'user'));
         $translator->shouldReceive('get')->twice()->andReturn(array());
@@ -135,7 +135,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());

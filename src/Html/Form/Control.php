@@ -2,24 +2,24 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Config\Repository;
-use Orchestra\Html\HtmlBuilder;
+use Illuminate\Contracts\Config\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Fluent;
+use Orchestra\Html\HtmlBuilder;
 
 class Control
 {
     /**
      * Config instance.
      *
-     * @var \Illuminate\Config\Repository
+     * @var \Illuminate\Contracts\Config\Config
      */
     protected $config;
 
     /**
      * Html builder instance.
      *
-     * @var \Illuminate\Html\HtmlBuilder
+     * @var \Orchestra\Html\HtmlBuilder
      */
     protected $html;
 
@@ -40,11 +40,11 @@ class Control
     /**
      * Create a new Field instance.
      *
-     * @param  \Illuminate\Config\Repository    $config
-     * @param  \Orchestra\Html\HtmlBuilder      $html
-     * @param  \Illuminate\Http\Request         $request
+     * @param  \Illuminate\Contracts\Config\Config  $config
+     * @param  \Orchestra\Html\HtmlBuilder          $html
+     * @param  \Illuminate\Http\Request             $request
      */
-    public function __construct(Repository $config, HtmlBuilder $html, Request $request)
+    public function __construct(Config $config, HtmlBuilder $html, Request $request)
     {
         $this->config  = $config;
         $this->html    = $html;

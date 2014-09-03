@@ -26,7 +26,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
 
@@ -58,7 +58,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -75,7 +75,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $translator->shouldReceive('get')->twice()->andReturn(array());
         $view->shouldReceive('make')->twice()->andReturn($view)
@@ -124,7 +124,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Config\Repository');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', array())->andReturn(array());

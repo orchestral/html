@@ -2,7 +2,7 @@
 
 use InvalidArgumentException;
 use RuntimeException;
-use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Arr;
 use Orchestra\Support\Str;
 
@@ -11,7 +11,7 @@ abstract class Grid
     /**
      * Application instance.
      *
-     * @var \Illuminate\Container\Container
+     * @var \Illuminate\Contracts\Container\Container
      */
     protected $app;
 
@@ -52,7 +52,7 @@ abstract class Grid
     /**
      * Create a new Grid instance.
      *
-     * @param  \Illuminate\Container\Container  $app
+     * @param  \Illuminate\Contracts\Container\Container  $app
      */
     public function __construct(Container $app)
     {
@@ -132,8 +132,8 @@ abstract class Grid
     /**
      * Get meta value.
      *
-     * @param  string   $key
-     * @param  mixed|null $default
+     * @param  string       $key
+     * @param  mixed|null   $default
      * @return mixed
      */
     public function get($key, $default = null)
