@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html\Table;
 
 use InvalidArgumentException;
-use Illuminate\Contracts\Support\ArrayableInterface;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\Paginator;
@@ -329,7 +329,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * to a collection.
      *
      * @param  mixed    $model
-     * @return \Illuminate\Contracts\Support\ArrayableInterface|array
+     * @return \Illuminate\Contracts\Support\Arrayable|array
      */
     protected function buildModel($model)
     {
@@ -356,7 +356,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         if ($model instanceof Paginator) {
             $this->setRowsData($model->getItems());
             $this->paginate = true;
-        } elseif ($model instanceof ArrayableInterface) {
+        } elseif ($model instanceof Arrayable) {
             $this->setRowsData($model->toArray());
         } elseif (is_array($model)) {
             $this->setRowsData($model);

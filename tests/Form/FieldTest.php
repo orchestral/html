@@ -36,13 +36,13 @@ class FieldTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Orchestra\Html\Form\Field::getField() method
-     * when given \Illuminate\Support\Facades\RenderableInterface.
+     * when given \Illuminate\Support\Facades\Renderable.
      *
      * @test
      */
     public function testGetFieldMethodWhenGivenRenderable()
     {
-        $renderable = m::mock('\Illuminate\Contracts\Support\RenderableInterface');
+        $renderable = m::mock('\Illuminate\Contracts\Support\Renderable');
 
         $renderable->shouldReceive('render')->once()->andReturn('foo');
 

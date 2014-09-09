@@ -2,12 +2,12 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Contracts\Support\RenderableInterface;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 
-abstract class Builder implements RenderableInterface
+abstract class Builder implements Renderable
 {
     /**
      * Request instance.

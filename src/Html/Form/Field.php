@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Html\Form;
 
-use Illuminate\Contracts\Support\RenderableInterface;
+use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Fluent;
 
 class Field extends Fluent
@@ -17,7 +17,7 @@ class Field extends Fluent
     {
         $value = call_user_func($this->attributes['field'], $row, $control, $attributes);
 
-        if ($value instanceof RenderableInterface) {
+        if ($value instanceof Renderable) {
             return $value->render();
         }
 
