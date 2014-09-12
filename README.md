@@ -1,4 +1,4 @@
-HTML Component for Orchestra Platform 2
+HTML Component for Orchestra Platform
 ==============
 
 HTML Component extends the functionality of `Illuminate\Html` with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
@@ -15,7 +15,7 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/html/changes#v2-3)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/html/changes#v3-0)
 
 ## Version Compatibility
 
@@ -24,7 +24,7 @@ Laravel    | HTML
  4.0.x     | 2.0.x
  4.1.x     | 2.1.x
  4.2.x     | 2.2.x
- 4.3.x     | 2.3.x@dev
+ 5.0.x     | 3.0.x@dev
 
 ## Installation
 
@@ -33,7 +33,7 @@ To install through composer, simply put the following in your `composer.json` fi
 ```json
 {
 	"require": {
-		"orchestra/html": "2.3.*"
+		"orchestra/html": "3.0.*"
 	}
 }
 ```
@@ -45,7 +45,7 @@ And then run `composer install` from the terminal.
 Above installation can also be simplify by using the following command:
 
 ```bash
-composer require "orchestra/html=2.3.*"
+composer require "orchestra/html=3.0.*"
 ```
 
 ## Configuration

@@ -1,6 +1,6 @@
 {
 	"name": "orchestra/html",
-	"description": "HTML Component for Orchestra Platform 2",
+	"description": "HTML Component for Orchestra Platform",
 	"homepage": "http://orchestraplatform.com/docs/latest/components/html/",
 	"keywords": ["orchestra-platform", "orchestral", "laravel", "html", "form", "table"],
 	"license": "MIT",
@@ -18,25 +18,25 @@
 	},
 	"require": {
 		"php": ">=5.4.0",
-		"illuminate/contracts": "4.3.*",
-		"illuminate/html": "4.3.*",
-		"orchestra/support": "2.3.*"
+		"illuminate/contracts": "5.0.*",
+		"illuminate/html": "5.0.*",
+		"orchestra/support": "3.0.*"
 	},
 	"require-dev": {
 		"mockery/mockery": "0.9.*",
-		"illuminate/database": "4.3.*",
-		"illuminate/pagination": "4.3.*",
-		"illuminate/routing": "4.3.*",
-		"illuminate/translation": "4.3.*",
+		"illuminate/database": "5.0.*",
+		"illuminate/pagination": "5.0.*",
+		"illuminate/routing": "5.0.*",
+		"illuminate/translation": "5.0.*",
 		"patchwork/utf8": "1.1.*"
 	},
 	"suggest": {
-		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform 2",
-		"orchestra/foundation": "Allow using orchestra/html with Orchestra Platform 2"
+		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform",
+		"orchestra/foundation": "Allow using orchestra/html with Orchestra Platform"
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "2.3-dev"
+			"dev-master": "3.0-dev"
 		}
 	},
 	"minimum-stability": "dev"

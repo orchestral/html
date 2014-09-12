@@ -3,9 +3,9 @@ title: HTML Change Log
 
 ---
 
-## Version 2.3 {#v2-3}
+## Version 3.0 {#v3-0}
 
-### v2.3.0@dev {#v2-3-0}
+### v3.0.0@dev {#v3-0-0}
 
 * Explicitly require `illuminate/html`.
 * Allow `Orchestra\Html\Form\Factory` to handle all request to `Illuminate\Html\FormBuilder`.
