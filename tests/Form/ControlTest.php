@@ -23,7 +23,7 @@ class ControlTest extends \PHPUnit_Framework_TestCase
     {
         $template = array('foo' => 'foobar');
 
-        $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
@@ -41,7 +41,7 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildFluentDataMethod()
     {
-        $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
@@ -68,7 +68,7 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethodThrowsException()
     {
-        $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 

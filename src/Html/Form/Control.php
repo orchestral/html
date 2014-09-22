@@ -2,7 +2,7 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Contracts\Config\Config;
+use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\HtmlBuilder;
@@ -12,7 +12,7 @@ class Control
     /**
      * Config instance.
      *
-     * @var \Illuminate\Contracts\Config\Config
+     * @var \Illuminate\Contracts\Config\Repository
      */
     protected $config;
 
@@ -40,9 +40,9 @@ class Control
     /**
      * Create a new Field instance.
      *
-     * @param  \Illuminate\Contracts\Config\Config  $config
-     * @param  \Orchestra\Html\HtmlBuilder          $html
-     * @param  \Illuminate\Http\Request             $request
+     * @param  \Illuminate\Contracts\Config\Repository  $config
+     * @param  \Orchestra\Html\HtmlBuilder              $html
+     * @param  \Illuminate\Http\Request                 $request
      */
     public function __construct(Config $config, HtmlBuilder $html, Request $request)
     {
