@@ -94,7 +94,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testInstanceOfFieldset()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -155,7 +155,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testControlMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['html'] = $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
