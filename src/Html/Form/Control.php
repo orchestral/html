@@ -1,11 +1,11 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use InvalidArgumentException;
-use Illuminate\Contracts\Config\Repository as Config;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\HtmlBuilder;
+use Illuminate\Contracts\Config\Repository as Config;
 
 class Control
 {

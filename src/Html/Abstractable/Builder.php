@@ -1,11 +1,11 @@
 <?php namespace Orchestra\Html\Abstractable;
 
 use Closure;
+use Illuminate\Http\Request;
 use InvalidArgumentException;
+use Illuminate\Translation\Translator;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory as View;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator;
 
 abstract class Builder implements Renderable
 {

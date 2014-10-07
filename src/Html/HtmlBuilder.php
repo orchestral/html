@@ -1,9 +1,9 @@
 <?php namespace Orchestra\Html;
 
+use Orchestra\Support\Str;
 use BadMethodCallException;
 use Illuminate\Support\Arr;
 use Orchestra\Support\Expression;
-use Orchestra\Support\Str;
 
 class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
 {
