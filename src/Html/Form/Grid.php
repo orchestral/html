@@ -1,11 +1,11 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use Orchestra\Support\Str;
 use InvalidArgumentException;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Fluent;
 use Orchestra\Support\Collection;
-use Orchestra\Support\Str;
+use Illuminate\Database\Eloquent\Model;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {

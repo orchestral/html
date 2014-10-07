@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Html;
 
 use Illuminate\Html\FormBuilder;
-use Illuminate\Support\ServiceProvider;
 use Orchestra\Html\Form\Control;
+use Illuminate\Support\ServiceProvider;
 use Orchestra\Html\Form\Environment as FormFactory;
 use Orchestra\Html\Table\Environment as TableFactory;
 

@@ -1,9 +1,9 @@
 <?php namespace Orchestra\Html\Abstractable;
 
-use InvalidArgumentException;
 use RuntimeException;
-use Illuminate\Container\Container;
 use Orchestra\Support\Str;
+use InvalidArgumentException;
+use Illuminate\Container\Container;
 
 abstract class Grid
 {
