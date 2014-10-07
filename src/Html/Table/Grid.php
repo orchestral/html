@@ -1,12 +1,12 @@
 <?php namespace Orchestra\Html\Table;
 
 use InvalidArgumentException;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Fluent;
-use Illuminate\Support\Contracts\ArrayableInterface;
+use Illuminate\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
+use Illuminate\Support\Contracts\ArrayableInterface;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class Grid extends \Orchestra\Html\Abstractable\Grid
 {

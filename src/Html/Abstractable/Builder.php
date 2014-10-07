@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Html\Abstractable;
 
 use Closure;
-use InvalidArgumentException;
 use Illuminate\Http\Request;
+use InvalidArgumentException;
 use Illuminate\Translation\Translator;
 use Illuminate\View\Factory as View;
 use Illuminate\Support\Contracts\RenderableInterface;
