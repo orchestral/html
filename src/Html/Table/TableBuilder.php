@@ -32,7 +32,7 @@ class TableBuilder extends \Orchestra\Html\Abstractable\Builder
 
         $rows = $grid->rows();
 
-        $pagination = (true === $grid->paginated() ? $grid->model->appends($input)->links() : '');
+        $pagination = (true === $grid->paginated() ? $grid->model->appends($input)->render() : '');
 
         $data = array(
             'attributes' => array(
