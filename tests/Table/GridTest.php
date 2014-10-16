@@ -87,7 +87,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub = new Grid($this->getContainer());
 
         $model = m::mock('\Illuminate\Pagination\Paginator');
-        $model->shouldReceive('getItems')->once()->andReturn($expected);
+        $model->shouldReceive('items')->once()->andReturn($expected);
 
         $stub->with($model);
 
