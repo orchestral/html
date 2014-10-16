@@ -2,8 +2,8 @@
 
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;

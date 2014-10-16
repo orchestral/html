@@ -126,7 +126,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -283,7 +283,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethodThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -305,7 +305,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testAttributesMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -340,7 +340,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodCallThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -363,7 +363,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodGetThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -386,7 +386,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -409,7 +409,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
@@ -432,7 +432,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodIssetThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()

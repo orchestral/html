@@ -24,7 +24,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testInstanceOfGrid()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array(
@@ -86,7 +86,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $expected = array('foo');
         $stub = new Grid($this->getContainer());
 
-        $model = m::mock('\Illuminate\Pagination\Paginator');
+        $model = m::mock('\Illuminate\Contracts\Pagination\Paginator');
         $model->shouldReceive('items')->once()->andReturn($expected);
 
         $stub->with($model);
@@ -534,7 +534,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());

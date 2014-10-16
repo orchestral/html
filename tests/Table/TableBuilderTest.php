@@ -135,7 +135,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Config');
+        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', array())->andReturn(array());
