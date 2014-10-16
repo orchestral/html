@@ -354,7 +354,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         $this->model = $model = $this->buildModel($model);
 
         if ($model instanceof Paginator) {
-            $this->setRowsData($model->getItems());
+            $this->setRowsData($model->items());
             $this->paginate = true;
         } elseif ($model instanceof Arrayable) {
             $this->setRowsData($model->toArray());
