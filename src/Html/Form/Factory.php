@@ -1,8 +1,9 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use Orchestra\Html\Factory as FactoryContract;
 
-class Factory extends \Orchestra\Html\Abstractable\Factory
+class Factory extends FactoryContract
 {
     /**
      * {@inheritdoc}

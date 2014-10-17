@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Html\Abstractable;
+<?php namespace Orchestra\Html;
 
 use RuntimeException;
 use Orchestra\Support\Str;

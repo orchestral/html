@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Support\Fluent;
+use Illuminate\Contracts\Support\Renderable;
 
 class Field extends Fluent
 {

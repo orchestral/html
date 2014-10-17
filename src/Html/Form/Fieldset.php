@@ -1,9 +1,10 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use Orchestra\Html\Grid as GridContract;
 use Illuminate\Contracts\Container\Container;
 
-class Fieldset extends \Orchestra\Html\Abstractable\Grid
+class Fieldset extends GridContract
 {
     /**
      * Fieldset name.

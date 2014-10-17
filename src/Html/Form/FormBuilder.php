@@ -1,17 +1,17 @@
 <?php namespace Orchestra\Html\Form;
 
-use Illuminate\Contracts\View\Factory as View;
+use Orchestra\Html\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
-use Orchestra\Html\Abstractable\Builder;
-use Orchestra\Html\Abstractable\Grid as AbstractableGrid;
+use Orchestra\Html\Grid as GridContract;
+use Illuminate\Contracts\View\Factory as View;
 
 class FormBuilder extends Builder
 {
     /**
      * {@inheritdoc}
      */
-    public function __construct(Request $request, Translator $translator, View $view, AbstractableGrid $grid)
+    public function __construct(Request $request, Translator $translator, View $view, GridContract $grid)
     {
         $this->request    = $request;
         $this->translator = $translator;

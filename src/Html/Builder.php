@@ -1,4 +1,4 @@
-<?php namespace Orchestra\Html\Abstractable;
+<?php namespace Orchestra\Html;
 
 use Closure;
 use Illuminate\Http\Request;
@@ -47,10 +47,10 @@ abstract class Builder implements Renderable
     /**
      * Create a new Builder instance.
      *
-     * @var \Illuminate\Http\Request           $request
-     * @var \Illuminate\Translation\Translator $translator
-     * @var \Illuminate\Contracts\View\Factory $view
-     * @var Grid                               $grid
+     * @var \Illuminate\Http\Request  $request
+     * @var \Illuminate\Translation\Translator  $translator
+     * @var \Illuminate\Contracts\View\Factory  $view
+     * @var \Orchestra\Html\Grid  $grid
      */
     abstract public function __construct(Request $request, Translator $translator, View $view, Grid $grid);
 

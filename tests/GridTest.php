@@ -1,7 +1,7 @@
-<?php namespace Orchestra\Html\Abstractable\TestCase;
+<?php namespace Orchestra\Html\TestCase;
 
+use Orchestra\Html\Grid;
 use Illuminate\Container\Container;
-use Orchestra\Html\Abstractable\Grid;
 
 class GridTest extends \PHPUnit_Framework_TestCase
 {

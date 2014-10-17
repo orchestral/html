@@ -7,8 +7,9 @@ use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Orchestra\Html\Grid as GridContract;
 
-class Grid extends \Orchestra\Html\Abstractable\Grid
+class Grid extends GridContract
 {
     /**
      * Enable CSRF token.
