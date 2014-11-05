@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use Orchestra\Support\Str;
+use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;

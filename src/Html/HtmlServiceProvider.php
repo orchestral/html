@@ -23,9 +23,13 @@ class HtmlServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerHtmlBuilder();
+
         $this->registerFormBuilder();
+
         $this->registerOrchestraFormBuilder();
+
         $this->registerOrchestraTableBuilder();
+
         $this->registerCheckboxesFormMacro();
     }
 
@@ -36,7 +40,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerHtmlBuilder()
     {
-        $this->app->bindShared('html', function ($app) {
+        $this->app->singleton('html', function ($app) {
             return new HtmlBuilder($app['url']);
         });
     }
@@ -48,7 +52,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerFormBuilder()
     {
-        $this->app->bindShared('form', function ($app) {
+        $this->app->singleton('form', function ($app) {
             $form = new FormBuilder($app['html'], $app['url'], $app['session']->getToken());
 
             return $form->setSessionStore($app['session.store']);
@@ -62,11 +66,11 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerOrchestraFormBuilder()
     {
-        $this->app->bindShared('orchestra.form.control', function ($app) {
+        $this->app->singleton('orchestra.form.control', function ($app) {
             return new Control($app['config'], $app['html'], $app['request']);
         });
 
-        $this->app->bindShared('orchestra.form', function ($app) {
+        $this->app->singleton('orchestra.form', function ($app) {
             return new FormFactory($app);
         });
     }
@@ -78,7 +82,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerOrchestraTableBuilder()
     {
-        $this->app->bindShared('orchestra.table', function ($app) {
+        $this->app->singleton('orchestra.table', function ($app) {
             return new TableFactory($app);
         });
     }
@@ -136,6 +140,6 @@ class HtmlServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return array('html', 'form', 'orchestra.form', 'orchestra.form.control', 'orchestra.table');
+        return ['html', 'form', 'orchestra.form', 'orchestra.form.control', 'orchestra.table'];
     }
 }

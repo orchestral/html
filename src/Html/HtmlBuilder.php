@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html;
 
-use Orchestra\Support\Str;
 use BadMethodCallException;
+use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Orchestra\Support\Expression;
 

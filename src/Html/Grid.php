@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html;
 
 use RuntimeException;
-use Orchestra\Support\Str;
+use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Contracts\Container\Container;
