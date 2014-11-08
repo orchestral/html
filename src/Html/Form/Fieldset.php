@@ -2,9 +2,9 @@
 
 use Closure;
 use Orchestra\Html\Grid as BaseGrid;
-use Orchestra\Contracts\Html\Form\Control;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
+use Orchestra\Contracts\Html\Form\Control as ControlContract;
 use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
 
 class Fieldset extends BaseGrid implements FieldsetContract
@@ -62,7 +62,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      * @param  \Orchestra\Contracts\Html\Form\Control   $control
      * @return void
      */
-    public function initiate(Repository $config, Control $control)
+    public function initiate(Repository $config, ControlContract $control)
     {
         $control->setTemplate(
             $config->get('orchestra/html::form.fieldset', [])
