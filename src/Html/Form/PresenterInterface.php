@@ -1,20 +1,8 @@
 <?php namespace Orchestra\Html\Form;
 
-interface PresenterInterface
-{
-    /**
-     * Build form action URL.
-     *
-     * @param  string  $url
-     * @return string
-     */
-    public function handles($url);
+use Orchestra\Contracts\Html\Form\Presenter as PresenterContract;
 
-    /**
-     * Setup form layout.
-     *
-     * @param  \Orchestra\Html\Form\Grid    $form
-     * @return void
-     */
-    public function setupForm($form);
+interface PresenterInterface extends PresenterContract
+{
+    //
 }

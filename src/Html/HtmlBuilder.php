@@ -4,8 +4,9 @@ use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Orchestra\Support\Expression;
+use Illuminate\Html\HtmlBuilder as BaseHtmlBuilder;
 
-class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
+class HtmlBuilder extends BaseHtmlBuilder
 {
     /**
      * Generate a HTML element.
@@ -15,7 +16,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
      * @param  array    $attributes
      * @return \Orchestra\Support\Expression
      */
-    public function create($tag = 'div', $value = null, $attributes = array())
+    public function create($tag = 'div', $value = null, $attributes = [])
     {
         if (is_array($value)) {
             $attributes = $value;
@@ -61,7 +62,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
      * @param  array    $defaults
      * @return array
      */
-    public function decorate(array $attributes, array $defaults = array())
+    public function decorate(array $attributes, array $defaults = [])
     {
         $class = $this->buildClassDecorate($attributes, $defaults);
 
@@ -79,7 +80,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
      * @param  array    $defaults
      * @return array
      */
-    protected function buildClassDecorate(array $attributes, array $defaults = array())
+    protected function buildClassDecorate(array $attributes, array $defaults = [])
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults, then take union of both.
@@ -88,7 +89,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
 
         $classes   = explode(' ', trim($default.' '.$attribute));
         $current   = array_unique($classes);
-        $excludes  = array();
+        $excludes  = [];
 
         foreach ($current as $c) {
             if (Str::startsWith($c, '!')) {
@@ -103,7 +104,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     /**
      * {@inheritdoc}
      */
-    public function image($url, $alt = null, $attributes = array(), $secure = null)
+    public function image($url, $alt = null, $attributes = [], $secure = null)
     {
         return $this->raw(parent::image($url, $alt, $attributes, $secure));
     }
@@ -111,7 +112,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     /**
      * {@inheritdoc}
      */
-    public function link($url, $title = null, $attributes = array(), $secure = null)
+    public function link($url, $title = null, $attributes = [], $secure = null)
     {
         return $this->raw(parent::link($url, $title, $attributes, $secure));
     }
@@ -119,7 +120,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     /**
      * {@inheritdoc}
      */
-    public function mailto($email, $title = null, $attributes = array())
+    public function mailto($email, $title = null, $attributes = [])
     {
         return $this->raw(parent::mailto($email, $title, $attributes));
     }
@@ -127,7 +128,7 @@ class HtmlBuilder extends \Illuminate\Html\HtmlBuilder
     /**
      * {@inheritdoc}
      */
-    protected function listing($type, $list, $attributes = array())
+    protected function listing($type, $list, $attributes = [])
     {
         return $this->raw(parent::listing($type, $list, $attributes));
     }

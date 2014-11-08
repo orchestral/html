@@ -3,7 +3,7 @@
 use Orchestra\Support\Facades\Form;
 use Orchestra\Support\Facades\HTML;
 
-return array(
+return [
 
     /*
     |----------------------------------------------------------------------
@@ -48,22 +48,22 @@ return array(
     |
     */
 
-    'fieldset' => array(
-        'button'   => array(),
-        'checkbox' => array(),
-        'file'     => array(),
-        'input'    => array('class' => 'twelve columns input-with-feedback'),
-        'password' => array('class' => 'twelve columns input-with-feedback'),
-        'radio'    => array(),
-        'select'   => array('class' => 'twelve columns input-with-feedback'),
-        'textarea' => array('class' => 'twelve columns input-with-feedback'),
-    ),
+    'fieldset' => [
+        'button'   => [],
+        'checkbox' => [],
+        'file'     => [],
+        'input'    => ['class' => 'twelve columns input-with-feedback'],
+        'password' => ['class' => 'twelve columns input-with-feedback'],
+        'radio'    => [],
+        'select'   => ['class' => 'twelve columns input-with-feedback'],
+        'textarea' => ['class' => 'twelve columns input-with-feedback'],
+    ],
 
-    'templates' => array(
+    'templates' => [
         'button' => function ($data) {
             return Form::button(
                 $data->value,
-                HTML::decorate($data->attributes, array('class' => 'btn'))
+                HTML::decorate($data->attributes, ['class' => 'btn'])
             );
         },
         'checkbox' => function ($data) {
@@ -77,7 +77,7 @@ return array(
         'file' => function ($data) {
             return Form::file(
                 $data->name,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
+                HTML::decorate($data->attributes, ['class' => 'form-control'])
             );
         },
         'input' => function ($data) {
@@ -85,13 +85,13 @@ return array(
                 $data->type,
                 $data->name,
                 $data->value,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
+                HTML::decorate($data->attributes, ['class' => 'form-control'])
             );
         },
         'password' => function ($data) {
             return Form::password(
                 $data->name,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
+                HTML::decorate($data->attributes, ['class' => 'form-control'])
             );
         },
         'radio' => function ($data) {
@@ -106,15 +106,15 @@ return array(
                 $data->name,
                 $data->options,
                 $data->value,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
+                HTML::decorate($data->attributes, ['class' => 'form-control'])
             );
         },
         'textarea' => function ($data) {
             return Form::textarea(
                 $data->name,
                 $data->value,
-                HTML::decorate($data->attributes, array('class' => 'form-control'))
+                HTML::decorate($data->attributes, ['class' => 'form-control'])
             );
         },
-    ),
-);
+    ],
+];

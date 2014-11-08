@@ -4,10 +4,10 @@ use Closure;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Translation\Translator;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory as View;
+use Orchestra\Contracts\Html\Builder as BuilderContract;
 
-abstract class Builder implements Renderable
+abstract class Builder implements BuilderContract
 {
     /**
      * Request instance.
@@ -77,7 +77,7 @@ abstract class Builder implements Renderable
      */
     public function __get($key)
     {
-        if (! in_array($key, array('grid', 'name'))) {
+        if (! in_array($key, ['grid', 'name'])) {
             throw new InvalidArgumentException("Unable to get property [{$key}].");
         }
 

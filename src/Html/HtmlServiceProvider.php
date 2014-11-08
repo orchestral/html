@@ -66,9 +66,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerOrchestraFormBuilder()
     {
-        $this->app->singleton('orchestra.form.control', function ($app) {
-            return new Control($app['config'], $app['html'], $app['request']);
-        });
+        $this->app->singleton('Orchestra\Contracts\Html\Form\Control', 'Orchestra\Html\Form\Control');
 
         $this->app->singleton('orchestra.form', function ($app) {
             return new FormFactory($app);
@@ -97,7 +95,7 @@ class HtmlServiceProvider extends ServiceProvider
         $form = $this->app['form'];
 
         $form->macro('checkboxes', function ($name, $options, $checked, $attributes) use ($form) {
-            $group = array();
+            $group = [];
 
             foreach ($options as $id => $label) {
                 $name = str_replace('[]', '', $name);
@@ -114,7 +112,7 @@ class HtmlServiceProvider extends ServiceProvider
 
                 $label = $form->label($identifier, $label);
 
-                $group[] = implode(' ', array($control, $label));
+                $group[] = implode(' ', [$control, $label]);
             }
 
             return implode('<br>', $group);

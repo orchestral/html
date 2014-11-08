@@ -29,23 +29,23 @@ class TableBuilder extends Builder
 
         // Add paginate value for current listing while appending query string,
         // however we also need to remove ?page from being added twice.
-        $input = Arr::except($this->request->query(), array('page'));
+        $input = Arr::except($this->request->query(), ['page']);
 
         $rows = $grid->rows();
 
         $pagination = (true === $grid->paginated() ? $grid->model->appends($input) : '');
 
-        $data = array(
-            'attributes' => array(
+        $data = [
+            'attributes' => [
                 'row'   => $grid->rows->attributes,
                 'table' => $grid->attributes,
-            ),
+            ],
             'columns'    => $grid->columns(),
             'empty'      => $this->translator->get($grid->empty),
             'grid'       => $grid,
             'pagination' => $pagination,
             'rows'       => $rows,
-        );
+        ];
 
         // Build the view and render it.
         return $this->view->make($grid->view)->with($data)->render();

@@ -6,8 +6,9 @@ use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\HtmlBuilder;
 use Illuminate\Contracts\Config\Repository as Config;
+use Orchestra\Contracts\Html\Form\Control as ControlContract;
 
-class Control
+class Control implements ControlContract
 {
     /**
      * Config instance.
@@ -35,14 +36,14 @@ class Control
      *
      * @var  array
      */
-    protected $template = array();
+    protected $template = [];
 
     /**
      * Create a new Field instance.
      *
-     * @param  \Illuminate\Contracts\Config\Repository  $config
-     * @param  \Orchestra\Html\HtmlBuilder              $html
-     * @param  \Illuminate\Http\Request                 $request
+     * @param  \Illuminate\Contracts\Config\Repository   $config
+     * @param  \Orchestra\Html\HtmlBuilder   $html
+     * @param  \Illuminate\Http\Request   $request
      */
     public function __construct(Config $config, HtmlBuilder $html, Request $request)
     {
@@ -57,7 +58,7 @@ class Control
      * @param  array   $template
      * @return Field
      */
-    public function setTemplate(array $template = array())
+    public function setTemplate(array $template = [])
     {
         $this->template = $template;
 
@@ -84,9 +85,9 @@ class Control
     {
         $config = $this->config;
 
-        return function ($row, $control, $templates = array()) use ($config, $type) {
+        return function ($row, $control, $templates = []) use ($config, $type) {
             $templates = array_merge(
-                $config->get('orchestra/html::form.templates', array()),
+                $config->get('orchestra/html::form.templates', []),
                 $templates
             );
 
@@ -99,8 +100,8 @@ class Control
     /**
      * Build field by type.
      *
-     * @param  string                       $type
-     * @param  mixed                        $row
+     * @param  string   $type
+     * @param  mixed   $row
      * @param  \Illuminate\Support\Fluent   $control
      * @return \Illuminate\Support\Fluent
      */
@@ -109,14 +110,15 @@ class Control
         $data     = $this->buildFluentData($type, $row, $control);
         $template = $this->template;
         $html     = $this->html;
+        $method   = $data->get('method');
 
-        if (in_array($data->method, array('checkboxes', 'select'))) {
+        if (in_array($method, ['checkboxes', 'select'])) {
             $data->options($this->getOptionList($row, $control));
-        } elseif (in_array($data->method, array('checkbox', 'radio'))) {
-            $data->checked($control->checked);
+        } elseif (in_array($method, ['checkbox', 'radio'])) {
+            $data->checked($control->get('checked'));
         }
 
-        $data->attributes($html->decorate($control->attributes, $template[$data->method]));
+        $data->attributes($html->decorate($control->attributes, $template[$method]));
 
         return $data;
     }
@@ -124,26 +126,26 @@ class Control
     /**
      * Build data.
      *
-     * @param  string                       $type
-     * @param  mixed                        $row
+     * @param  string   $type
+     * @param  mixed   $row
      * @param  \Illuminate\Support\Fluent   $control
      * @return \Illuminate\Support\Fluent
      */
     public function buildFluentData($type, $row, Fluent $control)
     {
         // set the name of the control
-        $name  = $control->name;
+        $name  = $control->get('name');
         $value = $this->resolveFieldValue($name, $row, $control);
 
-        $data = new Field(array(
+        $data = new Field([
             'method'     => '',
             'type'       => '',
-            'options'    => array(),
+            'options'    => [],
             'checked'    => false,
-            'attributes' => array(),
+            'attributes' => [],
             'name'       => $name,
             'value'      => $value,
-        ));
+        ]);
 
         return $this->resolveFieldType($type, $data);
     }
@@ -151,14 +153,14 @@ class Control
     /**
      * Get options from control.
      *
-     * @param  mixed                        $row
+     * @param  mixed    $row
      * @param  \Illuminate\Support\Fluent   $control
      * @return array
      */
     protected function getOptionList($row, Fluent $control)
     {
         // set the value of options, if it's callable run it first
-        $options = $control->options;
+        $options = $control->get('options');
 
         if ($options instanceof Closure) {
             $options = call_user_func($options, $row, $control);
@@ -170,30 +172,41 @@ class Control
     /**
      * Render the field.
      *
-     * @param  array                        $templates
+     * @param  array   $templates
      * @param  \Illuminate\Support\Fluent   $data
      * @return string
      * @throws \InvalidArgumentException
      */
     public function render($templates, Fluent $data)
     {
-        if (! isset($templates[$data->method])) {
-            throw new InvalidArgumentException("Form template for [{$data->method}] is not available.");
+        $method = $data->get('method');
+
+        if (! isset($templates[$method])) {
+            throw new InvalidArgumentException("Form template for [{$method}] is not available.");
         }
 
-        return call_user_func($templates[$data->method], $data);
+        return call_user_func($templates[$method], $data);
     }
 
     /**
      * Resolve method name and type.
      *
-     * @param  string                       $value
+     * @param  string   $value
      * @param  \Illuminate\Support\Fluent   $data
      * @return \Illuminate\Support\Fluent
      */
     protected function resolveFieldType($value, Fluent $data)
     {
-        $filterable = array('button', 'checkbox', 'checkboxes', 'file', 'password', 'radio', 'select', 'textarea');
+        $filterable = [
+            'button',
+            'checkbox',
+            'checkboxes',
+            'file',
+            'password',
+            'radio',
+            'select',
+            'textarea',
+        ];
 
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
@@ -213,8 +226,8 @@ class Control
     /**
      * Resolve field value.
      *
-     * @param  string                       $name
-     * @param  mixed                        $row
+     * @param  string   $name
+     * @param  mixed   $row
      * @param  \Illuminate\Support\Fluent   $control
      * @return mixed
      */
@@ -228,11 +241,11 @@ class Control
             $value = $model;
         }
 
-        if (is_null($control->value)) {
+        if (is_null($control->get('value'))) {
             return $value;
         }
 
-        $value = $control->value;
+        $value = $control->get('value');
 
         // If the value is set from the closure, we should use it instead of
         // value retrieved from attached data. Should also check if it's a

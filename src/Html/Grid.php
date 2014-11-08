@@ -20,34 +20,34 @@ abstract class Grid
      *
      * @var array
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * Key map for column overwriting.
      *
      * @var array
      */
-    protected $keyMap = array();
+    protected $keyMap = [];
 
     /**
      * Meta attributes.
      *
      * @var array
      */
-    protected $meta = array();
+    protected $meta = [];
 
     /**
      * Grid Definition.
      *
      * @var array
      */
-    protected $definition = array(
+    protected $definition = [
         'name'    => null,
-        '__call'  => array(),
-        '__get'   => array(),
-        '__set'   => array('attributes'),
-        '__isset' => array(),
-    );
+        '__call'  => [],
+        '__get'   => [],
+        '__set'   => ['attributes'],
+        '__isset' => [],
+    ];
 
     /**
      * Create a new Grid instance.
@@ -58,15 +58,10 @@ abstract class Grid
     {
         $this->app = $app;
 
-        $this->initiate();
+        if (method_exists($this, 'initiate')) {
+            $app->call([$this, 'initiate']);
+        }
     }
-
-    /**
-     * Load grid configuration.
-     *
-     * @return void
-     */
-    abstract protected function initiate();
 
     /**
      * Add or append Grid attributes.
@@ -176,7 +171,7 @@ abstract class Grid
             $label = Str::title($name);
         }
 
-        return array($label, $name, $callback);
+        return [$label, $name, $callback];
     }
 
     /**

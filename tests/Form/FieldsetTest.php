@@ -94,8 +94,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testInstanceOfFieldset()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -126,8 +126,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -155,11 +155,11 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testControlMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['html'] = $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
-        $app['orchestra.form.control'] = $control = new Control($config, $html, $request);
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = new Control($config, $html, $request);
 
         $config->shouldReceive('get')->once()
                 ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate())
@@ -283,8 +283,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethodThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -305,8 +305,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testAttributesMethod()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -340,8 +340,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodCallThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -363,8 +363,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodGetThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -386,8 +386,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -409,8 +409,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());
@@ -432,8 +432,8 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodIssetThrowsException()
     {
         $app = $this->app;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate());

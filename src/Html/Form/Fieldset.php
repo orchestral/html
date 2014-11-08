@@ -1,10 +1,13 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use Orchestra\Html\Grid as GridContract;
+use Orchestra\Html\Grid as BaseGrid;
+use Orchestra\Contracts\Html\Form\Control;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Container\Container;
+use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
 
-class Fieldset extends GridContract
+class Fieldset extends BaseGrid implements FieldsetContract
 {
     /**
      * Fieldset name.
@@ -18,50 +21,54 @@ class Fieldset extends GridContract
      *
      * @var array
      */
-    protected $controls = array();
+    protected $controls = [];
 
     /**
      * Field control instance.
      *
-     * @var Control
+     * @var \Orchestra\Contracts\Html\Form\Control
      */
     protected $control = null;
 
     /**
      * {@inheritdoc}
      */
-    protected $definition = array(
+    protected $definition = [
         'name'    => 'controls',
-        '__call'  => array('controls', 'name'),
-        '__get'   => array('attributes', 'name', 'controls'),
-        '__set'   => array('attributes'),
-        '__isset' => array('attributes', 'name', 'controls'),
-    );
+        '__call'  => ['controls', 'name'],
+        '__get'   => ['attributes', 'name', 'controls'],
+        '__set'   => ['attributes'],
+        '__isset' => ['attributes', 'name', 'controls'],
+    ];
 
     /**
      * Create a new Fieldset instance.
      *
-     * @param  \Illuminate\Contracts\Container\Container    $app
-     * @param  string                                       $name
-     * @param  \Closure                                     $callback
+     * @param  \Illuminate\Contracts\Container\Container   $app
+     * @param  string   $name
+     * @param  \Closure   $callback
      */
     public function __construct(Container $app, $name, Closure $callback = null)
     {
-        $this->control = $app['orchestra.form.control'];
-
         parent::__construct($app);
 
         $this->buildBasic($name, $callback);
     }
 
     /**
-     * {@inheritdoc}
+     * Load grid configuration.
+     *
+     * @param  \Illuminate\Contracts\Config\Repository   $config
+     * @param  \Orchestra\Contracts\Html\Form\Control   $control
+     * @return void
      */
-    protected function initiate()
+    public function initiate(Repository $config, Control $control)
     {
-        $this->control->setTemplate(
-            $this->app['config']->get('orchestra/html::form.fieldset', array())
+        $control->setTemplate(
+            $config->get('orchestra/html::form.fieldset', [])
         );
+
+        $this->control = $control;
     }
 
     /**
@@ -127,28 +134,28 @@ class Fieldset extends GridContract
     /**
      * Build control.
      *
-     * @param  mixed    $name
-     * @param  mixed    $callback
+     * @param  mixed   $name
+     * @param  mixed   $callback
      * @return array
      */
     protected function buildControl($name, $callback = null)
     {
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
-        $control = new Field(array(
+        $control = new Field([
             'id'         => $name,
             'name'       => $name,
             'value'      => null,
             'label'      => $label,
-            'attributes' => array(),
-            'options'    => array(),
+            'attributes' => [],
+            'options'    => [],
             'checked'    => false,
             'field'      => null,
-        ));
+        ]);
 
         is_callable($callback) && call_user_func($callback, $control);
 
-        return array($name, $control);
+        return [$name, $control];
     }
 
     /**
@@ -158,7 +165,7 @@ class Fieldset extends GridContract
      *     $fieldset->legend('User Information');
      * </code>
      *
-     * @param  string $name
+     * @param  string   $name
      * @return mixed
      */
     public function legend($name = null)

@@ -71,7 +71,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testInstanceOfGrid()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', array())->andReturn(array(
@@ -176,8 +176,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testFieldsetMethod()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['orchestra.form.control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->twice()
                 ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate())
@@ -388,7 +388,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $app = new Container;
-        $app['config'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', array())->andReturn(array());

@@ -33,13 +33,5 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
 class GridStub extends Grid
 {
-    /**
-     * Load grid configuration.
-     *
-     * @return void
-     */
-    protected function initiate()
-    {
-
-    }
+    //
 }

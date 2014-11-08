@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Fluent;
 use Illuminate\Contracts\Support\Renderable;
+use Orchestra\Contracts\Html\Form\Field as FieldContract;
 
-class Field extends Fluent
+class Field extends Fluent implements FieldContract
 {
     /**
      * Get value of column.
@@ -13,7 +14,7 @@ class Field extends Fluent
      * @param  array   $attributes
      * @return string
      */
-    public function getField($row, $control, array $attributes = array())
+    public function getField($row, $control, array $attributes = [])
     {
         $value = call_user_func($this->attributes['field'], $row, $control, $attributes);
 

@@ -17,7 +17,7 @@ abstract class Factory
      *
      * @var array
      */
-    protected $names = array();
+    protected $names = [];
 
     /**
      * Construct a new factory.

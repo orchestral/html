@@ -2,14 +2,16 @@
 
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
-use Orchestra\Html\Grid as GridContract;
+use Orchestra\Html\Grid as BaseGrid;
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
-class Grid extends GridContract
+class Grid extends BaseGrid implements GridContract
 {
     use QueryFilterTrait;
 
@@ -18,7 +20,7 @@ class Grid extends GridContract
      *
      * @var array
      */
-    protected $columns = array();
+    protected $columns = [];
 
     /**
      * Set the no record message.
@@ -65,33 +67,34 @@ class Grid extends GridContract
     /**
      * {@inheritdoc}
      */
-    protected $definition = array(
+    protected $definition = [
         'name'    => 'columns',
-        '__call'  => array('columns', 'view'),
-        '__get'   => array('attributes', 'columns', 'model', 'paginate', 'view', 'rows'),
-        '__set'   => array('attributes'),
-        '__isset' => array('attributes', 'columns', 'model', 'paginate', 'view'),
-    );
+        '__call'  => ['columns', 'view'],
+        '__get'   => ['attributes', 'columns', 'model', 'paginate', 'view', 'rows'],
+        '__set'   => ['attributes'],
+        '__isset' => ['attributes', 'columns', 'model', 'paginate', 'view'],
+    ];
 
     /**
-     * {@inheritdoc}
+     * Load grid configuration.
+     *
+     * @param  \Illuminate\Contracts\Config\Repository   $config
+     * @return void
      */
-    protected function initiate()
+    public function initiate(Repository $config)
     {
-        $config = $this->app['config']->get('orchestra/html::table', array());
-
-        foreach ($config as $key => $value) {
+        foreach ($config->get('orchestra/html::table', []) as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
         }
 
-        $this->rows = new Fluent(array(
-            'data'       => array(),
+        $this->rows = new Fluent([
+            'data'       => [],
             'attributes' => function () {
-                return array();
+                return [];
             },
-        ));
+        ]);
     }
 
     /**
@@ -137,7 +140,7 @@ class Grid extends GridContract
      */
     public function layout($name)
     {
-        if (in_array($name, array('horizontal', 'vertical'))) {
+        if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::table.{$name}";
         } else {
             $this->view = $name;
@@ -226,7 +229,7 @@ class Grid extends GridContract
         if (filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
             $this->perPage = null;
             $this->paginate = $perPage;
-        } elseif (filter_var($perPage, FILTER_VALIDATE_INT, array('options' => array('min_range' => 1)))) {
+        } elseif (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]])) {
             $this->perPage = $perPage;
             $this->paginate = true;
         } else {
@@ -250,11 +253,11 @@ class Grid extends GridContract
 
         $value = $this->app['request']->input($key);
 
-        $this->set('search', array(
+        $this->set('search', [
             'attributes' => $attributes,
             'key'        => $key,
             'value'      => $value,
-        ));
+        ]);
 
         $this->model = $this->setupWildcardQueryFilter($model, $value, $attributes);
     }
@@ -273,20 +276,20 @@ class Grid extends GridContract
         $orderByValue   = $this->app['request']->input($orderByKey);
         $directionValue = $this->app['request']->input($directionKey);
 
-        $this->set('filter.order_by', array(
+        $this->set('filter.order_by', [
             'key'   => $orderByKey,
             'value' => $orderByValue,
-        ));
+        ]);
 
-        $this->set('filter.direction', array(
+        $this->set('filter.direction', [
             'key'   => $directionKey,
             'value' => $directionValue,
-        ));
+        ]);
 
-        $this->model = $this->setupBasicQueryFilter($model, array(
+        $this->model = $this->setupBasicQueryFilter($model, [
             'order_by'  => $orderByValue,
             'direction' => $directionValue,
-        ));
+        ]);
     }
 
     /**
@@ -308,21 +311,21 @@ class Grid extends GridContract
             $value = '';
         }
 
-        $column = new Column(array(
+        $column = new Column([
             'id'         => $name,
             'label'      => $label,
             'value'      => $value,
-            'headers'    => array(),
+            'headers'    => [],
             'attributes' => function ($row) {
-                return array();
+                return [];
             },
-        ));
+        ]);
 
         if (is_callable($callback)) {
             call_user_func($callback, $column);
         }
 
-        return array($name, $column);
+        return [$name, $column];
     }
 
     /**
@@ -372,7 +375,7 @@ class Grid extends GridContract
      * @param  array    $rows
      * @return array
      */
-    protected function setRowsData(array $rows = array())
+    protected function setRowsData(array $rows = [])
     {
         return $this->rows->data = $rows;
     }

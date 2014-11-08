@@ -6,10 +6,13 @@ use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Support\Collection;
+use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Database\Eloquent\Model;
-use Orchestra\Html\Grid as GridContract;
+use Illuminate\Contracts\Config\Repository;
+use Orchestra\Contracts\Html\Form\Presenter;
+use Orchestra\Contracts\Html\Form\Grid as GridContract;
 
-class Grid extends GridContract
+class Grid extends BaseGrid implements GridContract
 {
     /**
      * Enable CSRF token.
@@ -23,7 +26,7 @@ class Grid extends GridContract
      *
      * @var array
      */
-    protected $hiddens = array();
+    protected $hiddens = [];
 
     /**
      * List of row in array.
@@ -63,30 +66,31 @@ class Grid extends GridContract
     /**
      * {@inheritdoc}
      */
-    protected $definition = array(
+    protected $definition = [
         'name'    => null,
-        '__call'  => array('fieldsets', 'view', 'hiddens'),
-        '__get'   => array('attributes', 'row', 'view', 'hiddens'),
-        '__set'   => array('attributes'),
-        '__isset' => array('attributes', 'row', 'view', 'hiddens'),
-    );
+        '__call'  => ['fieldsets', 'view', 'hiddens'],
+        '__get'   => ['attributes', 'row', 'view', 'hiddens'],
+        '__set'   => ['attributes'],
+        '__isset' => ['attributes', 'row', 'view', 'hiddens'],
+    ];
 
     /**
-     * {@inheritdoc}
+     * Load grid configuration.
+     *
+     * @param  \Illuminate\Contracts\Config\Repository   $config
+     * @return void
      */
-    protected function initiate()
+    public function initiate(Repository $config)
     {
         $this->fieldsets = new Collection;
 
-        $config = $this->app['config']->get('orchestra/html::form', array());
-
-        foreach ($config as $key => $value) {
+        foreach ($config->get('orchestra/html::form', []) as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
         }
 
-        $this->row = array();
+        $this->row = [];
     }
 
     /**
@@ -108,7 +112,7 @@ class Grid extends GridContract
      */
     public function layout($name)
     {
-        if (in_array($name, array('horizontal', 'vertical'))) {
+        if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::form.{$name}";
         } else {
             $this->view = $name;
@@ -207,29 +211,29 @@ class Grid extends GridContract
     {
         $value = data_get($this->row, $name);
 
-        $field = new Fluent(array(
+        $field = new Fluent([
             'name'       => $name,
             'value'      => $value ?: '',
-            'attributes' => array(),
-        ));
+            'attributes' => [],
+        ]);
 
         if ($callback instanceof Closure) {
             call_user_func($callback, $field);
         }
 
-        $this->hiddens[$name] = $this->app['form']->hidden($name, $field->value, $field->attributes);
+        $this->hiddens[$name] = $this->app['form']->hidden($name, $field->get('value'), $field->get('attributes'));
     }
 
     /**
      * Setup form configuration.
      *
-     * @param  PresenterInterface                   $listener
-     * @param  string                               $url
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  array                                $attributes
+     * @param  \Orchestra\Contracts\Html\Form\Presenter   $listener
+     * @param  string   $url
+     * @param  \Illuminate\Database\Eloquent\Model   $model
+     * @param  array   $attributes
      * @return $this
      */
-    public function resource(PresenterInterface $listener, $url, Model $model, array $attributes = array())
+    public function resource(Presenter $listener, $url, Model $model, array $attributes = [])
     {
         $method = 'POST';
 
@@ -246,21 +250,21 @@ class Grid extends GridContract
     /**
      * Setup simple form configuration.
      *
-     * @param  PresenterInterface                   $listener
-     * @param  string                               $url
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  array                                $attributes
+     * @param  \Orchestra\Contracts\Html\Form\Presenter   $listener
+     * @param  string   $url
+     * @param  \Illuminate\Database\Eloquent\Model   $model
+     * @param  array   $attributes
      * @return $this
      */
-    public function setup(PresenterInterface $listener, $url, $model, array $attributes = array())
+    public function setup(Presenter $listener, $url, $model, array $attributes = [])
     {
         $method = Arr::get($attributes, 'method', 'POST');
         $url    = $listener->handles($url);
 
-        $attributes = array_merge($attributes, array(
+        $attributes = array_merge($attributes, [
             'url'    => $url,
             'method' => $method,
-        ));
+        ]);
 
         $this->with($model);
         $this->attributes($attributes);

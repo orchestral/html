@@ -1,9 +1,10 @@
 <?php namespace Orchestra\Html\Table;
 
 use Closure;
-use Orchestra\Html\Factory as FactoryContract;
+use Orchestra\Html\Factory as BaseFactory;
+use Orchestra\Contracts\Html\Table\Factory as FactoryContract;
 
-class Factory extends FactoryContract
+class Factory extends BaseFactory implements FactoryContract
 {
     /**
      * {@inheritdoc}

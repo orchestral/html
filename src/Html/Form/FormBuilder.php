@@ -1,12 +1,13 @@
 <?php namespace Orchestra\Html\Form;
 
-use Orchestra\Html\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
 use Orchestra\Html\Grid as GridContract;
+use Orchestra\Html\Builder as BaseBuilder;
 use Illuminate\Contracts\View\Factory as View;
+use Orchestra\Contracts\Html\Form\Builder as BuilderContract;
 
-class FormBuilder extends Builder
+class FormBuilder extends BaseBuilder implements BuilderContract
 {
     /**
      * {@inheritdoc}
@@ -27,7 +28,7 @@ class FormBuilder extends Builder
         $grid = $this->grid;
         $form = $grid->attributes;
 
-        $data = array(
+        $data = [
             'grid'      => $grid,
             'fieldsets' => $grid->fieldsets(),
             'form'      => $form,
@@ -36,7 +37,7 @@ class FormBuilder extends Builder
             'row'       => $grid->row,
             'submit'    => $this->translator->get($grid->submit),
             'token'     => $grid->token,
-        );
+        ];
 
         return $this->view->make($grid->view)->with($data)->render();
     }

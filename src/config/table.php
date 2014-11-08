@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
     /*
     |----------------------------------------------------------------------
     | Default Empty Message String
@@ -24,4 +24,4 @@ return array(
     */
 
     'view' => 'orchestra/html::table.horizontal',
-);
+];
