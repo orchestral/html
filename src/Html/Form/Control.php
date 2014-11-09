@@ -56,7 +56,7 @@ class Control implements ControlContract
      * Set template.
      *
      * @param  array   $template
-     * @return Field
+     * @return $this
      */
     public function setTemplate(array $template = [])
     {
