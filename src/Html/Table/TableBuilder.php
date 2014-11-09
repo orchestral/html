@@ -6,7 +6,7 @@ use Illuminate\Translation\Translator;
 use Orchestra\Html\Builder as BaseBuilder;
 use Illuminate\Contracts\View\Factory as View;
 use Orchestra\Contracts\Html\Grid as GridContract;
-use Orchestra\Contracts\Html\Form\Builder as BuilderContract;
+use Orchestra\Contracts\Html\Table\Builder as BuilderContract;
 
 class TableBuilder extends BaseBuilder implements BuilderContract
 {
