@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Translation\Translator;
-use Orchestra\Html\Grid as GridContract;
 use Orchestra\Html\Builder as BaseBuilder;
 use Illuminate\Contracts\View\Factory as View;
+use Orchestra\Contracts\Html\Grid as GridContract;
 use Orchestra\Contracts\Html\Form\Builder as BuilderContract;
 
 class FormBuilder extends BaseBuilder implements BuilderContract

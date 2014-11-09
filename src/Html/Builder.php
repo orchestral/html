@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Translation\Translator;
 use Illuminate\Contracts\View\Factory as View;
+use Orchestra\Contracts\Html\Grid as GridContract;
 use Orchestra\Contracts\Html\Builder as BuilderContract;
 
 abstract class Builder implements BuilderContract
@@ -50,9 +51,9 @@ abstract class Builder implements BuilderContract
      * @var \Illuminate\Http\Request  $request
      * @var \Illuminate\Translation\Translator  $translator
      * @var \Illuminate\Contracts\View\Factory  $view
-     * @var \Orchestra\Html\Grid  $grid
+     * @var \Orchestra\Contracts\Html\Grid  $grid
      */
-    abstract public function __construct(Request $request, Translator $translator, View $view, Grid $grid);
+    abstract public function __construct(Request $request, Translator $translator, View $view, GridContract $grid);
 
     /**
      * Extend decoration.
