@@ -1,7 +1,6 @@
 <?php
 
-use Orchestra\Support\Facades\Form;
-use Orchestra\Support\Facades\HTML;
+use Orchestra\Html\Form\Field;
 
 return [
 
@@ -60,60 +59,60 @@ return [
     ],
 
     'templates' => [
-        'button' => function ($data) {
-            return Form::button(
+        'button' => function (Field $data) {
+            return app('form')->button(
                 $data->value,
-                HTML::decorate($data->attributes, ['class' => 'btn'])
+                app('html')->decorate($data->attributes, ['class' => 'btn'])
             );
         },
-        'checkbox' => function ($data) {
-            return Form::checkboxes(
+        'checkbox' => function (Field $data) {
+            return app('form')->checkboxes(
                 $data->name,
                 $data->options,
                 $data->checked,
                 $data->attributes
             );
         },
-        'file' => function ($data) {
-            return Form::file(
+        'file' => function (Field $data) {
+            return app('form')->file(
                 $data->name,
-                HTML::decorate($data->attributes, ['class' => 'form-control'])
+                app('html')->decorate($data->attributes, ['class' => 'form-control'])
             );
         },
-        'input' => function ($data) {
-            return Form::input(
+        'input' => function (Field $data) {
+            return app('form')->input(
                 $data->type,
                 $data->name,
                 $data->value,
-                HTML::decorate($data->attributes, ['class' => 'form-control'])
+                app('html')->decorate($data->attributes, ['class' => 'form-control'])
             );
         },
-        'password' => function ($data) {
-            return Form::password(
+        'password' => function (Field $data) {
+            return app('form')->password(
                 $data->name,
-                HTML::decorate($data->attributes, ['class' => 'form-control'])
+                app('html')->decorate($data->attributes, ['class' => 'form-control'])
             );
         },
-        'radio' => function ($data) {
-            return Form::radio(
+        'radio' => function (Field $data) {
+            return app('form')->radio(
                 $data->name,
                 $data->value,
                 $data->checked
             );
         },
-        'select' => function ($data) {
-            return Form::select(
+        'select' => function (Field $data) {
+            return app('form')->select(
                 $data->name,
                 $data->options,
                 $data->value,
-                HTML::decorate($data->attributes, ['class' => 'form-control'])
+                app('html')->decorate($data->attributes, ['class' => 'form-control'])
             );
         },
-        'textarea' => function ($data) {
-            return Form::textarea(
+        'textarea' => function (Field $data) {
+            return app('form')->textarea(
                 $data->name,
                 $data->value,
-                HTML::decorate($data->attributes, ['class' => 'form-control'])
+                app('html')->decorate($data->attributes, ['class' => 'form-control'])
             );
         },
     ],
