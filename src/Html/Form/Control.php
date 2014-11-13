@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
@@ -116,7 +117,7 @@ class Control
             $data->checked($control->checked);
         }
 
-        $data->attributes($html->decorate($control->attributes, array_get($template, $data->method, array())));
+        $data->attributes($html->decorate($control->attributes, Arr::get($template, $data->method, [])));
 
         return $data;
     }
