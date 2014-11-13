@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
@@ -118,7 +119,7 @@ class Control implements ControlContract
             $data->checked($control->get('checked'));
         }
 
-        $data->attributes($html->decorate($control->attributes, $template[$method]));
+        $data->attributes($html->decorate($control->attributes, Arr::get($template, $method, [])));
 
         return $data;
     }
