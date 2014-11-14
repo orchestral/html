@@ -33,7 +33,7 @@ class Control implements ControlContract
     protected $request;
 
     /**
-     * Template configuration.
+     * Fieldset templates configuration.
      *
      * @var  array
      */
