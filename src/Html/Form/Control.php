@@ -37,7 +37,7 @@ class Control implements ControlContract
      *
      * @var  array
      */
-    protected $template = [];
+    protected $templates = [];
 
     /**
      * Create a new Field instance.
@@ -56,12 +56,12 @@ class Control implements ControlContract
     /**
      * Set template.
      *
-     * @param  array   $template
+     * @param  array  $templates
      * @return $this
      */
-    public function setTemplate(array $template = [])
+    public function setTemplates(array $templates = [])
     {
-        $this->template = $template;
+        $this->templates = $templates;
 
         return $this;
     }
@@ -71,9 +71,9 @@ class Control implements ControlContract
      *
      * @return array
      */
-    public function getTemplate()
+    public function getTemplates()
     {
-        return $this->template;
+        return $this->templates;
     }
 
     /**
@@ -108,18 +108,16 @@ class Control implements ControlContract
      */
     public function buildFieldByType($type, $row, Fluent $control)
     {
-        $data     = $this->buildFluentData($type, $row, $control);
-        $template = $this->template;
-        $html     = $this->html;
-        $method   = $data->get('method');
+        $html = $this->html;
+        $templates = $this->templates;
 
-        if (in_array($method, ['checkboxes', 'select'])) {
-            $data->options($this->getOptionList($row, $control));
-        } elseif (in_array($method, ['checkbox', 'radio'])) {
-            $data->checked($control->get('checked'));
-        }
+        $data   = $this->buildFluentData($type, $row, $control);
+        $method = $data->get('method');
 
-        $data->attributes($html->decorate($control->attributes, Arr::get($template, $method)));
+        $data->options($this->getOptionList($row, $control));
+        $data->checked($control->get('checked'));
+
+        $data->attributes($html->decorate($control->attributes, Arr::get($templates, $method)));
 
         return $data;
     }
@@ -180,13 +178,14 @@ class Control implements ControlContract
      */
     public function render($templates, Fluent $data)
     {
-        $method = $data->get('method');
+        $method   = $data->get('method');
+        $template = Arr::get($templates, $method);
 
-        if (! isset($templates[$method])) {
+        if (is_null($template)) {
             throw new InvalidArgumentException("Form template for [{$method}] is not available.");
         }
 
-        return call_user_func($templates[$method], $data);
+        return call_user_func($template, $data);
     }
 
     /**
@@ -198,16 +197,7 @@ class Control implements ControlContract
      */
     protected function resolveFieldType($value, Fluent $data)
     {
-        $filterable = [
-            'button',
-            'checkbox',
-            'checkboxes',
-            'file',
-            'password',
-            'radio',
-            'select',
-            'textarea',
-        ];
+        $filterable = array_keys($this->templates);
 
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];

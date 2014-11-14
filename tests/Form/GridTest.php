@@ -19,7 +19,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      *
      * @return array
      */
-    private function getFieldsetTemplate()
+    private function getFieldsetTemplates()
     {
         return array(
             'select'   => array(),
@@ -180,13 +180,13 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
 
         $config->shouldReceive('get')->twice()
-                ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplate())
+                ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplates())
             ->shouldReceive('get')->once()
                 ->with('orchestra/html::form', array())->andReturn(array(
-                    'fieldset' => $this->getFieldsetTemplate(),
+                    'fieldset' => $this->getFieldsetTemplates(),
                     'template' => $this->getTemplateConfig(),
                 ));
-        $control->shouldReceive('setTemplate')->twice()->with($this->getFieldsetTemplate())->andReturn(null)
+        $control->shouldReceive('setTemplates')->twice()->with($this->getFieldsetTemplates())->andReturn(null)
             ->shouldReceive('generate')->twice();
 
         $stub      = new Grid($app);

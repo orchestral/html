@@ -64,7 +64,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      */
     public function initiate(Repository $config, ControlContract $control)
     {
-        $control->setTemplate(
+        $control->setTemplates(
             $config->get('orchestra/html::form.fieldset', [])
         );
 

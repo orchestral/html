@@ -11,12 +11,12 @@ class Field extends Fluent implements FieldContract
      *
      * @param  mixed  $row
      * @param  mixed  $control
-     * @param  array  $attributes
+     * @param  array  $templates
      * @return string
      */
-    public function getField($row, $control, array $attributes = [])
+    public function getField($row, $control, array $templates = [])
     {
-        $value = call_user_func($this->attributes['field'], $row, $control, $attributes);
+        $value = call_user_func($this->attributes['field'], $row, $control, $templates);
 
         if ($value instanceof Renderable) {
             return $value->render();

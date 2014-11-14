@@ -29,9 +29,9 @@ class ControlTest extends \PHPUnit_Framework_TestCase
 
         $stub = new Control($config, $html, $request);
 
-        $stub->setTemplate($template);
+        $stub->setTemplates($template);
 
-        $this->assertEquals($template, $stub->getTemplate());
+        $this->assertEquals($template, $stub->getTemplates());
     }
 
      /**

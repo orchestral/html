@@ -48,12 +48,8 @@ return [
     */
 
     'fieldset' => [
-        'button'   => [],
-        'checkbox' => [],
-        'file'     => [],
         'input'    => ['class' => 'twelve columns input-with-feedback'],
         'password' => ['class' => 'twelve columns input-with-feedback'],
-        'radio'    => [],
         'select'   => ['class' => 'twelve columns input-with-feedback'],
         'textarea' => ['class' => 'twelve columns input-with-feedback'],
     ],
@@ -66,6 +62,14 @@ return [
             );
         },
         'checkbox' => function (Field $data) {
+            return app('form')->checkbox(
+                $data->name,
+                $data->value,
+                $data->checked,
+                $data->attributes
+            );
+        },
+        'checkboxes' => function (Field $data) {
             return app('form')->checkboxes(
                 $data->name,
                 $data->options,
