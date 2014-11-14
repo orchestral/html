@@ -206,7 +206,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  mixed  $name
      * @param  mixed|null  $callback
-     * @return \Illuminate\Support\Fluent
+     * @return \Orchestra\Contracts\Html\Table\Column
      */
     public function column($name, $callback = null)
     {
@@ -221,7 +221,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Setup pagination.
      *
-     * @param  int|null  $perPage
+     * @param  bool|int|null  $perPage
      * @return $this
      */
     public function paginate($perPage)
@@ -243,8 +243,8 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Execute searchable filter on model instance.
      *
-     * @param  array    $attributes
-     * @param  string   $key
+     * @param  array   $attributes
+     * @param  string  $key
      * @return void
      */
     public function searchable(array $attributes, $key = 'q')
