@@ -119,7 +119,7 @@ class Control implements ControlContract
             $data->checked($control->get('checked'));
         }
 
-        $data->attributes($html->decorate($control->attributes, Arr::get($template, $method, [])));
+        $data->attributes($html->decorate($control->attributes, Arr::get($template, $method)));
 
         return $data;
     }
