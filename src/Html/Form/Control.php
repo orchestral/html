@@ -117,7 +117,7 @@ class Control
             $data->checked($control->checked);
         }
 
-        $data->attributes($html->decorate($control->attributes, Arr::get($template, $data->method, [])));
+        $data->attributes($html->decorate($control->attributes, Arr::get($template, $data->method)));
 
         return $data;
     }
