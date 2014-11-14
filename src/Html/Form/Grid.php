@@ -17,7 +17,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Enable CSRF token.
      *
-     * @var boolean
+     * @var bool
      */
     public $token = false;
 
@@ -77,7 +77,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Load grid configuration.
      *
-     * @param  \Illuminate\Contracts\Config\Repository   $config
+     * @param  \Illuminate\Contracts\Config\Repository  $config
      * @return void
      */
     public function initiate(Repository $config)
@@ -107,7 +107,7 @@ class Grid extends BaseGrid implements GridContract
      *      $fieldset->layout('path.to.view');
      * </code>
      *
-     * @param  string   $name
+     * @param  string  $name
      * @return $this
      */
     public function layout($name)
@@ -146,9 +146,9 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Attach rows data instead of assigning a model.
      *
-     * @param  array    $row
+     * @param  array  $row
      * @return mixed
-     * @see    Grid::with()
+     * @see    $this->with()
      */
     public function row($row = null)
     {
@@ -158,9 +158,9 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Create a new Fieldset instance.
      *
-     * @param  string   $name
-     * @param  \Closure $callback
-     * @return Fieldset
+     * @param  string  $name
+     * @param  \Closure  $callback
+     * @return \Orchestra\Html\Form\Fieldset
      */
     public function fieldset($name, Closure $callback = null)
     {
@@ -180,8 +180,8 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Find control that match the given id.
      *
-     * @param  string   $name
-     * @return Field|null
+     * @param  string  $name
+     * @return \Orchestra\Html\Form\Field|null
      * @throws \InvalidArgumentException
      */
     public function find($name)
@@ -203,8 +203,8 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Add hidden field.
      *
-     * @param  string   $name
-     * @param  \Closure $callback
+     * @param  string  $name
+     * @param  \Closure  $callback
      * @return void
      */
     public function hidden($name, $callback = null)
@@ -227,10 +227,10 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Setup form configuration.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Presenter   $listener
-     * @param  string   $url
-     * @param  \Illuminate\Database\Eloquent\Model   $model
-     * @param  array   $attributes
+     * @param  \Orchestra\Contracts\Html\Form\Presenter  $listener
+     * @param  string  $url
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  array  $attributes
      * @return $this
      */
     public function resource(Presenter $listener, $url, Model $model, array $attributes = [])
@@ -250,10 +250,10 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Setup simple form configuration.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Presenter   $listener
-     * @param  string   $url
-     * @param  \Illuminate\Database\Eloquent\Model   $model
-     * @param  array   $attributes
+     * @param  \Orchestra\Contracts\Html\Form\Presenter  $listener
+     * @param  string  $url
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     * @param  array  $attributes
      * @return $this
      */
     public function setup(Presenter $listener, $url, $model, array $attributes = [])

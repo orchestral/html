@@ -32,7 +32,7 @@ abstract class Factory
     /**
      * Create a new Builder instance.
      *
-     * @param  \Closure|null    $callback
+     * @param  \Closure|null  $callback
      * @return object
      */
     abstract public function make(Closure $callback = null);
@@ -40,8 +40,8 @@ abstract class Factory
     /**
      * Create a new builder instance of a named builder.
      *
-     * @param  string   $name
-     * @param  \Closure $callback
+     * @param  string  $name
+     * @param  \Closure  $callback
      * @return object
      */
     public function of($name, Closure $callback = null)

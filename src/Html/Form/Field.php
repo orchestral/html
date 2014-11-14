@@ -9,9 +9,9 @@ class Field extends Fluent implements FieldContract
     /**
      * Get value of column.
      *
-     * @param  mixed   $row
-     * @param  mixed   $control
-     * @param  array   $attributes
+     * @param  mixed  $row
+     * @param  mixed  $control
+     * @param  array  $attributes
      * @return string
      */
     public function getField($row, $control, array $attributes = [])

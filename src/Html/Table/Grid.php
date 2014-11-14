@@ -46,7 +46,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Enable to attach pagination during rendering.
      *
-     * @var boolean
+     * @var bool
      */
     protected $paginate = false;
 
@@ -78,7 +78,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Load grid configuration.
      *
-     * @param  \Illuminate\Contracts\Config\Repository   $config
+     * @param  \Illuminate\Contracts\Config\Repository  $config
      * @return void
      */
     public function initiate(Repository $config)
@@ -108,8 +108,8 @@ class Grid extends BaseGrid implements GridContract
      *      $table->with(User::paginate(30), true);
      * </code>
      *
-     * @param  mixed    $model
-     * @param  bool     $paginate
+     * @param  mixed  $model
+     * @param  bool   $paginate
      * @return $this
      * @throws \InvalidArgumentException
      */
@@ -135,7 +135,7 @@ class Grid extends BaseGrid implements GridContract
      *      $table->layout('path.to.view');
      * </code>
      *
-     * @param  string   $name
+     * @param  string  $name
      * @return $this
      */
     public function layout($name)
@@ -167,7 +167,7 @@ class Grid extends BaseGrid implements GridContract
      *      $table->rows(DB::table('users')->get());
      * </code>
      *
-     * @param  array    $rows
+     * @param  array  $rows
      * @return array
      * @throws \InvalidArgumentException
      */
@@ -204,8 +204,8 @@ class Grid extends BaseGrid implements GridContract
      *      });
      * </code>
      *
-     * @param  mixed        $name
-     * @param  mixed|null   $callback
+     * @param  mixed  $name
+     * @param  mixed|null  $callback
      * @return \Illuminate\Support\Fluent
      */
     public function column($name, $callback = null)
@@ -221,7 +221,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Setup pagination.
      *
-     * @param  int|null $perPage
+     * @param  int|null  $perPage
      * @return $this
      */
     public function paginate($perPage)
@@ -265,8 +265,8 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string   $orderByKey
-     * @param  string   $directionKey
+     * @param  string  $orderByKey
+     * @param  string  $directionKey
      * @return void
      */
     public function sortable($orderByKey = 'order_by', $directionKey = 'direction')
@@ -295,8 +295,8 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Build control.
      *
-     * @param  mixed    $name
-     * @param  mixed    $callback
+     * @param  mixed  $name
+     * @param  mixed  $callback
      * @return array
      */
     protected function buildColumn($name, $callback = null)
@@ -332,7 +332,7 @@ class Grid extends BaseGrid implements GridContract
      * Convert the model to Paginator when available or convert it
      * to a collection.
      *
-     * @param  mixed    $model
+     * @param  mixed  $model
      * @return \Illuminate\Contracts\Support\Arrayable|array
      */
     protected function buildModel($model)
@@ -349,7 +349,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Get rows from model instance.
      *
-     * @param  $model
+     * @param  object  $model
      * @return void
      * @throws \InvalidArgumentException
      */
@@ -372,7 +372,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Set rows data.
      *
-     * @param  array    $rows
+     * @param  array  $rows
      * @return array
      */
     protected function setRowsData(array $rows = [])
@@ -413,7 +413,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Check if given $model is a query builder.
      *
-     * @param  mixed    $model
+     * @param  mixed  $model
      * @return bool
      */
     protected function isQueryBuilder($model)

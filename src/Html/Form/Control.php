@@ -42,9 +42,9 @@ class Control implements ControlContract
     /**
      * Create a new Field instance.
      *
-     * @param  \Illuminate\Contracts\Config\Repository   $config
-     * @param  \Orchestra\Html\HtmlBuilder   $html
-     * @param  \Illuminate\Http\Request   $request
+     * @param  \Illuminate\Contracts\Config\Repository  $config
+     * @param  \Orchestra\Html\HtmlBuilder  $html
+     * @param  \Illuminate\Http\Request  $request
      */
     public function __construct(Config $config, HtmlBuilder $html, Request $request)
     {
@@ -79,7 +79,7 @@ class Control implements ControlContract
     /**
      * Generate Field.
      *
-     * @param  string   $type
+     * @param  string  $type
      * @return \Closure
      */
     public function generate($type)
@@ -101,9 +101,9 @@ class Control implements ControlContract
     /**
      * Build field by type.
      *
-     * @param  string   $type
-     * @param  mixed   $row
-     * @param  \Illuminate\Support\Fluent   $control
+     * @param  string  $type
+     * @param  mixed  $row
+     * @param  \Illuminate\Support\Fluent  $control
      * @return \Illuminate\Support\Fluent
      */
     public function buildFieldByType($type, $row, Fluent $control)
@@ -127,9 +127,9 @@ class Control implements ControlContract
     /**
      * Build data.
      *
-     * @param  string   $type
-     * @param  mixed   $row
-     * @param  \Illuminate\Support\Fluent   $control
+     * @param  string  $type
+     * @param  mixed  $row
+     * @param  \Illuminate\Support\Fluent  $control
      * @return \Illuminate\Support\Fluent
      */
     public function buildFluentData($type, $row, Fluent $control)
@@ -154,8 +154,8 @@ class Control implements ControlContract
     /**
      * Get options from control.
      *
-     * @param  mixed    $row
-     * @param  \Illuminate\Support\Fluent   $control
+     * @param  mixed  $row
+     * @param  \Illuminate\Support\Fluent  $control
      * @return array
      */
     protected function getOptionList($row, Fluent $control)
@@ -173,8 +173,8 @@ class Control implements ControlContract
     /**
      * Render the field.
      *
-     * @param  array   $templates
-     * @param  \Illuminate\Support\Fluent   $data
+     * @param  array  $templates
+     * @param  \Illuminate\Support\Fluent  $data
      * @return string
      * @throws \InvalidArgumentException
      */
@@ -192,8 +192,8 @@ class Control implements ControlContract
     /**
      * Resolve method name and type.
      *
-     * @param  string   $value
-     * @param  \Illuminate\Support\Fluent   $data
+     * @param  string  $value
+     * @param  \Illuminate\Support\Fluent  $data
      * @return \Illuminate\Support\Fluent
      */
     protected function resolveFieldType($value, Fluent $data)
@@ -227,8 +227,8 @@ class Control implements ControlContract
     /**
      * Resolve field value.
      *
-     * @param  string   $name
-     * @param  mixed   $row
+     * @param  string  $name
+     * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent   $control
      * @return mixed
      */

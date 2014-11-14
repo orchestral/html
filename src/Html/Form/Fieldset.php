@@ -44,9 +44,9 @@ class Fieldset extends BaseGrid implements FieldsetContract
     /**
      * Create a new Fieldset instance.
      *
-     * @param  \Illuminate\Contracts\Container\Container   $app
-     * @param  string   $name
-     * @param  \Closure   $callback
+     * @param  \Illuminate\Contracts\Container\Container  $app
+     * @param  string  $name
+     * @param  \Closure  $callback
      */
     public function __construct(Container $app, $name, Closure $callback = null)
     {
@@ -58,8 +58,8 @@ class Fieldset extends BaseGrid implements FieldsetContract
     /**
      * Load grid configuration.
      *
-     * @param  \Illuminate\Contracts\Config\Repository   $config
-     * @param  \Orchestra\Contracts\Html\Form\Control   $control
+     * @param  \Illuminate\Contracts\Config\Repository  $config
+     * @param  \Orchestra\Contracts\Html\Form\Control  $control
      * @return void
      */
     public function initiate(Repository $config, ControlContract $control)
@@ -74,8 +74,8 @@ class Fieldset extends BaseGrid implements FieldsetContract
     /**
      * Build basic fieldset.
      *
-     * @param  string   $name
-     * @param  \Closure $callback
+     * @param  string  $name
+     * @param  \Closure  $callback
      * @return void
      */
     protected function buildBasic($name, Closure $callback = null)
@@ -112,9 +112,9 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *      });
      * </code>
      *
-     * @param  string   $type
-     * @param  mixed    $name
-     * @param  mixed    $callback
+     * @param  string  $type
+     * @param  mixed   $name
+     * @param  mixed   $callback
      * @return \Illuminate\Support\Fluent
      */
     public function control($type, $name, $callback = null)
@@ -134,8 +134,8 @@ class Fieldset extends BaseGrid implements FieldsetContract
     /**
      * Build control.
      *
-     * @param  mixed   $name
-     * @param  mixed   $callback
+     * @param  mixed  $name
+     * @param  mixed  $callback
      * @return array
      */
     protected function buildControl($name, $callback = null)
@@ -165,7 +165,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *     $fieldset->legend('User Information');
      * </code>
      *
-     * @param  string   $name
+     * @param  string  $name
      * @return mixed
      */
     public function legend($name = null)

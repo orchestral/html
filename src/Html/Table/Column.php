@@ -8,7 +8,7 @@ class Column extends Fluent implements ColumnContract
     /**
      * Get value of column.
      *
-     * @param  mixed   $row
+     * @param  mixed  $row
      * @return string
      */
     public function getValue($row)

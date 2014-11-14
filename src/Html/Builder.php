@@ -58,7 +58,7 @@ abstract class Builder implements BuilderContract
     /**
      * Extend decoration.
      *
-     * @param  \Closure $callback
+     * @param  \Closure  $callback
      * @return $this
      */
     public function extend(Closure $callback = null)
@@ -72,7 +72,7 @@ abstract class Builder implements BuilderContract
     /**
      * Magic method to get Grid instance.
      *
-     * @param  string   $key
+     * @param  string  $key
      * @return mixed
      * @throws \InvalidArgumentException
      */

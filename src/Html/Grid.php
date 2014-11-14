@@ -66,8 +66,8 @@ abstract class Grid
     /**
      * Add or append Grid attributes.
      *
-     * @param  mixed    $key
-     * @param  mixed    $value
+     * @param  mixed  $key
+     * @param  mixed  $value
      * @return array|null
      */
     public function attributes($key = null, $value = null)
@@ -88,8 +88,8 @@ abstract class Grid
     /**
      * Allow column overwriting.
      *
-     * @param  string       $name
-     * @param  mixed|null   $callback
+     * @param  string  $name
+     * @param  mixed|null  $callback
      * @return \Illuminate\Support\Fluent
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
@@ -116,7 +116,7 @@ abstract class Grid
     /**
      * Forget meta value.
      *
-     * @param  string   $key
+     * @param  string  $key
      * @return void
      */
     public function forget($key)
@@ -127,8 +127,8 @@ abstract class Grid
     /**
      * Get meta value.
      *
-     * @param  string       $key
-     * @param  mixed|null   $default
+     * @param  string  $key
+     * @param  mixed|null  $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -139,8 +139,8 @@ abstract class Grid
     /**
      * Set meta value.
      *
-     * @param  string   $key
-     * @param  mixed    $value
+     * @param  string  $key
+     * @param  mixed   $value
      * @return array
      */
     public function set($key, $value)
@@ -151,8 +151,8 @@ abstract class Grid
     /**
      * Build basic name, label and callback option.
      *
-     * @param  mixed   $name
-     * @param  mixed   $callback
+     * @param  mixed  $name
+     * @param  mixed  $callback
      * @return array
      */
     protected function buildFluentAttributes($name, $callback = null)
@@ -177,8 +177,8 @@ abstract class Grid
     /**
      * Magic Method for calling the methods.
      *
-     * @param  string   $method
-     * @param  array    $parameters
+     * @param  string  $method
+     * @param  array   $parameters
      * @return mixed
      * @throws \InvalidArgumentException
      */
@@ -196,7 +196,7 @@ abstract class Grid
     /**
      * Magic Method for handling dynamic data access.
      *
-     * @param  string   $key
+     * @param  string  $key
      * @return mixed
      * @throws \InvalidArgumentException
      */
@@ -212,8 +212,8 @@ abstract class Grid
     /**
      * Magic Method for handling the dynamic setting of data.
      *
-     * @param  string   $key
-     * @param  array    $parameters
+     * @param  string  $key
+     * @param  array   $parameters
      * @return void
      * @throws \InvalidArgumentException
      */
@@ -231,8 +231,8 @@ abstract class Grid
     /**
      * Magic Method for checking dynamically-set data.
      *
-     * @param  string   $key
-     * @return boolean
+     * @param  string  $key
+     * @return bool
      * @throws \InvalidArgumentException
      */
     public function __isset($key)
