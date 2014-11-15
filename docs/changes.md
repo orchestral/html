@@ -9,6 +9,10 @@ title: HTML Change Log
 
 * Explicitly require `illuminate/html`.
 * Allow `Orchestra\Html\Form\Factory` to handle all request to `Illuminate\Html\FormBuilder`.
+* Utilize both `illuminate/contracts` and `orchestra/contracts`.
+* Update support for Laravel 5 paginator class.
+* Resolve form template directly from config, allow developer to add additional form type.
+* Add `Orchestra\Html\FormBuilder`, extending `Illuminate\Html\FormBuilder` to remove checkboxes macro.
 
 ## Version 2.2 {#v2-2}
 
