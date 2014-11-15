@@ -13,6 +13,7 @@ title: HTML Change Log
 * Update support for Laravel 5 paginator class.
 * Resolve form template directly from config, allow developer to add additional form type.
 * Add `Orchestra\Html\FormBuilder`, extending `Illuminate\Html\FormBuilder` to remove checkboxes macro.
+* `Orchestra\Html\Form\Field::getField()` can automatically render any object implementing `Illuminate\Contracts\Support\Renderable`.
 
 ## Version 2.2 {#v2-2}
 
