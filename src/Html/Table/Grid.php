@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Html\Table;
 
+use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Grid as BaseGrid;
@@ -265,15 +266,16 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string  $orderByKey
      * @param  string  $directionKey
+     * @param  array   $orderColumns
+     * @param  string  $orderByKey
      * @return void
      */
-    public function sortable($orderByKey = 'order_by', $directionKey = 'direction')
+    public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
     {
         $model = $this->resolveQueryBuilderFromModel();
 
-        $orderByValue   = $this->app['request']->input($orderByKey);
+        $orderByValue = $this->app['request']->input($orderByKey);
         $directionValue = $this->app['request']->input($directionKey);
 
         $this->set('filter.order_by', [
@@ -286,9 +288,12 @@ class Grid extends BaseGrid implements GridContract
             'value' => $directionValue,
         ]);
 
+        $this->set('filter.columns', $orderColumns);
+
         $this->model = $this->setupBasicQueryFilter($model, [
             'order_by'  => $orderByValue,
             'direction' => $directionValue,
+            'columns'   => $orderColumns
         ]);
     }
 
