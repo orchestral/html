@@ -262,9 +262,9 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string   $orderByKey
-     * @param  string   $directionKey
-     * @param  array    $orderColumns
+     * @param  string  $orderByKey
+     * @param  string  $directionKey
+     * @param  array   $orderColumns
      * @return void
      */
     public function sortable($orderByKey = 'order_by', $directionKey = 'direction', $orderColumns = array())
@@ -275,8 +275,8 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         $directionValue = $this->app['request']->input($directionKey);
 
         $this->set('filter.order_by', array(
-            'key'     => $orderByKey,
-            'value'   => $orderByValue,
+            'key'   => $orderByKey,
+            'value' => $orderByValue,
         ));
 
         $this->set('filter.direction', array(
@@ -284,10 +284,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
             'value' => $directionValue,
         ));
 
-        $this->set('filter.columns', array(
-            'only'    => Arr::get($orderColumns, 'only', array()),
-            'except'  => Arr::get($orderColumns, 'except', array()),
-        ));
+        $this->set('filter.columns', $orderColumns);
 
         $this->model = $this->setupBasicQueryFilter($model, array(
             'order_by'  => $orderByValue,
