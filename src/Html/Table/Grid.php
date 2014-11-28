@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Html\Table;
 
+use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Illuminate\Pagination\Paginator;
@@ -266,7 +267,7 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
      * @param  array    $orderColumns
      * @return void
      */
-    public function sortable($orderByKey = 'order_by', $directionKey = 'direction', $orderColumns = [])
+    public function sortable($orderByKey = 'order_by', $directionKey = 'direction', $orderColumns = array())
     {
         $model = $this->resolveQueryBuilderFromModel();
 
@@ -276,12 +277,16 @@ class Grid extends \Orchestra\Html\Abstractable\Grid
         $this->set('filter.order_by', array(
             'key'     => $orderByKey,
             'value'   => $orderByValue,
-            'columns' => $orderColumns
         ));
 
         $this->set('filter.direction', array(
             'key'   => $directionKey,
             'value' => $directionValue,
+        ));
+
+        $this->set('filter.columns', array(
+            'only'    => Arr::get($orderColumns, 'only', array()),
+            'except'  => Arr::get($orderColumns, 'except', array()),
         ));
 
         $this->model = $this->setupBasicQueryFilter($model, array(
