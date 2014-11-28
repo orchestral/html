@@ -395,7 +395,6 @@ class GridTest extends \PHPUnit_Framework_TestCase
      * Test Orchestra\Html\Table\Grid::sortable() method.
      *
      * @test
-     * @group testing
      */
     public function testSortableMethod()
     {
