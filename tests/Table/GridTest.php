@@ -410,11 +410,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $model = m::mock('\Illuminate\Database\Query\Builder');
 
         $stub->shouldReceive('setupBasicQueryFilter')->once()
-            ->with($model, array('order_by' => 'email', 'direction' => 'desc', 'columns' => array('only' => array('email'), 'except' => array('fullname'))))->andReturnNull();
+            ->with($model, array('order_by' => 'email', 'direction' => 'desc', 'columns' => array('only' => array('email'), 'except' => array('fullname'))))
+            ->andReturnNull();
 
         $stub->with($model);
 
-        $this->assertNull($stub->sortable('order_by', 'direction', array('only' => array('email'),'except' => array('fullname'))));
+        $this->assertNull($stub->sortable(array('only' => array('email'),'except' => array('fullname')), 'order_by', 'direction'));
 
         $this->assertEquals(array('key' => 'order_by', 'value' => 'email'), $stub->get('filter.order_by'));
         $this->assertEquals(array('key' => 'direction', 'value' => 'desc'), $stub->get('filter.direction'));
