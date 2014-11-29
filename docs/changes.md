@@ -9,7 +9,7 @@ title: HTML Change Log
 
 * Allow `Orchestra\Html\Form\Factory` to handle all request to `Illuminate\Html\FormBuilder`.
 * Allow `Orchestra\Html\Form\Field` to handle instance of `Illuminate\Support\Contracts\RenderableInterface`.
-* Allow to filter sortable columns either using `only` or `excerpt` option based on changes to `Orchestra\Support\Traits\QueryFilterTrait`.
+* Allow to filter sortable columns either using `only` or `except` option based on changes to `Orchestra\Support\Traits\QueryFilterTrait`.
 
 ### v2.2.3 {#v2-2-3}
 
