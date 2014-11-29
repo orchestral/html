@@ -17,7 +17,7 @@ title: HTML Change Log
 
 ## Version 2.2 {#v2-2}
 
-### v2.2.4@dev {#v2-2-4}
+### v2.2.4 {#v2-2-4}
 
 * Allow `Orchestra\Html\Form\Factory` to handle all request to `Illuminate\Html\FormBuilder`.
 * Allow `Orchestra\Html\Form\Field` to handle instance of `Illuminate\Support\Contracts\RenderableInterface`.

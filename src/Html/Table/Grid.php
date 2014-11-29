@@ -266,9 +266,9 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  string  $directionKey
      * @param  array   $orderColumns
      * @param  string  $orderByKey
+     * @param  string  $directionKey
      * @return void
      */
     public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
