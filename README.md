@@ -3,11 +3,12 @@ HTML Component for Orchestra Platform
 
 HTML Component extends the functionality of `Illuminate\Html` with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
 
-[![Latest Stable Version](https://poser.pugx.org/orchestra/html/v/stable.png)](https://packagist.org/packages/orchestra/html)
-[![Total Downloads](https://poser.pugx.org/orchestra/html/downloads.png)](https://packagist.org/packages/orchestra/html)
-[![Build Status](https://travis-ci.org/orchestral/html.svg?branch=master)](https://travis-ci.org/orchestral/html)
-[![Coverage Status](https://coveralls.io/repos/orchestral/html/badge.png?branch=master)](https://coveralls.io/r/orchestral/html?branch=master)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/orchestral/html/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/orchestral/html/)
+[![Latest Stable Version](https://img.shields.io/github/release/orchestral/html.svg?style=flat)](https://packagist.org/packages/orchestra/html)
+[![Total Downloads](https://img.shields.io/packagist/dt/orchestra/html.svg?style=flat)](https://packagist.org/packages/orchestra/html)
+[![MIT License](https://img.shields.io/packagist/l/orchestra/html.svg?style=flat)](https://packagist.org/packages/orchestra/html)
+[![Build Status](https://img.shields.io/travis/orchestral/html/master.svg?style=flat)](https://travis-ci.org/orchestral/html)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/html/master.svg?style=flat)](https://coveralls.io/r/orchestral/html?branch=master)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/html/master.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/html/)
 
 ## Table of Content
 
