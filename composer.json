@@ -13,7 +13,7 @@
 	],
 	"autoload": {
 		"psr-4": {
-			"Orchestra\\Html\\" : "src/Html/"
+			"Orchestra\\Html\\" : "src/"
 		}
 	},
 	"require": {
