@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html;
 
-use Illuminate\Support\ServiceProvider;
 use Orchestra\Html\Form\Factory as FormFactory;
+use Orchestra\Support\Providers\ServiceProvider;
 use Orchestra\Html\Table\Factory as TableFactory;
 
 class HtmlServiceProvider extends ServiceProvider
