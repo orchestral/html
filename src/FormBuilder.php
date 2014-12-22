@@ -1,6 +1,8 @@
 <?php namespace Orchestra\Html;
 
-class FormBuilder extends \Illuminate\Html\FormBuilder
+use Illuminate\Html\FormBuilder as BaseFormBuilder;
+
+class FormBuilder extends BaseFormBuilder
 {
     /**
      * Create a checkboxes input field.
@@ -9,9 +11,10 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
      * @param  array   $list
      * @param  bool    $checked
      * @param  array   $options
+     * @param  string  $separator
      * @return string
      */
-    public function checkboxes($name, $list = array(), $checked = null, $options = array())
+    public function checkboxes($name, $list = [], $checked = null, $options = [], $separator = '<br>')
     {
         $group = [];
 
@@ -33,6 +36,6 @@ class FormBuilder extends \Illuminate\Html\FormBuilder
             $group[] = implode(' ', [$control, $label]);
         }
 
-        return implode('<br>', $group);
+        return implode($separator, $group);
     }
 }
