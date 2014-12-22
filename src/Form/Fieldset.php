@@ -166,7 +166,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      * </code>
      *
      * @param  string  $name
-     * @return mixed
+     * @return string
      */
     public function legend($name = null)
     {

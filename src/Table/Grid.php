@@ -1,6 +1,5 @@
 <?php namespace Orchestra\Html\Table;
 
-use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Grid as BaseGrid;
