@@ -5,11 +5,39 @@ use Illuminate\Support\Arr;
 trait CreatorTrait
 {
     /**
+     * The current model instance for the form.
+     *
+     * @var mixed
+     */
+    protected $model;
+
+    /**
+     * An array of label names we've created.
+     *
+     * @var array
+     */
+    protected $labels = [];
+
+    /**
      * The URL generator instance.
      *
      * @var \Illuminate\Routing\UrlGenerator  $url
      */
     protected $url;
+
+    /**
+     * The reserved form open attributes.
+     *
+     * @var array
+     */
+    protected $reserved = ['method', 'url', 'route', 'action', 'files'];
+
+    /**
+     * The form methods that should be spoofed, in uppercase.
+     *
+     * @var array
+     */
+    protected $spoofedMethods = ['DELETE', 'PATCH', 'PUT'];
 
     /**
      * Open up a new HTML form.
@@ -24,11 +52,11 @@ trait CreatorTrait
         // We need to extract the proper method from the attributes. If the method is
         // something other than GET or POST we'll use POST since we will spoof the
         // actual method since forms don't support the reserved methods in HTML.
-        $attributes['method'] = $this->getMethod($method);
-
-        $attributes['action'] = $this->getAction($options);
-
-        $attributes['accept-charset'] = 'UTF-8';
+        $attributes = [
+            'method' => $this->getMethod($method),
+            'action' => $this->getAction($options),
+            'accept-charset' => 'UTF-8',
+        ];
 
         // If the method is PUT, PATCH or DELETE we will need to add a spoofer hidden
         // field that will instruct the Symfony request to pretend the method is a

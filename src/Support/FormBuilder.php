@@ -20,34 +20,6 @@ class FormBuilder
     protected $html;
 
     /**
-     * The current model instance for the form.
-     *
-     * @var mixed
-     */
-    protected $model;
-
-    /**
-     * An array of label names we've created.
-     *
-     * @var array
-     */
-    protected $labels = [];
-
-    /**
-     * The reserved form open attributes.
-     *
-     * @var array
-     */
-    protected $reserved = array('method', 'url', 'route', 'action', 'files');
-
-    /**
-     * The form methods that should be spoofed, in uppercase.
-     *
-     * @var array
-     */
-    protected $spoofedMethods = array('DELETE', 'PATCH', 'PUT');
-
-    /**
      * The types of inputs to not fill values on by default.
      *
      * @var array
