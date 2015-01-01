@@ -100,6 +100,21 @@ trait InputTrait
     }
 
     /**
+     * Create a HTML image input element.
+     *
+     * @param  string  $url
+     * @param  string  $name
+     * @param  array   $attributes
+     * @return string
+     */
+    public function image($url, $name = null, $attributes = [])
+    {
+        $attributes['src'] = $this->url->asset($url);
+
+        return $this->input('image', $name, null, $attributes);
+    }
+
+    /**
      * Create a textarea input field.
      *
      * @param  string  $name
