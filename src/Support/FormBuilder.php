@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Arr;
 use Illuminate\Routing\UrlGenerator;
-use Illuminate\Session\Store as Session;
 use Illuminate\Support\Traits\Macroable;
+use Orchestra\Html\Support\Traits\UrlHelperTrait;
+use Orchestra\Html\Support\Traits\RangeSelectionTrait;
 
 class FormBuilder
 {
-    use Macroable;
+    use Macroable, RangeSelectionTrait, UrlHelperTrait;
 
     /**
      * The HTML builder instance.
@@ -16,12 +17,6 @@ class FormBuilder
      */
     protected $html;
 
-    /**
-     * The URL generator instance.
-     *
-     * @var \Illuminate\Routing\UrlGenerator  $url
-     */
-    protected $url;
 
     /**
      * The CSRF token used by the form builder.
@@ -29,13 +24,6 @@ class FormBuilder
      * @var string
      */
     protected $csrfToken;
-
-    /**
-     * The session store implementation.
-     *
-     * @var \Illuminate\Session\Store
-     */
-    protected $session;
 
     /**
      * The current model instance for the form.
@@ -423,58 +411,6 @@ class FormBuilder
     }
 
     /**
-     * Create a select range field.
-     *
-     * @param  string  $name
-     * @param  string  $begin
-     * @param  string  $end
-     * @param  string  $selected
-     * @param  array   $options
-     * @return string
-     */
-    public function selectRange($name, $begin, $end, $selected = null, $options = [])
-    {
-        $range = array_combine($range = range($begin, $end), $range);
-
-        return $this->select($name, $range, $selected, $options);
-    }
-
-    /**
-     * Create a select year field.
-     *
-     * @param  string  $name
-     * @param  string  $begin
-     * @param  string  $end
-     * @param  string  $selected
-     * @param  array   $options
-     * @return string
-     */
-    public function selectYear($name, $begin, $end, $selected = null, $options = [])
-    {
-        return call_user_func([$this, 'selectRange'], $name, $begin, $end, $selected, $options);
-    }
-
-    /**
-     * Create a select month field.
-     *
-     * @param  string  $name
-     * @param  string  $selected
-     * @param  array   $options
-     * @param  string  $format
-     * @return string
-     */
-    public function selectMonth($name, $selected = null, $options = [], $format = '%B')
-    {
-        $months = [];
-
-        foreach (range(1, 12) as $month) {
-            $months[$month] = strftime($format, mktime(0, 0, 0, $month, 1));
-        }
-
-        return $this->select($name, $months, $selected, $options);
-    }
-
-    /**
      * Get the select option for the given value.
      *
      * @param  string  $display
@@ -720,92 +656,6 @@ class FormBuilder
     }
 
     /**
-     * Parse the form action method.
-     *
-     * @param  string  $method
-     * @return string
-     */
-    protected function getMethod($method)
-    {
-        $method = strtoupper($method);
-
-        return $method != 'GET' ? 'POST' : $method;
-    }
-
-    /**
-     * Get the form action from the options.
-     *
-     * @param  array   $options
-     * @return string
-     */
-    protected function getAction(array $options)
-    {
-        // We will also check for a "route" or "action" parameter on the array so that
-        // developers can easily specify a route or controller action when creating
-        // a form providing a convenient interface for creating the form actions.
-        if (isset($options['url'])) {
-            return $this->getUrlAction($options['url']);
-        }
-
-        // If an action is available, we are attempting to open a form to a controller
-        // action route. So, we will use the URL generator to get the path to these
-        // actions and return them from the method. Otherwise, we'll use current.
-
-        if (isset($options['route'])) {
-            return $this->getRouteAction($options['route']);
-        } elseif (isset($options['action'])) {
-            return $this->getControllerAction($options['action']);
-        }
-
-        return $this->url->current();
-    }
-
-    /**
-     * Get the action for a "url" option.
-     *
-     * @param  array|string  $options
-     * @return string
-     */
-    protected function getUrlAction($options)
-    {
-        if (is_array($options)) {
-            return $this->url->to($options[0], array_slice($options, 1));
-        }
-
-        return $this->url->to($options);
-    }
-
-    /**
-     * Get the action for a "route" option.
-     *
-     * @param  array|string  $options
-     * @return string
-     */
-    protected function getRouteAction($options)
-    {
-        if (is_array($options)) {
-            return $this->url->route($options[0], array_slice($options, 1));
-        }
-
-        return $this->url->route($options);
-    }
-
-    /**
-     * Get the action for an "action" option.
-     *
-     * @param  array|string  $options
-     * @return string
-     */
-    protected function getControllerAction($options)
-    {
-        if (is_array($options)) {
-            return $this->url->action($options[0], array_slice($options, 1));
-        }
-
-        return $this->url->action($options);
-    }
-
-    /**
      * Get the form appendage for the given method.
      *
      * @param  string  $method
@@ -919,28 +769,5 @@ class FormBuilder
     protected function transformKey($key)
     {
         return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);
-    }
-
-    /**
-     * Get the session store implementation.
-     *
-     * @return  \Illuminate\Session\Store  $session
-     */
-    public function getSessionStore()
-    {
-        return $this->session;
-    }
-
-    /**
-     * Set the session store implementation.
-     *
-     * @param  \Illuminate\Session\Store  $session
-     * @return $this
-     */
-    public function setSessionStore(Session $session)
-    {
-        $this->session = $session;
-
-        return $this;
     }
 }
