@@ -8,34 +8,46 @@ class FormBuilder extends BaseFormBuilder
      * Create a checkboxes input field.
      *
      * @param  string  $name
-     * @param  array   $list
-     * @param  bool    $checked
-     * @param  array   $options
+     * @param  array  $list
+     * @param  bool|array  $checked
+     * @param  array  $options
      * @param  string  $separator
      * @return string
      */
-    public function checkboxes($name, $list = [], $checked = null, $options = [], $separator = '<br>')
+    public function checkboxes($name, array $list = [], $checked = null, array $options = [], $separator = '<br>')
     {
         $group = [];
+        $name = str_replace('[]', '', $name);
 
         foreach ($list as $id => $label) {
-            $name = str_replace('[]', '', $name);
-            $identifier = sprintf('%s_%s', $name, $id);
-
-            $options['id'] = $identifier;
-
-            $control = $this->checkbox(
-                sprintf('%s[]', $name),
-                $id,
-                in_array($id, (array) $checked),
-                $options
-            );
-
-            $label = $this->label($identifier, $label);
-
-            $group[] = implode(' ', [$control, $label]);
+            $group[] = $this->generateCheckboxByGroup($id, $label, $name, $checked, $options);
         }
 
         return implode($separator, $group);
+    }
+
+    /**
+     * Generate checkbox by group.
+     * 
+     * @param  string  $id
+     * @param  string  $label
+     * @param  string  $name
+     * @param  bool|array  $checked
+     * @param  array  $options
+     * @return array
+     */
+    protected function generateCheckboxByGroup($id, $label, $name, $checked, array $options)
+    {
+        $identifier = sprintf('%s_%s', $name, $id);
+        $key = sprintf('%s[]', $name);
+        $active = in_array($id, (array) $checked);
+
+        $options['id'] = $identifier;
+
+        $control = $this->checkbox($key, $id, $active, $options);
+
+        $label = $this->label($identifier, $label);
+
+        return implode(' ', [$control, $label]);
     }
 }
