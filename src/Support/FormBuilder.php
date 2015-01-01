@@ -4,13 +4,13 @@ use Illuminate\Support\Arr;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Traits\Macroable;
 use Orchestra\Html\Support\Traits\InputTrait;
-use Orchestra\Html\Support\Traits\UrlHelperTrait;
+use Orchestra\Html\Support\Traits\CreatorTrait;
 use Orchestra\Html\Support\Traits\SelectionTrait;
 use Orchestra\Html\Support\Traits\SessionHelperTrait;
 
 class FormBuilder
 {
-    use Macroable, SelectionTrait, SessionHelperTrait, InputTrait, UrlHelperTrait;
+    use CreatorTrait, InputTrait, Macroable, SelectionTrait, SessionHelperTrait;
 
     /**
      * The HTML builder instance.
@@ -69,44 +69,19 @@ class FormBuilder
     }
 
     /**
-     * Open up a new HTML form.
+     * Generate a hidden field with the current CSRF token.
      *
-     * @param  array   $options
      * @return string
      */
-    public function open(array $options = [])
+    public function token()
     {
-        $method = Arr::get($options, 'method', 'post');
+        $token = $this->csrfToken;
 
-        // We need to extract the proper method from the attributes. If the method is
-        // something other than GET or POST we'll use POST since we will spoof the
-        // actual method since forms don't support the reserved methods in HTML.
-        $attributes['method'] = $this->getMethod($method);
-
-        $attributes['action'] = $this->getAction($options);
-
-        $attributes['accept-charset'] = 'UTF-8';
-
-        // If the method is PUT, PATCH or DELETE we will need to add a spoofer hidden
-        // field that will instruct the Symfony request to pretend the method is a
-        // different method than it actually is, for convenience from the forms.
-        $append = $this->getAppendage($method);
-
-        if (isset($options['files']) && $options['files']) {
-            $options['enctype'] = 'multipart/form-data';
+        if (empty($token) && ! is_null($this->session)) {
+            $token = $this->session->getToken();
         }
 
-        // Finally we're ready to create the final form HTML field. We will attribute
-        // format the array of attributes. We will also add on the appendage which
-        // is used to spoof requests for this PUT, PATCH, etc. methods on forms.
-        $attributes = array_merge($attributes, Arr::except($options, $this->reserved));
-
-        // Finally, we will concatenate all of the attributes into a single string so
-        // we can build out the final form open statement. We'll also append on an
-        // extra value for the hidden _method field if it's needed for the form.
-        $attributes = $this->html->attributes($attributes);
-
-        return '<form'.$attributes.'>'.$append;
+        return $this->hidden('_token', $token);
     }
 
     /**
@@ -132,20 +107,6 @@ class FormBuilder
     public function setModel($model)
     {
         $this->model = $model;
-    }
-
-    /**
-     * Close the current form.
-     *
-     * @return string
-     */
-    public function close()
-    {
-        $this->labels = [];
-
-        $this->model = null;
-
-        return '</form>';
     }
 
     /**
@@ -351,33 +312,6 @@ class FormBuilder
         }
 
         return '<button'.$this->html->attributes($options).'>'.$value.'</button>';
-    }
-
-    /**
-     * Get the form appendage for the given method.
-     *
-     * @param  string  $method
-     * @return string
-     */
-    protected function getAppendage($method)
-    {
-        list($method, $appendage) = array(strtoupper($method), '');
-
-        // If the HTTP method is in this list of spoofed methods, we will attach the
-        // method spoofer hidden input to the form. This allows us to use regular
-        // form to initiate PUT and DELETE requests in addition to the typical.
-        if (in_array($method, $this->spoofedMethods)) {
-            $appendage .= $this->hidden('_method', $method);
-        }
-
-        // If the method is something other than GET we will go ahead and attach the
-        // CSRF token to the form, as this can't hurt and is convenient to simply
-        // always have available on every form the developers creates for them.
-        if ($method != 'GET') {
-            $appendage .= $this->token();
-        }
-
-        return $appendage;
     }
 
     /**
