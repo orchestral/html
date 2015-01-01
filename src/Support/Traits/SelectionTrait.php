@@ -34,7 +34,7 @@ trait SelectionTrait
         // Once we have all of this HTML, we can join this into a single element after
         // formatting the attributes into an HTML "attributes" string, then we will
         // build out a final select statement, which will contain all the values.
-        $options = $this->html->attributes($options);
+        $options = $this->getHtmlBuilder()->attributes($options);
 
         $list = implode('', $html);
 
@@ -161,4 +161,29 @@ trait SelectionTrait
 
         return $this->select($name, $months, $selected, $options);
     }
+
+    /**
+     * Get html builder.
+     *
+     * @return \Orchestra\Html\Support\HtmlBuilder
+     */
+    public abstract function getHtmlBuilder();
+
+    /**
+     * Get the ID attribute for a field name.
+     *
+     * @param  string  $name
+     * @param  array   $attributes
+     * @return string
+     */
+    public abstract function getIdAttribute($name, $attributes);
+
+    /**
+     * Get the value that should be assigned to the field.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @return string
+     */
+    public abstract function getValueAttribute($name, $value = null);
 }

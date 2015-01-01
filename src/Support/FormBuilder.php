@@ -7,6 +7,7 @@ use Orchestra\Html\Support\Traits\InputTrait;
 use Orchestra\Html\Support\Traits\UrlHelperTrait;
 use Orchestra\Html\Support\Traits\SelectionTrait;
 use Orchestra\Html\Support\Traits\SessionHelperTrait;
+
 class FormBuilder
 {
     use Macroable, SelectionTrait, SessionHelperTrait, InputTrait, UrlHelperTrait;
@@ -17,14 +18,6 @@ class FormBuilder
      * @var \Orchestra\Html\Support\HtmlBuilder
      */
     protected $html;
-
-
-    /**
-     * The CSRF token used by the form builder.
-     *
-     * @var string
-     */
-    protected $csrfToken;
 
     /**
      * The current model instance for the form.
@@ -320,6 +313,19 @@ class FormBuilder
     }
 
     /**
+     * Create a hidden input field.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @param  array   $options
+     * @return string
+     */
+    public function hidden($name, $value = null, $options = [])
+    {
+        return $this->input('hidden', $name, $value, $options);
+    }
+
+    /**
      * Create a HTML image input element.
      *
      * @param  string  $url
@@ -445,29 +451,6 @@ class FormBuilder
     }
 
     /**
-     * Get a value from the session's old input.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    public function old($name)
-    {
-        if (isset($this->session)) {
-            return $this->session->getOldInput($this->transformKey($name));
-        }
-    }
-
-    /**
-     * Determine if the old input is empty.
-     *
-     * @return bool
-     */
-    public function oldInputIsEmpty()
-    {
-        return (isset($this->session) && count($this->session->getOldInput()) == 0);
-    }
-
-    /**
      * Transform key from array to dot syntax.
      *
      * @param  string  $key
@@ -476,5 +459,15 @@ class FormBuilder
     protected function transformKey($key)
     {
         return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $key);
+    }
+
+    /**
+     * Get html builder.
+     *
+     * @return \Orchestra\Html\Support\HtmlBuilder
+     */
+    public function getHtmlBuilder()
+    {
+        return $this->html;
     }
 }

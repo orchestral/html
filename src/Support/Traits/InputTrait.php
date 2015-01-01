@@ -62,19 +62,6 @@ trait InputTrait
     }
 
     /**
-     * Create a hidden input field.
-     *
-     * @param  string  $name
-     * @param  string  $value
-     * @param  array   $options
-     * @return string
-     */
-    public function hidden($name, $value = null, $options = [])
-    {
-        return $this->input('hidden', $name, $value, $options);
-    }
-
-    /**
      * Create an e-mail input field.
      *
      * @param  string  $name

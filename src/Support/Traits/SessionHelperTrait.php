@@ -5,6 +5,13 @@ use Illuminate\Session\Store;
 trait SessionHelperTrait
 {
     /**
+     * The CSRF token used by the form builder.
+     *
+     * @var string
+     */
+    protected $csrfToken;
+
+    /**
      * The session store implementation.
      *
      * @var \Illuminate\Session\Store
