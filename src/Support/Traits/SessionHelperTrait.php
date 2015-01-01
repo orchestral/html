@@ -12,6 +12,22 @@ trait SessionHelperTrait
     protected $session;
 
     /**
+     * Generate a hidden field with the current CSRF token.
+     *
+     * @return string
+     */
+    public function token()
+    {
+        $token = $this->csrfToken;
+
+        if (empty($token) && ! is_null($this->session)) {
+            $token = $this->session->getToken();
+        }
+
+        return $this->hidden('_token', $token);
+    }
+
+    /**
      * Get a value from the session's old input.
      *
      * @param  string  $name
@@ -56,6 +72,16 @@ trait SessionHelperTrait
 
         return $this;
     }
+
+    /**
+     * Create a hidden input field.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @param  array   $options
+     * @return string
+     */
+    public abstract function hidden($name, $value = null, $options = []);
 
     /**
      * Transform key from array to dot syntax.

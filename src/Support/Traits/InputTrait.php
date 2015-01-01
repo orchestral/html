@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Arr;
 
-trait TextInputTrait
+trait InputTrait
 {
     /**
      * Create a form input field.

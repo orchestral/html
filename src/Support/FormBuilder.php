@@ -3,14 +3,13 @@
 use Illuminate\Support\Arr;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Traits\Macroable;
-use Orchestra\Html\Support\Traits\TextInputTrait;
+use Orchestra\Html\Support\Traits\InputTrait;
 use Orchestra\Html\Support\Traits\UrlHelperTrait;
+use Orchestra\Html\Support\Traits\SelectionTrait;
 use Orchestra\Html\Support\Traits\SessionHelperTrait;
-use Orchestra\Html\Support\Traits\RangeSelectionTrait;
-
 class FormBuilder
 {
-    use Macroable, RangeSelectionTrait, SessionHelperTrait, TextInputTrait, UrlHelperTrait;
+    use Macroable, SelectionTrait, SessionHelperTrait, InputTrait, UrlHelperTrait;
 
     /**
      * The HTML builder instance.
@@ -157,22 +156,6 @@ class FormBuilder
     }
 
     /**
-     * Generate a hidden field with the current CSRF token.
-     *
-     * @return string
-     */
-    public function token()
-    {
-        $token = $this->csrfToken;
-
-        if (empty($token) && ! is_null($this->session)) {
-            $token = $this->session->getToken();
-        }
-
-        return $this->hidden('_token', $token);
-    }
-
-    /**
      * Create a form label element.
      *
      * @param  string  $name
@@ -201,114 +184,6 @@ class FormBuilder
     protected function formatLabel($name, $value)
     {
         return $value ?: ucwords(str_replace('_', ' ', $name));
-    }
-
-    /**
-     * Create a select box field.
-     *
-     * @param  string  $name
-     * @param  array   $list
-     * @param  string  $selected
-     * @param  array   $options
-     * @return string
-     */
-    public function select($name, $list = [], $selected = null, $options = [])
-    {
-        // When building a select box the "value" attribute is really the selected one
-        // so we will use that when checking the model or session for a value which
-        // should provide a convenient method of re-populating the forms on post.
-        $selected = $this->getValueAttribute($name, $selected);
-
-        $options['id'] = $this->getIdAttribute($name, $options);
-
-        ! isset($options['name']) && $options['name'] = $name;
-
-        // We will simply loop through the options and build an HTML value for each of
-        // them until we have an array of HTML declarations. Then we will join them
-        // all together into one single HTML element that can be put on the form.
-        $html = [];
-
-        foreach ($list as $value => $display) {
-            $html[] = $this->getSelectOption($display, $value, $selected);
-        }
-
-        // Once we have all of this HTML, we can join this into a single element after
-        // formatting the attributes into an HTML "attributes" string, then we will
-        // build out a final select statement, which will contain all the values.
-        $options = $this->html->attributes($options);
-
-        $list = implode('', $html);
-
-        return "<select{$options}>{$list}</select>";
-    }
-
-    /**
-     * Get the select option for the given value.
-     *
-     * @param  string  $display
-     * @param  string  $value
-     * @param  string  $selected
-     * @return string
-     */
-    public function getSelectOption($display, $value, $selected)
-    {
-        if (is_array($display)) {
-            return $this->optionGroup($display, $value, $selected);
-        }
-
-        return $this->option($display, $value, $selected);
-    }
-
-    /**
-     * Create an option group form element.
-     *
-     * @param  array   $list
-     * @param  string  $label
-     * @param  string  $selected
-     * @return string
-     */
-    protected function optionGroup($list, $label, $selected)
-    {
-        $html = [];
-
-        foreach ($list as $value => $display) {
-            $html[] = $this->option($display, $value, $selected);
-        }
-
-        return '<optgroup label="'.e($label).'">'.implode('', $html).'</optgroup>';
-    }
-
-    /**
-     * Create a select element option.
-     *
-     * @param  string  $display
-     * @param  string  $value
-     * @param  string  $selected
-     * @return string
-     */
-    protected function option($display, $value, $selected)
-    {
-        $selected = $this->getSelectedValue($value, $selected);
-
-        $options = array('value' => e($value), 'selected' => $selected);
-
-        return '<option'.$this->html->attributes($options).'>'.e($display).'</option>';
-    }
-
-    /**
-     * Determine if the value is selected.
-     *
-     * @param  string  $value
-     * @param  string  $selected
-     * @return string
-     */
-    protected function getSelectedValue($value, $selected)
-    {
-        if (is_array($selected)) {
-            return in_array($value, $selected) ? 'selected' : null;
-        }
-
-        return ((string) $value == (string) $selected) ? 'selected' : null;
     }
 
     /**
