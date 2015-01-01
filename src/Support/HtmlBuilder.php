@@ -54,7 +54,7 @@ class HtmlBuilder
      * @param  bool    $secure
      * @return string
      */
-    public function script($url, $attributes = array(), $secure = null)
+    public function script($url, $attributes = [], $secure = null)
     {
         $attributes['src'] = $this->url->asset($url, $secure);
 
@@ -69,9 +69,9 @@ class HtmlBuilder
      * @param  bool    $secure
      * @return string
      */
-    public function style($url, $attributes = array(), $secure = null)
+    public function style($url, $attributes = [], $secure = null)
     {
-        $defaults = array('media' => 'all', 'type' => 'text/css', 'rel' => 'stylesheet');
+        $defaults = ['media' => 'all', 'type' => 'text/css', 'rel' => 'stylesheet'];
 
         $attributes = $attributes + $defaults;
 
@@ -89,7 +89,7 @@ class HtmlBuilder
      * @param  bool    $secure
      * @return string
      */
-    public function image($url, $alt = null, $attributes = array(), $secure = null)
+    public function image($url, $alt = null, $attributes = [], $secure = null)
     {
         $attributes['alt'] = $alt;
 
@@ -105,11 +105,13 @@ class HtmlBuilder
      * @param  bool    $secure
      * @return string
      */
-    public function link($url, $title = null, $attributes = array(), $secure = null)
+    public function link($url, $title = null, $attributes = [], $secure = null)
     {
-        $url = $this->url->to($url, array(), $secure);
+        $url = $this->url->to($url, [], $secure);
 
-        if (is_null($title) || $title === false) $title = $url;
+        if (is_null($title) || $title === false) {
+            $title = $url;
+        }
 
         return '<a href="'.$url.'"'.$this->attributes($attributes).'>'.$this->entities($title).'</a>';
     }
@@ -122,7 +124,7 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    public function secureLink($url, $title = null, $attributes = array())
+    public function secureLink($url, $title = null, $attributes = [])
     {
         return $this->link($url, $title, $attributes, true);
     }
@@ -136,7 +138,7 @@ class HtmlBuilder
      * @param  bool    $secure
      * @return string
      */
-    public function linkAsset($url, $title = null, $attributes = array(), $secure = null)
+    public function linkAsset($url, $title = null, $attributes = [], $secure = null)
     {
         $url = $this->url->asset($url, $secure);
 
@@ -151,7 +153,7 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    public function linkSecureAsset($url, $title = null, $attributes = array())
+    public function linkSecureAsset($url, $title = null, $attributes = [])
     {
         return $this->linkAsset($url, $title, $attributes, true);
     }
@@ -165,7 +167,7 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    public function linkRoute($name, $title = null, $parameters = array(), $attributes = array())
+    public function linkRoute($name, $title = null, $parameters = [], $attributes = [])
     {
         return $this->link($this->url->route($name, $parameters), $title, $attributes);
     }
@@ -179,7 +181,7 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    public function linkAction($action, $title = null, $parameters = array(), $attributes = array())
+    public function linkAction($action, $title = null, $parameters = [], $attributes = [])
     {
         return $this->link($this->url->action($action, $parameters), $title, $attributes);
     }
@@ -192,7 +194,7 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    public function mailto($email, $title = null, $attributes = array())
+    public function mailto($email, $title = null, $attributes = [])
     {
         $email = $this->email($email);
 
@@ -221,7 +223,7 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    public function ol($list, $attributes = array())
+    public function ol($list, $attributes = [])
     {
         return $this->listing('ol', $list, $attributes);
     }
@@ -233,7 +235,7 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    public function ul($list, $attributes = array())
+    public function ul($list, $attributes = [])
     {
         return $this->listing('ul', $list, $attributes);
     }
@@ -246,17 +248,18 @@ class HtmlBuilder
      * @param  array   $attributes
      * @return string
      */
-    protected function listing($type, $list, $attributes = array())
+    protected function listing($type, $list, $attributes = [])
     {
         $html = '';
 
-        if (count($list) == 0) return $html;
+        if (count($list) == 0) {
+            return $html;
+        }
 
         // Essentially we will just spin through the list and build the list of the HTML
         // elements from the array. We will also handled nested lists in case that is
         // present in the array. Then we will build out the final listing elements.
-        foreach ($list as $key => $value)
-        {
+        foreach ($list as $key => $value) {
             $html .= $this->listingElement($key, $type, $value);
         }
 
@@ -275,12 +278,9 @@ class HtmlBuilder
      */
     protected function listingElement($key, $type, $value)
     {
-        if (is_array($value))
-        {
+        if (is_array($value)) {
             return $this->nestedListing($key, $type, $value);
-        }
-        else
-        {
+        } else {
             return '<li>'.e($value).'</li>';
         }
     }
@@ -288,19 +288,16 @@ class HtmlBuilder
     /**
      * Create the HTML for a nested listing attribute.
      *
-     * @param  mixed    $key
+     * @param  mixed   $key
      * @param  string  $type
      * @param  string  $value
      * @return string
      */
     protected function nestedListing($key, $type, $value)
     {
-        if (is_int($key))
-        {
+        if (is_int($key)) {
             return $this->listing($type, $value);
-        }
-        else
-        {
+        } else {
             return '<li>'.$key.$this->listing($type, $value).'</li>';
         }
     }
@@ -313,16 +310,15 @@ class HtmlBuilder
      */
     public function attributes($attributes)
     {
-        $html = array();
+        $html = [];
 
         // For numeric keys we will assume that the key and the value are the same
         // as this will convert HTML attributes such as "required" to a correct
         // form like required="required" instead of using incorrect numerics.
-        foreach ((array) $attributes as $key => $value)
-        {
+        foreach ((array) $attributes as $key => $value) {
             $element = $this->attributeElement($key, $value);
 
-            if ( ! is_null($element)) $html[] = $element;
+            ! is_null($element) && $html[] = $element;
         }
 
         return count($html) > 0 ? ' '.implode(' ', $html) : '';
@@ -337,9 +333,11 @@ class HtmlBuilder
      */
     protected function attributeElement($key, $value)
     {
-        if (is_numeric($key)) $key = $value;
+        is_numeric($key) && $key = $value;
 
-        if ( ! is_null($value)) return $key.'="'.e($value).'"';
+        if (! is_null($value)) {
+            return $key.'="'.e($value).'"';
+        }
     }
 
     /**
@@ -352,21 +350,21 @@ class HtmlBuilder
     {
         $safe = '';
 
-        foreach (str_split($value) as $letter)
-        {
-            if (ord($letter) > 128) return $letter;
+        foreach (str_split($value) as $letter) {
+            if (ord($letter) > 128) {
+                return $letter;
+            }
 
             // To properly obfuscate the value, we will randomly convert each letter to
             // its entity or hexadecimal representation, keeping a bot from sniffing
             // the randomly obfuscated letters out of the string on the responses.
-            switch (rand(1, 3))
-            {
+            switch (rand(1, 3)) {
                 case 1:
-                    $safe .= '&#'.ord($letter).';'; break;
-
+                    $safe .= '&#'.ord($letter).';';
+                    break;
                 case 2:
-                    $safe .= '&#x'.dechex(ord($letter)).';'; break;
-
+                    $safe .= '&#x'.dechex(ord($letter)).';';
+                    break;
                 case 3:
                     $safe .= $letter;
             }
