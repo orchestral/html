@@ -20,13 +20,6 @@ class FormBuilder
     protected $html;
 
     /**
-     * The types of inputs to not fill values on by default.
-     *
-     * @var array
-     */
-    protected $skipValueTypes = array('file', 'password', 'checkbox', 'radio');
-
-    /**
      * Create a new form builder instance.
      *
      * @param  \Orchestra\Html\Support\HtmlBuilder  $html

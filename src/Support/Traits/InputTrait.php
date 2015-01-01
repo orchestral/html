@@ -5,6 +5,13 @@ use Illuminate\Support\Arr;
 trait InputTrait
 {
     /**
+     * The types of inputs to not fill values on by default.
+     *
+     * @var array
+     */
+    protected $skipValueTypes = ['file', 'password', 'checkbox', 'radio'];
+
+    /**
      * Create a form input field.
      *
      * @param  string  $type
