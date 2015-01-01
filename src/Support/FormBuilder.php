@@ -5,11 +5,12 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Traits\Macroable;
 use Orchestra\Html\Support\Traits\TextInputTrait;
 use Orchestra\Html\Support\Traits\UrlHelperTrait;
+use Orchestra\Html\Support\Traits\SessionHelperTrait;
 use Orchestra\Html\Support\Traits\RangeSelectionTrait;
 
 class FormBuilder
 {
-    use Macroable, RangeSelectionTrait, TextInputTrait, UrlHelperTrait;
+    use Macroable, RangeSelectionTrait, SessionHelperTrait, TextInputTrait, UrlHelperTrait;
 
     /**
      * The HTML builder instance.
@@ -162,7 +163,11 @@ class FormBuilder
      */
     public function token()
     {
-        $token = ! empty($this->csrfToken) ? $this->csrfToken : $this->session->getToken();
+        $token = $this->csrfToken;
+
+        if (empty($token) && ! is_null($this->session)) {
+            $token = $this->session->getToken();
+        }
 
         return $this->hidden('_token', $token);
     }

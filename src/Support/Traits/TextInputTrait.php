@@ -1,5 +1,7 @@
 <?php namespace Orchestra\Html\Support\Traits;
 
+use Illuminate\Support\Arr;
+
 trait TextInputTrait
 {
     /**
