@@ -27,6 +27,9 @@ class HtmlServiceProvider extends ServiceProvider
         $this->registerOrchestraFormBuilder();
 
         $this->registerOrchestraTableBuilder();
+
+        $this->app->alias('html', 'Orchestra\Html\HtmlBuilder');
+        $this->app->alias('form', 'Orchestra\Html\FormBuilder');
     }
 
     /**

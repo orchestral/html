@@ -14,12 +14,14 @@
 	"autoload": {
 		"psr-4": {
 			"Orchestra\\Html\\" : "src/"
-		}
+		},
+		"files": [
+			"src/Support/helpers.php"
+		]
 	},
 	"require": {
 		"php": ">=5.4.0",
 		"illuminate/contracts": "5.0.*",
-		"illuminate/html": "5.0.*",
 		"orchestra/contracts": "3.0.*",
 		"orchestra/support": "3.0.*"
 	},

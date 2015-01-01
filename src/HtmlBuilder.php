@@ -4,7 +4,7 @@ use BadMethodCallException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Orchestra\Support\Expression;
-use Illuminate\Html\HtmlBuilder as BaseHtmlBuilder;
+use Orchestra\Html\Support\HtmlBuilder as BaseHtmlBuilder;
 
 class HtmlBuilder extends BaseHtmlBuilder
 {

@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Html;
 
-use Illuminate\Html\FormBuilder as BaseFormBuilder;
+use Orchestra\Html\Support\FormBuilder as BaseFormBuilder;
 
 class FormBuilder extends BaseFormBuilder
 {
@@ -28,7 +28,7 @@ class FormBuilder extends BaseFormBuilder
 
     /**
      * Generate checkbox by group.
-     * 
+     *
      * @param  string  $id
      * @param  string  $label
      * @param  string  $name
