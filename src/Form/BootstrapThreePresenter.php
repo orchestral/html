@@ -44,9 +44,9 @@ class BootstrapThreePresenter implements Template
      */
     public function button(FieldContract $field)
     {
-        $attributes = $this->html->decorate($field->attributes, ['class' => 'btn']);
+        $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'btn']);
 
-        return $this->form->button($field->value, $attributes);
+        return $this->form->button($field->get('value'), $attributes);
     }
 
     /**
@@ -58,10 +58,10 @@ class BootstrapThreePresenter implements Template
     public function checkbox(FieldContract $field)
     {
         return $this->form->checkbox(
-            $field->name,
-            $field->value,
-            $field->checked,
-            $field->attributes
+            $field->get('name'),
+            $field->get('value'),
+            $field->get('checked'),
+            $field->get('attributes')
         );
     }
 
@@ -74,10 +74,10 @@ class BootstrapThreePresenter implements Template
     public function checkboxes(FieldContract $field)
     {
         return $this->form->checkboxes(
-            $field->name,
-            $field->options,
-            $field->checked,
-            $field->attributes
+            $field->get('name'),
+            $field->get('options'),
+            $field->get('checked'),
+            $field->get('attributes')
         );
     }
 
@@ -89,9 +89,9 @@ class BootstrapThreePresenter implements Template
      */
     public function file(FieldContract $field)
     {
-        $attributes = $this->html->decorate($field->attributes, ['class' => 'form-control']);
+        $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
-        return $this->form->file($field->name, $attributes);
+        return $this->form->file($field->get('name'), $attributes);
     }
 
     /**
@@ -102,12 +102,12 @@ class BootstrapThreePresenter implements Template
      */
     public function input(FieldContract $field)
     {
-        $attributes = $this->html->decorate($field->attributes, ['class' => 'form-control']);
+        $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
         return $this->form->input(
             $field->type,
-            $field->name,
-            $field->value,
+            $field->get('name'),
+            $field->get('value'),
             $attributes
         );
     }
@@ -120,9 +120,9 @@ class BootstrapThreePresenter implements Template
      */
     public function password(FieldContract $field)
     {
-        $attributes = $this->html->decorate($field->attributes, ['class' => 'form-control']);
+        $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
-        return $this->form->password($field->name, $attributes);
+        return $this->form->password($field->get('name'), $attributes);
     }
 
     /**
@@ -133,7 +133,7 @@ class BootstrapThreePresenter implements Template
      */
     public function radio(FieldContract $field)
     {
-        return $this->form->radio($field->name, $field->value, $field->checked);
+        return $this->form->radio($field->get('name'), $field->get('value'), $field->get('checked'));
     }
 
     /**
@@ -144,12 +144,12 @@ class BootstrapThreePresenter implements Template
      */
     public function select(FieldContract $field)
     {
-        $attributes = $this->html->decorate($field->attributes, ['class' => 'form-control']);
+        $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
         return $this->form->select(
-            $field->name,
-            $field->options,
-            $field->value,
+            $field->get('name'),
+            $field->get('options'),
+            $field->get('value'),
             $attributes
         );
     }
@@ -162,11 +162,11 @@ class BootstrapThreePresenter implements Template
      */
     public function textarea(FieldContract $field)
     {
-        $attributes = $this->html->decorate($field->attributes, ['class' => 'form-control']);
+        $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
         return $this->form->textarea(
-            $field->name,
-            $field->value,
+            $field->get('name'),
+            $field->get('value'),
             $attributes
         );
     }
