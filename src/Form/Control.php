@@ -6,17 +6,18 @@ use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\HtmlBuilder;
-use Illuminate\Contracts\Config\Repository as Config;
+use Orchestra\Contracts\Html\Form\Template;
+use Illuminate\Contracts\Container\Container;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
 
 class Control implements ControlContract
 {
     /**
-     * Config instance.
+     * Container instance.
      *
-     * @var \Illuminate\Contracts\Config\Repository
+     * @var \Illuminate\Contracts\Container\Container
      */
-    protected $config;
+    protected $app;
 
     /**
      * Html builder instance.
@@ -24,6 +25,13 @@ class Control implements ControlContract
      * @var \Orchestra\Html\HtmlBuilder
      */
     protected $html;
+
+    /**
+     * Presenter instance.
+     *
+     * @var \Orchestra\Contracts\Html\Form\Template
+     */
+    protected $presenter;
 
     /**
      * Request instance.
@@ -42,15 +50,38 @@ class Control implements ControlContract
     /**
      * Create a new Field instance.
      *
-     * @param  \Illuminate\Contracts\Config\Repository  $config
+     * @param  \Illuminate\Contracts\Container\Container  $app
      * @param  \Orchestra\Html\HtmlBuilder  $html
      * @param  \Illuminate\Http\Request  $request
      */
-    public function __construct(Config $config, HtmlBuilder $html, Request $request)
+    public function __construct(Container $app, HtmlBuilder $html, Request $request)
     {
-        $this->config  = $config;
+        $this->app     = $app;
         $this->html    = $html;
         $this->request = $request;
+    }
+
+    /**
+     * Set presenter instance.
+     *
+     * @param  \Orchestra\Contracts\Html\Form\Template  $presenter
+     * @return $this
+     */
+    public function setPresenter(Template $presenter)
+    {
+        $this->presenter = $presenter;
+
+        return $this;
+    }
+
+    /**
+     * Get presenter instance.
+     *
+     * @return \Orchestra\Contracts\Html\Form\Template
+     */
+    public function getPresenter()
+    {
+        return $this->presenter;
     }
 
     /**
@@ -84,13 +115,7 @@ class Control implements ControlContract
      */
     public function generate($type)
     {
-        $config = $this->config;
-
-        return function ($row, $control, $templates = []) use ($config, $type) {
-            $templates = array_merge(
-                $config->get('orchestra/html::form.templates', []),
-                $templates
-            );
+        return function ($row, $control, $templates = []) use ($type) {
 
             $data = $this->buildFieldByType($type, $row, $control);
 
@@ -172,20 +197,20 @@ class Control implements ControlContract
      * Render the field.
      *
      * @param  array  $templates
-     * @param  \Illuminate\Support\Fluent  $data
+     * @param  \Illuminate\Support\Fluent  $field
      * @return string
      * @throws \InvalidArgumentException
      */
-    public function render($templates, Fluent $data)
+    public function render($templates, Fluent $field)
     {
-        $method   = $data->get('method');
-        $template = Arr::get($templates, $method);
+        $method   = $field->get('method');
+        $template = Arr::get($templates, $method, [$this->presenter, $method]);
 
-        if (is_null($template)) {
+        if (! is_callable($template)) {
             throw new InvalidArgumentException("Form template for [{$method}] is not available.");
         }
 
-        return call_user_func($template, $data);
+        return call_user_func($template, $field);
     }
 
     /**
@@ -219,7 +244,7 @@ class Control implements ControlContract
      *
      * @param  string  $name
      * @param  mixed  $row
-     * @param  \Illuminate\Support\Fluent   $control
+     * @param  \Illuminate\Support\Fluent  $control
      * @return mixed
      */
     protected function resolveFieldValue($name, $row, Fluent $control)
@@ -242,7 +267,7 @@ class Control implements ControlContract
         // value retrieved from attached data. Should also check if it's a
         // closure, when this happen run it.
         if ($value instanceof Closure) {
-            $value = call_user_func($value, $row, $control);
+            $value = $value($row, $control);
         }
 
         return $value;

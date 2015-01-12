@@ -43,81 +43,16 @@ return [
     | Layout Configuration
     |----------------------------------------------------------------------
     |
-    | Set default submit button for Orchestra\Form.
+    | Set default submit button for Orchestra\Html\Form.
     |
     */
 
-    'fieldset' => [
+    'templates' => [
         'input'    => ['class' => 'twelve columns input-with-feedback'],
         'password' => ['class' => 'twelve columns input-with-feedback'],
         'select'   => ['class' => 'twelve columns input-with-feedback'],
         'textarea' => ['class' => 'twelve columns input-with-feedback'],
     ],
 
-    'templates' => [
-        'button' => function (Field $data) {
-            return app('form')->button(
-                $data->value,
-                app('html')->decorate($data->attributes, ['class' => 'btn'])
-            );
-        },
-        'checkbox' => function (Field $data) {
-            return app('form')->checkbox(
-                $data->name,
-                $data->value,
-                $data->checked,
-                $data->attributes
-            );
-        },
-        'checkboxes' => function (Field $data) {
-            return app('form')->checkboxes(
-                $data->name,
-                $data->options,
-                $data->checked,
-                $data->attributes
-            );
-        },
-        'file' => function (Field $data) {
-            return app('form')->file(
-                $data->name,
-                app('html')->decorate($data->attributes, ['class' => 'form-control'])
-            );
-        },
-        'input' => function (Field $data) {
-            return app('form')->input(
-                $data->type,
-                $data->name,
-                $data->value,
-                app('html')->decorate($data->attributes, ['class' => 'form-control'])
-            );
-        },
-        'password' => function (Field $data) {
-            return app('form')->password(
-                $data->name,
-                app('html')->decorate($data->attributes, ['class' => 'form-control'])
-            );
-        },
-        'radio' => function (Field $data) {
-            return app('form')->radio(
-                $data->name,
-                $data->value,
-                $data->checked
-            );
-        },
-        'select' => function (Field $data) {
-            return app('form')->select(
-                $data->name,
-                $data->options,
-                $data->value,
-                app('html')->decorate($data->attributes, ['class' => 'form-control'])
-            );
-        },
-        'textarea' => function (Field $data) {
-            return app('form')->textarea(
-                $data->name,
-                $data->value,
-                app('html')->decorate($data->attributes, ['class' => 'form-control'])
-            );
-        },
-    ],
+    'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
 ];

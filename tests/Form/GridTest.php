@@ -32,38 +32,6 @@ class GridTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Get template config.
-     *
-     * @return array
-     */
-    private function getTemplateConfig()
-    {
-        return array(
-            'input'    => function ($data) {
-                return $data->name;
-            },
-            'textarea' => function ($data) {
-                return $data->name;
-            },
-            'password' => function ($data) {
-                return $data->name;
-            },
-            'file'     => function ($data) {
-                return $data->name;
-            },
-            'radio'    => function ($data) {
-                return $data->name;
-            },
-            'checkbox' => function ($data) {
-                return $data->name;
-            },
-            'select'   => function ($data) {
-                return $data->name;
-            },
-        );
-    }
-
-    /**
      * Test instanceof Orchestra\Html\Form\Grid.
      *
      * @test
@@ -178,15 +146,17 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $app = new Container;
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = m::mock('\Orchestra\Html\Form\BootstrapThreePresenter');
 
         $config->shouldReceive('get')->twice()
-                ->with('orchestra/html::form.fieldset', array())->andReturn($this->getFieldsetTemplates())
+                ->with('orchestra/html::form.templates', array())->andReturn($this->getFieldsetTemplates())
             ->shouldReceive('get')->once()
                 ->with('orchestra/html::form', array())->andReturn(array(
-                    'fieldset' => $this->getFieldsetTemplates(),
-                    'template' => $this->getTemplateConfig(),
+                    'templates' => $this->getFieldsetTemplates(),
+                    'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
                 ));
-        $control->shouldReceive('setTemplates')->twice()->with($this->getFieldsetTemplates())->andReturn(null)
+        $control->shouldReceive('setTemplates')->twice()->with($this->getFieldsetTemplates())->andReturnSelf()
+            ->shouldReceive('setPresenter')->twice()->with($presenter)->andReturnSelf()
             ->shouldReceive('generate')->twice();
 
         $stub      = new Grid($app);
