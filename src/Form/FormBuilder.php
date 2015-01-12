@@ -12,7 +12,7 @@ class FormBuilder extends BaseBuilder implements BuilderContract
     /**
      * {@inheritdoc}
      */
-    public function __construct(Request $request, Translator $translator, View $view, GridContract $grid = null)
+    public function __construct(Request $request, Translator $translator, View $view, GridContract $grid)
     {
         $this->request    = $request;
         $this->translator = $translator;

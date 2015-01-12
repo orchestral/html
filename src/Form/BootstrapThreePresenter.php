@@ -12,7 +12,7 @@ class BootstrapThreePresenter implements Template
 
     /**
      * Form builder.
-     * 
+     *
      * @var \Orchestra\Html\FormBuilder
      */
     protected $form;
