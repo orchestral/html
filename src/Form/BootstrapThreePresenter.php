@@ -2,17 +2,35 @@
 
 use Illuminate\Support\Traits\Macroable;
 use Orchestra\Contracts\Html\Form\Template;
+use Orchestra\Html\FormBuilder as BaseFormBuilder;
+use Orchestra\Html\HtmlBuilder as BaseHtmlBuilder;
 use Orchestra\Contracts\Html\Form\Field as FieldContract;
 
 class BootstrapThreePresenter implements Template
 {
     use Macroable;
 
+    /**
+     * Form builder.
+     * 
+     * @var \Orchestra\Html\FormBuilder
+     */
     protected $form;
 
+    /**
+     * Html builder.
+     *
+     * @var \Orchestra\Html\HtmlBuilder
+     */
     protected $html;
 
-    public function __construct(FormBuilder $form, HtmlBuilder $html)
+    /**
+     * Construct a new presenter.
+     *
+     * @param \Orchestra\Html\FormBuilder  $form
+     * @param \Orchestra\Html\HtmlBuilder  $html
+     */
+    public function __construct(BaseFormBuilder $form, BaseHtmlBuilder $html)
     {
         $this->form = $form;
         $this->html = $html;
