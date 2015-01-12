@@ -116,7 +116,6 @@ class Control implements ControlContract
     public function generate($type)
     {
         return function ($row, $control, $templates = []) use ($type) {
-
             $data = $this->buildFieldByType($type, $row, $control);
 
             return $this->render($templates, $data);

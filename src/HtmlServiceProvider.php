@@ -68,7 +68,7 @@ class HtmlServiceProvider extends ServiceProvider
         $this->app->singleton('Orchestra\Contracts\Html\Form\Control', 'Orchestra\Html\Form\Control');
 
         $this->app->singleton('Orchestra\Contracts\Html\Form\Template', function ($app) {
-            $class = $app['config']->get('orchestra/html::form.fieldset');
+            $class = $app['config']->get('orchestra/html::form.presenter', 'Orchestra\Html\Form\BootstrapThreePresenter');
 
             return $app->make($class);
         });
