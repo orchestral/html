@@ -144,7 +144,7 @@ class BootstrapThreePresenter implements Template
      */
     public function select(FieldContract $field)
     {
-        $attributes = $this->form->decorate($field->attributes, ['class' => 'form-control']);
+        $attributes = $this->html->decorate($field->attributes, ['class' => 'form-control']);
 
         return $this->form->select(
             $field->name,
