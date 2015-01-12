@@ -1,7 +1,5 @@
 <?php
 
-use Orchestra\Html\Form\Field;
-
 return [
 
     /*
@@ -32,7 +30,8 @@ return [
     | Default View Layout
     |----------------------------------------------------------------------
     |
-    | Orchestra\Form would require a View to parse the provided form instance.
+    | Orchestra\Html\Form would require a View to parse the provided form
+    | instance.
     |
     */
 
@@ -43,7 +42,7 @@ return [
     | Layout Configuration
     |----------------------------------------------------------------------
     |
-    | Set default submit button for Orchestra\Html\Form.
+    | Set default attributes for Orchestra\Html\Form.
     |
     */
 
@@ -54,5 +53,15 @@ return [
         'textarea' => ['class' => 'twelve columns input-with-feedback'],
     ],
 
+    /*
+    |----------------------------------------------------------------------
+    | Presenter
+    |----------------------------------------------------------------------
+    |
+    | Set default presenter class for Orchestra\Html\Form.
+    |
+    */
+
     'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
+
 ];

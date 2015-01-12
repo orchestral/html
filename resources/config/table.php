@@ -1,13 +1,14 @@
 <?php
 
 return [
+
     /*
     |----------------------------------------------------------------------
     | Default Empty Message String
     |----------------------------------------------------------------------
     |
     | Set default empty message string or language replacement key for
-    | Orchestra\Table.
+    | Orchestra\Html\Table.
     |
     */
 
@@ -18,10 +19,11 @@ return [
     | Default View Layout
     |----------------------------------------------------------------------
     |
-    | Orchestra\Table would require a View to parse the provided table
+    | Orchestra\Html\Table would require a View to parse the provided table
     | instance.
     |
     */
 
     'view' => 'orchestra/html::table.horizontal',
+
 ];
