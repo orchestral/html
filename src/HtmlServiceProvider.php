@@ -99,7 +99,8 @@ class HtmlServiceProvider extends ServiceProvider
     {
         $path = realpath(__DIR__.'/../resources');
 
-        $this->package('orchestra/html', 'orchestra/html', $path);
+        $this->addConfigComponent('orchestra/html', 'orchestra/html', $path.'/config');
+        $this->addViewComponent('orchestra/html', 'orchestra/html', $path.'/views');
     }
 
     /**
