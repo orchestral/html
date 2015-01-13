@@ -105,7 +105,7 @@ class BootstrapThreePresenter implements Template
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
         return $this->form->input(
-            $field->type,
+            $field->get('type'),
             $field->get('name'),
             $field->get('value'),
             $attributes
