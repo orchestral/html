@@ -5,9 +5,11 @@ title: HTML Change Log
 
 ## Version 3.0 {#v3-0}
 
-### v3.0.0@dev {#v3-0-0}
+### v3.0.0 {#v3-0-0}
 
-* Explicitly require `illuminate/html`.
+* Update support for Laravel Framework v5.0.
+* Simplify PSR-2 path.
+* Replace `illuminate/html`.
 * Allow `Orchestra\Html\Form\Factory` to handle all request to `Illuminate\Html\FormBuilder`.
 * Utilize both `illuminate/contracts` and `orchestra/contracts`.
 * Update support for Laravel 5 paginator class.
