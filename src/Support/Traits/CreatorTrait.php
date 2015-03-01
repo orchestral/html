@@ -211,12 +211,12 @@ trait CreatorTrait
      *
      * @return string
      */
-    public abstract function token();
+    abstract public function token();
 
     /**
      * Get html builder.
      *
      * @return \Orchestra\Html\Support\HtmlBuilder
      */
-    public abstract function getHtmlBuilder();
+    abstract public function getHtmlBuilder();
 }

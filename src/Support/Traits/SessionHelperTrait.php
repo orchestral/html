@@ -69,7 +69,7 @@ trait SessionHelperTrait
      *
      * @return string
      */
-    public abstract function token();
+    abstract public function token();
 
     /**
      * Transform key from array to dot syntax.
@@ -77,5 +77,5 @@ trait SessionHelperTrait
      * @param  string  $key
      * @return string
      */
-    protected abstract function transformKey($key);
+    abstract protected function transformKey($key);
 }

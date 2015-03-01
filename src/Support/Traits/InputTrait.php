@@ -184,6 +184,6 @@ trait InputTrait
     {
         $segments = explode('x', $options['size']);
 
-        return array_merge($options, array('cols' => $segments[0], 'rows' => $segments[1]));
+        return array_merge($options, ['cols' => $segments[0], 'rows' => $segments[1]]);
     }
 }

@@ -1,6 +1,5 @@
 <?php namespace Orchestra\Html\Support;
 
-use Illuminate\Support\Arr;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Traits\Macroable;
 use Orchestra\Html\Support\Traits\InputTrait;

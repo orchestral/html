@@ -167,7 +167,7 @@ trait SelectionTrait
      *
      * @return \Orchestra\Html\Support\HtmlBuilder
      */
-    public abstract function getHtmlBuilder();
+    abstract public function getHtmlBuilder();
 
     /**
      * Get the ID attribute for a field name.
@@ -176,7 +176,7 @@ trait SelectionTrait
      * @param  array   $attributes
      * @return string
      */
-    public abstract function getIdAttribute($name, $attributes);
+    abstract public function getIdAttribute($name, $attributes);
 
     /**
      * Get the value that should be assigned to the field.
@@ -185,5 +185,5 @@ trait SelectionTrait
      * @param  string  $value
      * @return string
      */
-    public abstract function getValueAttribute($name, $value = null);
+    abstract public function getValueAttribute($name, $value = null);
 }

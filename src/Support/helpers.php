@@ -10,7 +10,7 @@ if (! function_exists('link_to')) {
      * @param  bool    $secure
      * @return string
      */
-    function link_to($url, $title = null, $attributes = array(), $secure = null)
+    function link_to($url, $title = null, $attributes = [], $secure = null)
     {
         return app('html')->link($url, $title, $attributes, $secure);
     }
@@ -26,7 +26,7 @@ if (! function_exists('link_to_asset')) {
      * @param  bool    $secure
      * @return string
      */
-    function link_to_asset($url, $title = null, $attributes = array(), $secure = null)
+    function link_to_asset($url, $title = null, $attributes = [], $secure = null)
     {
         return app('html')->linkAsset($url, $title, $attributes, $secure);
     }
@@ -42,7 +42,7 @@ if (! function_exists('link_to_route')) {
      * @param  array   $attributes
      * @return string
      */
-    function link_to_route($name, $title = null, $parameters = array(), $attributes = array())
+    function link_to_route($name, $title = null, $parameters = [], $attributes = [])
     {
         return app('html')->linkRoute($name, $title, $parameters, $attributes);
     }
@@ -58,7 +58,7 @@ if (! function_exists('link_to_action')) {
      * @param  array   $attributes
      * @return string
      */
-    function link_to_action($action, $title = null, $parameters = array(), $attributes = array())
+    function link_to_action($action, $title = null, $parameters = [], $attributes = [])
     {
         return app('html')->linkAction($action, $title, $parameters, $attributes);
     }

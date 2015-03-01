@@ -82,7 +82,7 @@ abstract class Grid
             $this->attributes[$key] = $value;
         }
 
-        return null;
+        return;
     }
 
     /**
