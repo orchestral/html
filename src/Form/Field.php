@@ -12,6 +12,7 @@ class Field extends Fluent implements FieldContract
      * @param  mixed  $row
      * @param  mixed  $control
      * @param  array  $templates
+     *
      * @return string
      */
     public function getField($row, $control, array $templates = [])

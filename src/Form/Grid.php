@@ -78,11 +78,12 @@ class Grid extends BaseGrid implements GridContract
      * Load grid configuration.
      *
      * @param  \Illuminate\Contracts\Config\Repository  $config
+     *
      * @return void
      */
     public function initiate(Repository $config)
     {
-        $this->fieldsets = new Collection;
+        $this->fieldsets = new Collection();
 
         foreach ($config->get('orchestra/html::form', []) as $key => $value) {
             if (property_exists($this, $key)) {
@@ -108,6 +109,7 @@ class Grid extends BaseGrid implements GridContract
      * </code>
      *
      * @param  string  $name
+     *
      * @return $this
      */
     public function layout($name)
@@ -130,6 +132,7 @@ class Grid extends BaseGrid implements GridContract
      * </code>
      *
      * @param  array|\stdClass|\Illuminate\Database\Eloquent\Model  $row
+     *
      * @return mixed
      */
     public function with($row = null)
@@ -147,7 +150,9 @@ class Grid extends BaseGrid implements GridContract
      * Attach rows data instead of assigning a model.
      *
      * @param  array  $row
+     *
      * @return mixed
+     *
      * @see    $this->with()
      */
     public function row($row = null)
@@ -160,6 +165,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  string  $name
      * @param  \Closure  $callback
+     *
      * @return \Orchestra\Html\Form\Fieldset
      */
     public function fieldset($name, Closure $callback = null)
@@ -181,7 +187,9 @@ class Grid extends BaseGrid implements GridContract
      * Find control that match the given id.
      *
      * @param  string  $name
+     *
      * @return \Orchestra\Html\Form\Field|null
+     *
      * @throws \InvalidArgumentException
      */
     public function find($name)
@@ -190,7 +198,7 @@ class Grid extends BaseGrid implements GridContract
             list($fieldset, $control) = explode('.', $name, 2);
         } else {
             $fieldset = 'fieldset-0';
-            $control = $name;
+            $control  = $name;
         }
 
         if (! array_key_exists($fieldset, $this->keyMap)) {
@@ -205,6 +213,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  string  $name
      * @param  \Closure  $callback
+     *
      * @return void
      */
     public function hidden($name, $callback = null)
@@ -231,6 +240,7 @@ class Grid extends BaseGrid implements GridContract
      * @param  string  $url
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  array  $attributes
+     *
      * @return $this
      */
     public function resource(Presenter $listener, $url, Model $model, array $attributes = [])
@@ -238,7 +248,7 @@ class Grid extends BaseGrid implements GridContract
         $method = 'POST';
 
         if ($model->exists) {
-            $url = "{$url}/{$model->getKey()}";
+            $url    = "{$url}/{$model->getKey()}";
             $method = 'PUT';
         }
 
@@ -254,6 +264,7 @@ class Grid extends BaseGrid implements GridContract
      * @param  string  $url
      * @param  \Illuminate\Database\Eloquent\Model  $model
      * @param  array  $attributes
+     *
      * @return $this
      */
     public function setup(Presenter $listener, $url, $model, array $attributes = [])

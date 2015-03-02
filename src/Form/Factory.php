@@ -26,6 +26,7 @@ class Factory extends BaseFactory implements FactoryContract
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
      */
     public function __call($method, $parameters)

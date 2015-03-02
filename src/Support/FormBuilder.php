@@ -28,8 +28,8 @@ class FormBuilder
      */
     public function __construct(HtmlBuilder $html, UrlGenerator $url, $csrfToken)
     {
-        $this->url = $url;
-        $this->html = $html;
+        $this->url       = $url;
+        $this->html      = $html;
         $this->csrfToken = $csrfToken;
     }
 
@@ -54,6 +54,7 @@ class FormBuilder
      *
      * @param  mixed  $model
      * @param  array  $options
+     *
      * @return string
      */
     public function model($model, array $options = [])
@@ -67,6 +68,7 @@ class FormBuilder
      * Set the model instance on the form builder.
      *
      * @param  mixed  $model
+     *
      * @return void
      */
     public function setModel($model)
@@ -80,6 +82,7 @@ class FormBuilder
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function label($name, $value = null, $options = [])
@@ -98,6 +101,7 @@ class FormBuilder
      *
      * @param  string  $name
      * @param  string|null  $value
+     *
      * @return string
      */
     protected function formatLabel($name, $value)
@@ -109,6 +113,7 @@ class FormBuilder
      * Determine if old input or model input exists for a key.
      *
      * @param  string  $name
+     *
      * @return bool
      */
     protected function missingOldAndModel($name)
@@ -121,6 +126,7 @@ class FormBuilder
      *
      * @param  string  $value
      * @param  array   $attributes
+     *
      * @return string
      */
     public function reset($value, $attributes = [])
@@ -134,6 +140,7 @@ class FormBuilder
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function hidden($name, $value = null, $options = [])
@@ -146,6 +153,7 @@ class FormBuilder
      *
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function submit($value = null, $options = [])
@@ -158,6 +166,7 @@ class FormBuilder
      *
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function button($value = null, $options = [])
@@ -174,6 +183,7 @@ class FormBuilder
      *
      * @param  string  $name
      * @param  array   $attributes
+     *
      * @return string
      */
     public function getIdAttribute($name, $attributes)
@@ -192,6 +202,7 @@ class FormBuilder
      *
      * @param  string  $name
      * @param  string  $value
+     *
      * @return string
      */
     public function getValueAttribute($name, $value = null)
@@ -217,6 +228,7 @@ class FormBuilder
      * Get the model value that should be assigned to the field.
      *
      * @param  string  $name
+     *
      * @return string
      */
     protected function getModelValueAttribute($name)
@@ -228,6 +240,7 @@ class FormBuilder
      * Transform key from array to dot syntax.
      *
      * @param  string  $key
+     *
      * @return string
      */
     protected function transformKey($key)

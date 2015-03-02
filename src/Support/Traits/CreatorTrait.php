@@ -21,7 +21,7 @@ trait CreatorTrait
     /**
      * The URL generator instance.
      *
-     * @var \Illuminate\Routing\UrlGenerator  $url
+     * @var \Illuminate\Routing\UrlGenerator 
      */
     protected $url;
 
@@ -43,6 +43,7 @@ trait CreatorTrait
      * Open up a new HTML form.
      *
      * @param  array   $options
+     *
      * @return string
      */
     public function open(array $options = [])
@@ -53,8 +54,8 @@ trait CreatorTrait
         // something other than GET or POST we'll use POST since we will spoof the
         // actual method since forms don't support the reserved methods in HTML.
         $attributes = [
-            'method' => $this->getMethod($method),
-            'action' => $this->getAction($options),
+            'method'         => $this->getMethod($method),
+            'action'         => $this->getAction($options),
             'accept-charset' => 'UTF-8',
         ];
 
@@ -98,6 +99,7 @@ trait CreatorTrait
      * Get the form appendage for the given method.
      *
      * @param  string  $method
+     *
      * @return string
      */
     protected function getAppendage($method)
@@ -125,6 +127,7 @@ trait CreatorTrait
      * Parse the form action method.
      *
      * @param  string  $method
+     *
      * @return string
      */
     protected function getMethod($method)
@@ -137,6 +140,7 @@ trait CreatorTrait
      * Get the form action from the options.
      *
      * @param  array   $options
+     *
      * @return string
      */
     protected function getAction(array $options)
@@ -165,6 +169,7 @@ trait CreatorTrait
      * Get the action for a "url" option.
      *
      * @param  array|string  $options
+     *
      * @return string
      */
     protected function getUrlAction($options)
@@ -180,6 +185,7 @@ trait CreatorTrait
      * Get the action for a "route" option.
      *
      * @param  array|string  $options
+     *
      * @return string
      */
     protected function getRouteAction($options)
@@ -195,6 +201,7 @@ trait CreatorTrait
      * Get the action for an "action" option.
      *
      * @param  array|string  $options
+     *
      * @return string
      */
     protected function getControllerAction($options)

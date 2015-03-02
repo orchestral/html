@@ -6,6 +6,7 @@ trait ObfuscateTrait
      * Obfuscate a string to prevent spam-bots from sniffing it.
      *
      * @param  string  $value
+     *
      * @return string
      */
     public function obfuscate($value)

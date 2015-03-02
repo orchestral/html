@@ -65,6 +65,7 @@ class Control implements ControlContract
      * Set presenter instance.
      *
      * @param  \Orchestra\Contracts\Html\Form\Template  $presenter
+     *
      * @return $this
      */
     public function setPresenter(Template $presenter)
@@ -88,6 +89,7 @@ class Control implements ControlContract
      * Set template.
      *
      * @param  array  $templates
+     *
      * @return $this
      */
     public function setTemplates(array $templates = [])
@@ -111,6 +113,7 @@ class Control implements ControlContract
      * Generate Field.
      *
      * @param  string  $type
+     *
      * @return \Closure
      */
     public function generate($type)
@@ -128,11 +131,12 @@ class Control implements ControlContract
      * @param  string  $type
      * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent  $control
+     *
      * @return \Illuminate\Support\Fluent
      */
     public function buildFieldByType($type, $row, Fluent $control)
     {
-        $html = $this->html;
+        $html      = $this->html;
         $templates = $this->templates;
 
         $data   = $this->buildFluentData($type, $row, $control);
@@ -152,6 +156,7 @@ class Control implements ControlContract
      * @param  string  $type
      * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent  $control
+     *
      * @return \Illuminate\Support\Fluent
      */
     public function buildFluentData($type, $row, Fluent $control)
@@ -178,6 +183,7 @@ class Control implements ControlContract
      *
      * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent  $control
+     *
      * @return array
      */
     protected function getOptionList($row, Fluent $control)
@@ -197,7 +203,9 @@ class Control implements ControlContract
      *
      * @param  array  $templates
      * @param  \Illuminate\Support\Fluent  $field
+     *
      * @return string
+     *
      * @throws \InvalidArgumentException
      */
     public function render($templates, Fluent $field)
@@ -217,6 +225,7 @@ class Control implements ControlContract
      *
      * @param  string  $value
      * @param  \Illuminate\Support\Fluent  $data
+     *
      * @return \Illuminate\Support\Fluent
      */
     protected function resolveFieldType($value, Fluent $data)
@@ -244,6 +253,7 @@ class Control implements ControlContract
      * @param  string  $name
      * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent  $control
+     *
      * @return mixed
      */
     protected function resolveFieldValue($name, $row, Fluent $control)

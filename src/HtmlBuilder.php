@@ -14,6 +14,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      * @param  string  $tag
      * @param  mixed   $value
      * @param  array   $attributes
+     *
      * @return \Orchestra\Support\Expression
      */
     public function create($tag = 'div', $value = null, $attributes = [])
@@ -48,6 +49,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      * Create a new HTML expression instance are used to inject HTML.
      *
      * @param  string  $value
+     *
      * @return \Orchestra\Support\Expression
      */
     public function raw($value)
@@ -60,6 +62,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      *
      * @param  array  $attributes
      * @param  array  $defaults
+     *
      * @return array
      */
     public function decorate(array $attributes, array $defaults = [])
@@ -78,6 +81,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      *
      * @param  array  $attributes
      * @param  array  $defaults
+     *
      * @return string
      */
     protected function buildClassDecorate(array $attributes, array $defaults = [])

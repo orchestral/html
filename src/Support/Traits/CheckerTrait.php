@@ -9,6 +9,7 @@ trait CheckerTrait
      * @param  mixed   $value
      * @param  bool    $checked
      * @param  array   $options
+     *
      * @return string
      */
     public function checkbox($name, $value = 1, $checked = null, $options = [])
@@ -23,6 +24,7 @@ trait CheckerTrait
      * @param  mixed   $value
      * @param  bool    $checked
      * @param  array   $options
+     *
      * @return string
      */
     public function radio($name, $value = null, $checked = null, $options = [])
@@ -40,6 +42,7 @@ trait CheckerTrait
      * @param  mixed   $value
      * @param  bool    $checked
      * @param  array   $options
+     *
      * @return string
      */
     protected function checkable($type, $name, $value, $checked, $options)
@@ -58,6 +61,7 @@ trait CheckerTrait
      * @param  string  $name
      * @param  mixed   $value
      * @param  bool    $checked
+     *
      * @return bool
      */
     protected function getCheckedState($type, $name, $value, $checked)
@@ -78,6 +82,7 @@ trait CheckerTrait
      * @param  string  $name
      * @param  mixed  $value
      * @param  bool  $checked
+     *
      * @return bool
      */
     protected function getCheckboxCheckedState($name, $value, $checked)
@@ -101,6 +106,7 @@ trait CheckerTrait
      * @param  string  $name
      * @param  mixed  $value
      * @param  bool  $checked
+     *
      * @return bool
      */
     protected function getRadioCheckedState($name, $value, $checked)

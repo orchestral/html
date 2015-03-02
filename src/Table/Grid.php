@@ -79,6 +79,7 @@ class Grid extends BaseGrid implements GridContract
      * Load grid configuration.
      *
      * @param  \Illuminate\Contracts\Config\Repository  $config
+     *
      * @return void
      */
     public function initiate(Repository $config)
@@ -110,7 +111,9 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  mixed  $model
      * @param  bool   $paginate
+     *
      * @return $this
+     *
      * @throws \InvalidArgumentException
      */
     public function with($model, $paginate = true)
@@ -136,6 +139,7 @@ class Grid extends BaseGrid implements GridContract
      * </code>
      *
      * @param  string  $name
+     *
      * @return $this
      */
     public function layout($name)
@@ -168,7 +172,9 @@ class Grid extends BaseGrid implements GridContract
      * </code>
      *
      * @param  array  $rows
+     *
      * @return array
+     *
      * @throws \InvalidArgumentException
      */
     public function rows(array $rows = null)
@@ -206,6 +212,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  mixed  $name
      * @param  mixed|null  $callback
+     *
      * @return \Orchestra\Contracts\Html\Table\Column
      */
     public function column($name, $callback = null)
@@ -213,7 +220,7 @@ class Grid extends BaseGrid implements GridContract
         list($name, $column) = $this->buildColumn($name, $callback);
 
         $this->columns[]      = $column;
-        $this->keyMap[$name] = count($this->columns) - 1;
+        $this->keyMap[$name]  = count($this->columns) - 1;
 
         return $column;
     }
@@ -222,18 +229,19 @@ class Grid extends BaseGrid implements GridContract
      * Setup pagination.
      *
      * @param  bool|int|null  $perPage
+     *
      * @return $this
      */
     public function paginate($perPage)
     {
         if (filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
-            $this->perPage = null;
+            $this->perPage  = null;
             $this->paginate = $perPage;
         } elseif (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]])) {
-            $this->perPage = $perPage;
+            $this->perPage  = $perPage;
             $this->paginate = true;
         } else {
-            $this->perPage = null;
+            $this->perPage  = null;
             $this->paginate = false;
         }
 
@@ -245,6 +253,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  array   $attributes
      * @param  string  $key
+     *
      * @return void
      */
     public function searchable(array $attributes, $key = 'q')
@@ -268,13 +277,14 @@ class Grid extends BaseGrid implements GridContract
      * @param  array   $orderColumns
      * @param  string  $orderByKey
      * @param  string  $directionKey
+     *
      * @return void
      */
     public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
     {
         $model = $this->resolveQueryBuilderFromModel();
 
-        $orderByValue = $this->app['request']->input($orderByKey);
+        $orderByValue   = $this->app['request']->input($orderByKey);
         $directionValue = $this->app['request']->input($directionKey);
 
         $this->set('filter.order_by', [
@@ -292,7 +302,7 @@ class Grid extends BaseGrid implements GridContract
         $this->model = $this->setupBasicQueryFilter($model, [
             'order_by'  => $orderByValue,
             'direction' => $directionValue,
-            'columns'   => $orderColumns
+            'columns'   => $orderColumns,
         ]);
     }
 
@@ -301,6 +311,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  mixed  $name
      * @param  mixed  $callback
+     *
      * @return array
      */
     protected function buildColumn($name, $callback = null)
@@ -337,6 +348,7 @@ class Grid extends BaseGrid implements GridContract
      * to a collection.
      *
      * @param  mixed  $model
+     *
      * @return \Illuminate\Contracts\Support\Arrayable|array
      */
     protected function buildModel($model)
@@ -354,7 +366,9 @@ class Grid extends BaseGrid implements GridContract
      * Get rows from model instance.
      *
      * @param  object  $model
+     *
      * @return void
+     *
      * @throws \InvalidArgumentException
      */
     protected function buildRowsFromModel($model)
@@ -377,6 +391,7 @@ class Grid extends BaseGrid implements GridContract
      * Set rows data.
      *
      * @param  array  $rows
+     *
      * @return array
      */
     protected function setRowsData(array $rows = [])
@@ -401,6 +416,7 @@ class Grid extends BaseGrid implements GridContract
      * Resolve query builder from model instance.
      *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
+     *
      * @throws \InvalidArgumentException
      */
     protected function resolveQueryBuilderFromModel()
@@ -418,6 +434,7 @@ class Grid extends BaseGrid implements GridContract
      * Check if given $model is a query builder.
      *
      * @param  mixed  $model
+     *
      * @return bool
      */
     protected function isQueryBuilder($model)

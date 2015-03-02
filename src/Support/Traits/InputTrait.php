@@ -18,6 +18,7 @@ trait InputTrait
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function input($type, $name, $value = null, $options = [])
@@ -49,6 +50,7 @@ trait InputTrait
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function text($name, $value = null, $options = [])
@@ -61,6 +63,7 @@ trait InputTrait
      *
      * @param  string  $name
      * @param  array   $options
+     *
      * @return string
      */
     public function password($name, $options = [])
@@ -74,6 +77,7 @@ trait InputTrait
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function email($name, $value = null, $options = [])
@@ -87,6 +91,7 @@ trait InputTrait
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function url($name, $value = null, $options = [])
@@ -99,6 +104,7 @@ trait InputTrait
      *
      * @param  string  $name
      * @param  array   $options
+     *
      * @return string
      */
     public function file($name, $options = [])
@@ -112,6 +118,7 @@ trait InputTrait
      * @param  string  $url
      * @param  string  $name
      * @param  array   $attributes
+     *
      * @return string
      */
     public function image($url, $name = null, $attributes = [])
@@ -127,6 +134,7 @@ trait InputTrait
      * @param  string  $name
      * @param  string  $value
      * @param  array   $options
+     *
      * @return string
      */
     public function textarea($name, $value = null, $options = [])
@@ -156,6 +164,7 @@ trait InputTrait
      * Set the text area size on the attributes.
      *
      * @param  array  $options
+     *
      * @return array
      */
     protected function setTextAreaSize($options)
@@ -178,6 +187,7 @@ trait InputTrait
      * Set the text area size using the quick "size" attribute.
      *
      * @param  array  $options
+     *
      * @return array
      */
     protected function setQuickTextAreaSize($options)

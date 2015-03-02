@@ -9,6 +9,7 @@ trait SelectionTrait
      * @param  array   $list
      * @param  string  $selected
      * @param  array   $options
+     *
      * @return string
      */
     public function select($name, $list = [], $selected = null, $options = [])
@@ -47,6 +48,7 @@ trait SelectionTrait
      * @param  string  $display
      * @param  string  $value
      * @param  string  $selected
+     *
      * @return string
      */
     public function getSelectOption($display, $value, $selected)
@@ -64,6 +66,7 @@ trait SelectionTrait
      * @param  array   $list
      * @param  string  $label
      * @param  string  $selected
+     *
      * @return string
      */
     protected function optionGroup($list, $label, $selected)
@@ -83,6 +86,7 @@ trait SelectionTrait
      * @param  string  $display
      * @param  string  $value
      * @param  string  $selected
+     *
      * @return string
      */
     protected function option($display, $value, $selected)
@@ -99,6 +103,7 @@ trait SelectionTrait
      *
      * @param  string  $value
      * @param  string  $selected
+     *
      * @return string
      */
     protected function getSelectedValue($value, $selected)
@@ -118,6 +123,7 @@ trait SelectionTrait
      * @param  string  $end
      * @param  string  $selected
      * @param  array   $options
+     *
      * @return string
      */
     public function selectRange($name, $begin, $end, $selected = null, $options = [])
@@ -135,6 +141,7 @@ trait SelectionTrait
      * @param  string  $end
      * @param  string  $selected
      * @param  array   $options
+     *
      * @return string
      */
     public function selectYear($name, $begin, $end, $selected = null, $options = [])
@@ -149,6 +156,7 @@ trait SelectionTrait
      * @param  string  $selected
      * @param  array   $options
      * @param  string  $format
+     *
      * @return string
      */
     public function selectMonth($name, $selected = null, $options = [], $format = '%B')
@@ -174,6 +182,7 @@ trait SelectionTrait
      *
      * @param  string  $name
      * @param  array   $attributes
+     *
      * @return string
      */
     abstract public function getIdAttribute($name, $attributes);
@@ -183,6 +192,7 @@ trait SelectionTrait
      *
      * @param  string  $name
      * @param  string  $value
+     *
      * @return string
      */
     abstract public function getValueAttribute($name, $value = null);
