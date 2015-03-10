@@ -23,14 +23,14 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstanceOfGrid()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array(
+            ->with('orchestra/html::table', [])->andReturn([
                 'empty' => 'No data',
                 'view'  => 'foo',
-            ));
+            ]);
 
         $stub  = new Grid($app);
         $refl  = new \ReflectionObject($stub);
@@ -45,7 +45,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Orchestra\Html\Table\Grid', $stub);
         $this->assertEquals('No data', $empty->getValue($stub));
         $this->assertEquals('foo', $view->getValue($stub));
-        $this->assertEquals(array(), value($rows->getValue($stub)->attributes));
+        $this->assertEquals([], value($rows->getValue($stub)->attributes));
     }
 
     /**
@@ -57,7 +57,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer());
 
-        $mock = array(new Fluent);
+        $mock = [new Fluent()];
         $stub->with($mock, false);
 
         $refl     = new \ReflectionObject($stub);
@@ -83,8 +83,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenPaginatorInstance()
     {
-        $expected = array('foo');
-        $stub = new Grid($this->getContainer());
+        $expected = ['foo'];
+        $stub     = new Grid($this->getContainer());
 
         $model = m::mock('\Illuminate\Contracts\Pagination\Paginator');
         $model->shouldReceive('items')->once()->andReturn($expected);
@@ -102,8 +102,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenModelBuilderInstance()
     {
-        $expected = array('foo');
-        $stub = new Grid($this->getContainer());
+        $expected = ['foo'];
+        $stub     = new Grid($this->getContainer());
 
         $model = m::mock('\Illuminate\Database\Eloquent\Builder')->makePartial();
         $model->shouldReceive('paginate')->once()->andReturn($expected);
@@ -121,8 +121,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenArrayableInterfaceInstance()
     {
-        $expected = array('foo');
-        $stub = new Grid($this->getContainer());
+        $expected = ['foo'];
+        $stub     = new Grid($this->getContainer());
 
         $model = m::mock('\Illuminate\Contracts\Support\Arrayable');
         $model->shouldReceive('toArray')->once()->andReturn($expected);
@@ -140,10 +140,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenQueryBuilderInstanceWhenPaginated()
     {
-        $expected = array('foo');
-        $stub = new Grid($this->getContainer());
+        $expected = ['foo'];
+        $stub     = new Grid($this->getContainer());
 
-        $model = m::mock('\Illuminate\Database\Query\Builder');
+        $model     = m::mock('\Illuminate\Database\Query\Builder');
         $arrayable = m::mock('\Illuminate\Contracts\Support\Arrayable');
 
         $model->shouldReceive('paginate')->once()->with(25)->andReturn($arrayable);
@@ -163,10 +163,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testWithMethodGivenQueryBuilderInstanceWhenNotPaginated()
     {
-        $expected = array('foo');
-        $stub = new Grid($this->getContainer());
+        $expected = ['foo'];
+        $stub     = new Grid($this->getContainer());
 
-        $model = m::mock('\Illuminate\Database\Query\Builder');
+        $model     = m::mock('\Illuminate\Database\Query\Builder');
         $arrayable = m::mock('\Illuminate\Contracts\Support\Arrayable');
 
         $model->shouldReceive('get')->once()->andReturn($arrayable);
@@ -180,7 +180,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Orchestra\Html\Table\Grid::with() method throws an exceptions
-     * when $model can't be converted to array
+     * when $model can't be converted to array.
      *
      * @expectedException \InvalidArgumentException
      */
@@ -228,41 +228,41 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $me   = $this;
         $stub = new Grid($this->getContainer());
 
-        $stub->with(array(
-            new Fluent(array('foo1' => 'Foo1')),
-        ), false);
+        $stub->with([
+            new Fluent(['foo1' => 'Foo1']),
+        ], false);
 
-        $expected = array(
-            new Column(array(
+        $expected = [
+            new Column([
                 'id'         => 'id',
                 'label'      => 'Id',
                 'value'      => function ($row) {
                     return $row->id;
                 },
-                'headers'    => array(),
+                'headers'    => [],
                 'attributes' => function ($row) {
-                    return array();
-                }
-            )),
-            new Column(array(
+                    return [];
+                },
+            ]),
+            new Column([
                 'id'         => 'foo1',
                 'label'      => 'Foo1',
                 'value'      => 'Foo1 value',
-                'headers'    => array(),
+                'headers'    => [],
                 'attributes' => function ($row) {
-                    return array();
-                }
-            )),
-            new Column(array(
+                    return [];
+                },
+            ]),
+            new Column([
                 'id'         => 'foo2',
                 'label'      => 'Foo2',
                 'value'      => 'Foo2 value',
-                'headers'    => array(),
+                'headers'    => [],
                 'attributes' => function ($row) {
-                    return array();
-                }
-            ))
-        );
+                    return [];
+                },
+            ]),
+        ];
 
         $stub->column('id');
 
@@ -273,7 +273,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $stub->column('Foo2', 'foo2')->value('Foo2 value');
 
-        $stub->attributes = array('class' => 'foo');
+        $stub->attributes = ['class' => 'foo'];
 
         $output = $stub->of('id', function ($fluent) use ($me) {
             $me->assertInstanceOf('\Illuminate\Support\Fluent', $fluent);
@@ -281,10 +281,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('Id', $output->label);
         $this->assertEquals('id', $output->id);
-        $this->assertEquals(array(), call_user_func($output->attributes, new Fluent));
-        $this->assertEquals(5, call_user_func($output->value, new Fluent(array('id' => 5))));
+        $this->assertEquals([], call_user_func($output->attributes, new Fluent()));
+        $this->assertEquals(5, call_user_func($output->value, new Fluent(['id' => 5])));
 
-        $this->assertEquals(array('class' => 'foo'), $stub->attributes);
+        $this->assertEquals(['class' => 'foo'], $stub->attributes);
         $this->assertEquals($expected, $stub->columns());
     }
 
@@ -351,14 +351,14 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchableMethod()
     {
-        $attributes = array('email', 'fullname');
-        $app = $this->getContainer();
+        $attributes = ['email', 'fullname'];
+        $app        = $this->getContainer();
 
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
         $request->shouldReceive('input')->once()->with('q')->andReturn('orchestra*');
 
-        $stub = m::mock('\Orchestra\Html\Table\Grid[setupWildcardQueryFilter]', array($app))
+        $stub = m::mock('\Orchestra\Html\Table\Grid[setupWildcardQueryFilter]', [$app])
                     ->shouldAllowMockingProtectedMethods();
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
@@ -382,7 +382,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchableMethodThrowsException()
     {
-        $attributes = array('email', 'fullname');
+        $attributes = ['email', 'fullname'];
 
         $stub = new Grid($this->getContainer());
 
@@ -398,28 +398,28 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testSortableMethod()
     {
-        $app = $this->getContainer();
+        $app            = $this->getContainer();
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
         $request->shouldReceive('input')->once()->with('order_by')->andReturn('email')
             ->shouldReceive('input')->once()->with('direction')->andReturn('desc');
 
-        $stub = m::mock('\Orchestra\Html\Table\Grid[setupBasicQueryFilter]', array($app))
+        $stub = m::mock('\Orchestra\Html\Table\Grid[setupBasicQueryFilter]', [$app])
             ->shouldAllowMockingProtectedMethods();
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
 
         $stub->shouldReceive('setupBasicQueryFilter')->once()
-            ->with($model, array('order_by' => 'email', 'direction' => 'desc', 'columns' => array('only' => array('email'), 'except' => array('fullname'))))
+            ->with($model, ['order_by' => 'email', 'direction' => 'desc', 'columns' => ['only' => ['email'], 'except' => ['fullname']]])
             ->andReturnNull();
 
         $stub->with($model);
 
-        $this->assertNull($stub->sortable(array('only' => array('email'),'except' => array('fullname')), 'order_by', 'direction'));
+        $this->assertNull($stub->sortable(['only' => ['email'], 'except' => ['fullname']], 'order_by', 'direction'));
 
-        $this->assertEquals(array('key' => 'order_by', 'value' => 'email'), $stub->get('filter.order_by'));
-        $this->assertEquals(array('key' => 'direction', 'value' => 'desc'), $stub->get('filter.direction'));
-        $this->assertEquals(array('only' => array('email'), 'except' => array('fullname')), $stub->get('filter.columns'));
+        $this->assertEquals(['key'  => 'order_by', 'value' => 'email'], $stub->get('filter.order_by'));
+        $this->assertEquals(['key'  => 'direction', 'value' => 'desc'], $stub->get('filter.direction'));
+        $this->assertEquals(['only' => ['email'], 'except' => ['fullname']], $stub->get('filter.columns'));
     }
 
     /**
@@ -430,7 +430,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testSortableMethodThrowsException()
     {
-        $attributes = array('email', 'fullname');
+        $attributes = ['email', 'fullname'];
 
         $stub = new Grid($this->getContainer());
 
@@ -452,15 +452,15 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $attributes = $refl->getProperty('attributes');
         $attributes->setAccessible(true);
 
-        $stub->attributes(array('class' => 'foo'));
+        $stub->attributes(['class' => 'foo']);
 
-        $this->assertEquals(array('class' => 'foo'), $attributes->getValue($stub));
-        $this->assertEquals(array('class' => 'foo'), $stub->attributes());
+        $this->assertEquals(['class' => 'foo'], $attributes->getValue($stub));
+        $this->assertEquals(['class' => 'foo'], $stub->attributes());
 
         $stub->attributes('id', 'foobar');
 
-        $this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $attributes->getValue($stub));
-        $this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $stub->attributes());
+        $this->assertEquals(['id' => 'foobar', 'class' => 'foo'], $attributes->getValue($stub));
+        $this->assertEquals(['id' => 'foobar', 'class' => 'foo'], $stub->attributes());
     }
 
     /**
@@ -499,7 +499,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer());
 
-        $stub->invalidProperty = array('foo');
+        $stub->invalidProperty = ['foo'];
     }
 
     /**
@@ -535,11 +535,11 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
+            ->with('orchestra/html::table', [])->andReturn([]);
 
         return $app;
     }

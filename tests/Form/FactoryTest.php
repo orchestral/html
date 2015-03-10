@@ -52,12 +52,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassThroughMethod()
     {
-        $app = new Container;
+        $app         = new Container();
         $app['form'] = $form = m::mock('\Illuminate\Html\FormBuilder');
 
         $form->shouldReceive('hidden')->once()->with('foo', 'bar')->andReturn('foobar');
 
-        $stub = new Factory($app);
+        $stub   = new Factory($app);
         $output = $stub->hidden('foo', 'bar');
 
         $this->assertEquals('foobar', $output);
@@ -70,14 +70,14 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['request'] = m::mock('\Illuminate\Http\Request');
-        $app['translator'] = m::mock('\Illuminate\Translation\Translator');
-        $app['view'] = m::mock('\Illuminate\Contracts\View\Factory');
+        $app['request']                                = m::mock('\Illuminate\Http\Request');
+        $app['translator']                             = m::mock('\Illuminate\Translation\Translator');
+        $app['view']                                   = m::mock('\Illuminate\Contracts\View\Factory');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', array())->andReturn(array());
+            ->with('orchestra/html::form', [])->andReturn([]);
 
         return $app;
     }

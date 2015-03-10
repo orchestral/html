@@ -21,13 +21,13 @@ class FieldTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFieldMethod()
     {
-        $stub = new Field(array(
+        $stub = new Field([
             'field' => function ($row) {
                 return 'foo';
             },
-        ));
+        ]);
 
-        $row = new Fluent();
+        $row     = new Fluent();
         $control = new Fluent();
 
         $this->assertEquals('foo', $stub->getField($row, $control));
@@ -46,13 +46,13 @@ class FieldTest extends \PHPUnit_Framework_TestCase
 
         $renderable->shouldReceive('render')->once()->andReturn('foo');
 
-        $stub = new Field(array(
+        $stub = new Field([
             'field' => function ($row) use ($renderable) {
                 return $renderable;
             },
-        ));
+        ]);
 
-        $row = new Fluent();
+        $row     = new Fluent();
         $control = new Fluent();
 
         $this->assertEquals('foo', $stub->getField($row, $control));

@@ -24,9 +24,9 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $grid = new Grid($this->getContainer());
 
-        $request = m::mock('\Illuminate\Http\Request');
+        $request    = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\Contracts\View\Factory');
+        $view       = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
 
@@ -56,9 +56,9 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $grid = new Grid($this->getContainer());
 
-        $request = m::mock('\Illuminate\Http\Request');
+        $request    = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\Contracts\View\Factory');
+        $view       = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -73,38 +73,38 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $grid = new Grid($this->getContainer());
 
-        $request = m::mock('\Illuminate\Http\Request');
+        $request    = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\Contracts\View\Factory');
+        $view       = m::mock('\Illuminate\Contracts\View\Factory');
 
-        $translator->shouldReceive('get')->twice()->andReturn(array());
+        $translator->shouldReceive('get')->twice()->andReturn([]);
         $view->shouldReceive('make')->twice()->andReturn($view)
             ->shouldReceive('with')->twice()->andReturn($view)
             ->shouldReceive('render')->twice()->andReturn('mocked');
 
-        $data = new \Illuminate\Support\Fluent(array(
+        $data = new \Illuminate\Support\Fluent([
             'id'   => 1,
-            'name' => 'Laravel'
-        ));
+            'name' => 'Laravel',
+        ]);
 
         $stub1 = new FormBuilder($request, $translator, $view, $grid);
         $stub1->extend(function ($form) use ($data) {
             $form->with($data);
-            $form->attributes(array(
+            $form->attributes([
                 'method' => 'POST',
                 'url'    => 'http://localhost',
                 'class'  => 'foo',
-            ));
+            ]);
         });
 
         $stub2 = new FormBuilder($request, $translator, $view, $grid);
         $stub2->extend(function ($form) use ($data) {
             $form->with($data);
-            $form->attributes = array(
+            $form->attributes = [
                 'method' => 'POST',
                 'url'    => 'http://localhost',
-                'class'  => 'foo'
-            );
+                'class'  => 'foo',
+            ];
         });
 
         ob_start();
@@ -123,11 +123,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', array())->andReturn(array());
+            ->with('orchestra/html::form', [])->andReturn([]);
 
         return $app;
     }

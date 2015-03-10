@@ -29,7 +29,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
         m::close();
     }
     /**
-     * Test Orchestra\Html\HtmlBuilder::create() with content
+     * Test Orchestra\Html\HtmlBuilder::create() with content.
      *
      * @test
      */
@@ -37,13 +37,13 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $stub     = new HtmlBuilder($this->url);
         $expected = '<div class="foo">Bar</div>';
-        $output   = $stub->create('div', 'Bar', array('class' => 'foo'));
+        $output   = $stub->create('div', 'Bar', ['class' => 'foo']);
 
         $this->assertEquals($expected, $output);
     }
 
     /**
-     * Test Orchestra\Html\HtmlBuilder::create() without content
+     * Test Orchestra\Html\HtmlBuilder::create() without content.
      *
      * @test
      */
@@ -51,24 +51,24 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $stub     = new HtmlBuilder($this->url);
         $expected = '<img src="hello.jpg" class="foo">';
-        $output   = $stub->create('img', array(
+        $output   = $stub->create('img', [
             'src'   => 'hello.jpg',
             'class' => 'foo',
-        ));
+        ]);
 
         $this->assertEquals($expected, $output);
 
         $expected = '<img src="hello.jpg" class="foo">';
-        $output   = $stub->create('img', null, array(
-            'src' => 'hello.jpg',
+        $output   = $stub->create('img', null, [
+            'src'   => 'hello.jpg',
             'class' => 'foo',
-        ));
+        ]);
 
         $this->assertEquals($expected, $output);
     }
 
     /**
-     * Test Orchestra\Html\HtmlBuilder::entities() method
+     * Test Orchestra\Html\HtmlBuilder::entities() method.
      *
      * @test
      */
@@ -103,16 +103,16 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new HtmlBuilder($this->url);
 
-        $output   = $stub->decorate(array('class' => 'span4 table'), array('id' => 'foobar'));
-        $expected = array('id' => 'foobar', 'class' => 'span4 table');
+        $output   = $stub->decorate(['class' => 'span4 table'], ['id' => 'foobar']);
+        $expected = ['id'                    => 'foobar', 'class' => 'span4 table'];
         $this->assertEquals($expected, $output);
 
-        $output   = $stub->decorate(array('class' => 'span4 !span12'), array('class' => 'span12'));
-        $expected = array('class' => 'span4');
+        $output   = $stub->decorate(['class' => 'span4 !span12'], ['class' => 'span12']);
+        $expected = ['class'                 => 'span4'];
         $this->assertEquals($expected, $output);
 
-        $output   = $stub->decorate(array('id' => 'table'), array('id' => 'foobar', 'class' => 'span4'));
-        $expected = array('id' => 'table', 'class' => 'span4');
+        $output   = $stub->decorate(['id' => 'table'], ['id' => 'foobar', 'class' => 'span4']);
+        $expected = ['id'                 => 'table', 'class' => 'span4'];
         $this->assertEquals($expected, $output);
     }
 
@@ -135,13 +135,13 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
         });
 
         $stub->macro('foobar', function () {
-            return new \Illuminate\Support\Fluent;
+            return new \Illuminate\Support\Fluent();
         });
 
         $image  = $stub->image('foo.png');
         $link   = $stub->link('foo');
         $mailto = $stub->mailto('hello@orchestraplatform.com');
-        $ul     = $stub->ul(array('foo' => array('bar' => 'foobar')));
+        $ul     = $stub->ul(['foo' => ['bar' => 'foobar']]);
         $foo    = $stub->foo();
         $foobar = $stub->foobar();
 

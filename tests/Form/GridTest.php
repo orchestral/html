@@ -21,14 +21,14 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     private function getFieldsetTemplates()
     {
-        return array(
-            'select'   => array(),
-            'textarea' => array(),
-            'input'    => array(),
-            'password' => array(),
-            'file'     => array(),
-            'radio'    => array(),
-        );
+        return [
+            'select'   => [],
+            'textarea' => [],
+            'input'    => [],
+            'password' => [],
+            'file'     => [],
+            'radio'    => [],
+        ];
     }
 
     /**
@@ -38,18 +38,18 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstanceOfGrid()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', array())->andReturn(array(
+            ->with('orchestra/html::form', [])->andReturn([
                 'submit'     => 'Submit',
-                'attributes' => array('id' => 'foo'),
+                'attributes' => ['id' => 'foo'],
                 'view'       => 'foo',
-            ));
+            ]);
 
-        $stub = new Grid($app);
-        $stub->attributes = array('class' => 'foobar');
+        $stub             = new Grid($app);
+        $stub->attributes = ['class' => 'foobar'];
 
         $refl       = new \ReflectionObject($stub);
         $attributes = $refl->getProperty('attributes');
@@ -66,7 +66,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('foo', $stub->view());
         $this->assertEquals('foo', $stub->view);
-        $this->assertEquals(array('id' => 'foo', 'class' => 'foobar'), $attributes->getValue($stub));
+        $this->assertEquals(['id' => 'foo', 'class' => 'foobar'], $attributes->getValue($stub));
     }
 
     /**
@@ -77,7 +77,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testWithMethod()
     {
         $stub = new Grid($this->getContainer());
-        $mock = new \Illuminate\Support\Fluent;
+        $mock = new \Illuminate\Support\Fluent();
         $stub->with($mock);
 
         $refl = new \ReflectionObject($stub);
@@ -121,19 +121,19 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer());
 
-        $refl   = new \ReflectionObject($stub);
+        $refl       = new \ReflectionObject($stub);
         $attributes = $refl->getProperty('attributes');
         $attributes->setAccessible(true);
 
-        $stub->attributes(array('class' => 'foo'));
+        $stub->attributes(['class' => 'foo']);
 
-        $this->assertEquals(array('class' => 'foo'), $attributes->getValue($stub));
-        $this->assertEquals(array('class' => 'foo'), $stub->attributes());
+        $this->assertEquals(['class' => 'foo'], $attributes->getValue($stub));
+        $this->assertEquals(['class' => 'foo'], $stub->attributes());
 
         $stub->attributes('id', 'foobar');
 
-        $this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $attributes->getValue($stub));
-        $this->assertEquals(array('id' => 'foobar', 'class' => 'foo'), $stub->attributes());
+        $this->assertEquals(['id' => 'foobar', 'class' => 'foo'], $attributes->getValue($stub));
+        $this->assertEquals(['id' => 'foobar', 'class' => 'foo'], $stub->attributes());
     }
 
     /**
@@ -143,18 +143,18 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testFieldsetMethod()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Orchestra\Contracts\Html\Form\Control']  = $control  = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = m::mock('\Orchestra\Html\Form\BootstrapThreePresenter');
 
         $config->shouldReceive('get')->twice()
-                ->with('orchestra/html::form.templates', array())->andReturn($this->getFieldsetTemplates())
+                ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates())
             ->shouldReceive('get')->once()
-                ->with('orchestra/html::form', array())->andReturn(array(
+                ->with('orchestra/html::form', [])->andReturn([
                     'templates' => $this->getFieldsetTemplates(),
                     'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
-                ));
+                ]);
         $control->shouldReceive('setTemplates')->twice()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->twice()->with($presenter)->andReturnSelf()
             ->shouldReceive('generate')->twice();
@@ -165,7 +165,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $fieldsets->setAccessible(true);
 
         $this->assertInstanceOf('\Orchestra\Support\Collection', $fieldsets->getValue($stub));
-        $this->assertEquals(array(), $fieldsets->getValue($stub)->toArray());
+        $this->assertEquals([], $fieldsets->getValue($stub)->toArray());
 
         $stub->fieldset(function ($f) {
             $f->control('text', 'email');
@@ -193,7 +193,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testHiddenMethod()
     {
-        $stub = new Grid($app = $this->getContainer());
+        $stub        = new Grid($app = $this->getContainer());
         $app['form'] = $form = m::mock('\Illuminate\Html\FormBuilder');
 
         $form->shouldReceive('hidden')->once()
@@ -201,10 +201,10 @@ class GridTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('hidden')->once()
                 ->with('foobar', 'stubbed', m::any())->andReturn('hidden_foobar');
 
-        $stub->with(new \Illuminate\Support\Fluent(array(
+        $stub->with(new \Illuminate\Support\Fluent([
             'foo'    => 'foobar',
             'foobar' => 'foo',
-        )));
+        ]));
 
         $stub->hidden('foo');
         $stub->hidden('foobar', function ($f) {
@@ -269,7 +269,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer());
 
-        $stub->invalidProperty = array('foo');
+        $stub->invalidProperty = ['foo'];
     }
 
     /**
@@ -320,7 +320,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub = new Grid($this->getContainer());
 
         $listener = m::mock('\Orchestra\Html\Form\PresenterInterface');
-        $model = m::mock('\Illuminate\Database\Eloquent\Model');
+        $model    = m::mock('\Illuminate\Database\Eloquent\Model');
 
         $listener->shouldReceive('handles')->once()
                 ->with('orchestra::users')->andReturn('orchestra::users')
@@ -338,8 +338,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer());
 
-        $listener = m::mock('\Orchestra\Html\Form\PresenterInterface');
-        $model = m::mock('\Illuminate\Database\Eloquent\Model');
+        $listener      = m::mock('\Orchestra\Html\Form\PresenterInterface');
+        $model         = m::mock('\Illuminate\Database\Eloquent\Model');
         $model->exists = true;
         $model->shouldReceive('getKey')->once()->andReturn(20);
 
@@ -357,11 +357,11 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', array())->andReturn(array());
+            ->with('orchestra/html::form', [])->andReturn([]);
 
         return $app;
     }
