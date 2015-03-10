@@ -22,6 +22,7 @@ trait SessionHelperTrait
      * Get a value from the session's old input.
      *
      * @param  string  $name
+     *
      * @return string
      */
     public function old($name)
@@ -55,6 +56,7 @@ trait SessionHelperTrait
      * Set the session store implementation.
      *
      * @param  \Illuminate\Session\Store  $session
+     *
      * @return $this
      */
     public function setSessionStore(Store $session)
@@ -69,13 +71,14 @@ trait SessionHelperTrait
      *
      * @return string
      */
-    public abstract function token();
+    abstract public function token();
 
     /**
      * Transform key from array to dot syntax.
      *
      * @param  string  $key
+     *
      * @return string
      */
-    protected abstract function transformKey($key);
+    abstract protected function transformKey($key);
 }

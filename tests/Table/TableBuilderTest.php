@@ -25,9 +25,9 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $grid = new Grid($this->getContainer());
 
-        $request = m::mock('\Illuminate\Http\Request');
+        $request    = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\Contracts\View\Factory');
+        $view       = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
 
@@ -57,9 +57,9 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $grid = new Grid($this->getContainer());
 
-        $request = m::mock('\Illuminate\Http\Request');
+        $request    = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\Contracts\View\Factory');
+        $view       = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -74,26 +74,26 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $grid = new Grid($this->getContainer());
 
-        $request = m::mock('\Illuminate\Http\Request');
+        $request    = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view = m::mock('\Illuminate\Contracts\View\Factory');
+        $view       = m::mock('\Illuminate\Contracts\View\Factory');
 
-        $request->shouldReceive('query')->twice()->andReturn(array('page' => 2, 'q' => 'user'));
-        $translator->shouldReceive('get')->twice()->andReturn(array());
+        $request->shouldReceive('query')->twice()->andReturn(['page' => 2, 'q' => 'user']);
+        $translator->shouldReceive('get')->twice()->andReturn([]);
         $view->shouldReceive('make')->twice()->andReturn($view)
             ->shouldReceive('with')->twice()->andReturn($view)
             ->shouldReceive('render')->twice()->andReturn('mocked');
 
-        $mock = array(
-            new Fluent(array('id' => 1, 'name' => 'Laravel')),
-            new Fluent(array('id' => 2, 'name' => 'Illuminate')),
-            new Fluent(array('id' => 3, 'name' => 'Symfony')),
-        );
+        $mock = [
+            new Fluent(['id' => 1, 'name' => 'Laravel']),
+            new Fluent(['id' => 2, 'name' => 'Illuminate']),
+            new Fluent(['id' => 3, 'name' => 'Symfony']),
+        ];
 
         $stub1 = new TableBuilder($request, $translator, $view, $grid);
         $stub1->extend(function ($t) use ($mock) {
             $t->rows($mock);
-            $t->attributes(array('class' => 'foo'));
+            $t->attributes(['class' => 'foo']);
 
             $t->column('id');
             $t->column(function ($c) {
@@ -108,7 +108,7 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
         $stub2 = new TableBuilder($request, $translator, $view, $grid);
         $stub2->extend(function ($t) use ($mock) {
             $t->rows($mock);
-            $t->attributes = array('class' => 'foo');
+            $t->attributes = ['class' => 'foo'];
 
             $t->column('ID', 'id');
             $t->column('name', function ($c) {
@@ -134,11 +134,11 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app = new Container;
+        $app                                           = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', array())->andReturn(array());
+            ->with('orchestra/html::table', [])->andReturn([]);
 
         return $app;
     }

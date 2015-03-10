@@ -62,6 +62,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      * @param  \Illuminate\Contracts\Config\Repository  $config
      * @param  \Orchestra\Contracts\Html\Form\Control  $control
      * @param  \Orchestra\Contracts\Html\Form\Template  $presenter
+     *
      * @return void
      */
     public function initiate(Repository $config, ControlContract $control, Template $presenter)
@@ -78,6 +79,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @param  string  $name
      * @param  \Closure  $callback
+     *
      * @return void
      */
     protected function buildBasic($name, Closure $callback = null)
@@ -117,6 +119,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      * @param  string  $type
      * @param  mixed   $name
      * @param  mixed   $callback
+     *
      * @return \Illuminate\Support\Fluent
      */
     public function control($type, $name, $callback = null)
@@ -138,6 +141,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @param  mixed  $name
      * @param  mixed  $callback
+     *
      * @return array
      */
     protected function buildControl($name, $callback = null)
@@ -161,13 +165,14 @@ class Fieldset extends BaseGrid implements FieldsetContract
     }
 
     /**
-     * Set Fieldset Legend name
+     * Set Fieldset Legend name.
      *
      * <code>
      *     $fieldset->legend('User Information');
      * </code>
      *
      * @param  string  $name
+     *
      * @return string
      */
     public function legend($name = null)

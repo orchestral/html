@@ -21,10 +21,10 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testTemplateMethods()
     {
-        $template = array('foo' => 'foobar');
+        $template = ['foo' => 'foobar'];
 
-        $app = m::mock('\Illuminate\Contracts\Container\Container');
-        $html = m::mock('\Orchestra\Html\HtmlBuilder');
+        $app     = m::mock('\Illuminate\Contracts\Container\Container');
+        $html    = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
         $stub = new Control($app, $html, $request);
@@ -34,28 +34,28 @@ class ControlTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($template, $stub->getTemplates());
     }
 
-     /**
+    /**
      * Test Orchestra\Html\Form\Control::buildFluentData() method.
      *
      * @test
      */
     public function testBuildFluentDataMethod()
     {
-        $app = m::mock('\Illuminate\Contracts\Container\Container');
-        $html = m::mock('\Orchestra\Html\HtmlBuilder');
+        $app     = m::mock('\Illuminate\Contracts\Container\Container');
+        $html    = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
         $request->shouldReceive('old')->once()->with('foobar')->andReturn(null);
 
-        $row = new Fluent(array(
+        $row = new Fluent([
             'foobar' => function () {
                 return 'Mr Derp';
             },
-        ));
+        ]);
 
-        $control = new Fluent(array(
+        $control = new Fluent([
             'name' => 'foobar',
-        ));
+        ]);
 
         $stub = new Control($app, $html, $request);
         $stub->buildFluentData('text', $row, $control);
@@ -68,15 +68,15 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethodThrowsException()
     {
-        $app = m::mock('\Illuminate\Contracts\Container\Container');
-        $html = m::mock('\Orchestra\Html\HtmlBuilder');
+        $app     = m::mock('\Illuminate\Contracts\Container\Container');
+        $html    = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
         $stub = new Control($app, $html, $request);
 
         $stub->render(
-            array(),
-            new \Illuminate\Support\Fluent(array('method' => 'foo'))
+            [],
+            new \Illuminate\Support\Fluent(['method' => 'foo'])
         );
     }
 }

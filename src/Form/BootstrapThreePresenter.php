@@ -40,6 +40,7 @@ class BootstrapThreePresenter implements Template
      * Button template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function button(FieldContract $field)
@@ -53,6 +54,7 @@ class BootstrapThreePresenter implements Template
      * Checkbox template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function checkbox(FieldContract $field)
@@ -69,6 +71,7 @@ class BootstrapThreePresenter implements Template
      * Checkboxes template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function checkboxes(FieldContract $field)
@@ -85,6 +88,7 @@ class BootstrapThreePresenter implements Template
      * File template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function file(FieldContract $field)
@@ -98,6 +102,7 @@ class BootstrapThreePresenter implements Template
      * Input template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function input(FieldContract $field)
@@ -116,6 +121,7 @@ class BootstrapThreePresenter implements Template
      * Password template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function password(FieldContract $field)
@@ -129,6 +135,7 @@ class BootstrapThreePresenter implements Template
      * Radio template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function radio(FieldContract $field)
@@ -140,6 +147,7 @@ class BootstrapThreePresenter implements Template
      * Select template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function select(FieldContract $field)
@@ -158,6 +166,7 @@ class BootstrapThreePresenter implements Template
      * Textarea template.
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
+     *
      * @return string
      */
     public function textarea(FieldContract $field)

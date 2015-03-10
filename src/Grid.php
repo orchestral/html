@@ -68,6 +68,7 @@ abstract class Grid
      *
      * @param  mixed  $key
      * @param  mixed  $value
+     *
      * @return array|null
      */
     public function attributes($key = null, $value = null)
@@ -82,7 +83,7 @@ abstract class Grid
             $this->attributes[$key] = $value;
         }
 
-        return null;
+        return;
     }
 
     /**
@@ -90,7 +91,9 @@ abstract class Grid
      *
      * @param  string  $name
      * @param  mixed|null  $callback
+     *
      * @return \Illuminate\Support\Fluent
+     *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
@@ -117,6 +120,7 @@ abstract class Grid
      * Forget meta value.
      *
      * @param  string  $key
+     *
      * @return void
      */
     public function forget($key)
@@ -129,6 +133,7 @@ abstract class Grid
      *
      * @param  string  $key
      * @param  mixed|null  $default
+     *
      * @return mixed
      */
     public function get($key, $default = null)
@@ -141,6 +146,7 @@ abstract class Grid
      *
      * @param  string  $key
      * @param  mixed   $value
+     *
      * @return array
      */
     public function set($key, $value)
@@ -153,6 +159,7 @@ abstract class Grid
      *
      * @param  mixed  $name
      * @param  mixed  $callback
+     *
      * @return array
      */
     protected function buildFluentAttributes($name, $callback = null)
@@ -179,7 +186,9 @@ abstract class Grid
      *
      * @param  string  $method
      * @param  array   $parameters
+     *
      * @return mixed
+     *
      * @throws \InvalidArgumentException
      */
     public function __call($method, array $parameters)
@@ -197,7 +206,9 @@ abstract class Grid
      * Magic Method for handling dynamic data access.
      *
      * @param  string  $key
+     *
      * @return mixed
+     *
      * @throws \InvalidArgumentException
      */
     public function __get($key)
@@ -214,7 +225,9 @@ abstract class Grid
      *
      * @param  string  $key
      * @param  array   $parameters
+     *
      * @return void
+     *
      * @throws \InvalidArgumentException
      */
     public function __set($key, $parameters)
@@ -232,7 +245,9 @@ abstract class Grid
      * Magic Method for checking dynamically-set data.
      *
      * @param  string  $key
+     *
      * @return bool
+     *
      * @throws \InvalidArgumentException
      */
     public function __isset($key)

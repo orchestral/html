@@ -19,11 +19,11 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValueMethod()
     {
-        $stub = new Column(array(
+        $stub = new Column([
             'value' => function ($row) {
                 return '<strong>';
             },
-        ));
+        ]);
 
         $row = new Fluent();
 
@@ -37,12 +37,12 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetValueMethodWithEscapeString()
     {
-        $stub = new Column(array(
+        $stub = new Column([
             'value' => function ($row) {
                 return '<strong>';
             },
             'escape' => true,
-        ));
+        ]);
 
         $row = new Fluent();
 

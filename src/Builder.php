@@ -48,10 +48,10 @@ abstract class Builder implements BuilderContract
     /**
      * Create a new Builder instance.
      *
-     * @var \Illuminate\Http\Request  $request
-     * @var \Illuminate\Translation\Translator  $translator
-     * @var \Illuminate\Contracts\View\Factory  $view
-     * @var \Orchestra\Contracts\Html\Grid  $grid
+     * @param \Illuminate\Http\Request  $request
+     * @param \Illuminate\Translation\Translator  $translator
+     * @param \Illuminate\Contracts\View\Factory  $view
+     * @param \Orchestra\Contracts\Html\Grid  $grid
      */
     abstract public function __construct(Request $request, Translator $translator, View $view, GridContract $grid);
 
@@ -59,6 +59,7 @@ abstract class Builder implements BuilderContract
      * Extend decoration.
      *
      * @param  \Closure  $callback
+     *
      * @return $this
      */
     public function extend(Closure $callback = null)
@@ -73,7 +74,9 @@ abstract class Builder implements BuilderContract
      * Magic method to get Grid instance.
      *
      * @param  string  $key
+     *
      * @return mixed
+     *
      * @throws \InvalidArgumentException
      */
     public function __get($key)
@@ -89,7 +92,8 @@ abstract class Builder implements BuilderContract
      * An alias to render().
      *
      * @return string
-     * @see    static::render()
+     *
+     * @see static::render()
      */
     public function __toString()
     {
