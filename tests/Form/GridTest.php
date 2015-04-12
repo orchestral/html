@@ -38,7 +38,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstanceOfGrid()
     {
-        $app                                           = new Container();
+        $app = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
@@ -143,9 +143,9 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testFieldsetMethod()
     {
-        $app                                           = new Container();
+        $app = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['Orchestra\Contracts\Html\Form\Control']  = $control  = m::mock('\Orchestra\Html\Form\Control');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = m::mock('\Orchestra\Html\Form\BootstrapThreePresenter');
 
         $config->shouldReceive('get')->twice()
@@ -193,7 +193,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testHiddenMethod()
     {
-        $stub        = new Grid($app = $this->getContainer());
+        $stub = new Grid($app = $this->getContainer());
         $app['form'] = $form = m::mock('\Illuminate\Html\FormBuilder');
 
         $form->shouldReceive('hidden')->once()
@@ -338,8 +338,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer());
 
-        $listener      = m::mock('\Orchestra\Html\Form\PresenterInterface');
-        $model         = m::mock('\Illuminate\Database\Eloquent\Model');
+        $listener = m::mock('\Orchestra\Html\Form\PresenterInterface');
+        $model = m::mock('\Illuminate\Database\Eloquent\Model');
         $model->exists = true;
         $model->shouldReceive('getKey')->once()->andReturn(20);
 
@@ -357,7 +357,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app                                           = new Container();
+        $app = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
