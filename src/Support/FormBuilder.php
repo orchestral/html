@@ -24,12 +24,13 @@ class FormBuilder
      *
      * @param  \Orchestra\Html\Support\HtmlBuilder  $html
      * @param  \Illuminate\Routing\UrlGenerator  $url
-     * @param  string  $csrfToken
+     * @param  string|null  $csrfToken
      */
-    public function __construct(HtmlBuilder $html, UrlGenerator $url)
+    public function __construct(HtmlBuilder $html, UrlGenerator $url, $csrfToken = null)
     {
         $this->url  = $url;
         $this->html = $html;
+        $this->csrfToken = $csrfToken;
     }
 
     /**
@@ -39,9 +40,11 @@ class FormBuilder
      */
     public function token()
     {
-        $token = $this->session->getToken();
+        if (empty($this->csrfToken) && ! is_null($this->session)) {
+            $this->csrfToken = $this->session->getToken();
+        }
 
-        return $this->hidden('_token', $token);
+        return $this->hidden('_token', $this->csrfToken);
     }
 
     /**
