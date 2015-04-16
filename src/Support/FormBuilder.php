@@ -28,8 +28,8 @@ class FormBuilder
      */
     public function __construct(HtmlBuilder $html, UrlGenerator $url, $csrfToken = null)
     {
-        $this->url  = $url;
-        $this->html = $html;
+        $this->url       = $url;
+        $this->html      = $html;
         $this->csrfToken = $csrfToken;
     }
 
