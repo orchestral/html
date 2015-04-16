@@ -26,11 +26,10 @@ class FormBuilder
      * @param  \Illuminate\Routing\UrlGenerator  $url
      * @param  string  $csrfToken
      */
-    public function __construct(HtmlBuilder $html, UrlGenerator $url, $csrfToken)
+    public function __construct(HtmlBuilder $html, UrlGenerator $url)
     {
-        $this->url       = $url;
-        $this->html      = $html;
-        $this->csrfToken = $csrfToken;
+        $this->url  = $url;
+        $this->html = $html;
     }
 
     /**
@@ -40,11 +39,7 @@ class FormBuilder
      */
     public function token()
     {
-        $token = $this->csrfToken;
-
-        if (empty($token) && ! is_null($this->session)) {
-            $token = $this->session->getToken();
-        }
+        $token = $this->session->getToken();
 
         return $this->hidden('_token', $token);
     }
