@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Html\Support\Traits;
 
+use DateTime;
 use Illuminate\Support\Arr;
 
 trait InputTrait
@@ -83,6 +84,37 @@ trait InputTrait
     public function email($name, $value = null, $options = [])
     {
         return $this->input('email', $name, $value, $options);
+    }
+
+    /**
+     * Create a number input field.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @param  array   $options
+     *
+     * @return string
+     */
+    public function number($name, $value = null, $options = [])
+    {
+        return $this->input('number', $name, $value, $options);
+    }
+
+    /**
+     * Create a date input field.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @param  array   $options
+     *
+     * @return string
+     */
+    public function date($name, $value = null, $options = [])
+    {
+        if ($value instanceof DateTime) {
+            $value = $value->format('Y-m-d');
+        }
+        return $this->input('date', $name, $value, $options);
     }
 
     /**

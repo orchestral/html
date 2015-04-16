@@ -102,7 +102,7 @@ abstract class Grid
         $type = $this->definition['name'];
 
         if (is_null($type) || ! property_exists($this, $type)) {
-            throw new RuntimeException("Not supported.");
+            throw new RuntimeException('Not supported.');
         } elseif (! isset($this->keyMap[$name])) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");
         }
@@ -235,7 +235,7 @@ abstract class Grid
         if (! in_array($key, $this->definition['__set'])) {
             throw new InvalidArgumentException("Unable to use __set for [{$key}].");
         } elseif (! is_array($parameters)) {
-            throw new InvalidArgumentException("Require values to be an array.");
+            throw new InvalidArgumentException('Require values to be an array.');
         }
 
         $this->attributes($parameters, null);

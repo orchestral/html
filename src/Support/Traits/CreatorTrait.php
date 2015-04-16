@@ -21,7 +21,7 @@ trait CreatorTrait
     /**
      * The URL generator instance.
      *
-     * @var \Illuminate\Routing\UrlGenerator 
+     * @var \Illuminate\Routing\UrlGenerator
      */
     protected $url;
 

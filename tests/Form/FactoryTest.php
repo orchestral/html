@@ -70,11 +70,13 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app                                           = new Container();
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
-        $app['request']                                = m::mock('\Illuminate\Http\Request');
-        $app['translator']                             = m::mock('\Illuminate\Translation\Translator');
-        $app['view']                                   = m::mock('\Illuminate\Contracts\View\Factory');
+        $app = new Container();
+        $config = m::mock('\Illuminate\Contracts\Config\Repository');
+
+        $app['request'] = m::mock('\Illuminate\Http\Request');
+        $app['translator'] = m::mock('\Illuminate\Translation\Translator');
+        $app['view'] = m::mock('\Illuminate\Contracts\View\Factory');
+        $app['Illuminate\Contracts\Config\Repository'] = $config;
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::form', [])->andReturn([]);
