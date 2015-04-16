@@ -50,6 +50,23 @@ class HtmlBuilder
     }
 
     /**
+     * Generate a meta tag.
+     *
+     * @param  string  $name
+     * @param  string  $content
+     * @param  array   $attributes
+     *
+     * @return string
+     */
+    public function meta($name, $content, array $attributes = [])
+    {
+        $defaults   = compact('name', 'content');
+        $attributes = array_merge($defaults, $attributes);
+
+        return '<meta'.$this->attributes($attributes).'>'.PHP_EOL;
+    }
+
+    /**
      * Generate a link to a JavaScript file.
      *
      * @param  string  $url
@@ -254,6 +271,28 @@ class HtmlBuilder
     public function ul($list, $attributes = [])
     {
         return $this->listing('ul', $list, $attributes);
+    }
+
+    /**
+     * Generate a description list of items.
+     *
+     * @param  array   $list
+     * @param  array   $attributes
+     *
+     * @return string
+     */
+    public function dl(array $list, array $attributes = [])
+    {
+        $attributes = $this->attributes($attributes);
+        $html       = "<dl{$attributes}>";
+
+        foreach ($list as $key => $value) {
+            $html .= "<dt>$key</dt><dd>$value</dd>";
+        }
+
+        $html .= '</dl>';
+
+        return $html;
     }
 
     /**
