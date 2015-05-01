@@ -23,7 +23,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testInstanceOfGrid()
     {
-        $app                                           = new Container();
+        $app = new Container();
         $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
 
         $config->shouldReceive('get')->once()
@@ -146,7 +146,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $model     = m::mock('\Illuminate\Database\Query\Builder');
         $arrayable = m::mock('\Illuminate\Contracts\Support\Arrayable');
 
-        $model->shouldReceive('paginate')->once()->with(25)->andReturn($arrayable);
+        $model->shouldReceive('paginate')->once()->with(25, ['*'], 'page')->andReturn($arrayable);
         $arrayable->shouldReceive('toArray')->once()->andReturn($expected);
 
         $stub->paginate(25);
