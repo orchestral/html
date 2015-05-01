@@ -39,7 +39,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * List of rows in array, is used when model is null.
      *
-     * @var array
+     * @var \Illuminate\Support\Fluent
      */
     protected $rows = null;
 
@@ -58,6 +58,13 @@ class Grid extends BaseGrid implements GridContract
     protected $perPage;
 
     /**
+     * The page name for pagination.
+     *
+     * @var string
+     */
+    protected $pageName = 'page';
+
+    /**
      * Selected view path for table layout.
      *
      * @var array
@@ -70,9 +77,9 @@ class Grid extends BaseGrid implements GridContract
     protected $definition = [
         'name'    => 'columns',
         '__call'  => ['columns', 'view'],
-        '__get'   => ['attributes', 'columns', 'model', 'paginate', 'view', 'rows'],
-        '__set'   => ['attributes'],
-        '__isset' => ['attributes', 'columns', 'model', 'paginate', 'view'],
+        '__get'   => ['attributes', 'columns', 'model', 'paginate', 'pageName', 'view', 'rows'],
+        '__set'   => ['attributes', 'pageName'],
+        '__isset' => ['attributes', 'columns', 'model', 'paginate', 'pageName', 'view'],
     ];
 
     /**
@@ -354,7 +361,7 @@ class Grid extends BaseGrid implements GridContract
     protected function buildModel($model)
     {
         if ($this->paginate === true && method_exists($model, 'paginate')) {
-            $model = $model->paginate($this->perPage);
+            $model = $model->paginate($this->perPage, ['*'], $this->pageName);
         } elseif ($this->isQueryBuilder($model)) {
             $model = $model->get();
         }
@@ -396,8 +403,9 @@ class Grid extends BaseGrid implements GridContract
      */
     protected function setRowsData(array $rows = [])
     {
-        return $this->rows->data = $rows;
+        return $this->rows['data'] = $rows;
     }
+
     /**
      * Get rows collection.
      *
@@ -405,11 +413,11 @@ class Grid extends BaseGrid implements GridContract
      */
     protected function query()
     {
-        if (empty($this->rows->data)) {
+        if (empty($this->rows['data'])) {
             $this->buildRowsFromModel($this->model);
         }
 
-        return $this->rows->data;
+        return $this->rows['data'];
     }
 
     /**

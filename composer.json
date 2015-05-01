@@ -26,6 +26,7 @@
 	"require-dev": {
 		"mockery/mockery": "0.9.*",
 		"illuminate/database": "5.1.*",
+		"illuminate/pagination": "5.1.*",
 		"illuminate/routing": "5.1.*",
 		"illuminate/translation": "5.1.*"
 	},

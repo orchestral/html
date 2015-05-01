@@ -30,7 +30,7 @@ class TableBuilder extends BaseBuilder implements BuilderContract
 
         // Add paginate value for current listing while appending query string,
         // however we also need to remove ?page from being added twice.
-        $input = Arr::except($this->request->query(), ['page']);
+        $input = Arr::except($this->request->query(), [$grid->pageName]);
 
         $rows = $grid->rows();
 
