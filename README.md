@@ -6,9 +6,9 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 [![Latest Stable Version](https://img.shields.io/github/release/orchestral/html.svg?style=flat)](https://packagist.org/packages/orchestra/html)
 [![Total Downloads](https://img.shields.io/packagist/dt/orchestra/html.svg?style=flat)](https://packagist.org/packages/orchestra/html)
 [![MIT License](https://img.shields.io/packagist/l/orchestra/html.svg?style=flat)](https://packagist.org/packages/orchestra/html)
-[![Build Status](https://img.shields.io/travis/orchestral/html/master.svg?style=flat)](https://travis-ci.org/orchestral/html)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/html/master.svg?style=flat)](https://coveralls.io/r/orchestral/html?branch=master)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/html/master.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/html/)
+[![Build Status](https://img.shields.io/travis/orchestral/html/3.1.svg?style=flat)](https://travis-ci.org/orchestral/html)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/html/3.1.svg?style=flat)](https://coveralls.io/r/orchestral/html?branch=3.1)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/html/3.1.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/html/)
 
 ## Table of Content
 
@@ -35,7 +35,7 @@ To install through composer, simply put the following in your `composer.json` fi
 ```json
 {
 	"require": {
-		"orchestra/html": "3.1.*"
+		"orchestra/html": "~3.0"
 	}
 }
 ```
@@ -46,13 +46,11 @@ And then run `composer install` from the terminal.
 
 Above installation can also be simplify by using the following command:
 
-```bash
-composer require "orchestra/html=3.1.*"
-```
+    composer require "orchestra/html=~3.0"
 
 ## Configuration
 
-Next add the service provider in `app/config/app.php`.
+Next add the service provider in `config/app.php`.
 
 ```php
 'providers' => [
@@ -65,7 +63,7 @@ Next add the service provider in `app/config/app.php`.
 
 ### Aliases
 
-You might want to add the following to class aliases in `app/config/app.php`:
+You might want to add the following to class aliases in `config/app.php`:
 
 ```php
 'aliases' => [
