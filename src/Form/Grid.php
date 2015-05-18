@@ -180,7 +180,9 @@ class Grid extends BaseGrid implements GridContract
 
         $this->keyMap[$name] = $fieldset;
 
-        return $this->fieldsets->push($fieldset);
+        $this->fieldsets->push($fieldset);
+
+        return $fieldset;
     }
 
     /**
