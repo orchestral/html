@@ -2,6 +2,13 @@
 title: HTML Change Log
 
 ---
+## Version 3.1 {#v3-1}
+
+### v3.1.0 {#v3-1-0}
+
+* Update support for Laravel Framework v5.1.
+* Add `Form::number()` and `Form::date()` helpers.
+* Add `HTML::meta()` and `HTML::dl()` helpers.
 
 ## Version 3.0 {#v3-0}
 
