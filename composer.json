@@ -24,7 +24,7 @@
 		"orchestra/support": "3.0.*"
 	},
 	"require-dev": {
-		"mockery/mockery": "0.9.*",
+		"mockery/mockery": "^0.9.1",
 		"illuminate/database": "5.0.*",
 		"illuminate/routing": "5.0.*",
 		"illuminate/translation": "5.0.*"
