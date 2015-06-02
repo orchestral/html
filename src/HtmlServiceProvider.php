@@ -28,8 +28,8 @@ class HtmlServiceProvider extends ServiceProvider
 
         $this->registerOrchestraTableBuilder();
 
-        $this->app->alias('html', 'Orchestra\Html\HtmlBuilder');
-        $this->app->alias('form', 'Orchestra\Html\FormBuilder');
+        $this->app->alias('html', HtmlBuilder::class);
+        $this->app->alias('form', FormBuilder::class);
     }
 
     /**
@@ -99,8 +99,8 @@ class HtmlServiceProvider extends ServiceProvider
     {
         $path = realpath(__DIR__.'/../resources');
 
-        $this->addConfigComponent('orchestra/html', 'orchestra/html', $path.'/config');
-        $this->addViewComponent('orchestra/html', 'orchestra/html', $path.'/views');
+        $this->addConfigComponent('orchestra/html', 'orchestra/html', "{$path}/config");
+        $this->addViewComponent('orchestra/html', 'orchestra/html', "{$path}/views");
     }
 
     /**

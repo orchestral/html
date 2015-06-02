@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Html\Support;
 
-use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\Traits\Macroable;
 use Orchestra\Html\Support\Traits\ObfuscateTrait;
+use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 
 class HtmlBuilder
 {
@@ -11,16 +11,16 @@ class HtmlBuilder
     /**
      * The URL generator instance.
      *
-     * @var \Illuminate\Routing\UrlGenerator
+     * @var \Illuminate\Contracts\Routing\UrlGenerator
      */
     protected $url;
 
     /**
      * Create a new HTML builder instance.
      *
-     * @param  \Illuminate\Routing\UrlGenerator  $url
+     * @param  \Illuminate\Contracts\Routing\UrlGenerator  $url
      */
-    public function __construct(UrlGenerator $url = null)
+    public function __construct(UrlGeneratorContract $url = null)
     {
         $this->url = $url;
     }

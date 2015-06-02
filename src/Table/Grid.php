@@ -226,8 +226,8 @@ class Grid extends BaseGrid implements GridContract
     {
         list($name, $column) = $this->buildColumn($name, $callback);
 
-        $this->columns[]      = $column;
-        $this->keyMap[$name]  = count($this->columns) - 1;
+        $this->columns[]     = $column;
+        $this->keyMap[$name] = count($this->columns) - 1;
 
         return $column;
     }
