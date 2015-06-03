@@ -1,5 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
 use Orchestra\Contracts\Html\Form\Template;
 use Orchestra\Html\FormBuilder as BaseFormBuilder;
@@ -78,7 +80,7 @@ class BootstrapThreePresenter implements Template
     {
         return $this->form->checkboxes(
             $field->get('name'),
-            $field->get('options'),
+            $this->asArray($field->get('options')),
             $field->get('checked'),
             $field->get('attributes')
         );
@@ -156,7 +158,7 @@ class BootstrapThreePresenter implements Template
 
         return $this->form->select(
             $field->get('name'),
-            $field->get('options'),
+            $this->asArray($field->get('options')),
             $field->get('value'),
             $attributes
         );
@@ -178,5 +180,16 @@ class BootstrapThreePresenter implements Template
             $field->get('value'),
             $attributes
         );
+    }
+
+    /**
+     * Convert input to actual array.
+     *
+     * @param  array|\Illuminate\Contracts\Support\Arrayable  $array
+     * @return array
+     */
+    protected function asArray($array)
+    {
+        return ($array instanceof Arrayable ? $array->toArray() : $array);
     }
 }
