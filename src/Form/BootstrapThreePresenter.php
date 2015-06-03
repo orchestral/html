@@ -1,8 +1,7 @@
 <?php namespace Orchestra\Html\Form;
 
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Contracts\Html\Form\Template;
 use Orchestra\Html\FormBuilder as BaseFormBuilder;
 use Orchestra\Html\HtmlBuilder as BaseHtmlBuilder;
@@ -186,6 +185,7 @@ class BootstrapThreePresenter implements Template
      * Convert input to actual array.
      *
      * @param  array|\Illuminate\Contracts\Support\Arrayable  $array
+     *
      * @return array
      */
     protected function asArray($array)
