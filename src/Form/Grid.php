@@ -232,7 +232,7 @@ class Grid extends BaseGrid implements GridContract
             call_user_func($callback, $field);
         }
 
-        $this->hiddens[$name] = $this->app['form']->hidden($name, $field->get('value'), $field->get('attributes'));
+        $this->hiddens[$name] = $this->app->make('form')->hidden($name, $field->get('value'), $field->get('attributes'));
     }
 
     /**

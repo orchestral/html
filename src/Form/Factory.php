@@ -12,9 +12,9 @@ class Factory extends BaseFactory implements FactoryContract
     public function make(Closure $callback = null)
     {
         $builder = new FormBuilder(
-            $this->app['request'],
-            $this->app['translator'],
-            $this->app['view'],
+            $this->app->make('request'),
+            $this->app->make('translator'),
+            $this->app->make('view'),
             new Grid($this->app)
         );
 
@@ -31,6 +31,6 @@ class Factory extends BaseFactory implements FactoryContract
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->app['form'], $method], $parameters);
+        return call_user_func_array([$this->app->make('form'), $method], $parameters);
     }
 }

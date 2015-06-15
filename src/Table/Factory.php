@@ -12,9 +12,9 @@ class Factory extends BaseFactory implements FactoryContract
     public function make(Closure $callback = null)
     {
         $builder = new TableBuilder(
-            $this->app['request'],
-            $this->app['translator'],
-            $this->app['view'],
+            $this->app->make('request'),
+            $this->app->make('translator'),
+            $this->app->make('view'),
             new Grid($this->app)
         );
 
