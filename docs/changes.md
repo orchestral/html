@@ -4,6 +4,10 @@ title: HTML Change Log
 ---
 ## Version 3.1 {#v3-1}
 
+### v3.1.2 {#v3-1-2}
+
+* Improved performances by reducing call within `Illuminate\Container\Container`.
+
 ### v3.1.1 {#v3-1-1}
 
 * Bump minimum version to PHP v5.5.0.
