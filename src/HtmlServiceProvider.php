@@ -40,7 +40,7 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerHtmlBuilder()
     {
         $this->app->singleton('html', function ($app) {
-            return new HtmlBuilder($app['url']);
+            return new HtmlBuilder($app->make('url'));
         });
     }
 
@@ -52,9 +52,9 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerFormBuilder()
     {
         $this->app->singleton('form', function ($app) {
-            $form = new FormBuilder($app['html'], $app['url']);
+            $form = new FormBuilder($app->make('html'), $app->make('url'));
 
-            return $form->setSessionStore($app['session.store']);
+            return $form->setSessionStore($app->make('session.store'));
         });
     }
 
@@ -65,10 +65,10 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerOrchestraFormBuilder()
     {
-        $this->app->singleton('Orchestra\Contracts\Html\Form\Control', 'Orchestra\Html\Form\Control');
+        $this->app->singleton('Orchestra\Contracts\Html\Form\Control', Form\Control::class);
 
         $this->app->singleton('Orchestra\Contracts\Html\Form\Template', function ($app) {
-            $class = $app['config']->get('orchestra/html::form.presenter', 'Orchestra\Html\Form\BootstrapThreePresenter');
+            $class = $app->make('config')->get('orchestra/html::form.presenter', Form\BootstrapThreePresenter::class);
 
             return $app->make($class);
         });

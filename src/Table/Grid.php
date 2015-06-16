@@ -267,7 +267,7 @@ class Grid extends BaseGrid implements GridContract
     {
         $model = $this->resolveQueryBuilderFromModel();
 
-        $value = $this->app['request']->input($key);
+        $value = $this->app->make('request')->input($key);
 
         $this->set('search', [
             'attributes' => $attributes,
@@ -290,9 +290,10 @@ class Grid extends BaseGrid implements GridContract
     public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
     {
         $model = $this->resolveQueryBuilderFromModel();
+        $request = $this->app->make('request');
 
-        $orderByValue   = $this->app['request']->input($orderByKey);
-        $directionValue = $this->app['request']->input($directionKey);
+        $orderByValue   = $request->input($orderByKey);
+        $directionValue = $request->input($directionKey);
 
         $this->set('filter.order_by', [
             'key'   => $orderByKey,

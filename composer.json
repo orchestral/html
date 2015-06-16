@@ -21,14 +21,14 @@
 	},
 	"require": {
 		"php": ">=5.5.0",
-		"orchestra/support": "3.2.*"
+		"orchestra/support": "~3.2.0"
 	},
 	"require-dev": {
 		"mockery/mockery": "^0.9.1",
-		"illuminate/database": "5.2.*",
-		"illuminate/pagination": "5.2.*",
-		"illuminate/routing": "5.2.*",
-		"illuminate/translation": "5.2.*"
+		"illuminate/database": "~5.2.0",
+		"illuminate/pagination": "~5.2.0",
+		"illuminate/routing": "~5.2.0",
+		"illuminate/translation": "~5.2.0"
 	},
 	"suggest": {
 		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform (~5.2).",
