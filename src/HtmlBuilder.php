@@ -1,9 +1,10 @@
 <?php namespace Orchestra\Html;
 
 use BadMethodCallException;
-use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Orchestra\Support\Expression;
+use Illuminate\Contracts\Support\Htmlable;
 use Orchestra\Html\Support\HtmlBuilder as BaseHtmlBuilder;
 
 class HtmlBuilder extends BaseHtmlBuilder
@@ -15,7 +16,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      * @param  mixed   $value
      * @param  array   $attributes
      *
-     * @return \Orchestra\Support\Expression
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function create($tag = 'div', $value = null, $attributes = [])
     {
@@ -38,8 +39,8 @@ class HtmlBuilder extends BaseHtmlBuilder
      */
     public function entities($value)
     {
-        if ($value instanceof Expression) {
-            return $value->get();
+        if ($value instanceof Htmlable) {
+            return $value->toHtml();
         }
 
         return parent::entities($value);
@@ -50,7 +51,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      *
      * @param  string  $value
      *
-     * @return \Orchestra\Support\Expression
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function raw($value)
     {
