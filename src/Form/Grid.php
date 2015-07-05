@@ -186,7 +186,7 @@ class Grid extends BaseGrid implements GridContract
     }
 
     /**
-     * Find control that match the given id.
+     * Find definition that match the given id.
      *
      * @param  string  $name
      *

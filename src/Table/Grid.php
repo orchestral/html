@@ -233,7 +233,7 @@ class Grid extends BaseGrid implements GridContract
     }
 
     /**
-     * Find column that match the given id.
+     * Find definition that match the given id.
      *
      * @param  string  $name
      *
@@ -307,7 +307,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
     {
-        $model = $this->resolveQueryBuilderFromModel();
+        $model   = $this->resolveQueryBuilderFromModel();
         $request = $this->app->make('request');
 
         $orderByValue   = $request->input($orderByKey);

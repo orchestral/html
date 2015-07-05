@@ -32,5 +32,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
 class GridStub extends Grid
 {
-    //
+    public function find($name)
+    {
+        //
+    }
 }

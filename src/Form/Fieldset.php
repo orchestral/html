@@ -137,6 +137,24 @@ class Fieldset extends BaseGrid implements FieldsetContract
     }
 
     /**
+     * Find definition that match the given id.
+     *
+     * @param  string  $name
+     *
+     * @return \Illuminate\Support\Fluent
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function find($name)
+    {
+        if (! array_key_exists($name, $this->keyMap)) {
+            throw new InvalidArgumentException("Name [{$name}] is not available.");
+        }
+
+        return $this->controls[$this->keyMap[$name]];
+    }
+
+    /**
      * Build control.
      *
      * @param  mixed  $name
