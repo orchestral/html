@@ -1,9 +1,10 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
+use InvalidArgumentException;
 use Orchestra\Html\Grid as BaseGrid;
-use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Config\Repository;
+use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
 use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
