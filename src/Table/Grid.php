@@ -233,6 +233,24 @@ class Grid extends BaseGrid implements GridContract
     }
 
     /**
+     * Find column that match the given id.
+     *
+     * @param  string  $name
+     *
+     * @return \Orchestra\Contracts\Html\Table\Column
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function find($name)
+    {
+        if (! array_key_exists($name, $this->keyMap)) {
+            throw new InvalidArgumentException("Name [{$name}] is not available.");
+        }
+
+        return $this->columns[$this->keyMap[$name]];
+    }
+
+    /**
      * Setup pagination.
      *
      * @param  bool|int|null  $perPage
