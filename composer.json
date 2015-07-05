@@ -1,43 +1,43 @@
 {
-	"name": "orchestra/html",
-	"description": "HTML Component for Orchestra Platform",
-	"homepage": "http://orchestraplatform.com/docs/latest/components/html/",
-	"keywords": ["orchestra-platform", "orchestral", "laravel", "html", "form", "table"],
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Mior Muhammad Zaki",
-			"email": "crynobone@gmail.com",
-			"homepage": "https://github.com/crynobone"
-		}
-	],
-	"autoload": {
-		"psr-4": {
-			"Orchestra\\Html\\" : "src/"
-		},
-		"files": [
-			"src/Support/helpers.php"
-		]
-	},
-	"require": {
-		"php": ">=5.5.0",
-		"orchestra/support": "~3.2.0"
-	},
-	"require-dev": {
-		"mockery/mockery": "^0.9.1",
-		"illuminate/database": "~5.2.0",
-		"illuminate/pagination": "~5.2.0",
-		"illuminate/routing": "~5.2.0",
-		"illuminate/translation": "~5.2.0"
-	},
-	"suggest": {
-		"laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform (~5.2).",
-		"orchestra/foundation": "Allow using orchestra/html with Orchestra Platform (~3.2)."
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "3.2-dev"
-		}
-	},
-	"minimum-stability": "dev"
+    "name": "orchestra/html",
+    "description": "HTML Component for Orchestra Platform",
+    "homepage": "http://orchestraplatform.com/docs/latest/components/html/",
+    "keywords": ["orchestra-platform", "orchestral", "laravel", "html", "form", "table"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mior Muhammad Zaki",
+            "email": "crynobone@gmail.com",
+            "homepage": "https://github.com/crynobone"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Orchestra\\Html\\" : "src/"
+        },
+        "files": [
+            "src/Support/helpers.php"
+        ]
+    },
+    "require": {
+        "php": ">=5.5.0",
+        "orchestra/support": "~3.2.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.1",
+        "illuminate/database": "~5.2.0",
+        "illuminate/pagination": "~5.2.0",
+        "illuminate/routing": "~5.2.0",
+        "illuminate/translation": "~5.2.0"
+    },
+    "suggest": {
+        "laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform (~5.2).",
+        "orchestra/foundation": "Allow using orchestra/html with Orchestra Platform (~3.2)."
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.2-dev"
+        }
+    },
+    "minimum-stability": "dev"
 }
