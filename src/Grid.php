@@ -155,6 +155,17 @@ abstract class Grid
     }
 
     /**
+     * Find definition that match the given id.
+     *
+     * @param  string  $name
+     *
+     * @return mixed
+     *
+     * @throws \InvalidArgumentException
+     */
+    abstract public function find($name);
+
+    /**
      * Build basic name, label and callback option.
      *
      * @param  mixed  $name
