@@ -55,9 +55,9 @@ Next add the service provider in `config/app.php`.
 ```php
 'providers' => [
 
-	// ...
+    // ...
 
-	'Orchestra\Html\HtmlServiceProvider',
+    Orchestra\Html\HtmlServiceProvider::class,
 ],
 ```
 
@@ -68,11 +68,11 @@ You might want to add the following to class aliases in `config/app.php`:
 ```php
 'aliases' => [
 
-	// ...
+    // ...
 
-    'Form' => 'Orchestra\Support\Facades\Form',
-    'HTML' => 'Orchestra\Support\Facades\HTML',
-	'Table' => 'Orchestra\Support\Facades\Table',
+    'Form' => Orchestra\Support\Facades\Form::class,
+    'HTML' => Orchestra\Support\Facades\HTML::class,
+    'Table' => Orchestra\Support\Facades\Table::class,
 ],
 ```
 
