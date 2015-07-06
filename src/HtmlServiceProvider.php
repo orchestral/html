@@ -1,8 +1,13 @@
 <?php namespace Orchestra\Html;
 
+use Orchestra\Html\Form\Control;
 use Orchestra\Html\Form\Factory as FormFactory;
+use Illuminate\Contracts\Foundation\Application;
+use Orchestra\Html\Form\BootstrapThreePresenter;
 use Orchestra\Support\Providers\ServiceProvider;
 use Orchestra\Html\Table\Factory as TableFactory;
+use Orchestra\Contracts\Html\Form\Template as TemplateContract;
+use Orchestra\Contracts\Html\Form\Control as FormControlContract;
 
 class HtmlServiceProvider extends ServiceProvider
 {
@@ -39,7 +44,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerHtmlBuilder()
     {
-        $this->app->singleton('html', function ($app) {
+        $this->app->singleton('html', function (Application $app) {
             return new HtmlBuilder($app->make('url'));
         });
     }
@@ -51,7 +56,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerFormBuilder()
     {
-        $this->app->singleton('form', function ($app) {
+        $this->app->singleton('form', function (Application $app) {
             $form = new FormBuilder($app->make('html'), $app->make('url'));
 
             return $form->setSessionStore($app->make('session.store'));
@@ -65,15 +70,15 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function registerOrchestraFormBuilder()
     {
-        $this->app->singleton('Orchestra\Contracts\Html\Form\Control', Form\Control::class);
+        $this->app->singleton(FormControlContract::class, Control::class);
 
-        $this->app->singleton('Orchestra\Contracts\Html\Form\Template', function ($app) {
-            $class = $app->make('config')->get('orchestra/html::form.presenter', Form\BootstrapThreePresenter::class);
+        $this->app->singleton(TemplateContract::class, function (Application $app) {
+            $class = $app->make('config')->get('orchestra/html::form.presenter', BootstrapThreePresenter::class);
 
             return $app->make($class);
         });
 
-        $this->app->singleton('orchestra.form', function ($app) {
+        $this->app->singleton('orchestra.form', function (Application $app) {
             return new FormFactory($app);
         });
     }

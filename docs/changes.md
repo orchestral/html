@@ -4,6 +4,12 @@ title: HTML Change Log
 ---
 ## Version 3.1 {#v3-1}
 
+### v3.1.3 {#v3-1-3}
+
+* Add a new `Orchestra\Html\Grid::find()` contracts and implements it on:
+  - `Orchestra\Html\Form\Fieldset`.
+  - `Orchestra\Html\Table\Grid`.
+
 ### v3.1.2 {#v3-1-2}
 
 * Improved performances by reducing call within `Illuminate\Container\Container`.
