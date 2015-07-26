@@ -87,6 +87,20 @@ trait InputTrait
     }
 
     /**
+     * Create a tel input field.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @param  array   $options
+     *
+     * @return  string
+     */
+    public function tel($name, $value = null, $options = [])
+    {
+        return $this->input('tel', $name, $value, $options);
+    }
+
+    /**
      * Create a number input field.
      *
      * @param  string  $name
@@ -115,6 +129,20 @@ trait InputTrait
             $value = $value->format('Y-m-d');
         }
         return $this->input('date', $name, $value, $options);
+    }
+
+    /**
+     * Create a time input field.
+     *
+     * @param  string  $name
+     * @param  string  $value
+     * @param  array   $options
+     *
+     * @return string
+     */
+    public function time($name, $value = null, $options = [])
+    {
+        return $this->input('time', $name, $value, $options);
     }
 
     /**
