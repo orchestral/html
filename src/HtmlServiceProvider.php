@@ -73,7 +73,7 @@ class HtmlServiceProvider extends ServiceProvider
         $this->app->singleton(FormControlContract::class, Control::class);
 
         $this->app->singleton(TemplateContract::class, function (Application $app) {
-            $namespace = $this->hasPackageRepository() ? 'orchestra/html::form', 'orchestra.form';
+            $namespace = $this->hasPackageRepository() ? 'orchestra/html::form' : 'orchestra.form';
 
             $class = $app->make('config')->get("{$namespace}.presenter", BootstrapThreePresenter::class);
 
