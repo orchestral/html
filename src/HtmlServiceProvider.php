@@ -73,7 +73,9 @@ class HtmlServiceProvider extends ServiceProvider
         $this->app->singleton(FormControlContract::class, Control::class);
 
         $this->app->singleton(TemplateContract::class, function (Application $app) {
-            $class = $app->make('config')->get('orchestra/html::form.presenter', BootstrapThreePresenter::class);
+            $namespace = $this->hasPackageRepository() ? 'orchestra/html::form', 'orchestra.form';
+
+            $class = $app->make('config')->get("{$namespace}.presenter", BootstrapThreePresenter::class);
 
             return $app->make($class);
         });
@@ -106,6 +108,28 @@ class HtmlServiceProvider extends ServiceProvider
 
         $this->addConfigComponent('orchestra/html', 'orchestra/html', "{$path}/config");
         $this->addViewComponent('orchestra/html', 'orchestra/html', "{$path}/views");
+
+        if (! $this->hasPackageRepository()) {
+            $this->bootUsingLaravel($path);
+        }
+    }
+
+    /**
+     * Boot using Laravel setup.
+     *
+     * @param  string  $path
+     *
+     * @return void
+     */
+    protected function bootUsingLaravel($path)
+    {
+        $this->mergeConfigFrom("{$path}/config/form.php", 'orchestra.form');
+        $this->mergeConfigFrom("{$path}/config/table.php", 'orchestra.table');
+
+        $this->publishes([
+            "{$path}/config/form.php" => config_path('orchestra/form.php'),
+            "{$path}/config/table.php" => config_path('orchestra/table.php'),
+        ]);
     }
 
     /**

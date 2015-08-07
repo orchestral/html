@@ -7,6 +7,7 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
+use Orchestra\Contracts\Config\PackageRepository;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -91,7 +92,9 @@ class Grid extends BaseGrid implements GridContract
      */
     public function initiate(Repository $config)
     {
-        foreach ($config->get('orchestra/html::table', []) as $key => $value) {
+        $namespace = ($config instanceof PackageRepository ? 'orchestra/html::table' : 'orchestra.table');
+
+        foreach ($config->get($namespace, []) as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }

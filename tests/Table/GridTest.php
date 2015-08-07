@@ -24,7 +24,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     public function testInstanceOfGrid()
     {
         $app = new Container();
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', [])->andReturn([
@@ -398,7 +398,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     public function testSortableMethod()
     {
-        $app            = $this->getContainer();
+        $app = $this->getContainer();
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
         $request->shouldReceive('input')->once()->with('order_by')->andReturn('email')
@@ -535,8 +535,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app                                           = new Container();
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app  = new Container();
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
 
         $config->shouldReceive('get')->once()
             ->with('orchestra/html::table', [])->andReturn([]);
