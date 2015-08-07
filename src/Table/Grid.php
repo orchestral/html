@@ -10,6 +10,7 @@ use Orchestra\Support\Traits\QueryFilterTrait;
 use Orchestra\Contracts\Config\PackageRepository;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class Grid extends BaseGrid implements GridContract
@@ -453,7 +454,9 @@ class Grid extends BaseGrid implements GridContract
     {
         $model = $this->model;
 
-        if (! $this->isQueryBuilder($model)) {
+        if($this->isModel($model)) {
+            $model = $this->model->query();
+        } else if (! $this->isQueryBuilder($model)) {
             throw new InvalidArgumentException('Unable to load Query Builder from $model');
         }
 
@@ -470,5 +473,17 @@ class Grid extends BaseGrid implements GridContract
     protected function isQueryBuilder($model)
     {
         return ($model instanceof QueryBuilder || $model instanceof EloquentBuilder);
+    }
+
+    /**
+     * Check if given $model is a Model instance.
+     *
+     * @param mixed $model
+     *
+     * @return bool
+     */
+    protected function isModel($model)
+    {
+        return $model instanceof EloquentModel;
     }
 }
