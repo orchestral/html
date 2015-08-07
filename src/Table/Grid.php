@@ -412,7 +412,7 @@ class Grid extends BaseGrid implements GridContract
         } elseif (is_array($model)) {
             $this->setRowsData($model);
         } else {
-            throw new InvalidArgumentException("Unable to convert \$model to array.");
+            throw new InvalidArgumentException('Unable to convert $model to array.');
         }
     }
 
@@ -454,7 +454,7 @@ class Grid extends BaseGrid implements GridContract
         $model = $this->model;
 
         if (! $this->isQueryBuilder($model)) {
-            throw new InvalidArgumentException("Unable to load Query Builder from \$model");
+            throw new InvalidArgumentException('Unable to load Query Builder from $model');
         }
 
         return $model;
