@@ -130,6 +130,144 @@ return HTML::decorate(['class' => 'foo !span5'], ['class' => 'bar span5']);
 // will return array('class' => 'foo bar');
 ```
 
+## Forms
+
+Creating forms couldn't be any easier using Orchestra's HTML package. Let's get started.
+
+##### Creating a new Form
+To create a new form, use the `Form::of()` method. The first parameter is simply a string to define what the form is for:
+
+```php
+return Form::of('users');
+```
+
+##### Adding Fields
+
+To add fields to our form, we'll pass in a closure into the second parameter, and call the `fieldset()` method off of the
+injected FormGrid. Here's an example:
+
+```php
+return Form::of('users', function($form)
+{
+	$form->fieldset(function($fieldset)
+	{
+		$form->control('input:text', 'username');
+		$form->control('input:text', 'email');
+		$form->control('input:password', 'password');
+	});
+});
+```
+
+###### Available Fields
+
+```php
+// A text field
+$form->control('input:text', 'name');
+
+// A textarea filed
+$form->control('input:textarea', 'name');
+
+// A password field
+$form->control('input:password', 'name');
+
+// A file field
+$fieldset->control('input:file', 'name');
+
+// A select field
+$form->control('select', 'name')
+	->options(['one', 'two', 'three']);
+```
+
+##### Adding Labels to Fields
+
+To add a label onto a form control, use the method `label()`:
+
+```php
+$form->fieldset(function($fieldset)
+{
+	$form
+		->control('input:text', 'username')
+		->label('Username');
+		
+	$form
+		->control('input:text', 'email')
+		->label('Email');
+		
+	$form
+		->control('input:password', 'password')
+		->label('Password');
+});
+```
+
+##### Adding Default Values to Fields
+
+To add a default value to the field, use the method `value()` on the form control:
+
+```php
+$form->fieldset(function($fieldset)
+{
+	$form
+		->control('input:text', 'username')
+		->label('Username')
+		->value(Auth::user()->username);
+		
+	$form
+		->control('input:text', 'email')
+		->label('Email')
+		->value(Auth::user()->email);
+		
+	$form
+		->control('input:password', 'password')
+		->label('Password');
+});
+```
+
+##### Changing the submit button label
+
+To change the submit button label, modify the FormGrid property `submit` like so:
+
+```php
+return Form::of('users', function($form)
+{
+	// The form submit button label
+	$form->submit = 'Save';
+	
+	$form->fieldset(function($fieldset)
+	{
+		$form->control('input:text', 'username');
+		$form->control('input:text', 'email');
+		$form->control('input:password', 'password');
+	});
+});
+```
+
+##### Displaying your form
+
+To display your form, simply display it in your view with unescaped blade tags:
+
+```php
+public function index()
+{
+	$form = Form::of('users', function($form)
+	{
+		$form->fieldset(function($fieldset)
+		{
+			$form->control('input:text', 'username');
+			$form->control('input:text', 'email');
+			$form->control('input:password', 'password');
+		});
+	});
+	
+	return view('index', compact('form'));
+}
+````
+
+```php
+// In index.blade.php
+
+{!! $form !!}
+```
+
 ## Resources
 
 * [Documentation](http://orchestraplatform.com/docs/latest/components/html)
