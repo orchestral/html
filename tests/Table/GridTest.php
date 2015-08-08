@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Html\Table\TestCase;
 
+use Closure;
 use Mockery as m;
 use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
