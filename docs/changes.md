@@ -2,7 +2,14 @@
 title: HTML Change Log
 
 ---
+
 ## Version 3.1 {#v3-1}
+
+### v3.1.4 {#v3-1-4}
+
+* Add support for Laravel 5 Config.
+* Add tel and time input field.
+* Allow inserting just the basic Eloquent model into the `Orchestra\Html\Table\Grid::with()` method.
 
 ### v3.1.3 {#v3-1-3}
 

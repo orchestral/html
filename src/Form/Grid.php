@@ -1,8 +1,8 @@
 <?php namespace Orchestra\Html\Form;
 
 use Closure;
-use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Support\Collection;
@@ -10,6 +10,7 @@ use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Config\Repository;
 use Orchestra\Contracts\Html\Form\Presenter;
+use Orchestra\Contracts\Config\PackageRepository;
 use Orchestra\Contracts\Html\Form\Grid as GridContract;
 
 class Grid extends BaseGrid implements GridContract
@@ -85,7 +86,9 @@ class Grid extends BaseGrid implements GridContract
     {
         $this->fieldsets = new Collection();
 
-        foreach ($config->get('orchestra/html::form', []) as $key => $value) {
+        $namespace = ($config instanceof PackageRepository ? 'orchestra/html::form' : 'orchestra.form');
+
+        foreach ($config->get($namespace, []) as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }

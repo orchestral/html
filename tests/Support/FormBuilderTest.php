@@ -156,6 +156,16 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<input class="span2" name="foo" type="email">', $form3);
     }
 
+    public function testFormTel()
+    {
+        $form1 = $this->formBuilder->tel('foo');
+        $form2 = $this->formBuilder->tel('foo', 'foobar');
+        $form3 = $this->formBuilder->tel('foo', null, ['class' => 'span2']);
+        $this->assertEquals('<input name="foo" type="tel">', $form1);
+        $this->assertEquals('<input name="foo" type="tel" value="foobar">', $form2);
+        $this->assertEquals('<input class="span2" name="foo" type="tel">', $form3);
+    }
+
     public function testFormNumber()
     {
         $form1 = $this->formBuilder->number('foo');
@@ -174,6 +184,16 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('<input name="foo" type="date">', $form1);
         $this->assertEquals('<input name="foo" type="date" value="2015-08-20">', $form2);
         $this->assertEquals('<input class="span2" name="foo" type="date">', $form3);
+    }
+
+    public function testFormTime()
+    {
+        $form1 = $this->formBuilder->time('foo');
+        $form2 = $this->formBuilder->time('foo', \Carbon\Carbon::now()->format('H:i'));
+        $form3 = $this->formBuilder->time('foo', null, ['class' => 'span2']);
+        $this->assertEquals('<input name="foo" type="time">', $form1);
+        $this->assertEquals('<input name="foo" type="time" value="' . \Carbon\Carbon::now()->format('H:i') . '">', $form2);
+        $this->assertEquals('<input class="span2" name="foo" type="time">', $form3);
     }
 
     public function testFormFile()

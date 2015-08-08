@@ -6,6 +6,7 @@ use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Contracts\Config\Repository;
 use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
+use Orchestra\Contracts\Config\PackageRepository;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
 use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
 
@@ -68,7 +69,13 @@ class Fieldset extends BaseGrid implements FieldsetContract
      */
     public function initiate(Repository $config, ControlContract $control, Template $presenter)
     {
-        $templates = $config->get('orchestra/html::form.templates', []);
+        $namespace = 'orchestra.form';
+
+        if ($config instanceof PackageRepository) {
+            $namespace = 'orchestra/html::form';
+        }
+
+        $templates = $config->get("{$namespace}.templates", []);
 
         $control->setTemplates($templates)->setPresenter($presenter);
 

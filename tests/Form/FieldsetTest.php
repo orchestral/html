@@ -71,7 +71,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testInstanceOfFieldset()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -105,7 +105,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethod()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -136,7 +136,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testControlMethod()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
         $app['html'] = $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
@@ -263,7 +263,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethodThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -287,7 +287,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testAttributesMethod()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -324,7 +324,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodCallThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -349,7 +349,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodGetThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -374,7 +374,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control']  = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -399,7 +399,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
@@ -424,7 +424,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodIssetThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository');
+        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 

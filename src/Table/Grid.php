@@ -7,8 +7,10 @@ use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
+use Orchestra\Contracts\Config\PackageRepository;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class Grid extends BaseGrid implements GridContract
@@ -91,7 +93,9 @@ class Grid extends BaseGrid implements GridContract
      */
     public function initiate(Repository $config)
     {
-        foreach ($config->get('orchestra/html::table', []) as $key => $value) {
+        $namespace = ($config instanceof PackageRepository ? 'orchestra/html::table' : 'orchestra.table');
+
+        foreach ($config->get($namespace, []) as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
@@ -409,7 +413,7 @@ class Grid extends BaseGrid implements GridContract
         } elseif (is_array($model)) {
             $this->setRowsData($model);
         } else {
-            throw new InvalidArgumentException("Unable to convert \$model to array.");
+            throw new InvalidArgumentException('Unable to convert $model to array.');
         }
     }
 
@@ -450,8 +454,10 @@ class Grid extends BaseGrid implements GridContract
     {
         $model = $this->model;
 
-        if (! $this->isQueryBuilder($model)) {
-            throw new InvalidArgumentException("Unable to load Query Builder from \$model");
+        if ($this->isEloquentModel($model)) {
+            $model = $model->newQuery();
+        } elseif (! $this->isQueryBuilder($model)) {
+            throw new InvalidArgumentException('Unable to load Query Builder from $model');
         }
 
         return $model;
@@ -467,5 +473,17 @@ class Grid extends BaseGrid implements GridContract
     protected function isQueryBuilder($model)
     {
         return ($model instanceof QueryBuilder || $model instanceof EloquentBuilder);
+    }
+
+    /**
+     * Check if given $model is a Model instance.
+     *
+     * @param mixed $model
+     *
+     * @return bool
+     */
+    protected function isEloquentModel($model)
+    {
+        return $model instanceof EloquentModel;
     }
 }
