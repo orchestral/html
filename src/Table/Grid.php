@@ -454,9 +454,9 @@ class Grid extends BaseGrid implements GridContract
     {
         $model = $this->model;
 
-        if($this->isModel($model)) {
-            $model = $model->query();
-        } else if (! $this->isQueryBuilder($model)) {
+        if ($this->isEloquentModel($model)) {
+            $model = $model->newQuery();
+        } elseif (! $this->isQueryBuilder($model)) {
             throw new InvalidArgumentException('Unable to load Query Builder from $model');
         }
 
@@ -482,7 +482,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return bool
      */
-    protected function isModel($model)
+    protected function isEloquentModel($model)
     {
         return $model instanceof EloquentModel;
     }
