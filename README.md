@@ -204,13 +204,12 @@ $form->fieldset(function ($fieldset) {
 To add a default value to the field, use the method `value()` on the form control:
 
 ```php
-$form->fieldset(function($fieldset)
-{
+$form->fieldset(function ($fieldset) {
 	$form->control('input:text', 'username')
 		->label('Username')
 		->value(Auth::user()->username);
 
-	$form->control('input:text', 'email')
+	$form->control('input:email', 'email')
 		->label('Email')
 		->value(Auth::user()->email);
 
@@ -243,8 +242,7 @@ To display your form, simply display it in your view with unescaped blade tags:
 ```php
 public function index()
 {
-	$form = Form::of('users', function($form)
-	{
+	$form = Form::of('users', function ($form) {
 		$form->fieldset(function ($fieldset) {
 			$form->control('input:text', 'username');
 			$form->control('input:email', 'email');
