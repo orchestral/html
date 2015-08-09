@@ -90,17 +90,17 @@ Create a HTML tag from within your libraries/extension using following code:
 
 ```php
 return HTML::create('p', 'Some awesome information');
-
-// will return <p>Some awesome information</p>
 ```
+
+Will return `<p>Some awesome information</p>`.
 
 You can customize the HTML attibutes by adding third parameter.
 
 ```php
 return HTML::create('p', 'Another awesomeness', ['id' => 'foo']);
-
-// will return <p id="foo">Another awesomeness</p>
 ```
+
+Will return `<p id="foo">Another awesomeness</p>`.
 
 ## Raw HTML Entities
 
@@ -108,8 +108,14 @@ Mark a string to be excluded from being escaped.
 
 ```php
 return HTML::link('foo', HTML::raw('<img src="foo.jpg">'));
+```
 
-// will return <a href="foo"><img src="foo.jpg"></a>
+Will return `<a href="foo"><img src="foo.jpg"></a>`.
+
+This also can be dynamically done via.
+
+```php
+return HTML::link('foo', HTML::image('foo.jpg'));
 ```
 
 ## Decorate HTML
@@ -118,17 +124,17 @@ Decorate method allow developer to define HTML attributes collection as `HTML::a
 
 ```php
 return HTML::decorate(['class' => 'foo'], ['id' => 'foo', 'class' => 'span5']);
-
-// will return array('class' => 'foo span5', 'id' => 'foo');
 ```
+
+Will return `array('class' => 'foo span5', 'id' => 'foo');`.
 
 It also support replacement of default attributes if such requirement is needed.
 
 ```php
 return HTML::decorate(['class' => 'foo !span5'], ['class' => 'bar span5']);
-
-// will return array('class' => 'foo bar');
 ```
+
+Will return `array('class' => 'foo bar');`, note that `span5` is excluded when we give `!span5` in the first parameter.
 
 ## Forms
 
@@ -188,11 +194,11 @@ $form->fieldset(function($fieldset)
 	$form
 		->control('input:text', 'username')
 		->label('Username');
-		
+
 	$form
 		->control('input:text', 'email')
 		->label('Email');
-		
+
 	$form
 		->control('input:password', 'password')
 		->label('Password');
@@ -210,12 +216,12 @@ $form->fieldset(function($fieldset)
 		->control('input:text', 'username')
 		->label('Username')
 		->value(Auth::user()->username);
-		
+
 	$form
 		->control('input:text', 'email')
 		->label('Email')
 		->value(Auth::user()->email);
-		
+
 	$form
 		->control('input:password', 'password')
 		->label('Password');
@@ -231,7 +237,7 @@ return Form::of('users', function($form)
 {
 	// The form submit button label
 	$form->submit = 'Save';
-	
+
 	$form->fieldset(function($fieldset)
 	{
 		$form->control('input:text', 'username');
@@ -257,10 +263,10 @@ public function index()
 			$form->control('input:password', 'password');
 		});
 	});
-	
+
 	return view('index', compact('form'));
 }
-````
+```
 
 ```php
 // In index.blade.php
