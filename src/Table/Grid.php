@@ -317,16 +317,8 @@ class Grid extends BaseGrid implements GridContract
         $orderByValue   = $request->input($orderByKey);
         $directionValue = $request->input($directionKey);
 
-        $this->set('filter.order_by', [
-            'key'   => $orderByKey,
-            'value' => $orderByValue,
-        ]);
-
-        $this->set('filter.direction', [
-            'key'   => $directionKey,
-            'value' => $directionValue,
-        ]);
-
+        $this->set('filter.order_by', ['key' => $orderByKey, 'value' => $orderByValue]);
+        $this->set('filter.direction', ['key' => $directionKey, 'value' => $directionValue]);
         $this->set('filter.columns', $orderColumns);
 
         $this->model = $this->setupBasicQueryFilter($model, [
