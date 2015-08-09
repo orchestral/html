@@ -153,12 +153,10 @@ To add fields to our form, we'll pass in a closure into the second parameter, an
 injected FormGrid. Here's an example:
 
 ```php
-return Form::of('users', function($form)
-{
-	$form->fieldset(function($fieldset)
-	{
+return Form::of('users', function ($form) {
+	$form->fieldset(function ($fieldset) {
 		$form->control('input:text', 'username');
-		$form->control('input:text', 'email');
+		$form->control('input:email', 'email');
 		$form->control('input:password', 'password');
 	});
 });
@@ -170,14 +168,14 @@ return Form::of('users', function($form)
 // A text field
 $form->control('input:text', 'name');
 
-// A textarea filed
-$form->control('input:textarea', 'name');
-
 // A password field
 $form->control('input:password', 'name');
 
 // A file field
 $fieldset->control('input:file', 'name');
+
+// A textarea filed
+$form->control('textarea', 'name');
 
 // A select field
 $form->control('select', 'name')
@@ -189,18 +187,14 @@ $form->control('select', 'name')
 To add a label onto a form control, use the method `label()`:
 
 ```php
-$form->fieldset(function($fieldset)
-{
-	$form
-		->control('input:text', 'username')
+$form->fieldset(function ($fieldset) {
+	$form->control('input:text', 'username')
 		->label('Username');
 
-	$form
-		->control('input:text', 'email')
+	$form->control('input:email', 'email')
 		->label('Email');
 
-	$form
-		->control('input:password', 'password')
+	$form->control('input:password', 'password')
 		->label('Password');
 });
 ```
@@ -212,18 +206,15 @@ To add a default value to the field, use the method `value()` on the form contro
 ```php
 $form->fieldset(function($fieldset)
 {
-	$form
-		->control('input:text', 'username')
+	$form->control('input:text', 'username')
 		->label('Username')
 		->value(Auth::user()->username);
 
-	$form
-		->control('input:text', 'email')
+	$form->control('input:text', 'email')
 		->label('Email')
 		->value(Auth::user()->email);
 
-	$form
-		->control('input:password', 'password')
+	$form->control('input:password', 'password')
 		->label('Password');
 });
 ```
@@ -233,15 +224,13 @@ $form->fieldset(function($fieldset)
 To change the submit button label, modify the FormGrid property `submit` like so:
 
 ```php
-return Form::of('users', function($form)
-{
+return Form::of('users', function ($form) {
 	// The form submit button label
 	$form->submit = 'Save';
 
-	$form->fieldset(function($fieldset)
-	{
+	$form->fieldset(function ($fieldset) {
 		$form->control('input:text', 'username');
-		$form->control('input:text', 'email');
+		$form->control('input:email', 'email');
 		$form->control('input:password', 'password');
 	});
 });
@@ -256,10 +245,9 @@ public function index()
 {
 	$form = Form::of('users', function($form)
 	{
-		$form->fieldset(function($fieldset)
-		{
+		$form->fieldset(function ($fieldset) {
 			$form->control('input:text', 'username');
-			$form->control('input:text', 'email');
+			$form->control('input:email', 'email');
 			$form->control('input:password', 'password');
 		});
 	});
