@@ -58,6 +58,20 @@ class HtmlBuilder extends BaseHtmlBuilder
     }
 
     /**
+     * Build a list of HTML attributes from one or two array and generate
+     * HTML attributes.
+     *
+     * @param  array  $attributes
+     * @param  array  $defaults
+     *
+     * @return string
+     */
+    public function attributable(array $attributes, array $defaults = [])
+    {
+        return $this->attributes($this->decorate($attributes, $defaults));
+    }
+
+    /**
      * Build a list of HTML attributes from one or two array.
      *
      * @param  array  $attributes
@@ -88,8 +102,8 @@ class HtmlBuilder extends BaseHtmlBuilder
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults, then take union of both.
-        $default   = Arr::get($defaults, 'class', '');
-        $attribute = Arr::get($attributes, 'class', '');
+        $default   = isset($defaults['class'] ? $defaults['class'] : '';
+        $attribute = isset($attributes['class'] ? $attributes['class'] : '';
 
         $classes   = explode(' ', trim($default.' '.$attribute));
         $current   = array_unique($classes);
