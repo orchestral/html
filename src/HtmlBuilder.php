@@ -2,7 +2,6 @@
 
 use BadMethodCallException;
 use Illuminate\Support\Str;
-use Illuminate\Support\Arr;
 use Orchestra\Support\Expression;
 use Orchestra\Html\Support\HtmlBuilder as BaseHtmlBuilder;
 
@@ -102,8 +101,8 @@ class HtmlBuilder extends BaseHtmlBuilder
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults, then take union of both.
-        $default   = isset($defaults['class'] ? $defaults['class'] : '';
-        $attribute = isset($attributes['class'] ? $attributes['class'] : '';
+        $default   = isset($defaults['class']) ? $defaults['class'] : '';
+        $attribute = isset($attributes['class']) ? $attributes['class'] : '';
 
         $classes   = explode(' ', trim($default.' '.$attribute));
         $current   = array_unique($classes);
