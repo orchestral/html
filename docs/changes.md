@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.0 {#v3-0}
 
+### v3.0.2 {#v3-0-2}
+
+* Add `Orchestra\Html\HtmlBuilder::attributable()` method.
+
 ### v3.0.1 {#v3-0-1}
 
 * Add `Form::number()` and `Form::date()` helpers.
