@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.5 {#v3-1-5}
+
+* Add `Orchestra\Html\HtmlBuilder::attributable()` method.
+
 ### v3.1.4 {#v3-1-4}
 
 * Add support for Laravel 5 Config.
