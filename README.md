@@ -142,10 +142,39 @@ Will return `array('class' => 'foo bar');`, note that `span5` is excluded when w
 Creating forms couldn't be any easier using Orchestra's HTML package. Let's get started.
 
 ##### Creating a new Form
+
 To create a new form, use the `Form::of()` method. The first parameter is simply a string to define what the form is for:
 
 ```php
 return Form::of('users');
+```
+
+##### Form Attributes
+
+To customize your forms attributes, call the `attributes($attributes)` method
+on the `FormGrid` instance:
+
+```php
+return Form::of('users', function ($form) {
+    $attributes = [
+        'method' => 'PATCH',
+        'id'     => 'user-login-form',
+        'class'  => 'form-horizontal',
+    ];
+
+	$form->attributes($attributes);
+});
+```
+
+##### Specifying the Form layout
+
+To specify the layout of the form, call the `layout($view)` method on the
+`FormGrid` instance:
+
+```php
+return Form::of('users', function ($form) {
+	$form->layout('layouts.form');
+});
 ```
 
 ##### Adding Fields
@@ -234,6 +263,37 @@ return Form::of('users', function ($form) {
 		$form->control('input:password', 'password');
 	});
 });
+```
+
+##### Customizing the form control attributes
+
+To customize the form controls attributes, call the `attributes($attributes)` method
+on the control:
+
+```php
+$attributes = [
+    'placeholder' => 'Enter your username',
+    'class'       => 'form-control',
+];
+
+$form->control('input:text', 'username')
+    ->attributes($attributes);
+```
+
+##### Customizing the form control itself
+
+```php
+	$form->fieldset(function ($fieldset)
+	{
+		$form->control('input:text', 'username');
+		$form->control('input:email', 'email', function ($control)
+		{
+		    $email = auth()->user()->email;
+		
+		    $control->field = "<input type='text' value='$email'>";
+		});
+		$form->control('input:password', 'password');
+	});
 ```
 
 ##### Displaying your form
