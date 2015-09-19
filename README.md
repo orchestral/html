@@ -320,8 +320,6 @@ $form->control('input:email', 'email', function ($control) {
 });
 ```
 
-
-
 ##### Displaying your form
 
 To display your form, simply display it in your view with unescaped blade tags:
