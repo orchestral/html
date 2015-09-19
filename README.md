@@ -285,12 +285,12 @@ $form->control('input:text', 'username')
 	$form->fieldset(function ($fieldset)
 	{
 		$form->control('input:text', 'username');
-		$form->control('input:email', 'email', function ($control)
-		{
+		$form->control('input:email', 'email', function ($control) {
 		    $email = auth()->user()->email;
-		
+
 		    $control->field = "<input type='text' value='$email'>";
 		});
+
 		$form->control('input:password', 'password');
 	});
 ```
