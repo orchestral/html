@@ -21,7 +21,9 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMethod()
     {
-        $stub   = new Factory($this->getContainer());
+        $stub = new Factory($this->getContainer());
+        $stub->setConfig([]);
+
         $output = $stub->make(function () {
             //
         });
@@ -36,7 +38,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testOfMethod()
     {
-        $stub   = new Factory($this->getContainer());
+        $stub = new Factory($this->getContainer());
         $output = $stub->of('foo', function () {
             //
         });
@@ -52,12 +54,12 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassThroughMethod()
     {
-        $app         = new Container();
+        $app = new Container();
         $app['form'] = $form = m::mock('\Illuminate\Html\FormBuilder');
 
         $form->shouldReceive('hidden')->once()->with('foo', 'bar')->andReturn('foobar');
 
-        $stub   = new Factory($app);
+        $stub = new Factory($app);
         $output = $stub->hidden('foo', 'bar');
 
         $this->assertEquals('foobar', $output);
@@ -71,15 +73,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
     protected function getContainer()
     {
         $app = new Container();
-        $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
 
         $app['request'] = m::mock('\Illuminate\Http\Request');
         $app['translator'] = m::mock('\Illuminate\Translation\Translator');
         $app['view'] = m::mock('\Illuminate\Contracts\View\Factory');
-        $app['Illuminate\Contracts\Config\Repository'] = $config;
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', [])->andReturn([]);
 
         return $app;
     }

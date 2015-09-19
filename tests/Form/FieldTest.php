@@ -27,7 +27,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             },
         ]);
 
-        $row     = new Fluent();
+        $row = new Fluent();
         $control = new Fluent();
 
         $this->assertEquals('foo', $stub->getField($row, $control));
@@ -52,7 +52,7 @@ class FieldTest extends \PHPUnit_Framework_TestCase
             },
         ]);
 
-        $row     = new Fluent();
+        $row = new Fluent();
         $control = new Fluent();
 
         $this->assertEquals('foo', $stub->getField($row, $control));

@@ -3,11 +3,9 @@
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Grid as BaseGrid;
-use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
-use Orchestra\Contracts\Config\PackageRepository;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -87,15 +85,13 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Load grid configuration.
      *
-     * @param  \Illuminate\Contracts\Config\Repository  $config
+     * @param  array  $config
      *
      * @return void
      */
-    public function initiate(Repository $config)
+    public function initiate(array $config)
     {
-        $namespace = ($config instanceof PackageRepository ? 'orchestra/html::table' : 'orchestra.table');
-
-        foreach ($config->get($namespace, []) as $key => $value) {
+        foreach ($config as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }

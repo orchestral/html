@@ -53,13 +53,14 @@ abstract class Grid
      * Create a new Grid instance.
      *
      * @param  \Illuminate\Contracts\Container\Container  $app
+     * @param  array  $config
      */
-    public function __construct(Container $app)
+    public function __construct(Container $app, array $config)
     {
         $this->app = $app;
 
         if (method_exists($this, 'initiate')) {
-            $app->call([$this, 'initiate']);
+            $app->call([$this, 'initiate'], ['config' => $config]);
         }
     }
 

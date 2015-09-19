@@ -20,6 +20,13 @@ abstract class Factory
     protected $names = [];
 
     /**
+     * Factory configuration.
+     *
+     * @var array
+     */
+    protected $config = [];
+
+    /**
      * Construct a new factory.
      *
      * @param  \Illuminate\Contracts\Container\Container  $app
@@ -54,5 +61,19 @@ abstract class Factory
         }
 
         return $this->names[$name];
+    }
+
+    /**
+     * Set configuration.
+     *
+     * @param  array  $config
+     *
+     * @return $this
+     */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
+
+        return $this;
     }
 }

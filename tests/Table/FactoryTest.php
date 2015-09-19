@@ -21,7 +21,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testMakeMethod()
     {
-        $stub   = new Factory($this->getContainer());
+        $stub = new Factory($this->getContainer());
         $output = $stub->make(function () {
             //
         });
@@ -36,7 +36,7 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testOfMethod()
     {
-        $stub   = new Factory($this->getContainer());
+        $stub = new Factory($this->getContainer());
         $output = $stub->of('foo', function () {
             //
         });
@@ -51,14 +51,10 @@ class FactoryTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app  = new Container();
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
+        $app = new Container();
         $app['request'] = m::mock('\Illuminate\Http\Request');
         $app['translator'] = m::mock('\Illuminate\Translation\Translator');
         $app['view'] = m::mock('\Illuminate\Contracts\View\Factory');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', [])->andReturn([]);
 
         return $app;
     }
