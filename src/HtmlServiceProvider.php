@@ -116,14 +116,14 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function bootConfiguration()
     {
-        $config = $this->app->make('config');
+        $config    = $this->app->make('config');
         $namespace = $this->hasPackageRepository() ? 'orchestra/html::' : 'orchestra.';
 
         $this->app->make('orchestra.form')->setConfig($config->get("{$namespace}form"));
         $this->app->make('orchestra.table')->setConfig($config->get("{$namespace}table"));
     }
 
-     /**
+    /**
      * Boot extension components.
      *
      * @return void
@@ -138,7 +138,6 @@ class HtmlServiceProvider extends ServiceProvider
         if (! $this->hasPackageRepository()) {
             $this->bootUsingLaravel($path);
         }
-
     }
 
     /**
