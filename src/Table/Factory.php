@@ -15,7 +15,7 @@ class Factory extends BaseFactory implements FactoryContract
             $this->app->make('request'),
             $this->app->make('translator'),
             $this->app->make('view'),
-            new Grid($this->app)
+            new Grid($this->app, $this->config)
         );
 
         return $builder->extend($callback);

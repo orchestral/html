@@ -33,7 +33,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     public function testDl()
     {
         $list = [
-            'foo'  => 'bar',
+            'foo' => 'bar',
             'bing' => 'baz',
         ];
 

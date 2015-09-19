@@ -37,9 +37,9 @@ To install through composer, simply put the following in your `composer.json` fi
 
 ```json
 {
-	"require": {
-		"orchestra/html": "~3.0"
-	}
+    "require": {
+        "orchestra/html": "~3.0"
+    }
 }
 ```
 
@@ -162,7 +162,7 @@ return Form::of('users', function ($form) {
         'class'  => 'form-horizontal',
     ];
 
-	$form->attributes($attributes);
+    $form->attributes($attributes);
 });
 ```
 
@@ -173,7 +173,7 @@ To specify the layout of the form, call the `layout($view)` method on the
 
 ```php
 return Form::of('users', function ($form) {
-	$form->layout('layouts.form');
+    $form->layout('layouts.form');
 });
 ```
 
@@ -184,11 +184,11 @@ injected FormGrid. Here's an example:
 
 ```php
 return Form::of('users', function ($form) {
-	$form->fieldset(function ($fieldset) {
-		$form->control('input:text', 'username');
-		$form->control('input:email', 'email');
-		$form->control('input:password', 'password');
-	});
+    $form->fieldset(function ($fieldset) {
+        $form->control('input:text', 'username');
+        $form->control('input:email', 'email');
+        $form->control('input:password', 'password');
+    });
 });
 ```
 
@@ -209,7 +209,7 @@ $form->control('textarea', 'name');
 
 // A select field
 $form->control('select', 'name')
-	->options(['one', 'two', 'three']);
+    ->options(['one', 'two', 'three']);
 ```
 
 ##### Adding Labels to Fields
@@ -218,14 +218,14 @@ To add a label onto a form control, use the method `label()`:
 
 ```php
 $form->fieldset(function ($fieldset) {
-	$form->control('input:text', 'username')
-		->label('Username');
+    $form->control('input:text', 'username')
+        ->label('Username');
 
-	$form->control('input:email', 'email')
-		->label('Email');
+    $form->control('input:email', 'email')
+        ->label('Email');
 
-	$form->control('input:password', 'password')
-		->label('Password');
+    $form->control('input:password', 'password')
+        ->label('Password');
 });
 ```
 
@@ -235,16 +235,16 @@ To add a default value to the field, use the method `value()` on the form contro
 
 ```php
 $form->fieldset(function ($fieldset) {
-	$form->control('input:text', 'username')
-		->label('Username')
-		->value(Auth::user()->username);
+    $form->control('input:text', 'username')
+        ->label('Username')
+        ->value(Auth::user()->username);
 
-	$form->control('input:email', 'email')
-		->label('Email')
-		->value(Auth::user()->email);
+    $form->control('input:email', 'email')
+        ->label('Email')
+        ->value(Auth::user()->email);
 
-	$form->control('input:password', 'password')
-		->label('Password');
+    $form->control('input:password', 'password')
+        ->label('Password');
 });
 ```
 
@@ -254,14 +254,14 @@ To change the submit button label, modify the FormGrid property `submit` like so
 
 ```php
 return Form::of('users', function ($form) {
-	// The form submit button label
-	$form->submit = 'Save';
+    // The form submit button label
+    $form->submit = 'Save';
 
-	$form->fieldset(function ($fieldset) {
-		$form->control('input:text', 'username');
-		$form->control('input:email', 'email');
-		$form->control('input:password', 'password');
-	});
+    $form->fieldset(function ($fieldset) {
+        $form->control('input:text', 'username');
+        $form->control('input:email', 'email');
+        $form->control('input:password', 'password');
+    });
 });
 ```
 
@@ -283,18 +283,44 @@ $form->control('input:text', 'username')
 ##### Customizing the form control itself
 
 ```php
-	$form->fieldset(function ($fieldset)
-	{
-		$form->control('input:text', 'username');
-		$form->control('input:email', 'email', function ($control)
-		{
-		    $email = auth()->user()->email;
-		
-		    $control->field = "<input type='text' value='$email'>";
-		});
-		$form->control('input:password', 'password');
-	});
+$form->control('input:email', 'email', function ($control) {
+    $control->field(function ($row) {
+        return "<input type='email' name="email" value='$row->email'>";
+    });
+});
 ```
+
+You could also create a `Renderable` class:
+
+```php
+use Illuminate\Contracts\Support\Renderable;
+
+class EmailAddressField implements Renderable
+{
+    public function __construct($name, $value)
+    {
+        $this->name = $name;
+        $this->value = $value;
+    }
+
+    public function render()
+    {
+        return sprintf('<input type="email" name="%s" value="%s">', $this->name, $this->value);
+    }
+}
+```
+
+And you can simply register it via:
+
+```php
+$form->control('input:email', 'email', function ($control) {
+    $control->field(function ($row) {
+        return new EmailAddressField('email', $row->email);
+    });
+});
+```
+
+
 
 ##### Displaying your form
 
@@ -303,15 +329,15 @@ To display your form, simply display it in your view with unescaped blade tags:
 ```php
 public function index()
 {
-	$form = Form::of('users', function ($form) {
-		$form->fieldset(function ($fieldset) {
-			$form->control('input:text', 'username');
-			$form->control('input:email', 'email');
-			$form->control('input:password', 'password');
-		});
-	});
+    $form = Form::of('users', function ($form) {
+        $form->fieldset(function ($fieldset) {
+            $form->control('input:text', 'username');
+            $form->control('input:email', 'email');
+            $form->control('input:password', 'password');
+        });
+    });
 
-	return view('index', compact('form'));
+    return view('index', compact('form'));
 }
 ```
 

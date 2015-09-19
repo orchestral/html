@@ -3,10 +3,8 @@
 use Closure;
 use InvalidArgumentException;
 use Orchestra\Html\Grid as BaseGrid;
-use Illuminate\Contracts\Config\Repository;
 use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
-use Orchestra\Contracts\Config\PackageRepository;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
 use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
 
@@ -48,12 +46,13 @@ class Fieldset extends BaseGrid implements FieldsetContract
      * Create a new Fieldset instance.
      *
      * @param  \Illuminate\Contracts\Container\Container  $app
+     * @param  array  $config
      * @param  string  $name
      * @param  \Closure  $callback
      */
-    public function __construct(Container $app, $name, Closure $callback = null)
+    public function __construct(Container $app, array $config, $name, Closure $callback = null)
     {
-        parent::__construct($app);
+        parent::__construct($app, $config);
 
         $this->buildBasic($name, $callback);
     }
@@ -61,23 +60,15 @@ class Fieldset extends BaseGrid implements FieldsetContract
     /**
      * Load grid configuration.
      *
-     * @param  \Illuminate\Contracts\Config\Repository  $config
+     * @param  array  $config
      * @param  \Orchestra\Contracts\Html\Form\Control  $control
      * @param  \Orchestra\Contracts\Html\Form\Template  $presenter
      *
      * @return void
      */
-    public function initiate(Repository $config, ControlContract $control, Template $presenter)
+    public function initiate(array $config, ControlContract $control, Template $presenter)
     {
-        $namespace = 'orchestra.form';
-
-        if ($config instanceof PackageRepository) {
-            $namespace = 'orchestra/html::form';
-        }
-
-        $templates = $config->get("{$namespace}.templates", []);
-
-        $control->setTemplates($templates)->setPresenter($presenter);
+        $control->setTemplates($config)->setPresenter($presenter);
 
         $this->control = $control;
     }

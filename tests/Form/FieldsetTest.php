@@ -42,13 +42,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     private function getFieldsetTemplates()
     {
         return [
-            'button'   => [],
+            'button' => [],
             'checkbox' => [],
-            'input'    => [],
-            'file'     => [],
+            'input' => [],
+            'file' => [],
             'password' => [],
-            'radio'    => [],
-            'select'   => [],
+            'radio' => [],
+            'select' => [],
             'textarea' => [],
         ];
     }
@@ -71,16 +71,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testInstanceOfFieldset()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, 'foo', function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), 'foo', function ($f) {
             $f->attributes(['class' => 'foo']);
         });
 
@@ -105,17 +102,14 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethod()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf()
             ->shouldReceive('generate')->once()->with('text');
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             $f->control('text', 'id', function ($c) {
                 $c->value('Foobar');
             });
@@ -136,19 +130,16 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testControlMethod()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
         $app['html'] = $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = new Control($app, $html, $request);
 
-        $config->shouldReceive('get')->once()
-                ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $request->shouldReceive('old')->times(11)->andReturn([]);
         $html->shouldReceive('decorate')->times(11)->andReturn('foo');
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             $f->control('button', 'button_foo', function ($c) {
                 $c->label('Foo')->value(function () {
                     return 'foobar';
@@ -183,7 +174,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
                 $c->label('Foo')->value('foobar')->options(function () {
                     return [
                         'yes' => 'Yes',
-                        'no'  => 'No',
+                        'no' => 'No',
                     ];
                 });
             });
@@ -250,7 +241,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('a', call_user_func($output->field, new Fluent(), $output));
 
         $controls = $stub->controls;
-        $output   = end($controls);
+        $output = end($controls);
 
         $this->assertEquals('b', call_user_func($output->field, new Fluent(), $output));
     }
@@ -263,16 +254,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testOfMethodThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             //
         });
 
@@ -287,20 +275,17 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testAttributesMethod()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, function () {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function () {
             //
         });
 
-        $refl       = new \ReflectionObject($stub);
+        $refl = new \ReflectionObject($stub);
         $attributes = $refl->getProperty('attributes');
         $attributes->setAccessible(true);
 
@@ -324,16 +309,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodCallThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             //
         });
 
@@ -349,16 +331,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodGetThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             //
         });
 
@@ -374,16 +353,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
-        $app['Orchestra\Contracts\Html\Form\Control']  = $control = m::mock('\Orchestra\Html\Form\Control');
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             //
         });
 
@@ -399,16 +375,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             //
         });
 
@@ -424,16 +397,13 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     public function testMagicMethodIssetThrowsException()
     {
         $app = $this->app;
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
 
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form.templates', [])->andReturn($this->getFieldsetTemplates());
         $control->shouldReceive('setTemplates')->once()->with($this->getFieldsetTemplates())->andReturnSelf()
             ->shouldReceive('setPresenter')->once()->with($presenter)->andReturnSelf();
 
-        $stub = new Fieldset($app, function ($f) {
+        $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             //
         });
 

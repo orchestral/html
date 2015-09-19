@@ -104,6 +104,32 @@ class HtmlServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->bootComponents();
+
+        $this->bootConfiguration();
+    }
+
+    /**
+     * Boot extension configurations.
+     *
+     * @return void
+     */
+    protected function bootConfiguration()
+    {
+        $config    = $this->app->make('config');
+        $namespace = $this->hasPackageRepository() ? 'orchestra/html::' : 'orchestra.';
+
+        $this->app->make('orchestra.form')->setConfig($config->get("{$namespace}form"));
+        $this->app->make('orchestra.table')->setConfig($config->get("{$namespace}table"));
+    }
+
+    /**
+     * Boot extension components.
+     *
+     * @return void
+     */
+    protected function bootComponents()
+    {
         $path = realpath(__DIR__.'/../resources');
 
         $this->addConfigComponent('orchestra/html', 'orchestra/html', "{$path}/config");
@@ -139,6 +165,14 @@ class HtmlServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['html', 'form', 'orchestra.form', 'orchestra.form.control', 'orchestra.table'];
+        return [
+            'html',
+            'form',
+            'orchestra.form',
+            'orchestra.form.control',
+            'orchestra.table',
+            TemplateContract::class,
+            FormControlContract::class,
+        ];
     }
 }

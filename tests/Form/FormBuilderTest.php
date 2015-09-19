@@ -22,11 +22,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructMethod()
     {
-        $grid = new Grid($this->getContainer());
+        $grid = new Grid($this->getContainer(), []);
 
-        $request    = m::mock('\Illuminate\Http\Request');
+        $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view       = m::mock('\Illuminate\Contracts\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
 
@@ -54,11 +54,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicMethodThrowsException()
     {
-        $grid = new Grid($this->getContainer());
+        $grid = new Grid($this->getContainer(), []);
 
-        $request    = m::mock('\Illuminate\Http\Request');
+        $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view       = m::mock('\Illuminate\Contracts\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new FormBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -71,11 +71,11 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethod()
     {
-        $grid = new Grid($this->getContainer());
+        $grid = new Grid($this->getContainer(), []);
 
-        $request    = m::mock('\Illuminate\Http\Request');
+        $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view       = m::mock('\Illuminate\Contracts\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $translator->shouldReceive('get')->twice()->andReturn([]);
         $view->shouldReceive('make')->twice()->andReturn($view)
@@ -83,7 +83,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
             ->shouldReceive('render')->twice()->andReturn('mocked');
 
         $data = new \Illuminate\Support\Fluent([
-            'id'   => 1,
+            'id' => 1,
             'name' => 'Laravel',
         ]);
 
@@ -92,8 +92,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
             $form->with($data);
             $form->attributes([
                 'method' => 'POST',
-                'url'    => 'http://localhost',
-                'class'  => 'foo',
+                'url' => 'http://localhost',
+                'class' => 'foo',
             ]);
         });
 
@@ -102,8 +102,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
             $form->with($data);
             $form->attributes = [
                 'method' => 'POST',
-                'url'    => 'http://localhost',
-                'class'  => 'foo',
+                'url' => 'http://localhost',
+                'class' => 'foo',
             ];
         });
 
@@ -123,12 +123,6 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app = new Container();
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::form', [])->andReturn([]);
-
-        return $app;
+        return new Container();
     }
 }

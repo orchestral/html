@@ -7,8 +7,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
 {
     public function testMetaData()
     {
-        $app  = new Container();
-        $stub = new GridStub($app);
+        $app = new Container();
+        $stub = new GridStub($app, []);
 
         $refl = new \ReflectionObject($stub);
         $meta = $refl->getProperty('meta');

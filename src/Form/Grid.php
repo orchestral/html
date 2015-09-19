@@ -8,9 +8,7 @@ use Illuminate\Support\Fluent;
 use Orchestra\Support\Collection;
 use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Config\Repository;
 use Orchestra\Contracts\Html\Form\Presenter;
-use Orchestra\Contracts\Config\PackageRepository;
 use Orchestra\Contracts\Html\Form\Grid as GridContract;
 
 class Grid extends BaseGrid implements GridContract
@@ -58,6 +56,13 @@ class Grid extends BaseGrid implements GridContract
     public $format = null;
 
     /**
+     * Templates collection.
+     *
+     * @var array
+     */
+    protected $templates = [];
+
+    /**
      * Selected view path for form layout.
      *
      * @var array
@@ -78,17 +83,15 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Load grid configuration.
      *
-     * @param  \Illuminate\Contracts\Config\Repository  $config
+     * @param  array  $config
      *
      * @return void
      */
-    public function initiate(Repository $config)
+    public function initiate(array $config)
     {
         $this->fieldsets = new Collection();
 
-        $namespace = ($config instanceof PackageRepository ? 'orchestra/html::form' : 'orchestra.form');
-
-        foreach ($config->get($namespace, []) as $key => $value) {
+        foreach ($config as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
@@ -173,7 +176,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function fieldset($name, Closure $callback = null)
     {
-        $fieldset = new Fieldset($this->app, $name, $callback);
+        $fieldset = new Fieldset($this->app, $this->templates, $name, $callback);
 
         if (is_null($name = $fieldset->getName())) {
             $name = sprintf('fieldset-%d', $this->fieldsets->count());

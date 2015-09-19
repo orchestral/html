@@ -15,8 +15,8 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->urlGenerator = new UrlGenerator(new RouteCollection(), Request::create('/foo', 'GET'));
-        $this->htmlBuilder  = new HtmlBuilder($this->urlGenerator);
-        $this->formBuilder  =  new FormBuilder($this->htmlBuilder, $this->urlGenerator, '');
+        $this->htmlBuilder = new HtmlBuilder($this->urlGenerator);
+        $this->formBuilder = new FormBuilder($this->htmlBuilder, $this->urlGenerator, '');
     }
 
     /**
@@ -192,7 +192,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
         $form2 = $this->formBuilder->time('foo', \Carbon\Carbon::now()->format('H:i'));
         $form3 = $this->formBuilder->time('foo', null, ['class' => 'span2']);
         $this->assertEquals('<input name="foo" type="time">', $form1);
-        $this->assertEquals('<input name="foo" type="time" value="' . \Carbon\Carbon::now()->format('H:i') . '">', $form2);
+        $this->assertEquals('<input name="foo" type="time" value="'.\Carbon\Carbon::now()->format('H:i').'">', $form2);
         $this->assertEquals('<input class="span2" name="foo" type="time">', $form3);
     }
 
@@ -402,7 +402,7 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
     public function testImageInput()
     {
-        $url   = 'http://laravel.com/';
+        $url = 'http://laravel.com/';
         $image = $this->formBuilder->image($url);
 
         $this->assertEquals('<input src="'.$url.'" type="image">', $image);

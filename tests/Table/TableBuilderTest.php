@@ -23,11 +23,11 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructMethod()
     {
-        $grid = new Grid($this->getContainer());
+        $grid = new Grid($this->getContainer(), []);
 
-        $request    = m::mock('\Illuminate\Http\Request');
+        $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view       = m::mock('\Illuminate\Contracts\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
 
@@ -55,11 +55,11 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicMethodThrowsException()
     {
-        $grid = new Grid($this->getContainer());
+        $grid = new Grid($this->getContainer(), []);
 
-        $request    = m::mock('\Illuminate\Http\Request');
+        $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view       = m::mock('\Illuminate\Contracts\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $stub = new TableBuilder($request, $translator, $view, $grid);
         $stub->someInvalidRequest;
@@ -72,11 +72,11 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethod()
     {
-        $grid = new Grid($this->getContainer());
+        $grid = new Grid($this->getContainer(), []);
 
-        $request    = m::mock('\Illuminate\Http\Request');
+        $request = m::mock('\Illuminate\Http\Request');
         $translator = m::mock('\Illuminate\Translation\Translator');
-        $view       = m::mock('\Illuminate\Contracts\View\Factory');
+        $view = m::mock('\Illuminate\Contracts\View\Factory');
 
         $request->shouldReceive('query')->twice()->andReturn(['page' => 2, 'q' => 'user']);
         $translator->shouldReceive('get')->twice()->andReturn([]);
@@ -134,12 +134,6 @@ class TableBuilderTest extends \PHPUnit_Framework_TestCase
      */
     protected function getContainer()
     {
-        $app = new Container();
-        $app['Illuminate\Contracts\Config\Repository'] = $config = m::mock('\Illuminate\Contracts\Config\Repository, \Orchestra\Contracts\Config\PackageRepository');
-
-        $config->shouldReceive('get')->once()
-            ->with('orchestra/html::table', [])->andReturn([]);
-
-        return $app;
+        return new Container();
     }
 }

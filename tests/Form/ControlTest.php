@@ -23,8 +23,8 @@ class ControlTest extends \PHPUnit_Framework_TestCase
     {
         $template = ['foo' => 'foobar'];
 
-        $app     = m::mock('\Illuminate\Contracts\Container\Container');
-        $html    = m::mock('\Orchestra\Html\HtmlBuilder');
+        $app = m::mock('\Illuminate\Contracts\Container\Container');
+        $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
         $stub = new Control($app, $html, $request);
@@ -41,8 +41,8 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildFluentDataMethod()
     {
-        $app     = m::mock('\Illuminate\Contracts\Container\Container');
-        $html    = m::mock('\Orchestra\Html\HtmlBuilder');
+        $app = m::mock('\Illuminate\Contracts\Container\Container');
+        $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
         $request->shouldReceive('old')->once()->with('foobar')->andReturn(null);
@@ -68,8 +68,8 @@ class ControlTest extends \PHPUnit_Framework_TestCase
      */
     public function testRenderMethodThrowsException()
     {
-        $app     = m::mock('\Illuminate\Contracts\Container\Container');
-        $html    = m::mock('\Orchestra\Html\HtmlBuilder');
+        $app = m::mock('\Illuminate\Contracts\Container\Container');
+        $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $request = m::mock('\Illuminate\Http\Request');
 
         $stub = new Control($app, $html, $request);
