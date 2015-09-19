@@ -1,5 +1,3 @@
-<?php
-
 <table<?php echo HTML::attributable($attributes['table'], ['class' => 'table table-striped']); ?>>
     <tbody>
 <?php foreach ($columns as $col): ?>
