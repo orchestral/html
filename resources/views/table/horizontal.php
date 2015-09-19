@@ -1,7 +1,6 @@
 <?php
 
-$attributes['table'] = HTML::decorate($attributes['table'], ['class' => 'table table-striped']); ?>
-<table<?php echo HTML::attributes($attributes['table']); ?>>
+<table<?php echo HTML::attributable($attributes['table'], ['class' => 'table table-striped']); ?>>
     <thead>
         <tr>
 <?php foreach ($columns as $col): ?>
