@@ -93,7 +93,7 @@ trait SelectionTrait
     {
         $selected = $this->getSelectedValue($value, $selected);
 
-        $options = ['value' => e($value), 'selected' => $selected];
+        $options = ['value' => $value, 'selected' => $selected];
 
         return '<option'.$this->getHtmlBuilder()->attributes($options).'>'.e($display).'</option>';
     }
