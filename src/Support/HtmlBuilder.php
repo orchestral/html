@@ -327,9 +327,9 @@ class HtmlBuilder
     /**
      * Create the HTML for a listing element.
      *
-     * @param  mixed    $key
+     * @param  mixed   $key
      * @param  string  $type
-     * @param  string  $value
+     * @param  mixed   $value
      *
      * @return string
      */
@@ -347,7 +347,7 @@ class HtmlBuilder
      *
      * @param  mixed   $key
      * @param  string  $type
-     * @param  string  $value
+     * @param  mixed   $value
      *
      * @return string
      */

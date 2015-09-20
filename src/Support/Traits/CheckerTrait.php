@@ -1,5 +1,7 @@
 <?php namespace Orchestra\Html\Support\Traits;
 
+use Illuminate\Support\Collection;
+
 trait CheckerTrait
 {
     /**
@@ -95,9 +97,15 @@ trait CheckerTrait
             return $checked;
         }
 
-        $posted = $this->getValueAttribute($name);
+        $posted = $this->getValueAttribute($name, $checked);
 
-        return is_array($posted) ? in_array($value, $posted) : (bool) $posted;
+        if (is_array($posted)) {
+            return in_array($value, $posted);
+        } elseif ($posted instanceof Collection) {
+            return $posted->contains('id', $value);
+        }
+
+        return (bool) $posted;
     }
 
     /**
