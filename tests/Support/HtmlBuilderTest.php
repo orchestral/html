@@ -1,6 +1,5 @@
 <?php namespace Orchestra\Html\Support\TestCase;
 
-use Mockery as m;
 use Illuminate\Http\Request;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Routing\RouteCollection;
@@ -20,14 +19,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     {
         $generator = new UrlGenerator(new RouteCollection(), Request::create('/foo', 'GET'));
         $this->html = new HtmlBuilder($generator);
-    }
-
-    /**
-     * Destroy the test environment.
-     */
-    public function tearDown()
-    {
-        m::close();
     }
 
     public function testDl()
