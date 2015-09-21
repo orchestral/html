@@ -169,8 +169,8 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Create a new Fieldset instance.
      *
-     * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  string|\Closure  $name
+     * @param  \Closure|null  $callback
      *
      * @return \Orchestra\Html\Form\Fieldset
      */

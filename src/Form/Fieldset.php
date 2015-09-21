@@ -47,8 +47,8 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @param  \Illuminate\Contracts\Container\Container  $app
      * @param  array  $config
-     * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  string|\Closure  $name
+     * @param  \Closure|null  $callback
      */
     public function __construct(Container $app, array $config, $name, Closure $callback = null)
     {
@@ -76,8 +76,8 @@ class Fieldset extends BaseGrid implements FieldsetContract
     /**
      * Build basic fieldset.
      *
-     * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  string|\Closure  $name
+     * @param  \Closure|null  $callback
      *
      * @return void
      */
