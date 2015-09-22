@@ -2,7 +2,6 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Support\Fluent;
 use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
