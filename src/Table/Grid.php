@@ -34,7 +34,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @var mixed
      */
-    protected $model;
+    protected $model = [];
 
     /**
      * List of rows in array, is used when model is null.
