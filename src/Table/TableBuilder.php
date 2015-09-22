@@ -32,6 +32,8 @@ class TableBuilder extends BaseBuilder implements BuilderContract
         // however we also need to remove ?page from being added twice.
         $input = Arr::except($this->request->query(), [$grid->pageName]);
 
+        $data = $grid->data();
+
         $pagination = (true === $grid->paginated() ? $grid->model->appends($input) : '');
 
         $data = [
@@ -44,7 +46,7 @@ class TableBuilder extends BaseBuilder implements BuilderContract
                 'row'   => $grid->header(),
                 'table' => $grid->attributes(),
             ],
-            'rows'       => $grid->data(),
+            'rows'       => $data,
             'columns'    => $grid->columns(),
         ];
 
