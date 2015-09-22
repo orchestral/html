@@ -2,7 +2,6 @@
 
 use Closure;
 use InvalidArgumentException;
-use Illuminate\Support\Fluent;
 use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
@@ -185,17 +184,19 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  array  $data
      *
-     * @return array
+     * @return $this
      *
      * @throws \InvalidArgumentException
      */
-    public function rows(array $data = null)
+    public function rows($data)
     {
-        if (is_null($data)) {
-            return $this->data();
+        if ($data instanceof Arrayable) {
+            $data = $data->toArray();
         }
 
-        return $this->setRowsData($data);
+        $this->setRowsData($data);
+
+        return $this;
     }
 
     /**

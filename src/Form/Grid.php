@@ -141,27 +141,27 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return mixed
      */
-    public function with($data = null)
+    public function with($data)
     {
         is_array($data) && $data = new Fluent($data);
 
-        if (! is_null($data)) {
-            $this->data = $data;
-        }
+        $this->data = $data;
 
-        return $this->data;
+        return $this;
     }
 
     /**
      * Attach raw data instead of assigning a model.
      *
-     * @param  array|\Illuminate\Support\Fluent|null  $data
+     * @deprecated 3.2.x
+     *
+     * @param  array|\Illuminate\Support\Fluent  $data
      *
      * @return mixed
      *
      * @see $this->with()
      */
-    public function row($data = null)
+    public function row($data)
     {
         return $this->with($data);
     }

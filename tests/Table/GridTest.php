@@ -96,7 +96,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $stub->with($model);
 
-        $this->assertEquals($expected, $stub->rows());
+        $this->assertEquals($expected, $stub->data());
     }
 
     /**
@@ -115,7 +115,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $stub->with($model);
 
-        $this->assertEquals($expected, $stub->rows());
+        $this->assertEquals($expected, $stub->data());
     }
 
     /**
@@ -134,7 +134,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $stub->with($model);
 
-        $this->assertEquals($expected, $stub->rows());
+        $this->assertEquals($expected, $stub->data());
     }
 
     /**
@@ -157,7 +157,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub->paginate(25);
         $stub->with($model);
 
-        $this->assertEquals($expected, $stub->rows());
+        $this->assertEquals($expected, $stub->data());
     }
 
     /**
@@ -180,7 +180,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub->with($model);
         $stub->paginate(null);
 
-        $this->assertEquals($expected, $stub->rows());
+        $this->assertEquals($expected, $stub->data());
     }
 
     /**
@@ -197,7 +197,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $stub->with($model, false);
 
-        $stub->rows();
+        $stub->data();
     }
 
     /**
