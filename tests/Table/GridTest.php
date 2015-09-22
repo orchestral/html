@@ -33,17 +33,20 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub = new Grid($app, $config);
         $refl = new \ReflectionObject($stub);
         $empty = $refl->getProperty('empty');
-        $rows = $refl->getProperty('rows');
+        $data = $refl->getProperty('data');
+        $header = $refl->getProperty('header');
         $view = $refl->getProperty('view');
 
         $empty->setAccessible(true);
-        $rows->setAccessible(true);
+        $data->setAccessible(true);
+        $header->setAccessible(true);
         $view->setAccessible(true);
 
         $this->assertInstanceOf('\Orchestra\Html\Table\Grid', $stub);
         $this->assertEquals('No data', $empty->getValue($stub));
         $this->assertEquals('foo', $view->getValue($stub));
-        $this->assertEquals([], value($rows->getValue($stub)->attributes));
+        $this->assertEquals([], value($header->getValue($stub)));
+        $this->assertEquals([], $data->getValue($stub));
     }
 
     /**
@@ -59,15 +62,19 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub->with($mock, false);
 
         $refl = new \ReflectionObject($stub);
-        $rows = $refl->getProperty('rows');
+        $data = $refl->getProperty('data');
+        $header = $refl->getProperty('header');
         $model = $refl->getProperty('model');
         $paginate = $refl->getProperty('paginate');
 
-        $rows->setAccessible(true);
+        $data->setAccessible(true);
+        $header->setAccessible(true);
         $model->setAccessible(true);
         $paginate->setAccessible(true);
 
-        $this->assertEquals($mock, $stub->rows());
+        $this->assertEquals($mock, $stub->data());
+        $this->assertEquals($mock, $data->getValue($stub));
+        $this->assertEquals([], value($header->getValue($stub)));
         $this->assertEquals($mock, $model->getValue($stub));
         $this->assertFalse($paginate->getValue($stub));
         $this->assertTrue(isset($stub->model));

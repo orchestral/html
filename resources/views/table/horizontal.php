@@ -1,25 +1,26 @@
-<table<?php echo HTML::attributable($attributes['table'], ['class' => 'table table-striped']); ?>>
+<table<?php echo HTML::attributable($grid->attributes(), ['class' => 'table table-striped']); ?>>
     <thead>
         <tr>
-<?php foreach ($columns as $col): ?>
-            <th<?php echo HTML::attributes($col->headers ?: []); ?>><?php echo $col->label; ?></th>
-<?php endforeach; ?>
+        <?php foreach ($grid->columns() as $column): ?>
+            <th<?php echo HTML::attributes($column->headers ?: []); ?>><?php echo $column->label; ?></th>
+        <?php endforeach; ?>
         </tr>
     </thead>
     <tbody>
-<?php foreach ($rows as $row): ?>
+    <?php foreach ($grid->data() as $row): ?>
         <tr<?php echo HTML::attributes(call_user_func($attributes['row'], $row) ?: []); ?>>
-<?php foreach ($columns as $col): ?>
-            <td<?php echo HTML::attributes(call_user_func($col->attributes, $row)); ?>>
-                <?php echo $col->getValue($row); ?>
+        <?php foreach ($grid->columns() as $column): ?>
+            <td<?php echo HTML::attributes(call_user_func($column->attributes, $row)); ?>>
+                <?php echo $column->getValue($row); ?>
             </td>
-<?php endforeach; ?>
+        <?php endforeach; ?>
         </tr>
-<?php endforeach; if (! count($rows) && $empty) : ?>
+    <?php endforeach; ?>
+    <?php if (! count($grid->data()) && $empty) : ?>
         <tr class="norecords">
-            <td colspan="<?php echo count($columns); ?>"><?php echo $empty; ?></td>
+            <td colspan="<?php echo count($grid->columns()); ?>"><?php echo $empty; ?></td>
         </tr>
-<?php endif; ?>
+    <?php endif; ?>
     </tbody>
 </table>
 <?php echo $pagination ?: ''; ?>

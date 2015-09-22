@@ -1,15 +1,15 @@
-<table<?php echo HTML::attributable($attributes['table'], ['class' => 'table table-striped']); ?>>
+<table<?php echo HTML::attributable($grid->attributes(), ['class' => 'table table-striped']); ?>>
     <tbody>
-<?php foreach ($columns as $col): ?>
+    <?php foreach ($grid->columns() as $column): ?>
         <tr>
-            <th<?php echo HTML::attributes($col->headers ?: []); ?>><?php echo $col->label; ?></th>
-<?php foreach ($rows as $row): ?>
-            <td<?php echo HTML::attributes(call_user_func($col->attributes, $row)); ?>>
-                <?php echo $col->getValue($row); ?>
+            <th<?php echo HTML::attributes($column->headers ?: []); ?>><?php echo $column->label; ?></th>
+            <?php foreach ($grid->data() as $row): ?>
+            <td<?php echo HTML::attributes(call_user_func($column->attributes, $row)); ?>>
+                <?php echo $column->getValue($row); ?>
             </td>
-<?php endforeach; ?>
+            <?php endforeach; ?>
         </tr>
-<?php endforeach; ?>
+    <?php endforeach; ?>
     </tbody>
 </table>
 <?php echo $pagination ?: ''; ?>

@@ -15,7 +15,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * Control group.
@@ -29,14 +29,14 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @var \Orchestra\Contracts\Html\Form\Control
      */
-    protected $control = null;
+    protected $control;
 
     /**
      * {@inheritdoc}
      */
     protected $definition = [
         'name'    => 'controls',
-        '__call'  => ['controls', 'name'],
+        '__call'  => ['name', 'controls'],
         '__get'   => ['attributes', 'name', 'controls'],
         '__set'   => ['attributes'],
         '__isset' => ['attributes', 'name', 'controls'],
@@ -47,8 +47,8 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @param  \Illuminate\Contracts\Container\Container  $app
      * @param  array  $config
-     * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  string|\Closure  $name
+     * @param  \Closure|null  $callback
      */
     public function __construct(Container $app, array $config, $name, Closure $callback = null)
     {
@@ -76,8 +76,8 @@ class Fieldset extends BaseGrid implements FieldsetContract
     /**
      * Build basic fieldset.
      *
-     * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  string|\Closure  $name
+     * @param  \Closure|null  $callback
      *
      * @return void
      */

@@ -1,33 +1,33 @@
 <?php
 
-echo Form::open(array_merge($form, ['class' => 'form-vertical']));
+echo Form::open(array_merge($grid->attributes(), ['class' => 'form-vertical']));
 
-if ($token) echo Form::token();
+if ($token) echo csrf_field();
 
-foreach ($hiddens as $hidden) echo $hidden;
+foreach ($grid->hiddens() as $hidden) echo $hidden;
 
-foreach ($fieldsets as $fieldset) { ?>
+foreach ($grid->fieldsets() as $fieldset) : ?>
 
-    <fieldset<?php echo HTML::attributes($fieldset->attributes ?: []); ?>>
+    <fieldset<?php echo HTML::attributes($fieldset->attributes() ?: []); ?>>
 
         <?php if ($fieldset->name) : ?><legend><?php echo e($fieldset->name) ?: '' ?></legend><?php endif; ?>
 
-        <?php foreach ($fieldset->controls() as $control) { ?>
+        <?php foreach ($fieldset->controls() as $control) : ?>
 
         <div class="form-group<?php echo $errors->has($control->name) ? ' has-error' : '' ?>">
             <?php echo Form::label($control->name, $control->label); ?>
             <div>
-                <?php echo $control->getField($row, $control, []); ?>
+                <?php echo $control->getField($grid->data(), $control, []); ?>
                 <?php if ($control->inlineHelp) : ?><span class="help-inline"><?php echo $control->inlineHelp; ?></span><?php endif; ?>
                 <?php if ($control->help) : ?><p class="help-block"><?php echo $control->help; ?></p><?php endif; ?>
                 <?php echo $errors->first($control->name, $errorMessage); ?>
             </div>
         </div>
 
-        <?php } ?>
+        <?php endforeach; ?>
 
     </fieldset>
-<?php } ?>
+<?php endforeach; ?>
 
 
 <fieldset>

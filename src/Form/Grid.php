@@ -28,11 +28,11 @@ class Grid extends BaseGrid implements GridContract
     protected $hiddens = [];
 
     /**
-     * List of row in array.
+     * List of data in array.
      *
-     * @var array
+     * @var \Illuminate\Support\Fluent|null
      */
-    protected $row = null;
+    protected $data;
 
     /**
      * All the fieldsets.
@@ -46,14 +46,14 @@ class Grid extends BaseGrid implements GridContract
      *
      * @var string
      */
-    public $submit = null;
+    public $submit;
 
     /**
      * Set the no record message.
      *
      * @var string
      */
-    public $format = null;
+    public $format;
 
     /**
      * Templates collection.
@@ -67,7 +67,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @var array
      */
-    protected $view = null;
+    protected $view;
 
     /**
      * {@inheritdoc}
@@ -75,9 +75,9 @@ class Grid extends BaseGrid implements GridContract
     protected $definition = [
         'name'    => null,
         '__call'  => ['fieldsets', 'view', 'hiddens'],
-        '__get'   => ['attributes', 'row', 'view', 'hiddens'],
+        '__get'   => ['attributes'],
         '__set'   => ['attributes'],
-        '__isset' => ['attributes', 'row', 'view', 'hiddens'],
+        '__isset' => ['attributes'],
     ];
 
     /**
@@ -97,7 +97,7 @@ class Grid extends BaseGrid implements GridContract
             }
         }
 
-        $this->row = [];
+        $this->data = new Fluent();
     }
 
     /**
@@ -130,47 +130,57 @@ class Grid extends BaseGrid implements GridContract
     }
 
     /**
-     * Attach rows data instead of assigning a model.
+     * Attach data.
      *
      * <code>
      *      // assign a data
      *      $form->with(DB::table('users')->get());
      * </code>
      *
-     * @param  array|\stdClass|\Illuminate\Database\Eloquent\Model  $row
+     * @param  array|\stdClass|\Illuminate\Database\Eloquent\Model  $data
      *
      * @return mixed
      */
-    public function with($row = null)
+    public function with($data = null)
     {
-        is_array($row) && $row = new Fluent($row);
+        is_array($data) && $data = new Fluent($data);
 
-        if (! is_null($row)) {
-            $this->row = $row;
+        if (! is_null($data)) {
+            $this->data = $data;
         }
 
-        return $this->row;
+        return $this->data;
     }
 
     /**
-     * Attach rows data instead of assigning a model.
+     * Attach raw data instead of assigning a model.
      *
-     * @param  array  $row
+     * @param  array|\Illuminate\Support\Fluent|null  $data
      *
      * @return mixed
      *
-     * @see    $this->with()
+     * @see $this->with()
      */
-    public function row($row = null)
+    public function row($data = null)
     {
-        return $this->with($row);
+        return $this->with($data);
+    }
+
+    /**
+     * Get raw data.
+     *
+     * @return mixed
+     */
+    public function data()
+    {
+        return $this->data;
     }
 
     /**
      * Create a new Fieldset instance.
      *
-     * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  string|\Closure  $name
+     * @param  \Closure|null  $callback
      *
      * @return \Orchestra\Html\Form\Fieldset
      */
@@ -226,7 +236,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function hidden($name, $callback = null)
     {
-        $value = data_get($this->row, $name);
+        $value = data_get($this->data, $name);
 
         $field = new Fluent([
             'name'       => $name,
