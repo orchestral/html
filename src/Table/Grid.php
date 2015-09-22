@@ -1,5 +1,6 @@
 <?php namespace Orchestra\Html\Table;
 
+use Closure;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
 use Orchestra\Html\Grid as BaseGrid;
@@ -7,8 +8,8 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
 use Illuminate\Database\Query\Builder as QueryBuilder;
-use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
+use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class Grid extends BaseGrid implements GridContract
@@ -27,21 +28,28 @@ class Grid extends BaseGrid implements GridContract
      *
      * @var string
      */
-    public $empty = null;
+    public $empty;
 
     /**
      * Eloquent model used for table.
      *
      * @var mixed
      */
-    protected $model = null;
+    protected $model;
 
     /**
      * List of rows in array, is used when model is null.
      *
-     * @var \Illuminate\Support\Fluent
+     * @var array
      */
-    protected $rows = null;
+    protected $data = [];
+
+    /**
+     * Grid headers attributes resolver.
+     *
+     * @var \Closure|null
+     */
+    protected $header;
 
     /**
      * Enable to attach pagination during rendering.
@@ -69,7 +77,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @var array
      */
-    protected $view = null;
+    protected $view;
 
     /**
      * {@inheritdoc}
@@ -77,9 +85,9 @@ class Grid extends BaseGrid implements GridContract
     protected $definition = [
         'name'    => 'columns',
         '__call'  => ['columns', 'view'],
-        '__get'   => ['attributes', 'columns', 'model', 'paginate', 'pageName', 'view', 'rows'],
+        '__get'   => ['attributes', 'model', 'paginate', 'pageName'],
         '__set'   => ['attributes', 'pageName'],
-        '__isset' => ['attributes', 'columns', 'model', 'paginate', 'pageName', 'view'],
+        '__isset' => ['attributes', 'model', 'paginate', 'pageName'],
     ];
 
     /**
@@ -97,38 +105,9 @@ class Grid extends BaseGrid implements GridContract
             }
         }
 
-        $this->rows = new Fluent([
-            'data'       => [],
-            'attributes' => function () {
-                return [];
-            },
-        ]);
-    }
-
-    /**
-     * Attach Eloquent as row and allow pagination (if required).
-     *
-     * <code>
-     *      // add model without pagination
-     *      $table->with(User::all(), false);
-     *
-     *      // add model with pagination
-     *      $table->with(User::paginate(30), true);
-     * </code>
-     *
-     * @param  mixed  $model
-     * @param  bool   $paginate
-     *
-     * @return $this
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function with($model, $paginate = true)
-    {
-        $this->model    = $model;
-        $this->paginate = $paginate;
-
-        return $this;
+        $this->header(function () {
+            return [];
+        });
     }
 
     /**
@@ -161,6 +140,32 @@ class Grid extends BaseGrid implements GridContract
     }
 
     /**
+     * Attach Eloquent as row and allow pagination (if required).
+     *
+     * <code>
+     *      // add model without pagination
+     *      $table->with(User::all(), false);
+     *
+     *      // add model with pagination
+     *      $table->with(User::paginate(30), true);
+     * </code>
+     *
+     * @param  mixed  $model
+     * @param  bool   $paginate
+     *
+     * @return $this
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function with($model, $paginate = true)
+    {
+        $this->model    = $model;
+        $this->paginate = $paginate;
+
+        return $this;
+    }
+
+    /**
      * Get whether current setup is paginated.
      *
      * @return bool
@@ -178,19 +183,53 @@ class Grid extends BaseGrid implements GridContract
      *      $table->rows(DB::table('users')->get());
      * </code>
      *
-     * @param  array  $rows
+     * @param  array  $data
      *
      * @return array
      *
      * @throws \InvalidArgumentException
      */
-    public function rows(array $rows = null)
+    public function rows(array $data = null)
     {
-        if (is_null($rows)) {
-            return $this->query();
+        if (is_null($data)) {
+            return $this->data();
         }
 
-        return $this->setRowsData($rows);
+        return $this->setRowsData($data);
+    }
+
+    /**
+     * Get raw data.
+     *
+     * @return array
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function data()
+    {
+        if (empty($this->data)) {
+            $this->buildRowsFromModel($this->model);
+        }
+
+        return $this->data;
+    }
+
+    /**
+     * Add or append grid header attributes.
+     *
+     * @param  \Closure|null  $callback
+     *
+     * @return array|null
+     */
+    public function header(Closure $callback = null)
+    {
+        if (is_null($callback)) {
+            return $this->header;
+        }
+
+        $this->header = $callback;
+
+        return;
     }
 
     /**
@@ -408,27 +447,13 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Set rows data.
      *
-     * @param  array  $rows
+     * @param  array  $data
      *
      * @return array
      */
-    protected function setRowsData(array $rows = [])
+    protected function setRowsData(array $data = [])
     {
-        return $this->rows['data'] = $rows;
-    }
-
-    /**
-     * Get rows collection.
-     *
-     * @return array
-     */
-    protected function query()
-    {
-        if (empty($this->rows['data'])) {
-            $this->buildRowsFromModel($this->model);
-        }
-
-        return $this->rows['data'];
+        return $this->data = $data;
     }
 
     /**
