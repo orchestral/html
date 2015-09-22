@@ -43,7 +43,7 @@ abstract class Builder implements BuilderContract
      *
      * @var string
      */
-    public $name = null;
+    public $name;
 
     /**
      * Create a new Builder instance.

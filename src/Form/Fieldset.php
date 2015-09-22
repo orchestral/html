@@ -15,7 +15,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @var string
      */
-    protected $name = null;
+    protected $name;
 
     /**
      * Control group.
@@ -29,7 +29,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @var \Orchestra\Contracts\Html\Form\Control
      */
-    protected $control = null;
+    protected $control;
 
     /**
      * {@inheritdoc}

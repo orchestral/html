@@ -46,14 +46,14 @@ class Grid extends BaseGrid implements GridContract
      *
      * @var string
      */
-    public $submit = null;
+    public $submit;
 
     /**
      * Set the no record message.
      *
      * @var string
      */
-    public $format = null;
+    public $format;
 
     /**
      * Templates collection.
@@ -67,7 +67,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @var array
      */
-    protected $view = null;
+    protected $view;
 
     /**
      * {@inheritdoc}
