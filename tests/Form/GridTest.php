@@ -64,7 +64,6 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('foo', $view->getValue($stub));
 
         $this->assertEquals('foo', $stub->view());
-        $this->assertEquals('foo', $stub->view);
         $this->assertEquals(['id' => 'foo', 'class' => 'foobar'], $attributes->getValue($stub));
     }
 
@@ -80,12 +79,11 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $stub->with($mock);
 
         $refl = new \ReflectionObject($stub);
-        $row = $refl->getProperty('row');
-        $row->setAccessible(true);
+        $data = $refl->getProperty('data');
+        $data->setAccessible(true);
 
-        $this->assertEquals($mock, $row->getValue($stub));
-        $this->assertEquals($mock, $stub->row());
-        $this->assertTrue(isset($stub->row));
+        $this->assertEquals($mock, $data->getValue($stub));
+        $this->assertEquals($mock, $stub->data());
     }
 
     /**

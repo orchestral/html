@@ -36,7 +36,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      */
     protected $definition = [
         'name'    => 'controls',
-        '__call'  => ['controls', 'name'],
+        '__call'  => ['name', 'controls'],
         '__get'   => ['attributes', 'name', 'controls'],
         '__set'   => ['attributes'],
         '__isset' => ['attributes', 'name', 'controls'],
