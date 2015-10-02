@@ -5,6 +5,11 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.8 {#v3-1-8}
+
+* Set the `Orchestra\Html\Table\Grid::$model` as array by default to avoid class to throw an error when manually setting the rows.
+* Avoid rebuilding model to array when it's an empty array.
+
 ### v3.1.7 {#v3-1-7}
 
 * Don't double escape in `Orchestra\Html\Support\FormBuilder::option()`.
