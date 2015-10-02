@@ -208,7 +208,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function data()
     {
-        if (empty($this->data)) {
+        if (empty($this->data) && ! empty($this->model)) {
             $this->buildRowsFromModel($this->model);
         }
 
