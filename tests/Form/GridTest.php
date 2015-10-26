@@ -313,7 +313,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer(), []);
 
-        $listener = m::mock('\Orchestra\Html\Form\PresenterInterface');
+        $listener = m::mock('\Orchestra\Contracts\Html\Form\Presenter');
         $model = m::mock('\Illuminate\Database\Eloquent\Model');
 
         $listener->shouldReceive('handles')->once()
@@ -332,7 +332,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
     {
         $stub = new Grid($this->getContainer(), []);
 
-        $listener = m::mock('\Orchestra\Html\Form\PresenterInterface');
+        $listener = m::mock('\Orchestra\Contracts\Html\Form\Presenter');
         $model = m::mock('\Illuminate\Database\Eloquent\Model');
         $model->exists = true;
         $model->shouldReceive('getKey')->once()->andReturn(20);
