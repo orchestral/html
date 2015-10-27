@@ -3,6 +3,7 @@
 use BadMethodCallException;
 use Illuminate\Support\Str;
 use Orchestra\Support\Expression;
+use Illuminate\Contracts\Support\Htmlable;
 use Orchestra\Html\Support\HtmlBuilder as BaseHtmlBuilder;
 
 class HtmlBuilder extends BaseHtmlBuilder
@@ -39,6 +40,8 @@ class HtmlBuilder extends BaseHtmlBuilder
     {
         if ($value instanceof Expression) {
             return $value->get();
+        } elseif ($value instanceof Htmlable) {
+            return $value->toHtml();
         }
 
         return parent::entities($value);
