@@ -1,6 +1,7 @@
 <?php namespace Orchestra\Html\Table;
 
 use Illuminate\Support\Fluent;
+use Illuminate\Contracts\Support\Renderable;
 use Orchestra\Contracts\Html\Table\Column as ColumnContract;
 
 class Column extends Fluent implements ColumnContract
@@ -16,6 +17,10 @@ class Column extends Fluent implements ColumnContract
     {
         $escape = $this->get('escape', false);
         $value  = call_user_func($this->attributes['value'], $row);
+
+        if ($value instanceof Renderable) {
+            return $value->render();
+        }
 
         return ($escape === true ? e($value) : $value);
     }
