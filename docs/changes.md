@@ -5,6 +5,11 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.9 {#v3-1-9}
+
+* Allow escaping html entities when given an instance of `Illuminate\Contracts\Support\Htmlable`.
+* Allow table column value to properly handle instance of `Illuminate\Contracts\Support\Renderable`.
+
 ### v3.1.8 {#v3-1-8}
 
 * Set the `Orchestra\Html\Table\Grid::$model` as array by default to avoid class to throw an error when manually setting the rows.
