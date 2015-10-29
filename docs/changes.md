@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.10 {#v3-1-10}
+
+* Transform instance of Eloquent to Eloquent Query Builder when generating a table.
+
 ### v3.1.9 {#v3-1-9}
 
 * Allow escaping html entities when given an instance of `Illuminate\Contracts\Support\Htmlable`.
