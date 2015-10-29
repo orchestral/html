@@ -410,7 +410,7 @@ class Grid extends BaseGrid implements GridContract
     protected function buildModel($model)
     {
         if ($this->isEloquentModel($model)) {
-            $model = $model->getQuery();
+            $model = $model->newQuery();
         }
 
         if ($this->paginate === true && method_exists($model, 'paginate')) {
