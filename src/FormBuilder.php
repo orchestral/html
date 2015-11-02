@@ -1,6 +1,6 @@
 <?php namespace Orchestra\Html;
 
-use Orchestra\Html\Support\FormBuilder as BaseFormBuilder;
+use Collective\Html\FormBuilder as BaseFormBuilder;
 
 class FormBuilder extends BaseFormBuilder
 {

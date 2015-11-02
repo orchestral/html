@@ -14,13 +14,11 @@
     "autoload": {
         "psr-4": {
             "Orchestra\\Html\\" : "src/"
-        },
-        "files": [
-            "src/Support/helpers.php"
-        ]
+        }
     },
     "require": {
         "php": ">=5.5.0",
+        "laravie/html": "dev-master",
         "orchestra/support": "~3.2.0"
     },
     "require-dev": {
