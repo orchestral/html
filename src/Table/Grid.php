@@ -6,6 +6,7 @@ use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
@@ -321,7 +322,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function searchable(array $attributes, $key = 'q')
     {
-        $model = $this->resolveQueryBuilderFromModel();
+        $model = $this->resolveQueryBuilderFromModel($this->model);
 
         $value = $this->app->make('request')->input($key);
 
@@ -345,7 +346,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
     {
-        $model   = $this->resolveQueryBuilderFromModel();
+        $model   = $this->resolveQueryBuilderFromModel($this->model);
         $request = $this->app->make('request');
 
         $orderByValue   = $request->input($orderByKey);
@@ -409,17 +410,19 @@ class Grid extends BaseGrid implements GridContract
      */
     protected function buildModel($model)
     {
-        if ($this->isEloquentModel($model)) {
-            $model = $model->newQuery();
+        try {
+            $query = $this->resolveQueryBuilderFromModel($model);
+        } catch (InvalidArgumentException $e) {
+            $query = $model;
         }
 
-        if ($this->paginate === true && method_exists($model, 'paginate')) {
-            $model = $model->paginate($this->perPage, ['*'], $this->pageName);
-        } elseif ($this->isQueryBuilder($model)) {
-            $model = $model->get();
+        if ($this->paginate === true && method_exists($query, 'paginate')) {
+            $query = $query->paginate($this->perPage, ['*'], $this->pageName);
+        } elseif ($this->isQueryBuilder($query)) {
+            $query = $query->get();
         }
 
-        return $model;
+        return $query;
     }
 
     /**
@@ -462,16 +465,17 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Resolve query builder from model instance.
      *
+     * @param  mixed  $model
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      *
      * @throws \InvalidArgumentException
      */
-    protected function resolveQueryBuilderFromModel()
+    protected function resolveQueryBuilderFromModel($model)
     {
-        $model = $this->model;
-
         if ($this->isEloquentModel($model)) {
             $model = $model->newQuery();
+        } elseif ($this->isEloquentRelationModel($model)) {
+            $model = $model->getQuery();
         } elseif (! $this->isQueryBuilder($model)) {
             throw new InvalidArgumentException('Unable to load Query Builder from $model');
         }
@@ -501,5 +505,17 @@ class Grid extends BaseGrid implements GridContract
     protected function isEloquentModel($model)
     {
         return $model instanceof EloquentModel;
+    }
+
+    /**
+     * Check if given $model is a Model instance.
+     *
+     * @param mixed $model
+     *
+     * @return bool
+     */
+    protected function isEloquentRelationModel($model)
+    {
+        return $model instanceof Relation;
     }
 }
