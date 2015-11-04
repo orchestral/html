@@ -5,6 +5,12 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.11 {#v3-1-11}
+
+* Use available `laravie/html` packages for base HTML and Form builders.
+* Allow Table to be generated from relationship models.
+* Boot `Orchestra\Html\HtmlServiceProvider` when `Orchestra\Html\HtmlBuilder` or `Orchestra\Html\FormBuilder` is required to be resolved via the IoC.
+
 ### v3.1.10 {#v3-1-10}
 
 * Transform instance of Eloquent to Eloquent Query Builder when generating a table.

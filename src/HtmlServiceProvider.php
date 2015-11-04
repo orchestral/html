@@ -171,6 +171,8 @@ class HtmlServiceProvider extends ServiceProvider
             'orchestra.form',
             'orchestra.form.control',
             'orchestra.table',
+            HtmlBuilder::class,
+            FormBuilder::class,
             TemplateContract::class,
             FormControlContract::class,
         ];
