@@ -466,6 +466,7 @@ class Grid extends BaseGrid implements GridContract
      * Resolve query builder from model instance.
      *
      * @param  mixed  $model
+     *
      * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      *
      * @throws \InvalidArgumentException
