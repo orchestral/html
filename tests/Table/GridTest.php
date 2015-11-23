@@ -82,7 +82,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
     /**
      * Test Orchestra\Html\Table\Grid::with() method given a
-     * Illuminate\Pagination\Paginator instance.
+     * Illuminate\Contracts\Pagination\Paginator instance.
      *
      * @test
      */
