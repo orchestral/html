@@ -1,7 +1,7 @@
 <?php namespace Orchestra\Html;
 
 use RuntimeException;
-use Illuminate\Support\Str;
+use Orchestra\Support\Str;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
 use Illuminate\Contracts\Container\Container;
@@ -187,7 +187,7 @@ abstract class Grid
             $callback = null;
         } else {
             $name  = Str::lower($name);
-            $label = Str::title($name);
+            $label = Str::humanize($name);
         }
 
         return [$label, $name, $callback];
