@@ -26,8 +26,7 @@
     },
     "require-dev": {
         "mockery/mockery": "^0.9.1",
-        "illuminate/database": "~5.2.0",
-        "illuminate/pagination": "~5.2.0"
+        "illuminate/database": "~5.2.0"
     },
     "suggest": {
         "laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform (~5.2).",

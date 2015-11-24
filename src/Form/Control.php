@@ -145,7 +145,7 @@ class Control implements ControlContract
         $data->options($this->getOptionList($row, $control));
         $data->checked($control->get('checked'));
 
-        $data->attributes($html->decorate($control->attributes, Arr::get($templates, $method)));
+        $data->attributes($html->decorate($control->attributes, Arr::get($templates, $method, [])));
 
         return $data;
     }
@@ -230,15 +230,15 @@ class Control implements ControlContract
      */
     protected function resolveFieldType($value, Fluent $data)
     {
-        $filterable = array_keys($this->templates);
+        $filterable = in_array($value, array_keys($this->templates)) || method_exists($this->presenter, $value);
 
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
-        } elseif (! in_array($value, $filterable)) {
+        } elseif (! $filterable) {
             $value = 'text';
         }
 
-        if (in_array($value, $filterable)) {
+        if (!! $filterable) {
             $data->method($value);
         } else {
             $data->method('input')->type($value);

@@ -47,10 +47,11 @@ return [
     */
 
     'templates' => [
-        'input'    => ['class' => 'twelve columns input-with-feedback'],
-        'password' => ['class' => 'twelve columns input-with-feedback'],
-        'select'   => ['class' => 'twelve columns input-with-feedback'],
-        'textarea' => ['class' => 'twelve columns input-with-feedback'],
+        'input'      => ['class' => 'twelve columns input-with-feedback'],
+        'password'   => ['class' => 'twelve columns input-with-feedback'],
+        'select'     => ['class' => 'twelve columns input-with-feedback'],
+        'textarea'   => ['class' => 'twelve columns input-with-feedback'],
+        'checkboxes' => [],
     ],
 
     /*
