@@ -19,7 +19,6 @@
     "require": {
         "php": ">=5.5.0",
         "laravie/html": "~5.2.0",
-        "illuminate/http": "~5.2.0",
         "illuminate/translation": "~5.2.0",
         "orchestra/contracts": "~3.2.0",
         "orchestra/support": "~3.2.0"
