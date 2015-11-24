@@ -8,7 +8,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * Application instance.
      *
-     * @var \Illuminate\Routing\UrlGenerator
+     * @var \Illuminate\Contracts\Routing\UrlGenerator
      */
     private $url = null;
 
@@ -17,7 +17,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->url = m::mock('\Illuminate\Routing\UrlGenerator');
+        $this->url = m::mock('\Illuminate\Contracts\Routing\UrlGenerator');
     }
 
     /**
