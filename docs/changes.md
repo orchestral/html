@@ -5,6 +5,12 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.12 {#v3-1-12}
+
+* Parse form type if `Orchestra\Html\Form\` (or assigned presenter) has the method.
+* Add `orchestra/html::form.templates.checkboxes` default config.
+* Use `Orchestra\Support\Str::humanize()` to parse proper label from model attributes.
+
 ### v3.1.11 {#v3-1-11}
 
 * Use available `laravie/html` packages for base HTML and Form builders.
