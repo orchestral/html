@@ -7,7 +7,7 @@ title: HTML Change Log
 
 ### v3.1.12 {#v3-1-12}
 
-* Parse form type if `Orchestra\Html\Form\` (or assigned presenter) has the method.
+* Parse form type if `Orchestra\Contracts\Html\Form\Template` (or assigned presenter) has the method.
 * Add `orchestra/html::form.templates.checkboxes` default config.
 * Use `Orchestra\Support\Str::humanize()` to parse proper label from model attributes.
 
