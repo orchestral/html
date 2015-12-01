@@ -230,18 +230,16 @@ class Control implements ControlContract
      */
     protected function resolveFieldType($value, Fluent $data)
     {
-        $filterable = in_array($value, array_keys($this->templates)) || method_exists($this->presenter, $value);
-
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
-        } elseif (! $filterable) {
-            $value = 'text';
         }
+
+        $filterable = in_array($value, array_keys($this->templates)) || method_exists($this->presenter, $value);
 
         if (!! $filterable) {
             $data->method($value);
         } else {
-            $data->method('input')->type($value);
+            $data->method('input')->type($value ?: 'text');
         }
 
         return $data;
