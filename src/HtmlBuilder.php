@@ -1,8 +1,6 @@
 <?php namespace Orchestra\Html;
 
-use BadMethodCallException;
 use Illuminate\Support\Str;
-use Orchestra\Support\Expression;
 use Illuminate\Contracts\Support\Htmlable;
 use Collective\Html\HtmlBuilder as BaseHtmlBuilder;
 
