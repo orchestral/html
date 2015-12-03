@@ -45,7 +45,7 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerHtmlBuilder()
     {
         $this->app->singleton('html', function (Application $app) {
-            return new HtmlBuilder($app->make('url'));
+            return new HtmlBuilder($app->make('url'), $app->make('view'));
         });
     }
 
@@ -57,7 +57,7 @@ class HtmlServiceProvider extends ServiceProvider
     protected function registerFormBuilder()
     {
         $this->app->singleton('form', function (Application $app) {
-            $form = new FormBuilder($app->make('html'), $app->make('url'));
+            $form = new FormBuilder($app->make('html'), $app->make('url'), $app->make('view'));
 
             return $form->setSessionStore($app->make('session.store'));
         });
