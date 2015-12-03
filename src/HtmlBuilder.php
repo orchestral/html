@@ -1,8 +1,6 @@
 <?php namespace Orchestra\Html;
 
-use BadMethodCallException;
 use Illuminate\Support\Str;
-use Orchestra\Support\Expression;
 use Illuminate\Contracts\Support\Htmlable;
 use Collective\Html\HtmlBuilder as BaseHtmlBuilder;
 
@@ -30,7 +28,7 @@ class HtmlBuilder extends BaseHtmlBuilder
             $content .= $this->entities($value).'</'.$tag.'>';
         }
 
-        return $this->raw($content);
+        return $this->toHtmlString($content);
     }
 
     /**
@@ -54,7 +52,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      */
     public function raw($value)
     {
-        return new Expression($value);
+        return $this->toHtmlString($value);
     }
 
     /**
@@ -120,60 +118,23 @@ class HtmlBuilder extends BaseHtmlBuilder
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function image($url, $alt = null, $attributes = [], $secure = null)
-    {
-        return $this->raw(parent::image($url, $alt, $attributes, $secure));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function link($url, $title = null, $attributes = [], $secure = null)
-    {
-        return $this->raw(parent::link($url, $title, $attributes, $secure));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function mailto($email, $title = null, $attributes = [])
-    {
-        return $this->raw(parent::mailto($email, $title, $attributes));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function listing($type, $list, $attributes = [])
-    {
-        return $this->raw(parent::listing($type, $list, $attributes));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function listingElement($key, $type, $value)
-    {
-        return $this->raw(parent::listingElement($key, $type, $value));
-    }
-
-    /**
-     * {@inheritdoc}
+     * Dynamically handle calls to the class.
+     *
+     * @param  string $method
+     * @param  array  $parameters
+     *
+     * @return \Illuminate\Contracts\View\View|mixed
+     *
+     * @throws \BadMethodCallException
      */
     public function __call($method, $parameters)
     {
-        if (! static::hasMacro($method)) {
-            throw new BadMethodCallException("Method {$method} does not exist.");
+        if (static::hasComponent($method)) {
+            $value = $this->renderComponent($method, $parameters);
+        } else {
+            $value = $this->macroCall($method, $parameters);
         }
 
-        $value = call_user_func_array(static::$macros[$method], $parameters);
-
-        if (is_string($value)) {
-            return $this->raw($value);
-        }
-
-        return $value;
+        return is_string($value) ? $this->toHtmlString($value) : $value;
     }
 }

@@ -6,11 +6,18 @@ use Orchestra\Html\HtmlBuilder;
 class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Application instance.
+     * UrlGenerator instance.
      *
      * @var \Illuminate\Contracts\Routing\UrlGenerator
      */
-    private $url = null;
+    private $url;
+
+    /**
+     * View Factory instance.
+     *
+     * @var \Illuminate\Contracts\View\Factory
+     */
+    private $view;
 
     /**
      * Setup the test environment.
@@ -18,6 +25,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->url = m::mock('\Illuminate\Contracts\Routing\UrlGenerator');
+        $this->view = m::mock('\Illuminate\Contracts\View\Factory');
     }
 
     /**
@@ -35,7 +43,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateWithContent()
     {
-        $stub = new HtmlBuilder($this->url);
+        $stub = new HtmlBuilder($this->url, $this->view);
         $expected = '<div class="foo">Bar</div>';
         $output = $stub->create('div', 'Bar', ['class' => 'foo']);
 
@@ -49,7 +57,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateWithoutContent()
     {
-        $stub = new HtmlBuilder($this->url);
+        $stub = new HtmlBuilder($this->url, $this->view);
         $expected = '<img src="hello.jpg" class="foo">';
         $output = $stub->create('img', [
             'src' => 'hello.jpg',
@@ -74,7 +82,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testEntitiesMethod()
     {
-        $stub = new HtmlBuilder($this->url);
+        $stub = new HtmlBuilder($this->url, $this->view);
         $output = $stub->raw('<img src="foo.jpg">');
 
         $this->assertEquals('<img src="foo.jpg">', $stub->entities($output));
@@ -90,8 +98,8 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testRawExpressionMethod()
     {
-        $stub = new HtmlBuilder($this->url);
-        $this->assertInstanceOf('\Orchestra\Support\Expression', $stub->raw('hello'));
+        $stub = new HtmlBuilder($this->url, $this->view);
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $stub->raw('hello'));
     }
 
     /**
@@ -101,7 +109,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testDecorateMethod()
     {
-        $stub = new HtmlBuilder($this->url);
+        $stub = new HtmlBuilder($this->url, $this->view);
 
         $output = $stub->decorate(['class' => 'span4 table'], ['id' => 'foobar']);
         $expected = ['id' => 'foobar', 'class' => 'span4 table'];
@@ -129,7 +137,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
         $url->shouldReceive('asset')->once()->with('foo.png', false)->andReturn('foo.png')
             ->shouldReceive('to')->once()->with('foo', m::type('Array'), '')->andReturn('foo');
 
-        $stub = new HtmlBuilder($url);
+        $stub = new HtmlBuilder($url, $this->view);
         $stub->macro('foo', function () {
             return 'foo';
         });
@@ -145,11 +153,11 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
         $foo = $stub->foo();
         $foobar = $stub->foobar();
 
-        $this->assertInstanceOf('\Orchestra\Support\Expression', $image);
-        $this->assertInstanceOf('\Orchestra\Support\Expression', $link);
-        $this->assertInstanceOf('\Orchestra\Support\Expression', $mailto);
-        $this->assertInstanceOf('\Orchestra\Support\Expression', $ul);
-        $this->assertInstanceOf('\Orchestra\Support\Expression', $foo);
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $image);
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $link);
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $mailto);
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $ul);
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $foo);
         $this->assertInstanceOf('\Illuminate\Support\Fluent', $foobar);
     }
 
@@ -161,8 +169,8 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicCallMethodPersistWhenItShouldnt()
     {
-        $this->assertInstanceOf('\Orchestra\Support\Expression', with(new HtmlBuilder($this->url))->foo());
-        $this->assertInstanceOf('\Illuminate\Support\Fluent', with(new HtmlBuilder($this->url))->foobar());
+        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', with(new HtmlBuilder($this->url, $this->view))->foo());
+        $this->assertInstanceOf('\Illuminate\Support\Fluent', with(new HtmlBuilder($this->url, $this->view))->foobar());
     }
 
     /**
@@ -172,6 +180,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicCallMethodThrowsException()
     {
-        with(new HtmlBuilder($this->url))->missing();
+        with(new HtmlBuilder($this->url, $this->view))->missing();
     }
 }
