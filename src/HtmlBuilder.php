@@ -116,25 +116,4 @@ class HtmlBuilder extends BaseHtmlBuilder
 
         return implode(' ', array_diff($current, $excludes));
     }
-
-    /**
-     * Dynamically handle calls to the class.
-     *
-     * @param  string $method
-     * @param  array  $parameters
-     *
-     * @return \Illuminate\Contracts\View\View|mixed
-     *
-     * @throws \BadMethodCallException
-     */
-    public function __call($method, $parameters)
-    {
-        if (static::hasComponent($method)) {
-            $value = $this->renderComponent($method, $parameters);
-        } else {
-            $value = $this->macroCall($method, $parameters);
-        }
-
-        return is_string($value) ? $this->toHtmlString($value) : $value;
-    }
 }

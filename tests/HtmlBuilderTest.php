@@ -157,8 +157,9 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $link);
         $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $mailto);
         $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $ul);
-        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', $foo);
         $this->assertInstanceOf('\Illuminate\Support\Fluent', $foobar);
+
+        $this->assertEquals('foo', $foo);
     }
 
     /**
@@ -169,7 +170,6 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
      */
     public function testMagicCallMethodPersistWhenItShouldnt()
     {
-        $this->assertInstanceOf('\Illuminate\Contracts\Support\Htmlable', with(new HtmlBuilder($this->url, $this->view))->foo());
         $this->assertInstanceOf('\Illuminate\Support\Fluent', with(new HtmlBuilder($this->url, $this->view))->foobar());
     }
 
