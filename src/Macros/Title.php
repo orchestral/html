@@ -2,7 +2,7 @@
 
 use Orchestra\Support\Str;
 use Orchestra\Html\HtmlBuilder;
-use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Pagination\Paginator;
 
 class Title
 {
