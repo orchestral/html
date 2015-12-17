@@ -300,7 +300,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function paginate($perPage)
     {
-        if (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]])) {
+        if (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) && ! is_bool($perPage)) {
             $this->perPage  = $perPage;
             $this->paginate = true;
         } elseif (filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
@@ -310,8 +310,6 @@ class Grid extends BaseGrid implements GridContract
             $this->perPage  = null;
             $this->paginate = false;
         }
-
-        return $this;
 
         return $this;
     }
