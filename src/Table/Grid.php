@@ -322,9 +322,11 @@ class Grid extends BaseGrid implements GridContract
      */
     public function searchable(array $attributes, $key = 'q')
     {
-        $model = $this->resolveQueryBuilderFromModel($this->model);
+        $model   = $this->resolveQueryBuilderFromModel($this->model);
+        $request = $this->app->make('request');
+        $value   = $request->input($key);
 
-        $value = $this->app->make('request')->input($key);
+        $request->merge(["{$key}" => rawurlencode($value)]);
 
         $this->set('search', [
             'attributes' => $attributes,
