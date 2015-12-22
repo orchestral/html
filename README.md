@@ -18,7 +18,7 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
-* [Change Log](http://orchestraplatform.com/docs/latest/components/html/changes#v3-1)
+* [Change Log](http://orchestraplatform.com/docs/latest/components/html/changes#v3-2)
 
 ## Version Compatibility
 
@@ -29,7 +29,7 @@ Laravel    | HTML
  4.2.x     | 2.2.x
  5.0.x     | 3.0.x
  5.1.x     | 3.1.x
- 5.2.x     | 3.2.x@dev
+ 5.2.x     | 3.2.x
 
 ## Installation
 

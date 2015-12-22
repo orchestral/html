@@ -372,7 +372,8 @@ class GridTest extends \PHPUnit_Framework_TestCase
 
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
-        $request->shouldReceive('input')->once()->with('q')->andReturn('orchestra*');
+        $request->shouldReceive('input')->once()->with('q')->andReturn('orchestra*')
+            ->shouldReceive('merge')->once()->with(m::type('Array'))->andReturnNull();
 
         $stub = m::mock('\Orchestra\Html\Table\Grid[setupWildcardQueryFilter]', [$app, []])
                     ->shouldAllowMockingProtectedMethods();

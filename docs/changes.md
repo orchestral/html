@@ -3,7 +3,38 @@ title: HTML Change Log
 
 ---
 
+## Version 3.2 {#v3-2}
+
+### v3.2.0 {#v3-2-0}
+
+* Update support for Laravel Framework v5.2.
+* Improved performances by reducing call within `Illuminate\Container\Container`.
+* Add a new `Orchestra\Html\Grid::find()` contracts and implements it on:
+  - `Orchestra\Html\Form\Fieldset`.
+  - `Orchestra\Html\Table\Grid`.
+* Add support for Laravel 5 Config.
+* Allow inserting just the basic Eloquent model into the `Orchestra\Html\Table\Grid::with()` method.
+* Add `Orchestra\Html\HtmlBuilder::attributable()` method.
+* Set the `Orchestra\Html\Table\Grid::$model` as array by default to avoid class to throw an error when manually setting the rows.
+* Avoid rebuilding model to array when it's an empty array.
+* Transform instance of Eloquent to Eloquent Query Builder when generating a table.
+* Use available `laravie/html` packages for base HTML and Form builders.
+* Allow Table to be generated from relationship models.
+* Boot `Orchestra\Html\HtmlServiceProvider` when `Orchestra\Html\HtmlBuilder` or `Orchestra\Html\FormBuilder` is required to be resolved via the IoC.
+* Parse form type if `Orchestra\Contracts\Html\Form\Template` (or assigned presenter) has the method.
+* Add `orchestra/html::form.templates.checkboxes` default config.
+* Use `Orchestra\Support\Str::humanize()` to parse proper label from model attributes.
+* Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
+
 ## Version 3.1 {#v3-1}
+
+### v3.1.15 {#v3-1-15}
+
+* Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
+
+### v3.1.14 {#v3-1-14}
+
+* Fixes `Orchestra\Html\Table\Grid::paginate(1)` to evaluate the value as `integer` instead of `boolean`. ([@stevebauman](https://github.com/stevebauman)).
 
 ### v3.1.13 {#v3-1-13}
 
