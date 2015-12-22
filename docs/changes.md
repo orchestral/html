@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.15 {#v3-1-15}
+
+* Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
+
 ### v3.1.14 {#v3-1-14}
 
 * Fixes `Orchestra\Html\Table\Grid::paginate(1)` to evaluate the value as `integer` instead of `boolean`. ([stevebauman](https://github.com/stevebauman)).
