@@ -39,7 +39,6 @@ class FormBuilderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf('\Orchestra\Html\Form\FormBuilder', $stub);
         $this->assertInstanceOf('\Orchestra\Html\Builder', $stub);
-        $this->assertInstanceOf('\Illuminate\Contracts\Support\Renderable', $stub);
 
         $this->assertNull($name->getValue($stub));
         $this->assertNull($stub->name);
