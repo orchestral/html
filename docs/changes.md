@@ -5,6 +5,11 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.16 {#v3-1-16}
+
+* Normalize field name as id to allow validation to be populated properly.
+* `Orchestra\Html\Form\FormBuilder` and `Orchestra\Html\Table\TableBuilder` no longer implements `Illuminate\Contracts\Support\Renderable` contract.
+
 ### v3.1.15 {#v3-1-15}
 
 * Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
