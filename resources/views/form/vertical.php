@@ -14,13 +14,13 @@ foreach ($grid->fieldsets() as $fieldset) : ?>
 
         <?php foreach ($fieldset->controls() as $control) : ?>
 
-        <div class="form-group<?php echo $errors->has($control->name) ? ' has-error' : '' ?>">
+        <div class="form-group<?php echo $errors->has($control->id) ? ' has-error' : '' ?>">
             <?php echo Form::label($control->name, $control->label); ?>
             <div>
                 <?php echo $control->getField($grid->data(), $control, []); ?>
                 <?php if ($control->inlineHelp) : ?><span class="help-inline"><?php echo $control->inlineHelp; ?></span><?php endif; ?>
                 <?php if ($control->help) : ?><p class="help-block"><?php echo $control->help; ?></p><?php endif; ?>
-                <?php echo $errors->first($control->name, $errorMessage); ?>
+                <?php echo $errors->first($control->id, $errorMessage); ?>
             </div>
         </div>
 
