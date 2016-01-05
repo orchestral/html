@@ -246,7 +246,14 @@ abstract class Grid
     {
         if (! in_array($key, $this->definition['__set'])) {
             throw new InvalidArgumentException("Unable to use __set for [{$key}].");
-        } elseif (! is_array($parameters)) {
+        }
+
+        if ($key !== 'attributes') {
+            $this->{$key} = $parameters;
+            return;
+        }
+
+        if (! is_array($parameters)) {
             throw new InvalidArgumentException('Require values to be an array.');
         }
 
