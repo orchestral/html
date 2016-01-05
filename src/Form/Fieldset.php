@@ -166,7 +166,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
         $control = new Field([
-            'id'         => $name,
+            'id'         => preg_replace('/(.+)\[\]/', '$1', $name),
             'name'       => $name,
             'value'      => null,
             'label'      => $label,

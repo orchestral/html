@@ -5,6 +5,11 @@ title: HTML Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.1 {#v3-2-1}
+
+* Normalize field name as id to allow validation to be populated properly.
+* `Orchestra\Html\Form\FormBuilder` and `Orchestra\Html\Table\TableBuilder` no longer implements `Illuminate\Contracts\Support\Renderable` contract.
+
 ### v3.2.0 {#v3-2-0}
 
 * Update support for Laravel Framework v5.2.
@@ -27,6 +32,11 @@ title: HTML Change Log
 * Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
 
 ## Version 3.1 {#v3-1}
+
+### v3.1.16 {#v3-1-16}
+
+* Normalize field name as id to allow validation to be populated properly.
+* `Orchestra\Html\Form\FormBuilder` and `Orchestra\Html\Table\TableBuilder` no longer implements `Illuminate\Contracts\Support\Renderable` contract.
 
 ### v3.1.15 {#v3-1-15}
 

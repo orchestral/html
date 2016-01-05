@@ -22,12 +22,12 @@ class GridTest extends \PHPUnit_Framework_TestCase
     private function getFieldsetTemplates()
     {
         return [
-            'select' => [],
+            'select'   => [],
             'textarea' => [],
-            'input' => [],
+            'input'    => [],
             'password' => [],
-            'file' => [],
-            'radio' => [],
+            'file'     => [],
+            'radio'    => [],
         ];
     }
 
@@ -41,9 +41,9 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $app = new Container();
 
         $config = [
-            'submit' => 'Submit',
+            'submit'     => 'Submit',
             'attributes' => ['id' => 'foo'],
-            'view' => 'foo',
+            'view'       => 'foo',
         ];
 
         $stub = new Grid($app, $config);
@@ -196,7 +196,7 @@ class GridTest extends \PHPUnit_Framework_TestCase
                 ->with('foobar', 'stubbed', m::any())->andReturn('hidden_foobar');
 
         $stub->with(new \Illuminate\Support\Fluent([
-            'foo' => 'foobar',
+            'foo'    => 'foobar',
             'foobar' => 'foo',
         ]));
 
