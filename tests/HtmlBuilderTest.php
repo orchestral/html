@@ -60,7 +60,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
         $stub = new HtmlBuilder($this->url, $this->view);
         $expected = '<img src="hello.jpg" class="foo">';
         $output = $stub->create('img', [
-            'src' => 'hello.jpg',
+            'src'   => 'hello.jpg',
             'class' => 'foo',
         ]);
 
@@ -68,7 +68,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
 
         $expected = '<img src="hello.jpg" class="foo">';
         $output = $stub->create('img', null, [
-            'src' => 'hello.jpg',
+            'src'   => 'hello.jpg',
             'class' => 'foo',
         ]);
 
