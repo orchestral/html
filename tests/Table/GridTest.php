@@ -480,6 +480,31 @@ class GridTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['id' => 'foobar', 'class' => 'foo'], $stub->attributes());
     }
 
+
+
+    /**
+     * Test Orchestra\Html\Table\Grid magic method definitions.
+     *
+     * @test
+     */
+    public function testMagicMethodDefinitions()
+    {
+        $app = new Container();
+
+        $stub = new Grid($app, []);
+        $refl = new \ReflectionObject($stub);
+        $pageName = $refl->getProperty('pageName');
+
+        $pageName->setAccessible(true);
+
+        $this->assertEquals('page', $pageName->getValue($stub));
+
+        $stub->pageName = 'foo';
+
+        $this->assertEquals('foo', $pageName->getValue($stub));
+        $this->assertEquals('foo', $stub->pageName);
+    }
+
     /**
      * Test Orchestra\Html\Table\Grid magic method __call() throws
      * exception.
