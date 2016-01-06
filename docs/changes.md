@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.2 {#v3-2-2}
+
+* Allow to set page name property using the setter for `Orchestra\Html\Table\Grid::$pageName`.
+
 ### v3.2.1 {#v3-2-1}
 
 * Normalize field name as id to allow validation to be populated properly.
@@ -32,6 +36,10 @@ title: HTML Change Log
 * Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
 
 ## Version 3.1 {#v3-1}
+
+### v3.1.17 {#v3-1-17}
+
+* Allow to set page name property using the setter for `Orchestra\Html\Table\Grid::$pageName`.
 
 ### v3.1.16 {#v3-1-16}
 
