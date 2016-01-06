@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.17 {#v3-1-17}
+
+* Allow to set page name property using the setter for `Orchestra\Html\Table\Grid::$pageName`.
+
 ### v3.1.16 {#v3-1-16}
 
 * Normalize field name as id to allow validation to be populated properly.
