@@ -6,12 +6,12 @@ use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
 use Orchestra\Support\Traits\QueryFilterTrait;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class Grid extends BaseGrid implements GridContract
 {
@@ -446,7 +446,7 @@ class Grid extends BaseGrid implements GridContract
         if ($model instanceof Paginator) {
             $this->setRowsData($model->items());
             $this->paginate = true;
-        } elseif ($model instanceof Collection) {
+        } elseif ($model instanceof EloquentCollection) {
             $this->setRowsData($model->all());
         } elseif ($model instanceof Arrayable) {
             $this->setRowsData($model->toArray());
