@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.3 {#v3-2-3}
+
+* Allow data to be retrieved from Eloquent collections for type hinting on `Orchestra\Html\Table\Grid`. ([@stevebauman](https://github.com/stevebauman))
+
 ### v3.2.2 {#v3-2-2}
 
 * Allow to set page name property using the setter for `Orchestra\Html\Table\Grid::$pageName`.
