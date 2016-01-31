@@ -5,7 +5,7 @@ title: HTML Change Log
 
 ## Version 3.2 {#v3-2}
 
-### v3.2.3@dev {#v3-2-3}
+### v3.2.3 {#v3-2-3}
 
 * Allow data to be retrieved from Eloquent collections for type hinting on `Orchestra\Html\Table\Grid`. ([@stevebauman](https://github.com/stevebauman))
 
