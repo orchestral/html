@@ -31,6 +31,6 @@ class Factory extends BaseFactory implements FactoryContract
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->app->make('form'), $method], $parameters);
+        return call_user_func([$this->app->make('form'), $method], ...$parameters);
     }
 }
