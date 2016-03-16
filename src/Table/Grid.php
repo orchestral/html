@@ -3,9 +3,9 @@
 use Closure;
 use InvalidArgumentException;
 use Orchestra\Html\Grid as BaseGrid;
+use Orchestra\Support\Traits\QueryFilter;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Pagination\Paginator;
-use Orchestra\Support\Traits\QueryFilterTrait;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Model as EloquentModel;
@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class Grid extends BaseGrid implements GridContract
 {
-    use QueryFilterTrait;
+    use QueryFilter;
 
     /**
      * All the columns.
