@@ -399,7 +399,7 @@ class Grid extends BaseGrid implements GridContract
         ]);
 
         if (is_callable($callback)) {
-            call_user_func($callback, $column);
+            $callback($column);
         }
 
         return [$name, $column];

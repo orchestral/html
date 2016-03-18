@@ -111,7 +111,7 @@ abstract class Grid
         $id = $this->keyMap[$name];
 
         if (is_callable($callback)) {
-            call_user_func($callback, $this->{$type}[$id]);
+            $callback($this->{$type}[$id]);
         }
 
         return $this->{$type}[$id];

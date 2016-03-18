@@ -245,7 +245,7 @@ class Grid extends BaseGrid implements GridContract
         ]);
 
         if ($callback instanceof Closure) {
-            call_user_func($callback, $field);
+            $callback($field);
         }
 
         $this->hiddens[$name] = $this->app->make('form')->hidden($name, $field->get('value'), $field->get('attributes'));
