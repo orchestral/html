@@ -16,7 +16,7 @@ class Column extends Fluent implements ColumnContract
     public function getValue($row)
     {
         $escape = $this->get('escape', false);
-        $value  = call_user_func($this->attributes['value'], $row);
+        $value  = $this->attributes['value']($row);
 
         if ($value instanceof Renderable) {
             return $value->render();

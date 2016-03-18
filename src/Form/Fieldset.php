@@ -90,7 +90,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
 
         ! empty($name) && $this->legend($name);
 
-        call_user_func($callback, $this);
+        $callback($this);
     }
 
     /**
@@ -176,7 +176,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
             'field'      => null,
         ]);
 
-        is_callable($callback) && call_user_func($callback, $control);
+        is_callable($callback) && $callback($control);
 
         return [$name, $control];
     }

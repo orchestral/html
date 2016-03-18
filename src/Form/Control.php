@@ -192,7 +192,7 @@ class Control implements ControlContract
         $options = $control->get('options');
 
         if ($options instanceof Closure) {
-            $options = call_user_func($options, $row, $control);
+            $options = $options($row, $control);
         }
 
         return $options;
@@ -217,7 +217,7 @@ class Control implements ControlContract
             throw new InvalidArgumentException("Form template for [{$method}] is not available.");
         }
 
-        return call_user_func($template, $field);
+        return $template($field);
     }
 
     /**
