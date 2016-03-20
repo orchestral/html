@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html;
+<?php
+
+namespace Orchestra\Html;
 
 use Closure;
 use Illuminate\Http\Request;

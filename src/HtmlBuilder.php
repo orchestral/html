@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html;
+<?php
+
+namespace Orchestra\Html;
 
 use Illuminate\Support\Str;
 use Illuminate\Contracts\Support\Htmlable;

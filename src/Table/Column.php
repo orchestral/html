@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html\Table;
+<?php
+
+namespace Orchestra\Html\Table;
 
 use Illuminate\Support\Fluent;
 use Illuminate\Contracts\Support\Renderable;

@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html\Macros;
+<?php
+
+namespace Orchestra\Html\Macros;
 
 use Orchestra\Support\Str;
 use Orchestra\Html\HtmlBuilder;

@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html;
+<?php
+
+namespace Orchestra\Html;
 
 use Orchestra\Html\Form\Control;
 use Orchestra\Html\Form\Factory as FormFactory;

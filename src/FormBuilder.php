@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html;
+<?php
+
+namespace Orchestra\Html;
 
 use Collective\Html\FormBuilder as BaseFormBuilder;
 

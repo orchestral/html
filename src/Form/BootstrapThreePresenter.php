@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html\Form;
+<?php
+
+namespace Orchestra\Html\Form;
 
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Arrayable;

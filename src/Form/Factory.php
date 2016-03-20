@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html\Form;
+<?php
+
+namespace Orchestra\Html\Form;
 
 use Closure;
 use Orchestra\Html\Factory as BaseFactory;
