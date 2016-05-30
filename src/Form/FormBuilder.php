@@ -3,6 +3,7 @@
 namespace Orchestra\Html\Form;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\HtmlString;
 use Illuminate\Translation\Translator;
 use Orchestra\Html\Builder as BaseBuilder;
 use Illuminate\Contracts\View\Factory as View;
@@ -42,6 +43,8 @@ class FormBuilder extends BaseBuilder implements BuilderContract
             'hiddens'   => $grid->hiddens(),
         ];
 
-        return $this->view->make($grid->view())->with($data)->render();
+        $view = $this->view->make($grid->view())->with($data)
+
+        return new HtmlString($view->render());
     }
 }

@@ -4,6 +4,7 @@ namespace Orchestra\Html\Table;
 
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\HtmlString;
 use Illuminate\Translation\Translator;
 use Orchestra\Html\Builder as BaseBuilder;
 use Illuminate\Contracts\View\Factory as View;
@@ -53,6 +54,8 @@ class TableBuilder extends BaseBuilder implements BuilderContract
         ];
 
         // Build the view and render it.
-        return $this->view->make($grid->view())->with($data)->render();
+        $view = $this->view->make($grid->view())->with($data);
+
+        return new HtmlString($view->render());
     }
 }
