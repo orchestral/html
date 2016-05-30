@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Translation\Translator;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\Factory as View;
 use Orchestra\Contracts\Html\Grid as GridContract;
 use Orchestra\Contracts\Html\Builder as BuilderContract;
@@ -99,6 +100,12 @@ abstract class Builder implements BuilderContract
      */
     public function __toString()
     {
-        return $this->render();
+        $render = $this->render();
+
+        if ($render instanceof Htmlable) {
+            return $render->toHtml();
+        }
+
+        return $render;
     }
 }
