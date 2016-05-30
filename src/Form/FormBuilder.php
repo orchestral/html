@@ -43,7 +43,7 @@ class FormBuilder extends BaseBuilder implements BuilderContract
             'hiddens'   => $grid->hiddens(),
         ];
 
-        $view = $this->view->make($grid->view())->with($data)
+        $view = $this->view->make($grid->view())->with($data);
 
         return new HtmlString($view->render());
     }
