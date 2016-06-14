@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html\Table\TestCase;
+<?php
+
+namespace Orchestra\Html\TestCase\Table;
 
 use Mockery as m;
 use Illuminate\Support\Fluent;
