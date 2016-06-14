@@ -3,6 +3,18 @@ title: HTML Change Log
 
 ---
 
+## Version 3.3 {#v3-3}
+
+### v3.3.0 {#v3-3-0}
+
+* Update support for Laravel Framework v5.3.
+* Normalize field name as id to allow validation to be populated properly.
+* `Orchestra\Html\Form\FormBuilder` and `Orchestra\Html\Table\TableBuilder` no longer implements `Illuminate\Contracts\Support\Renderable` contract.
+* Allow to set page name property using the setter for `Orchestra\Html\Table\Grid::$pageName`.
+* Allow data to be retrieved from Eloquent collections for type hinting on `Orchestra\Html\Table\Grid`. ([@stevebauman](https://github.com/stevebauman))
+* `Orchestra\Html\Form\FormBuilder` and `Orchestra\Html\Table\TableBuilder` implements `Illuminate\Contracts\Support\Htmlable` contract.
+* Remove deprecated views attributes for `Orchestra\Html\Form\FormBuilder` and `Orchestra\Html\Table\TableBuilder`.
+
 ## Version 3.2 {#v3-2}
 
 ### v3.2.3 {#v3-2-3}

@@ -30,18 +30,14 @@ class FormBuilder extends BaseBuilder implements BuilderContract
         $grid = $this->grid;
 
         $data = [
-            'grid'      => $grid,
-            'format'    => $grid->format,
-            'submit'    => $this->translator->get($grid->submit),
-            'token'     => $grid->token,
-
-            /* @deprecated 3.1.x */
-            'form'      => $grid->attributes(),
-            'fieldsets' => $grid->fieldsets(),
-            'row'       => $grid->data(),
-            'hiddens'   => $grid->hiddens(),
+            'grid'   => $grid,
+            'format' => $grid->format,
+            'submit' => $this->translator->get($grid->submit),
+            'token'  => $grid->token,
         ];
 
-        return $this->view->make($grid->view())->with($data)->render();
+        $view = $this->view->make($grid->view())->with($data);
+
+        return $view->render();
     }
 }

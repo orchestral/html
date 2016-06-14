@@ -1,4 +1,6 @@
-<?php namespace Orchestra\Html\TestCase;
+<?php
+
+namespace Orchestra\Html\TestCase;
 
 use Orchestra\Html\Grid;
 use Illuminate\Container\Container;

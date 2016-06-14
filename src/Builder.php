@@ -6,11 +6,12 @@ use Closure;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Translation\Translator;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\Factory as View;
 use Orchestra\Contracts\Html\Grid as GridContract;
 use Orchestra\Contracts\Html\Builder as BuilderContract;
 
-abstract class Builder implements BuilderContract
+abstract class Builder implements BuilderContract, Htmlable
 {
     /**
      * Request instance.
@@ -91,6 +92,16 @@ abstract class Builder implements BuilderContract
     }
 
     /**
+     * Get the the HTML string.
+     *
+     * @return string
+     */
+    public function toHtml()
+    {
+        return $this->render();
+    }
+
+    /**
      * An alias to render().
      *
      * @return string
@@ -99,6 +110,6 @@ abstract class Builder implements BuilderContract
      */
     public function __toString()
     {
-        return $this->render();
+        return $this->toHtml();
     }
 }
