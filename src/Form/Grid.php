@@ -65,19 +65,12 @@ class Grid extends BaseGrid implements GridContract
     protected $templates = [];
 
     /**
-     * Selected view path for form layout.
-     *
-     * @var array
-     */
-    protected $view;
-
-    /**
      * {@inheritdoc}
      */
     protected $definition = [
         'name'    => null,
         '__call'  => ['fieldsets', 'view', 'hiddens'],
-        '__get'   => ['attributes'],
+        '__get'   => ['attributes', 'viewData'],
         '__set'   => ['attributes'],
         '__isset' => ['attributes'],
     ];
@@ -117,16 +110,19 @@ class Grid extends BaseGrid implements GridContract
      * </code>
      *
      * @param  string  $name
+     * @param  array   $data
      *
      * @return $this
      */
-    public function layout($name)
+    public function layout($name, array $data = [])
     {
         if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::form.{$name}";
         } else {
             $this->view = $name;
         }
+
+        $this->viewData = $data;
 
         return $this;
     }

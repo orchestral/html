@@ -39,6 +39,20 @@ abstract class Grid
     protected $meta = [];
 
     /**
+     * Selected view path for layout.
+     *
+     * @var array
+     */
+    protected $view;
+
+    /**
+     * List of view data.
+     *
+     * @var array
+     */
+    protected $viewData = [];
+
+    /**
      * Grid Definition.
      *
      * @var array
