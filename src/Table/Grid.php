@@ -76,20 +76,6 @@ class Grid extends BaseGrid implements GridContract
     protected $pageName = 'page';
 
     /**
-     * Selected view path for layout.
-     *
-     * @var array
-     */
-    protected $view;
-
-    /**
-     * List of view data.
-     *
-     * @var array
-     */
-    protected $viewData = [];
-
-    /**
      * {@inheritdoc}
      */
     protected $definition = [
