@@ -37,7 +37,7 @@ abstract class Builder implements BuilderContract, Htmlable
     /**
      * Grid instance.
      *
-     * @var object
+     * @var \Orchestra\Html\Grid
      */
     protected $grid;
 
@@ -71,6 +71,19 @@ abstract class Builder implements BuilderContract, Htmlable
         ! is_null($callback) && $callback($this->grid, $this->request, $this->translator);
 
         return $this;
+    }
+
+    /**
+     * Magic Method for calling the methods.
+     *
+     * @param  string  $method
+     * @param  array   $parameters
+     *
+     * @return mixed
+     */
+    public function __call($method, array $parameters)
+    {
+        return $this->grid->{$method}(...$parameters);
     }
 
     /**
