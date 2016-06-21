@@ -79,11 +79,13 @@ abstract class Builder implements BuilderContract, Htmlable
      * @param  string  $method
      * @param  array   $parameters
      *
-     * @return mixed
+     * @return $this
      */
     public function __call($method, array $parameters)
     {
-        return $this->grid->{$method}(...$parameters);
+        $this->grid->{$method}(...$parameters);
+
+        return $this;
     }
 
     /**

@@ -47,10 +47,10 @@ return [
     */
 
     'templates' => [
-        'input'      => ['class' => 'twelve columns input-with-feedback'],
-        'password'   => ['class' => 'twelve columns input-with-feedback'],
-        'select'     => ['class' => 'twelve columns input-with-feedback'],
-        'textarea'   => ['class' => 'twelve columns input-with-feedback'],
+        'input'      => ['class' => 'input-with-feedback'],
+        'password'   => ['class' => 'input-with-feedback'],
+        'select'     => ['class' => 'input-with-feedback'],
+        'textarea'   => ['class' => 'input-with-feedback'],
         'checkboxes' => [],
     ],
 
@@ -63,6 +63,6 @@ return [
     |
     */
 
-    'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
+    'presenter' => Orchestra\Html\Form\BootstrapThreePresenter::class,
 
 ];
