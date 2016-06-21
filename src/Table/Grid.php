@@ -76,11 +76,18 @@ class Grid extends BaseGrid implements GridContract
     protected $pageName = 'page';
 
     /**
-     * Selected view path for table layout.
+     * Selected view path for layout.
      *
      * @var array
      */
     protected $view;
+
+    /**
+     * List of view data.
+     *
+     * @var array
+     */
+    protected $viewData = [];
 
     /**
      * {@inheritdoc}
@@ -88,7 +95,7 @@ class Grid extends BaseGrid implements GridContract
     protected $definition = [
         'name'    => 'columns',
         '__call'  => ['columns', 'view'],
-        '__get'   => ['attributes', 'model', 'paginate', 'pageName'],
+        '__get'   => ['attributes', 'model', 'paginate', 'pageName', 'viewData'],
         '__set'   => ['attributes', 'pageName'],
         '__isset' => ['attributes', 'model', 'paginate', 'pageName'],
     ];
@@ -128,16 +135,19 @@ class Grid extends BaseGrid implements GridContract
      * </code>
      *
      * @param  string  $name
+     * @param  array   $data
      *
      * @return $this
      */
-    public function layout($name)
+    public function layout($name, array $data = [])
     {
         if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::table.{$name}";
         } else {
             $this->view = $name;
         }
+
+        $this->viewData = $data;
 
         return $this;
     }

@@ -42,6 +42,7 @@ class TableBuilder extends BaseBuilder implements BuilderContract
             'empty'      => $this->translator->get($grid->empty),
             'grid'       => $grid,
             'pagination' => $pagination,
+            'meta'       => $grid->viewData,
         ];
 
         // Build the view and render it.

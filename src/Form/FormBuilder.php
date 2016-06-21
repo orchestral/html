@@ -34,6 +34,7 @@ class FormBuilder extends BaseBuilder implements BuilderContract
             'format' => $grid->format,
             'submit' => $this->translator->get($grid->submit),
             'token'  => $grid->token,
+            'meta'   => $grid->viewData,
         ];
 
         $view = $this->view->make($grid->view())->with($data);
