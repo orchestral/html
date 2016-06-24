@@ -17,9 +17,9 @@ class Field extends Fluent implements FieldContract
      *
      * @return string
      */
-    public function getField($row, $control, array $templates = [])
+    public function getField($row, array $templates = [])
     {
-        $value = $this->attributes['field']($row, $control, $templates);
+        $value = $this->attributes['field']($row, $this, $templates);
 
         if ($value instanceof Renderable) {
             return $value->render();
