@@ -20,7 +20,7 @@ foreach ($grid->fieldsets() as $fieldset) : ?>
     <div class="form-group<?php echo $errors->has($control->id) ? ' has-error' : '' ?>">
       <?php echo Form::label($control->name, $control->label, ['class' => 'col-md-3 control-label']); ?>
       <div class="col-md-9">
-        <?php echo $control->getField($grid->data(), $control->attributes(['class' => 'col-md-12']), []); ?>
+        <?php echo $control->attributes(['class' => 'col-md-12'])->getField($grid->data()); ?>
         <?php if ($control->inlineHelp) : ?>
         <span class="help-inline"><?php echo $control->inlineHelp; ?></span>
         <?php endif; ?>

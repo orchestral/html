@@ -30,9 +30,8 @@ class FieldTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $row = new Fluent();
-        $control = new Fluent();
 
-        $this->assertEquals('foo', $stub->getField($row, $control));
+        $this->assertEquals('foo', $stub->getField($row));
         $this->assertInstanceOf('\Illuminate\Support\Fluent', $stub);
     }
 
@@ -55,9 +54,8 @@ class FieldTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $row = new Fluent();
-        $control = new Fluent();
 
-        $this->assertEquals('foo', $stub->getField($row, $control));
+        $this->assertEquals('foo', $stub->getField($row));
         $this->assertInstanceOf('\Illuminate\Support\Fluent', $stub);
     }
 }
