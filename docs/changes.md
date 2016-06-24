@@ -5,6 +5,14 @@ title: HTML Change Log
 
 ## Version 3.3 {#v3-3}
 
+### v3.3.1 {#v3-3-1}
+
+* Add `Orchestra\Html\Traits\Decorate` trait.
+* Allow to send data to view via `Orchestra\Html\Grid::layout()` method which is available in the view as `$meta`.
+* Allow `Orchestra\Html\Builder` to pass through to request to `Orchestra\Html\Grid`.
+* Remove deprecated `$control` parameter from `Orchestra\Html\Form\Field`.
+* Refactor views.
+
 ### v3.3.0 {#v3-3-0}
 
 * Update support for Laravel Framework v5.3.
@@ -16,6 +24,10 @@ title: HTML Change Log
 * Remove deprecated views attributes for `Orchestra\Html\Form\FormBuilder` and `Orchestra\Html\Table\TableBuilder`.
 
 ## Version 3.2 {#v3-2}
+
+### v3.2.4 {#v3-2-4}
+
+* Deprecates passing `$control` to `Orchestra\Html\Form\Field::getField()`.
 
 ### v3.2.3 {#v3-2-3}
 
@@ -52,6 +64,10 @@ title: HTML Change Log
 * Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
 
 ## Version 3.1 {#v3-1}
+
+### v3.1.18 {#v3-1-18}
+
+* Deprecates passing `$control` to `Orchestra\Html\Form\Field::getField()`.
 
 ### v3.1.17 {#v3-1-17}
 

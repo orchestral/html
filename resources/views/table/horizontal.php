@@ -17,7 +17,7 @@
         </tr>
     <?php endforeach; ?>
     <?php if (! count($grid->data()) && $empty) : ?>
-        <tr class="norecords">
+        <tr class="no-records">
             <td colspan="<?php echo count($grid->columns()); ?>"><?php echo $empty; ?></td>
         </tr>
     <?php endif; ?>
