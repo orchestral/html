@@ -15,7 +15,6 @@ class Field extends Fluent implements FieldContract
      * Get value of column.
      *
      * @param  mixed  $row
-     * @param  mixed  $control
      * @param  array  $templates
      *
      * @return string
