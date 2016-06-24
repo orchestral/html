@@ -7,13 +7,15 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
-use Orchestra\Html\HtmlBuilder;
+use Orchestra\Html\Traits\Decorate;
 use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
 
 class Control implements ControlContract
 {
+    use Decorate;
+
     /**
      * Container instance.
      *
@@ -53,13 +55,11 @@ class Control implements ControlContract
      * Create a new Field instance.
      *
      * @param  \Illuminate\Contracts\Container\Container  $app
-     * @param  \Orchestra\Html\HtmlBuilder  $html
      * @param  \Illuminate\Http\Request  $request
      */
-    public function __construct(Container $app, HtmlBuilder $html, Request $request)
+    public function __construct(Container $app, Request $request)
     {
         $this->app     = $app;
-        $this->html    = $html;
         $this->request = $request;
     }
 
@@ -138,7 +138,6 @@ class Control implements ControlContract
      */
     public function buildFieldByType($type, $row, Fluent $control)
     {
-        $html      = $this->html;
         $templates = $this->templates;
 
         $data   = $this->buildFluentData($type, $row, $control);
@@ -147,7 +146,7 @@ class Control implements ControlContract
         $data->options($this->getOptionList($row, $control));
         $data->checked($control->get('checked'));
 
-        $data->attributes($html->decorate($control->attributes, Arr::get($templates, $method, [])));
+        $data->attributes($this->decorate($control->get('attributes'), Arr::get($templates, $method, [])));
 
         return $data;
     }
