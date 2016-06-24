@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.1 {#v3-1}
 
+### v3.1.18 {#v3-1-18}
+
+* Deprecates passing `$control` to `Orchestra\Html\Form\Field::getField()`.
+
 ### v3.1.17 {#v3-1-17}
 
 * Allow to set page name property using the setter for `Orchestra\Html\Table\Grid::$pageName`.
