@@ -19,7 +19,7 @@ foreach ($grid->fieldsets() as $fieldset) : ?>
     <?php foreach ($fieldset->controls() as $control) : ?>
     <div class="form-group<?php echo $errors->has($control->id) ? ' has-error' : '' ?>">
       <?php echo Form::label($control->name, $control->label, ['class' => 'control-label']); ?>
-      <?php echo $control->getField($grid->data(), []); ?>
+      <?php echo $control->getField($grid->data()); ?>
       <?php if ($control->inlineHelp) : ?>
       <span class="help-inline"><?php echo $control->inlineHelp; ?></span>
       <?php endif; ?>
