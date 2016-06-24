@@ -5,6 +5,14 @@ title: HTML Change Log
 
 ## Version 3.3 {#v3-3}
 
+### v3.3.1 {#v3-3-1}
+
+* Add `Orchestra\Html\Traits\Decorate` trait.
+* Allow to send data to view via `Orchestra\Html\Grid::layout()` method which is available in the view as `$meta`.
+* Allow `Orchestra\Html\Builder` to pass through to request to `Orchestra\Html\Grid`.
+* Remove deprecated `$control` parameter from `Orchestra\Html\Form\Field`.
+* Refactor views.
+
 ### v3.3.0 {#v3-3-0}
 
 * Update support for Laravel Framework v5.3.
