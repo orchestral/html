@@ -10,14 +10,18 @@ class Field extends Fluent implements FieldContract
      * Get value of column.
      *
      * @param  mixed  $row
-     * @param  mixed  $control
+     * @param  mixed|array  $control
      * @param  array  $templates
      *
      * @return string
      */
     public function getField($row, $control, array $templates = [])
     {
-        $value = call_user_func($this->attributes['field'], $row, $control, $templates);
+        if (is_array($control) && empty($templates)) {
+            $templates = $control;
+        }
+
+        $value = call_user_func($this->attributes['field'], $row, $this, $templates);
 
         if ($value instanceof Renderable) {
             return $value->render();

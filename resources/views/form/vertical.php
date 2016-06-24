@@ -17,7 +17,7 @@ foreach ($grid->fieldsets() as $fieldset) : ?>
         <div class="form-group<?php echo $errors->has($control->id) ? ' has-error' : '' ?>">
             <?php echo Form::label($control->name, $control->label); ?>
             <div>
-                <?php echo $control->getField($grid->data(), $control, []); ?>
+                <?php echo $control->getField($grid->data(), []); ?>
                 <?php if ($control->inlineHelp) : ?><span class="help-inline"><?php echo $control->inlineHelp; ?></span><?php endif; ?>
                 <?php if ($control->help) : ?><p class="help-block"><?php echo $control->help; ?></p><?php endif; ?>
                 <?php echo $errors->first($control->id, $errorMessage); ?>
