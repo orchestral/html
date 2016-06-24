@@ -133,13 +133,11 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     {
         $app = $this->app;
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
-        $app['html'] = $html = m::mock('\Orchestra\Html\HtmlBuilder');
         $app['request'] = $request = m::mock('\Illuminate\Http\Request');
 
-        $app['Orchestra\Contracts\Html\Form\Control'] = $control = new Control($app, $html, $request);
+        $app['Orchestra\Contracts\Html\Form\Control'] = $control = new Control($app, $request);
 
         $request->shouldReceive('old')->times(11)->andReturn([]);
-        $html->shouldReceive('decorate')->times(11)->andReturn('foo');
 
         $stub = new Fieldset($app, $this->getFieldsetTemplates(), function ($f) {
             $f->control('button', 'button_foo', function ($c) {
