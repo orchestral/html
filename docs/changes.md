@@ -5,6 +5,10 @@ title: HTML Change Log
 
 ## Version 3.2 {#v3-2}
 
+### v3.2.4 {#v3-2-4}
+
+* Deprecates passing `$control` to `Orchestra\Html\Form\Field::getField()`.
+
 ### v3.2.3 {#v3-2-3}
 
 * Allow data to be retrieved from Eloquent collections for type hinting on `Orchestra\Html\Table\Grid`. ([@stevebauman](https://github.com/stevebauman))
@@ -40,6 +44,10 @@ title: HTML Change Log
 * Run `rawurlencode()` on keyword input under `Orchestra\Html\Table\Grid::searchable()`.
 
 ## Version 3.1 {#v3-1}
+
+### v3.1.18 {#v3-1-18}
+
+* Deprecates passing `$control` to `Orchestra\Html\Form\Field::getField()`.
 
 ### v3.1.17 {#v3-1-17}
 
