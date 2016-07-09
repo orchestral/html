@@ -41,7 +41,7 @@ abstract class Grid
     /**
      * Selected view path for layout.
      *
-     * @var array
+     * @var string
      */
     protected $view;
 
