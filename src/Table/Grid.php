@@ -378,12 +378,12 @@ class Grid extends BaseGrid implements GridContract
     {
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
+        $value = '';
+
         if (! empty($name)) {
             $value = function ($row) use ($name) {
                 return data_get($row, $name);
             };
-        } else {
-            $value = '';
         }
 
         $column = new Column([
@@ -479,9 +479,9 @@ class Grid extends BaseGrid implements GridContract
     protected function resolveQueryBuilderFromModel($model)
     {
         if ($this->isEloquentModel($model)) {
-            $model = $model->newQuery();
+            return $model->newQuery();
         } elseif ($this->isEloquentRelationModel($model)) {
-            $model = $model->getQuery();
+            return $model->getQuery();
         } elseif (! $this->isQueryBuilder($model)) {
             throw new InvalidArgumentException('Unable to load Query Builder from $model');
         }
