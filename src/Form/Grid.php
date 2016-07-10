@@ -204,9 +204,9 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  string  $name
      *
-     * @return \Orchestra\Html\Form\Field|null
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return \Orchestra\Html\Form\Field|null
      */
     public function find($name)
     {

@@ -93,9 +93,9 @@ abstract class Builder implements BuilderContract, Htmlable
      *
      * @param  string  $key
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return mixed
      */
     public function __get($key)
     {

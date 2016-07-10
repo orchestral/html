@@ -205,9 +205,9 @@ class Control implements ControlContract
      * @param  array  $templates
      * @param  \Illuminate\Support\Fluent  $field
      *
-     * @return string
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return string
      */
     public function render($templates, Fluent $field)
     {
