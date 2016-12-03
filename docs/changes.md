@@ -5,6 +5,11 @@ title: HTML Change Log
 
 ## Version 3.3 {#v3-3}
 
+### v3.3.2 {#v3-3-2}
+
+* Fixed compatibility with `laravie/html`.
+* Simplify `Orchestra\Html\Form\Control::resolveFieldValue()`.
+
 ### v3.3.1 {#v3-3-1}
 
 * Add `Orchestra\Html\Traits\Decorate` trait.

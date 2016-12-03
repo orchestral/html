@@ -205,9 +205,9 @@ class Control implements ControlContract
      * @param  array  $templates
      * @param  \Illuminate\Support\Fluent  $field
      *
-     * @return string
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return string
      */
     public function render($templates, Fluent $field)
     {
@@ -258,18 +258,12 @@ class Control implements ControlContract
     protected function resolveFieldValue($name, $row, Fluent $control)
     {
         // Set the value from old input, followed by row value.
-        $value = $this->request->old($name);
-        $model = data_get($row, $name);
-
-        if (! is_null($model) && is_null($value)) {
-            $value = $model;
-        }
-
-        if (is_null($control->get('value'))) {
-            return $value;
-        }
-
         $value = $control->get('value');
+        $model = data_get($row, $name, $this->request->old($name));
+
+        if (! is_null($model)) {
+            return $model;
+        }
 
         // If the value is set from the closure, we should use it instead of
         // value retrieved from attached data. Should also check if it's a

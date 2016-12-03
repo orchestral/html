@@ -41,7 +41,7 @@ abstract class Grid
     /**
      * Selected view path for layout.
      *
-     * @var array
+     * @var string
      */
     protected $view;
 
@@ -109,10 +109,10 @@ abstract class Grid
      * @param  string  $name
      * @param  mixed|null  $callback
      *
-     * @return \Illuminate\Support\Fluent
-     *
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
+     *
+     * @return \Illuminate\Support\Fluent
      */
     public function of($name, $callback = null)
     {
@@ -176,9 +176,9 @@ abstract class Grid
      *
      * @param  string  $name
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return mixed
      */
     abstract public function find($name);
 
@@ -215,9 +215,9 @@ abstract class Grid
      * @param  string  $method
      * @param  array   $parameters
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return mixed
      */
     public function __call($method, array $parameters)
     {
@@ -235,9 +235,9 @@ abstract class Grid
      *
      * @param  string  $key
      *
-     * @return mixed
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return mixed
      */
     public function __get($key)
     {
@@ -254,9 +254,9 @@ abstract class Grid
      * @param  string  $key
      * @param  array   $parameters
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return void
      */
     public function __set($key, $parameters)
     {
@@ -281,9 +281,9 @@ abstract class Grid
      *
      * @param  string  $key
      *
-     * @return bool
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return bool
      */
     public function __isset($key)
     {

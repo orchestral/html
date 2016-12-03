@@ -142,9 +142,9 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @param  string  $name
      *
-     * @return \Illuminate\Support\Fluent
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return \Illuminate\Support\Fluent
      */
     public function find($name)
     {

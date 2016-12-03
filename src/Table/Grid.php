@@ -152,9 +152,9 @@ class Grid extends BaseGrid implements GridContract
      * @param  mixed  $model
      * @param  bool   $paginate
      *
-     * @return $this
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return $this
      */
     public function with($model, $paginate = true)
     {
@@ -184,9 +184,9 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  array  $data
      *
-     * @return $this
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return $this
      */
     public function rows($data)
     {
@@ -202,9 +202,9 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Get raw data.
      *
-     * @return array
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return array
      */
     public function data()
     {
@@ -277,9 +277,9 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  string  $name
      *
-     * @return \Orchestra\Contracts\Html\Table\Column
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return \Orchestra\Contracts\Html\Table\Column
      */
     public function find($name)
     {
@@ -378,12 +378,12 @@ class Grid extends BaseGrid implements GridContract
     {
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
+        $value = '';
+
         if (! empty($name)) {
             $value = function ($row) use ($name) {
                 return data_get($row, $name);
             };
-        } else {
-            $value = '';
         }
 
         $column = new Column([
@@ -433,9 +433,9 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  object  $model
      *
-     * @return void
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return void
      */
     protected function buildRowsFromModel($model)
     {
@@ -472,16 +472,16 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  mixed  $model
      *
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
-     *
      * @throws \InvalidArgumentException
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      */
     protected function resolveQueryBuilderFromModel($model)
     {
         if ($this->isEloquentModel($model)) {
-            $model = $model->newQuery();
+            return $model->newQuery();
         } elseif ($this->isEloquentRelationModel($model)) {
-            $model = $model->getQuery();
+            return $model->getQuery();
         } elseif (! $this->isQueryBuilder($model)) {
             throw new InvalidArgumentException('Unable to load Query Builder from $model');
         }
