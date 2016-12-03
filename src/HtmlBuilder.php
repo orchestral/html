@@ -38,13 +38,13 @@ class HtmlBuilder extends BaseHtmlBuilder
     /**
      * {@inheritdoc}
      */
-    public function entities($value)
+    public function entities($value, $encoding = false)
     {
         if ($value instanceof Htmlable) {
             return $value->toHtml();
         }
 
-        return parent::entities($value);
+        return parent::entities($value, $encoding);
     }
 
     /**
