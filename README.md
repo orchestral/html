@@ -186,9 +186,9 @@ injected FormGrid. Here's an example:
 ```php
 return Form::of('users', function ($form) {
     $form->fieldset(function ($fieldset) {
-        $form->control('input:text', 'username');
-        $form->control('input:email', 'email');
-        $form->control('input:password', 'password');
+        $fieldset->control('input:text', 'username');
+        $fieldset->control('input:email', 'email');
+        $fieldset->control('input:password', 'password');
     });
 });
 ```
