@@ -6,9 +6,9 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 [![Latest Stable Version](https://img.shields.io/github/release/orchestral/html.svg?style=flat-square)](https://packagist.org/packages/orchestra/html)
 [![Total Downloads](https://img.shields.io/packagist/dt/orchestra/html.svg?style=flat-square)](https://packagist.org/packages/orchestra/html)
 [![MIT License](https://img.shields.io/packagist/l/orchestra/html.svg?style=flat-square)](https://packagist.org/packages/orchestra/html)
-[![Build Status](https://img.shields.io/travis/orchestral/html/3.4.svg?style=flat-square)](https://travis-ci.org/orchestral/html)
-[![Coverage Status](https://img.shields.io/coveralls/orchestral/html/3.4.svg?style=flat-square)](https://coveralls.io/r/orchestral/html?branch=3.4)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/html/3.4.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/html/)
+[![Build Status](https://img.shields.io/travis/orchestral/html/master.svg?style=flat-square)](https://travis-ci.org/orchestral/html)
+[![Coverage Status](https://img.shields.io/coveralls/orchestral/html/master.svg?style=flat-square)](https://coveralls.io/r/orchestral/html?branch=master)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/orchestral/html/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/orchestral/html/)
 
 ## Table of Content
 
@@ -29,6 +29,7 @@ Laravel    | HTML
  5.2.x     | 3.2.x
  5.3.x     | 3.3.x
  5.4.x     | 3.4.x@dev
+ 5.5.x     | 3.5.x@dev
 
 ## Installation
 
