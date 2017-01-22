@@ -18,23 +18,22 @@
     },
     "require": {
         "php": ">=5.6.0",
-        "laravie/html": "~5.4.0",
         "illuminate/translation": "~5.4.0",
+        "laravie/html": "~5.4.0",
         "orchestra/contracts": "~3.4.0",
         "orchestra/support": "~3.4.0"
     },
     "require-dev": {
-        "mockery/mockery": "^0.9.4",
-        "illuminate/database": "~5.4.0"
-    },
-    "suggest": {
-        "laravel/framework": "Allow using orchestra/html component outside of Orchestra Platform (~5.4).",
-        "orchestra/foundation": "Allow using orchestra/html with Orchestra Platform (~3.4)."
+        "illuminate/database": "~5.4.0",
+        "mockery/mockery": "^0.9.4"
     },
     "extra": {
         "branch-alias": {
             "dev-master": "3.4-dev"
         }
+    },
+    "config": {
+        "sort-packages": true
     },
     "minimum-stability": "dev"
 }
