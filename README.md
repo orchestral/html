@@ -16,6 +16,7 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
+* [Change Log](https://github.com/orchestral/html/releases)
 
 ## Version Compatibility
 
