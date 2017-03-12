@@ -3,9 +3,10 @@
 namespace Orchestra\Html\TestCase;
 
 use Orchestra\Html\Grid;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 
-class GridTest extends \PHPUnit_Framework_TestCase
+class GridTest extends TestCase
 {
     public function testMetaData()
     {
