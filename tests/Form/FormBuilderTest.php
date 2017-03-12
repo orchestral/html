@@ -3,16 +3,17 @@
 namespace Orchestra\Html\TestCase\Form;
 
 use Mockery as m;
+use Orchestra\Html\Form\Grid;
+use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
 use Orchestra\Html\Form\FormBuilder;
-use Orchestra\Html\Form\Grid;
 
-class FormBuilderTest extends \PHPUnit_Framework_TestCase
+class FormBuilderTest extends TestCase
 {
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

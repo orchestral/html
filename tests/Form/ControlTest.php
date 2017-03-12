@@ -4,14 +4,15 @@ namespace Orchestra\Html\TestCase\Form;
 
 use Mockery as m;
 use Illuminate\Support\Fluent;
+use PHPUnit\Framework\TestCase;
 use Orchestra\Html\Form\Control;
 
-class ControlTest extends \PHPUnit_Framework_TestCase
+class ControlTest extends TestCase
 {
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

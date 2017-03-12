@@ -3,14 +3,15 @@
 namespace Orchestra\Html\TestCase\Form;
 
 use Mockery as m;
-use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
-use Orchestra\Contracts\Html\Form\Field;
-use Orchestra\Contracts\Html\Form\Template;
+use PHPUnit\Framework\TestCase;
 use Orchestra\Html\Form\Control;
 use Orchestra\Html\Form\Fieldset;
+use Illuminate\Container\Container;
+use Orchestra\Contracts\Html\Form\Field;
+use Orchestra\Contracts\Html\Form\Template;
 
-class FieldsetTest extends \PHPUnit_Framework_TestCase
+class FieldsetTest extends TestCase
 {
     /**
      * Application instance.
@@ -22,7 +23,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->app = new Container();
     }
@@ -30,7 +31,7 @@ class FieldsetTest extends \PHPUnit_Framework_TestCase
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->app);
         m::close();

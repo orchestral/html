@@ -4,8 +4,9 @@ namespace Orchestra\Html\TestCase;
 
 use Mockery as m;
 use Orchestra\Html\HtmlBuilder;
+use PHPUnit\Framework\TestCase;
 
-class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
+class HtmlBuilderTest extends TestCase
 {
     /**
      * UrlGenerator instance.
@@ -24,7 +25,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->url = m::mock('\Illuminate\Contracts\Routing\UrlGenerator');
         $this->view = m::mock('\Illuminate\Contracts\View\Factory');
@@ -33,7 +34,7 @@ class HtmlBuilderTest extends \PHPUnit_Framework_TestCase
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->url);
         m::close();

@@ -3,15 +3,16 @@
 namespace Orchestra\Html\TestCase\Form;
 
 use Mockery as m;
-use Illuminate\Container\Container;
+use PHPUnit\Framework\TestCase;
 use Orchestra\Html\Form\Factory;
+use Illuminate\Container\Container;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase
+class FactoryTest extends TestCase
 {
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }

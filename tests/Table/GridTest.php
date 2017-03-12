@@ -3,17 +3,18 @@
 namespace Orchestra\Html\TestCase\Table;
 
 use Mockery as m;
-use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
-use Orchestra\Html\Table\Column;
 use Orchestra\Html\Table\Grid;
+use PHPUnit\Framework\TestCase;
+use Orchestra\Html\Table\Column;
+use Illuminate\Container\Container;
 
-class GridTest extends \PHPUnit_Framework_TestCase
+class GridTest extends TestCase
 {
     /**
      * Teardown the test environment.
      */
-    public function tearDown()
+    protected function tearDown()
     {
         m::close();
     }
