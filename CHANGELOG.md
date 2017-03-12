@@ -1,6 +1,6 @@
 # Changelog
 
-This changelog references the relevant changes (bug and security fixes) done to `orchestra/asset`.
+This changelog references the relevant changes (bug and security fixes) done to `orchestra/html`.
 
 ## 3.4.0
 
