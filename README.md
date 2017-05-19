@@ -48,7 +48,7 @@ And then run `composer install` from the terminal.
 
 ### Quick Installation
 
-Above installation can also be simplify by using the following command:
+Above installation can also be simplified by using the following command:
 
     composer require "orchestra/html=~3.0"
 
