@@ -285,12 +285,9 @@ class Grid extends BaseGrid implements GridContract
      */
     public function setup(Presenter $listener, $url, $model, array $attributes = [])
     {
-        $method = Arr::get($attributes, 'method', 'POST');
-        $url    = $listener->handles($url);
-
         $attributes = array_merge($attributes, [
-            'url'    => $url,
-            'method' => $method,
+            'url'    => $listener->handles($url),
+            'method' => $attributes['method'] ?? 'POST',
         ]);
 
         $this->with($model);

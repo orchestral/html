@@ -146,7 +146,7 @@ class Control implements ControlContract
         $data->options($this->getOptionList($row, $control));
         $data->checked($control->get('checked'));
 
-        $data->attributes($this->decorate($control->get('attributes'), Arr::get($templates, $method, [])));
+        $data->attributes($this->decorate($control->get('attributes'), $templates[$method] ?? []));
 
         return $data;
     }
@@ -212,7 +212,7 @@ class Control implements ControlContract
     public function render($templates, Fluent $field)
     {
         $method   = $field->get('method');
-        $template = Arr::get($templates, $method, [$this->presenter, $method]);
+        $template = $templates[$method] ?? [$this->presenter, $method];
 
         if (! is_callable($template)) {
             throw new InvalidArgumentException("Form template for [{$method}] is not available.");

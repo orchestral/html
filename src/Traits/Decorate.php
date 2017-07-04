@@ -39,8 +39,8 @@ trait Decorate
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults, then take union of both.
-        $default   = isset($defaults['class']) ? $defaults['class'] : '';
-        $attribute = isset($attributes['class']) ? $attributes['class'] : '';
+        $default   = $defaults['class'] ?? '';
+        $attribute = $attributes['class'] ?? '';
 
         $classes   = explode(' ', trim($default.' '.$attribute));
         $current   = array_unique($classes);
