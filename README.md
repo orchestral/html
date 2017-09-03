@@ -4,7 +4,7 @@ HTML Component for Orchestra Platform
 HTML Component extends the functionality of `Illuminate\Html` with the extra functionality to including a chainable Form and Table builder. These set of functionality are the backbone in allowing extensions in Orchestra Platform to attach action to any existing form or table.
 
 
-[![Build Status](https://travis-ci.org/orchestral/html.svg?branch=3.5)](https://travis-ci.org/orchestral/html)
+[![Build Status](https://travis-ci.org/orchestral/html.svg?branch=master)](https://travis-ci.org/orchestral/html)
 [![Latest Stable Version](https://poser.pugx.org/orchestra/html/version)](https://packagist.org/packages/orchestra/html)
 [![Total Downloads](https://poser.pugx.org/orchestra/html/downloads)](https://packagist.org/packages/orchestra/html)
 [![Latest Unstable Version](https://poser.pugx.org/orchestra/html/v/unstable)](//packagist.org/packages/orchestra/html)
@@ -31,6 +31,7 @@ Laravel    | HTML
  5.3.x     | 3.3.x
  5.4.x     | 3.4.x
  5.5.x     | 3.5.x@dev
+ 5.6.x     | 3.6.x@dev
 
 ## Installation
 
