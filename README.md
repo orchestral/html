@@ -16,15 +16,13 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Usage](#usage)
-* [Change Log](https://github.com/orchestral/html/releases)
+* [Changelog](https://github.com/orchestral/html/releases)
 
 ## Version Compatibility
 
 Laravel    | HTML
 :----------|:----------
- 4.0.x     | 2.0.x
- 4.1.x     | 2.1.x
- 4.2.x     | 2.2.x
+ 4.x.x     | 2.x.x
  5.0.x     | 3.0.x
  5.1.x     | 3.1.x
  5.2.x     | 3.2.x
