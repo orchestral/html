@@ -3,6 +3,7 @@
 namespace Orchestra\Html\Form;
 
 use Illuminate\Support\Traits\Macroable;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Arrayable;
 use Orchestra\Contracts\Html\Form\Template;
 use Orchestra\Html\FormBuilder as BaseFormBuilder;
@@ -44,9 +45,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function button(FieldContract $field)
+    public function button(FieldContract $field): Htmlable
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'btn']);
 
@@ -58,9 +59,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function checkbox(FieldContract $field)
+    public function checkbox(FieldContract $field): Htmlable
     {
         return $this->form->checkbox(
             $field->get('name'),
@@ -75,9 +76,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function checkboxes(FieldContract $field)
+    public function checkboxes(FieldContract $field): Htmlable
     {
         return $this->form->checkboxes(
             $field->get('name'),
@@ -92,9 +93,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function file(FieldContract $field): string
+    public function file(FieldContract $field): Htmlable
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -106,9 +107,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function input(FieldContract $field): string
+    public function input(FieldContract $field): Htmlable
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -125,9 +126,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function password(FieldContract $field): string
+    public function password(FieldContract $field): Htmlable
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -139,9 +140,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function radio(FieldContract $field): string
+    public function radio(FieldContract $field): Htmlable
     {
         return $this->form->radio($field->get('name'), $field->get('value'), $field->get('checked'));
     }
@@ -151,9 +152,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function select(FieldContract $field): string
+    public function select(FieldContract $field): Htmlable
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -170,9 +171,9 @@ class BootstrapThreePresenter implements Template
      *
      * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
-     * @return string
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function textarea(FieldContract $field): string
+    public function textarea(FieldContract $field): Htmlable
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 

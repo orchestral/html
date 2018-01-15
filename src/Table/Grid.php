@@ -7,13 +7,9 @@ use InvalidArgumentException;
 use Orchestra\Html\Grid as BaseGrid;
 use Orchestra\Support\Traits\QueryFilter;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Model as EloquentModel;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 
 class Grid extends BaseGrid implements GridContract
 {
@@ -447,7 +443,7 @@ class Grid extends BaseGrid implements GridContract
         if ($model instanceof Paginator) {
             $this->setRowsData($model->items());
             $this->paginate = true;
-        } elseif ($model instanceof EloquentCollection) {
+        } elseif ($model instanceof Collection) {
             $this->setRowsData($model->all());
         } elseif ($model instanceof Arrayable) {
             $this->setRowsData($model->toArray());
@@ -501,7 +497,8 @@ class Grid extends BaseGrid implements GridContract
      */
     protected function isQueryBuilder($model): bool
     {
-        return $model instanceof QueryBuilder || $model instanceof EloquentBuilder;
+        return $model instanceof \Illuminate\Database\Query\Builder
+                    || $model instanceof \Illuminate\Database\Eloquent\Builder;
     }
 
     /**
@@ -513,7 +510,7 @@ class Grid extends BaseGrid implements GridContract
      */
     protected function isEloquentModel($model): bool
     {
-        return $model instanceof EloquentModel;
+        return $model instanceof \Illuminate\Database\Eloquent\Model;
     }
 
     /**
@@ -525,6 +522,6 @@ class Grid extends BaseGrid implements GridContract
      */
     protected function isEloquentRelationModel($model): bool
     {
-        return $model instanceof Relation;
+        return $model instanceof \Illuminate\Database\Eloquent\Relations\Relation;
     }
 }

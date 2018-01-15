@@ -15,7 +15,7 @@ class Column extends Fluent implements ColumnContract
      *
      * @return string
      */
-    public function getValue($row)
+    public function getValue($row): string
     {
         $escape = $this->get('escape', false);
         $value = $this->attributes['value']($row);

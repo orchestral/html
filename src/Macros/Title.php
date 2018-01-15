@@ -5,6 +5,7 @@ namespace Orchestra\Html\Macros;
 use Orchestra\Support\Str;
 use Orchestra\Html\HtmlBuilder;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Contracts\Support\Htmlable;
 
 class Title
 {
@@ -53,13 +54,9 @@ class Title
      *
      * @return void
      */
-    public function setFormat(array $formats = [])
+    public function setFormat(array $formats = []): void
     {
-        foreach ($formats as $key => $format) {
-            if (! is_null($format)) {
-                $this->formats[$key] = $format;
-            }
-        }
+        $this->formats = array_filter($formats);
     }
 
     /**
@@ -67,9 +64,9 @@ class Title
      *
      * @param  string|null  $title
      *
-     * @return \Illuminate\Support\HtmlString
+     * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function title($title = null)
+    public function title(string $title = null): Htmlable
     {
         $page = Paginator::resolveCurrentPage();
 

@@ -40,11 +40,9 @@ class HtmlBuilder extends BaseHtmlBuilder
      */
     public function entities($value, $encoding = false): string
     {
-        if ($value instanceof Htmlable) {
-            return $value->toHtml();
-        }
-
-        return parent::entities($value, $encoding);
+        return $value instanceof Htmlable
+                    ? $value->toHtml()
+                    : parent::entities($value, $encoding);
     }
 
     /**
