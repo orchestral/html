@@ -85,7 +85,7 @@ class FormBuilderTest extends TestCase
             ->shouldReceive('render')->twice()->andReturn('mocked');
 
         $data = new \Illuminate\Support\Fluent([
-            'id'   => 1,
+            'id' => 1,
             'name' => 'Laravel',
         ]);
 
@@ -94,8 +94,8 @@ class FormBuilderTest extends TestCase
             $form->with($data);
             $form->attributes([
                 'method' => 'POST',
-                'url'    => 'http://localhost',
-                'class'  => 'foo',
+                'url' => 'http://localhost',
+                'class' => 'foo',
             ]);
         });
 
@@ -104,8 +104,8 @@ class FormBuilderTest extends TestCase
             $form->with($data);
             $form->attributes = [
                 'method' => 'POST',
-                'url'    => 'http://localhost',
-                'class'  => 'foo',
+                'url' => 'http://localhost',
+                'class' => 'foo',
             ];
         });
 

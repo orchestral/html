@@ -47,10 +47,10 @@ return [
     */
 
     'templates' => [
-        'input'      => ['class' => 'input-with-feedback'],
-        'password'   => ['class' => 'input-with-feedback'],
-        'select'     => ['class' => 'input-with-feedback'],
-        'textarea'   => ['class' => 'input-with-feedback'],
+        'input' => ['class' => 'input-with-feedback'],
+        'password' => ['class' => 'input-with-feedback'],
+        'select' => ['class' => 'input-with-feedback'],
+        'textarea' => ['class' => 'input-with-feedback'],
         'checkboxes' => [],
     ],
 

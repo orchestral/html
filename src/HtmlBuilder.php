@@ -23,7 +23,7 @@ class HtmlBuilder extends BaseHtmlBuilder
     {
         if (is_array($value)) {
             $attributes = $value;
-            $value      = null;
+            $value = null;
         }
 
         $content = '<'.$tag.$this->attributes($attributes).'>';

@@ -39,12 +39,12 @@ trait Decorate
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults, then take union of both.
-        $default   = $defaults['class'] ?? '';
+        $default = $defaults['class'] ?? '';
         $attribute = $attributes['class'] ?? '';
 
-        $classes   = explode(' ', trim($default.' '.$attribute));
-        $current   = array_unique($classes);
-        $excludes  = [];
+        $classes = explode(' ', trim($default.' '.$attribute));
+        $current = array_unique($classes);
+        $excludes = [];
 
         foreach ($current as $c) {
             if (Str::startsWith($c, '!')) {

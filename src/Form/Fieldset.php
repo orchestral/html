@@ -37,10 +37,10 @@ class Fieldset extends BaseGrid implements FieldsetContract
      * {@inheritdoc}
      */
     protected $definition = [
-        'name'    => 'controls',
-        '__call'  => ['name', 'controls'],
-        '__get'   => ['attributes', 'name', 'controls'],
-        '__set'   => ['attributes'],
+        'name' => 'controls',
+        '__call' => ['name', 'controls'],
+        '__get' => ['attributes', 'name', 'controls'],
+        '__set' => ['attributes'],
         '__isset' => ['attributes', 'name', 'controls'],
     ];
 
@@ -87,7 +87,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
     {
         if ($name instanceof Closure) {
             $callback = $name;
-            $name     = null;
+            $name = null;
         }
 
         ! empty($name) && $this->legend($name);
@@ -131,7 +131,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
             $control->field = $this->control->generate($type);
         }
 
-        $this->controls[]    = $control;
+        $this->controls[] = $control;
         $this->keyMap[$name] = count($this->controls) - 1;
 
         return $control;
@@ -168,14 +168,14 @@ class Fieldset extends BaseGrid implements FieldsetContract
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
         $control = new Field([
-            'id'         => preg_replace('/(.+)\[\]/', '$1', $name),
-            'name'       => $name,
-            'value'      => null,
-            'label'      => $label,
+            'id' => preg_replace('/(.+)\[\]/', '$1', $name),
+            'name' => $name,
+            'value' => null,
+            'label' => $label,
             'attributes' => [],
-            'options'    => [],
-            'checked'    => false,
-            'field'      => null,
+            'options' => [],
+            'checked' => false,
+            'field' => null,
         ]);
 
         is_callable($callback) && $callback($control);

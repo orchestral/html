@@ -58,7 +58,7 @@ abstract class Factory
     public function of($name, Closure $callback = null)
     {
         if (! isset($this->names[$name])) {
-            $this->names[$name]       = $this->make($callback);
+            $this->names[$name] = $this->make($callback);
             $this->names[$name]->name = $name;
         }
 

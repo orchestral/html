@@ -58,10 +58,10 @@ abstract class Grid
      * @var array
      */
     protected $definition = [
-        'name'    => null,
-        '__call'  => [],
-        '__get'   => [],
-        '__set'   => ['attributes'],
+        'name' => null,
+        '__call' => [],
+        '__get' => [],
+        '__set' => ['attributes'],
         '__isset' => [],
     ];
 
@@ -196,13 +196,13 @@ abstract class Grid
 
         if (! is_string($label)) {
             $callback = $label;
-            $name     = '';
-            $label    = '';
+            $name = '';
+            $label = '';
         } elseif (is_string($callback)) {
-            $name     = Str::lower($callback);
+            $name = Str::lower($callback);
             $callback = null;
         } else {
-            $name  = Str::lower($name);
+            $name = Str::lower($name);
             $label = Str::humanize($name);
         }
 
@@ -266,6 +266,7 @@ abstract class Grid
 
         if ($key !== 'attributes') {
             $this->{$key} = $parameters;
+
             return;
         }
 

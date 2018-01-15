@@ -13,11 +13,11 @@ endforeach;
 foreach ($grid->fieldsets() as $fieldset) : ?>
   <fieldset<?php echo HTML::attributes($fieldset->attributes() ?: []); ?>>
     <?php if ($fieldset->name) : ?>
-    <legend><?php echo e($fieldset->name) ?: '' ?></legend>
+    <legend><?php echo e($fieldset->name) ?: ''; ?></legend>
     <?php endif; ?>
 
     <?php foreach ($fieldset->controls() as $control) : ?>
-    <div class="form-group<?php echo $errors->has($control->id) ? ' has-error' : '' ?>">
+    <div class="form-group<?php echo $errors->has($control->id) ? ' has-error' : ''; ?>">
       <?php echo Form::label($control->name, $control->label, ['class' => 'col-md-3 control-label']); ?>
       <div class="col-md-9">
         <?php echo $control->attributes(['class' => 'col-md-12'])->getField($grid->data()); ?>

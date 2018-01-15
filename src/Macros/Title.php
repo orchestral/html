@@ -41,8 +41,8 @@ class Title
      */
     public function __construct(HtmlBuilder $html, $site, array $formats = [])
     {
-        $this->html    = $html;
-        $this->site    = $site;
+        $this->html = $html;
+        $this->site = $site;
         $this->formats = $formats;
     }
 
@@ -74,7 +74,7 @@ class Title
         $page = Paginator::resolveCurrentPage();
 
         $data = [
-            'site' => ['name'  => $this->site],
+            'site' => ['name' => $this->site],
             'page' => ['title' => $title, 'number' => $page],
         ];
 

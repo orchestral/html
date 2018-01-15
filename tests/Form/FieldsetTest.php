@@ -45,13 +45,13 @@ class FieldsetTest extends TestCase
     private function getFieldsetTemplates()
     {
         return [
-            'button'   => [],
+            'button' => [],
             'checkbox' => [],
-            'input'    => [],
-            'file'     => [],
+            'input' => [],
+            'file' => [],
             'password' => [],
-            'radio'    => [],
-            'select'   => [],
+            'radio' => [],
+            'select' => [],
             'textarea' => [],
         ];
     }
@@ -175,7 +175,7 @@ class FieldsetTest extends TestCase
                 $c->label('Foo')->value('foobar')->options(function () {
                     return [
                         'yes' => 'Yes',
-                        'no'  => 'No',
+                        'no' => 'No',
                     ];
                 });
             });

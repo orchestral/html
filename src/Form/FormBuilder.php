@@ -16,10 +16,10 @@ class FormBuilder extends BaseBuilder implements BuilderContract
      */
     public function __construct(Request $request, Translator $translator, View $view, GridContract $grid)
     {
-        $this->request    = $request;
+        $this->request = $request;
         $this->translator = $translator;
-        $this->view       = $view;
-        $this->grid       = $grid;
+        $this->view = $view;
+        $this->grid = $grid;
     }
 
     /**
@@ -30,11 +30,11 @@ class FormBuilder extends BaseBuilder implements BuilderContract
         $grid = $this->grid;
 
         $data = [
-            'grid'   => $grid,
+            'grid' => $grid,
             'format' => $grid->format,
             'submit' => $this->translator->get($grid->submit),
-            'token'  => $grid->token,
-            'meta'   => $grid->viewData,
+            'token' => $grid->token,
+            'meta' => $grid->viewData,
         ];
 
         $view = $this->view->make($grid->view())->with($data);

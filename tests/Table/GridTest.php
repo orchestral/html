@@ -30,7 +30,7 @@ class GridTest extends TestCase
 
         $config = [
             'empty' => 'No data',
-            'view'  => 'foo',
+            'view' => 'foo',
         ];
 
         $stub = new Grid($app, $config);
@@ -242,30 +242,30 @@ class GridTest extends TestCase
 
         $expected = [
             new Column([
-                'id'    => 'id',
+                'id' => 'id',
                 'label' => 'Id',
                 'value' => function ($row) {
                     return $row->id;
                 },
-                'headers'    => [],
+                'headers' => [],
                 'attributes' => function ($row) {
                     return [];
                 },
             ]),
             new Column([
-                'id'         => 'foo1',
-                'label'      => 'Foo1',
-                'value'      => 'Foo1 value',
-                'headers'    => [],
+                'id' => 'foo1',
+                'label' => 'Foo1',
+                'value' => 'Foo1 value',
+                'headers' => [],
                 'attributes' => function ($row) {
                     return [];
                 },
             ]),
             new Column([
-                'id'         => 'foo2',
-                'label'      => 'Foo2',
-                'value'      => 'Foo2 value',
-                'headers'    => [],
+                'id' => 'foo2',
+                'label' => 'Foo2',
+                'value' => 'Foo2 value',
+                'headers' => [],
                 'attributes' => function ($row) {
                     return [];
                 },

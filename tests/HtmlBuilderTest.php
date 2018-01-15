@@ -39,6 +39,7 @@ class HtmlBuilderTest extends TestCase
         unset($this->url);
         m::close();
     }
+
     /**
      * Test Orchestra\Html\HtmlBuilder::create() with content.
      *
@@ -63,7 +64,7 @@ class HtmlBuilderTest extends TestCase
         $stub = new HtmlBuilder($this->url, $this->view);
         $expected = '<img src="hello.jpg" class="foo">';
         $output = $stub->create('img', [
-            'src'   => 'hello.jpg',
+            'src' => 'hello.jpg',
             'class' => 'foo',
         ]);
 
@@ -71,7 +72,7 @@ class HtmlBuilderTest extends TestCase
 
         $expected = '<img src="hello.jpg" class="foo">';
         $output = $stub->create('img', null, [
-            'src'   => 'hello.jpg',
+            'src' => 'hello.jpg',
             'class' => 'foo',
         ]);
 

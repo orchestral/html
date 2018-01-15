@@ -118,7 +118,7 @@ class HtmlServiceProvider extends ServiceProvider
      */
     protected function bootConfiguration()
     {
-        $config    = $this->app->make('config');
+        $config = $this->app->make('config');
         $namespace = $this->hasPackageRepository() ? 'orchestra/html::' : 'orchestra.';
 
         $this->app->make('orchestra.form')->setConfig($config->get("{$namespace}form"));
@@ -155,7 +155,7 @@ class HtmlServiceProvider extends ServiceProvider
         $this->mergeConfigFrom("{$path}/config/table.php", 'orchestra.table');
 
         $this->publishes([
-            "{$path}/config/form.php"  => config_path('orchestra/form.php'),
+            "{$path}/config/form.php" => config_path('orchestra/form.php'),
             "{$path}/config/table.php" => config_path('orchestra/table.php'),
         ]);
     }

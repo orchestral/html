@@ -3,7 +3,6 @@
 namespace Orchestra\Html\Form;
 
 use Closure;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
@@ -68,10 +67,10 @@ class Grid extends BaseGrid implements GridContract
      * {@inheritdoc}
      */
     protected $definition = [
-        'name'    => null,
-        '__call'  => ['fieldsets', 'view', 'hiddens'],
-        '__get'   => ['attributes', 'viewData'],
-        '__set'   => ['attributes'],
+        'name' => null,
+        '__call' => ['fieldsets', 'view', 'hiddens'],
+        '__get' => ['attributes', 'viewData'],
+        '__set' => ['attributes'],
         '__isset' => ['attributes'],
     ];
 
@@ -214,7 +213,7 @@ class Grid extends BaseGrid implements GridContract
             list($fieldset, $control) = explode('.', $name, 2);
         } else {
             $fieldset = 'fieldset-0';
-            $control  = $name;
+            $control = $name;
         }
 
         if (! array_key_exists($fieldset, $this->keyMap)) {
@@ -237,8 +236,8 @@ class Grid extends BaseGrid implements GridContract
         $value = data_get($this->data, $name);
 
         $field = new Fluent([
-            'name'       => $name,
-            'value'      => $value ?: '',
+            'name' => $name,
+            'value' => $value ?: '',
             'attributes' => [],
         ]);
 
@@ -264,7 +263,7 @@ class Grid extends BaseGrid implements GridContract
         $method = 'POST';
 
         if ($model->exists) {
-            $url    = "{$url}/{$model->getKey()}";
+            $url = "{$url}/{$model->getKey()}";
             $method = 'PUT';
         }
 
@@ -286,7 +285,7 @@ class Grid extends BaseGrid implements GridContract
     public function setup(Presenter $listener, $url, $model, array $attributes = [])
     {
         $attributes = array_merge($attributes, [
-            'url'    => $listener->handles($url),
+            'url' => $listener->handles($url),
             'method' => $attributes['method'] ?? 'POST',
         ]);
 

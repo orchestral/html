@@ -3,7 +3,6 @@
 namespace Orchestra\Html\Form;
 
 use Closure;
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
@@ -59,7 +58,7 @@ class Control implements ControlContract
      */
     public function __construct(Container $app, Request $request)
     {
-        $this->app     = $app;
+        $this->app = $app;
         $this->request = $request;
     }
 
@@ -140,7 +139,7 @@ class Control implements ControlContract
     {
         $templates = $this->templates;
 
-        $data   = $this->buildFluentData($type, $row, $control);
+        $data = $this->buildFluentData($type, $row, $control);
         $method = $data->get('method');
 
         $data->options($this->getOptionList($row, $control));
@@ -163,17 +162,17 @@ class Control implements ControlContract
     public function buildFluentData($type, $row, Fluent $control)
     {
         // set the name of the control
-        $name  = $control->get('name');
+        $name = $control->get('name');
         $value = $this->resolveFieldValue($name, $row, $control);
 
         $data = new Field([
-            'method'     => '',
-            'type'       => '',
-            'options'    => [],
-            'checked'    => false,
+            'method' => '',
+            'type' => '',
+            'options' => [],
+            'checked' => false,
             'attributes' => [],
-            'name'       => $name,
-            'value'      => $value,
+            'name' => $name,
+            'value' => $value,
         ]);
 
         return $this->resolveFieldType($type, $data);
@@ -211,7 +210,7 @@ class Control implements ControlContract
      */
     public function render($templates, Fluent $field)
     {
-        $method   = $field->get('method');
+        $method = $field->get('method');
         $template = $templates[$method] ?? [$this->presenter, $method];
 
         if (! is_callable($template)) {
@@ -237,7 +236,7 @@ class Control implements ControlContract
 
         $filterable = in_array($value, array_keys($this->templates)) || method_exists($this->presenter, $value);
 
-        if (!! $filterable) {
+        if ((bool) $filterable) {
             $data->method($value);
         } else {
             $data->method('input')->type($value ?: 'text');

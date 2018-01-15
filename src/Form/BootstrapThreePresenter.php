@@ -192,6 +192,6 @@ class BootstrapThreePresenter implements Template
      */
     protected function asArray($array)
     {
-        return ($array instanceof Arrayable ? $array->toArray() : $array);
+        return $array instanceof Arrayable ? $array->toArray() : $array;
     }
 }

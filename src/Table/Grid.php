@@ -79,10 +79,10 @@ class Grid extends BaseGrid implements GridContract
      * {@inheritdoc}
      */
     protected $definition = [
-        'name'    => 'columns',
-        '__call'  => ['columns', 'view'],
-        '__get'   => ['attributes', 'model', 'paginate', 'pageName', 'viewData'],
-        '__set'   => ['attributes', 'pageName'],
+        'name' => 'columns',
+        '__call' => ['columns', 'view'],
+        '__get' => ['attributes', 'model', 'paginate', 'pageName', 'viewData'],
+        '__set' => ['attributes', 'pageName'],
         '__isset' => ['attributes', 'model', 'paginate', 'pageName'],
     ];
 
@@ -158,7 +158,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function with($model, $paginate = true)
     {
-        $this->model    = $model;
+        $this->model = $model;
         $this->paginate = $paginate;
 
         return $this;
@@ -266,7 +266,7 @@ class Grid extends BaseGrid implements GridContract
     {
         list($name, $column) = $this->buildColumn($name, $callback);
 
-        $this->columns[]     = $column;
+        $this->columns[] = $column;
         $this->keyMap[$name] = count($this->columns) - 1;
 
         return $column;
@@ -300,13 +300,13 @@ class Grid extends BaseGrid implements GridContract
     public function paginate($perPage)
     {
         if (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) && ! is_bool($perPage)) {
-            $this->perPage  = $perPage;
+            $this->perPage = $perPage;
             $this->paginate = true;
         } elseif (filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
-            $this->perPage  = null;
+            $this->perPage = null;
             $this->paginate = $perPage;
         } else {
-            $this->perPage  = null;
+            $this->perPage = null;
             $this->paginate = false;
         }
 
@@ -323,16 +323,16 @@ class Grid extends BaseGrid implements GridContract
      */
     public function searchable(array $attributes, $key = 'q')
     {
-        $model   = $this->resolveQueryBuilderFromModel($this->model);
+        $model = $this->resolveQueryBuilderFromModel($this->model);
         $request = $this->app->make('request');
-        $value   = $request->input($key);
+        $value = $request->input($key);
 
         $request->merge(["{$key}" => rawurlencode($value)]);
 
         $this->set('search', [
             'attributes' => $attributes,
-            'key'        => $key,
-            'value'      => $value,
+            'key' => $key,
+            'value' => $value,
         ]);
 
         $this->model = $this->setupWildcardQueryFilter($model, $value, $attributes);
@@ -349,10 +349,10 @@ class Grid extends BaseGrid implements GridContract
      */
     public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
     {
-        $model   = $this->resolveQueryBuilderFromModel($this->model);
+        $model = $this->resolveQueryBuilderFromModel($this->model);
         $request = $this->app->make('request');
 
-        $orderByValue   = $request->input($orderByKey);
+        $orderByValue = $request->input($orderByKey);
         $directionValue = $request->input($directionKey);
 
         $this->set('filter.order_by', ['key' => $orderByKey, 'value' => $orderByValue]);
@@ -360,9 +360,9 @@ class Grid extends BaseGrid implements GridContract
         $this->set('filter.columns', $orderColumns);
 
         $this->model = $this->setupBasicQueryFilter($model, [
-            'order_by'  => $orderByValue,
+            'order_by' => $orderByValue,
             'direction' => $directionValue,
-            'columns'   => $orderColumns,
+            'columns' => $orderColumns,
         ]);
     }
 
@@ -387,10 +387,10 @@ class Grid extends BaseGrid implements GridContract
         }
 
         $column = new Column([
-            'id'         => $name,
-            'label'      => $label,
-            'value'      => $value,
-            'headers'    => [],
+            'id' => $name,
+            'label' => $label,
+            'value' => $value,
+            'headers' => [],
             'attributes' => function ($row) {
                 return [];
             },
@@ -498,7 +498,7 @@ class Grid extends BaseGrid implements GridContract
      */
     protected function isQueryBuilder($model)
     {
-        return ($model instanceof QueryBuilder || $model instanceof EloquentBuilder);
+        return $model instanceof QueryBuilder || $model instanceof EloquentBuilder;
     }
 
     /**

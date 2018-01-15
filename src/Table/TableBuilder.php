@@ -17,10 +17,10 @@ class TableBuilder extends BaseBuilder implements BuilderContract
      */
     public function __construct(Request $request, Translator $translator, View $view, GridContract $grid)
     {
-        $this->request    = $request;
+        $this->request = $request;
         $this->translator = $translator;
-        $this->view       = $view;
-        $this->grid       = $grid;
+        $this->view = $view;
+        $this->grid = $grid;
     }
 
     /**
@@ -39,10 +39,10 @@ class TableBuilder extends BaseBuilder implements BuilderContract
         $pagination = (true === $grid->paginated() ? $grid->model->appends($input) : '');
 
         $data = [
-            'empty'      => $this->translator->get($grid->empty),
-            'grid'       => $grid,
+            'empty' => $this->translator->get($grid->empty),
+            'grid' => $grid,
             'pagination' => $pagination,
-            'meta'       => $grid->viewData,
+            'meta' => $grid->viewData,
         ];
 
         // Build the view and render it.
