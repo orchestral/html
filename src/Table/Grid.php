@@ -461,7 +461,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return array
      */
-    protected function setRowsData(array $data = [])
+    protected function setRowsData(array $data = []): array
     {
         return $this->data = $data;
     }
