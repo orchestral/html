@@ -93,7 +93,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return void
      */
-    public function initiate(array $config)
+    public function initiate(array $config): void
     {
         foreach ($config as $key => $value) {
             if (property_exists($this, $key)) {
@@ -125,7 +125,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function layout($name, array $data = [])
+    public function layout(string $name, array $data = []): self
     {
         if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::table.{$name}";
@@ -156,7 +156,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function with($model, $paginate = true)
+    public function with($model, bool $paginate = true): self
     {
         $this->model = $model;
         $this->paginate = $paginate;
@@ -169,7 +169,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return bool
      */
-    public function paginated()
+    public function paginated(): bool
     {
         return $this->paginate;
     }
@@ -182,13 +182,13 @@ class Grid extends BaseGrid implements GridContract
      *      $table->rows(DB::table('users')->get());
      * </code>
      *
-     * @param  array  $data
+     * @param  array|\Illuminate\Contracts\Support\Arrayable  $data
      *
      * @throws \InvalidArgumentException
      *
      * @return $this
      */
-    public function rows($data)
+    public function rows($data): self
     {
         if ($data instanceof Arrayable) {
             $data = $data->toArray();
@@ -206,7 +206,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return array
      */
-    public function data()
+    public function data(): array
     {
         if (empty($this->data) && ! empty($this->model)) {
             $this->buildRowsFromModel($this->model);
@@ -220,7 +220,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  \Closure|null  $callback
      *
-     * @return array|null
+     * @return \Closure|array|null
      */
     public function header(Closure $callback = null)
     {
@@ -230,7 +230,7 @@ class Grid extends BaseGrid implements GridContract
 
         $this->header = $callback;
 
-        return;
+        return null;
     }
 
     /**
@@ -281,7 +281,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return \Orchestra\Contracts\Html\Table\Column
      */
-    public function find($name)
+    public function find(string $name): Column
     {
         if (! array_key_exists($name, $this->keyMap)) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");
@@ -297,7 +297,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function paginate($perPage)
+    public function paginate($perPage): self
     {
         if (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) && ! is_bool($perPage)) {
             $this->perPage = $perPage;
@@ -321,7 +321,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return void
      */
-    public function searchable(array $attributes, $key = 'q')
+    public function searchable(array $attributes, string $key = 'q'): void
     {
         $model = $this->resolveQueryBuilderFromModel($this->model);
         $request = $this->app->make('request');
@@ -347,8 +347,11 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return void
      */
-    public function sortable($orderColumns = [], $orderByKey = 'order_by', $directionKey = 'direction')
-    {
+    public function sortable(
+        array $orderColumns = [],
+        string $orderByKey = 'order_by',
+        string $directionKey = 'direction'
+    ): void {
         $model = $this->resolveQueryBuilderFromModel($this->model);
         $request = $this->app->make('request');
 
@@ -374,7 +377,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return array
      */
-    protected function buildColumn($name, $callback = null)
+    protected function buildColumn($name, $callback = null): array
     {
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
@@ -437,7 +440,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return void
      */
-    protected function buildRowsFromModel($model)
+    protected function buildRowsFromModel($model): void
     {
         $this->model = $model = $this->buildModel($model);
 
@@ -496,7 +499,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return bool
      */
-    protected function isQueryBuilder($model)
+    protected function isQueryBuilder($model): bool
     {
         return $model instanceof QueryBuilder || $model instanceof EloquentBuilder;
     }
@@ -508,7 +511,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return bool
      */
-    protected function isEloquentModel($model)
+    protected function isEloquentModel($model): bool
     {
         return $model instanceof EloquentModel;
     }
@@ -520,7 +523,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return bool
      */
-    protected function isEloquentRelationModel($model)
+    protected function isEloquentRelationModel($model): bool
     {
         return $model instanceof Relation;
     }

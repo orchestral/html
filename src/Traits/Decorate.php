@@ -14,7 +14,7 @@ trait Decorate
      *
      * @return array
      */
-    public function decorate(array $attributes, array $defaults = [])
+    public function decorate(array $attributes, array $defaults = []): array
     {
         $class = $this->buildClassDecorate($attributes, $defaults);
 
@@ -35,7 +35,7 @@ trait Decorate
      *
      * @return string
      */
-    protected function buildClassDecorate(array $attributes, array $defaults = [])
+    protected function buildClassDecorate(array $attributes, array $defaults = []): string
     {
         // Special consideration to class, where we need to merge both string
         // from $attributes and $defaults, then take union of both.

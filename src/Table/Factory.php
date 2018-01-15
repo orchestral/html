@@ -4,6 +4,7 @@ namespace Orchestra\Html\Table;
 
 use Closure;
 use Orchestra\Html\Factory as BaseFactory;
+use Orchestra\Contracts\Html\Builder as BuilderContract;
 use Orchestra\Contracts\Html\Table\Factory as FactoryContract;
 
 class Factory extends BaseFactory implements FactoryContract
@@ -11,7 +12,7 @@ class Factory extends BaseFactory implements FactoryContract
     /**
      * {@inheritdoc}
      */
-    public function make(Closure $callback = null)
+    public function make(callable $callback = null): BuilderContract
     {
         $builder = new TableBuilder(
             $this->app->make('request'),

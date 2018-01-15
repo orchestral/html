@@ -44,7 +44,7 @@ class HtmlServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerHtmlBuilder()
+    protected function registerHtmlBuilder(): void
     {
         $this->app->singleton('html', function (Application $app) {
             return new HtmlBuilder($app->make('url'), $app->make('view'));
@@ -56,7 +56,7 @@ class HtmlServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerFormBuilder()
+    protected function registerFormBuilder(): void
     {
         $this->app->singleton('form', function (Application $app) {
             $form = new FormBuilder($app->make('html'), $app->make('url'), $app->make('view'));
@@ -70,7 +70,7 @@ class HtmlServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerOrchestraFormBuilder()
+    protected function registerOrchestraFormBuilder(): void
     {
         $this->app->singleton(FormControlContract::class, Control::class);
 
@@ -92,7 +92,7 @@ class HtmlServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerOrchestraTableBuilder()
+    protected function registerOrchestraTableBuilder(): void
     {
         $this->app->singleton('orchestra.table', function ($app) {
             return new TableFactory($app);
@@ -116,7 +116,7 @@ class HtmlServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function bootConfiguration()
+    protected function bootConfiguration(): void
     {
         $config = $this->app->make('config');
         $namespace = $this->hasPackageRepository() ? 'orchestra/html::' : 'orchestra.';
@@ -130,7 +130,7 @@ class HtmlServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function bootComponents()
+    protected function bootComponents(): void
     {
         $path = realpath(__DIR__.'/../resources');
 
@@ -149,7 +149,7 @@ class HtmlServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function bootUsingLaravel($path)
+    protected function bootUsingLaravel(string $path): void
     {
         $this->mergeConfigFrom("{$path}/config/form.php", 'orchestra.form');
         $this->mergeConfigFrom("{$path}/config/table.php", 'orchestra.table');

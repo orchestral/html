@@ -2,8 +2,8 @@
 
 namespace Orchestra\Html;
 
-use Closure;
 use Illuminate\Contracts\Container\Container;
+use Orchestra\Contracts\Html\Builder as BuilderContract;
 
 abstract class Factory
 {
@@ -41,21 +41,21 @@ abstract class Factory
     /**
      * Create a new Builder instance.
      *
-     * @param  \Closure|null  $callback
+     * @param  callable|null  $callback
      *
-     * @return object
+     * @return \Orchestra\Contracts\Html\Builder
      */
-    abstract public function make(Closure $callback = null);
+    abstract public function make(callable $callback = null): BuilderContract;
 
     /**
      * Create a new builder instance of a named builder.
      *
      * @param  string  $name
-     * @param  \Closure  $callback
+     * @param  callable|null  $callback
      *
-     * @return object
+     * @return \Orchestra\Contracts\Html\Builder
      */
-    public function of($name, Closure $callback = null)
+    public function of(string $name, callable $callback = null): BuilderContract
     {
         if (! isset($this->names[$name])) {
             $this->names[$name] = $this->make($callback);
@@ -72,7 +72,7 @@ abstract class Factory
      *
      * @return $this
      */
-    public function setConfig(array $config)
+    public function setConfig(array $config): self
     {
         $this->config = $config;
 

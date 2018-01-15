@@ -61,14 +61,16 @@ abstract class Builder implements BuilderContract, Htmlable
     /**
      * Extend decoration.
      *
-     * @param  \Closure  $callback
+     * @param  callable  $callback
      *
      * @return $this
      */
-    public function extend(Closure $callback = null)
+    public function extend(callable $callback = null): self
     {
         // Run the table designer.
-        ! is_null($callback) && $callback($this->grid, $this->request, $this->translator);
+        if (! is_null($callback)) {
+            call_user_func($callback, $this->grid, $this->request, $this->translator);
+        }
 
         return $this;
     }
@@ -77,11 +79,11 @@ abstract class Builder implements BuilderContract, Htmlable
      * Magic Method for calling the methods.
      *
      * @param  string  $method
-     * @param  array   $parameters
+     * @param  array  $parameters
      *
      * @return $this
      */
-    public function __call($method, array $parameters)
+    public function __call(string $method, array $parameters): self
     {
         $this->grid->{$method}(...$parameters);
 
@@ -97,7 +99,7 @@ abstract class Builder implements BuilderContract, Htmlable
      *
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         if (! in_array($key, ['grid', 'name'])) {
             throw new InvalidArgumentException("Unable to get property [{$key}].");

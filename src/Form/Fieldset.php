@@ -146,7 +146,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @return \Illuminate\Support\Fluent
      */
-    public function find($name)
+    public function find(string $name)
     {
         if (! array_key_exists($name, $this->keyMap)) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");

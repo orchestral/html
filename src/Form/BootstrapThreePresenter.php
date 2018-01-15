@@ -94,7 +94,7 @@ class BootstrapThreePresenter implements Template
      *
      * @return string
      */
-    public function file(FieldContract $field)
+    public function file(FieldContract $field): string
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -108,7 +108,7 @@ class BootstrapThreePresenter implements Template
      *
      * @return string
      */
-    public function input(FieldContract $field)
+    public function input(FieldContract $field): string
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -127,7 +127,7 @@ class BootstrapThreePresenter implements Template
      *
      * @return string
      */
-    public function password(FieldContract $field)
+    public function password(FieldContract $field): string
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -141,7 +141,7 @@ class BootstrapThreePresenter implements Template
      *
      * @return string
      */
-    public function radio(FieldContract $field)
+    public function radio(FieldContract $field): string
     {
         return $this->form->radio($field->get('name'), $field->get('value'), $field->get('checked'));
     }
@@ -153,7 +153,7 @@ class BootstrapThreePresenter implements Template
      *
      * @return string
      */
-    public function select(FieldContract $field)
+    public function select(FieldContract $field): string
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -172,7 +172,7 @@ class BootstrapThreePresenter implements Template
      *
      * @return string
      */
-    public function textarea(FieldContract $field)
+    public function textarea(FieldContract $field): string
     {
         $attributes = $this->html->decorate($field->get('attributes'), ['class' => 'form-control']);
 
@@ -190,7 +190,7 @@ class BootstrapThreePresenter implements Template
      *
      * @return array
      */
-    protected function asArray($array)
+    protected function asArray($array): array
     {
         return $array instanceof Arrayable ? $array->toArray() : $array;
     }

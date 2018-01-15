@@ -35,7 +35,7 @@ class GridTest extends TestCase
 
 class GridStub extends Grid
 {
-    public function find($name)
+    public function find(string $name)
     {
         //
     }

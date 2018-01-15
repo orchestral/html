@@ -81,7 +81,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return void
      */
-    public function initiate(array $config)
+    public function initiate(array $config): void
     {
         $this->fieldsets = new Collection();
 
@@ -113,7 +113,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function layout($name, array $data = [])
+    public function layout(string $name, array $data = []): self
     {
         if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::form.{$name}";
@@ -207,7 +207,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return \Orchestra\Html\Form\Field|null
      */
-    public function find($name)
+    public function find(string $name): ?Field
     {
         if (Str::contains($name, '.')) {
             list($fieldset, $control) = explode('.', $name, 2);

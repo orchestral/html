@@ -26,7 +26,7 @@ class TableBuilder extends BaseBuilder implements BuilderContract
     /**
      * {@inheritdoc}
      */
-    public function render()
+    public function render(): string
     {
         $grid = $this->grid;
 

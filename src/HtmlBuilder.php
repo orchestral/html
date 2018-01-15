@@ -19,7 +19,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      *
      * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function create($tag = 'div', $value = null, $attributes = [])
+    public function create(string $tag = 'div', $value = null, array $attributes = []): Htmlable
     {
         if (is_array($value)) {
             $attributes = $value;
@@ -38,7 +38,7 @@ class HtmlBuilder extends BaseHtmlBuilder
     /**
      * {@inheritdoc}
      */
-    public function entities($value, $encoding = false)
+    public function entities($value, $encoding = false): string
     {
         if ($value instanceof Htmlable) {
             return $value->toHtml();
@@ -54,7 +54,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      *
      * @return \Illuminate\Contracts\Support\Htmlable
      */
-    public function raw($value)
+    public function raw(string $value): Htmlable
     {
         return $this->toHtmlString($value);
     }
@@ -68,7 +68,7 @@ class HtmlBuilder extends BaseHtmlBuilder
      *
      * @return string
      */
-    public function attributable(array $attributes, array $defaults = [])
+    public function attributable(array $attributes, array $defaults = []): string
     {
         return $this->attributes($this->decorate($attributes, $defaults));
     }

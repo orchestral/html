@@ -83,7 +83,7 @@ abstract class Grid
     /**
      * Add or append Grid attributes.
      *
-     * @param  mixed  $key
+     * @param  string|array|null  $key
      * @param  mixed  $value
      *
      * @return array|null
@@ -100,7 +100,7 @@ abstract class Grid
             $this->attributes[$key] = $value;
         }
 
-        return;
+        return null;
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class Grid
      *
      * @return \Illuminate\Support\Fluent
      */
-    public function of($name, $callback = null)
+    public function of(string $name, $callback = null)
     {
         $type = $this->definition['name'];
 
@@ -127,7 +127,7 @@ abstract class Grid
         $id = $this->keyMap[$name];
 
         if (is_callable($callback)) {
-            $callback($this->{$type}[$id]);
+            call_user_func($callback, $this->{$type}[$id]);
         }
 
         return $this->{$type}[$id];
@@ -140,7 +140,7 @@ abstract class Grid
      *
      * @return void
      */
-    public function forget($key)
+    public function forget(string $key): void
     {
         Arr::forget($this->meta, $key);
     }
@@ -153,7 +153,7 @@ abstract class Grid
      *
      * @return mixed
      */
-    public function get($key, $default = null)
+    public function get(string $key, $default = null)
     {
         return Arr::get($this->meta, $key, $default);
     }
@@ -162,11 +162,11 @@ abstract class Grid
      * Set meta value.
      *
      * @param  string  $key
-     * @param  mixed   $value
+     * @param  mixed  $value
      *
      * @return array
      */
-    public function set($key, $value)
+    public function set(string $key, $value)
     {
         return Arr::set($this->meta, $key, $value);
     }
@@ -180,7 +180,7 @@ abstract class Grid
      *
      * @return mixed
      */
-    abstract public function find($name);
+    abstract public function find(string $name);
 
     /**
      * Build basic name, label and callback option.
@@ -190,7 +190,7 @@ abstract class Grid
      *
      * @return array
      */
-    protected function buildFluentAttributes($name, $callback = null)
+    protected function buildFluentAttributes($name, $callback = null): array
     {
         $label = $name;
 
@@ -219,7 +219,7 @@ abstract class Grid
      *
      * @return mixed
      */
-    public function __call($method, array $parameters)
+    public function __call(string $method, array $parameters)
     {
         unset($parameters);
 
@@ -239,7 +239,7 @@ abstract class Grid
      *
      * @return mixed
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         if (! in_array($key, $this->definition['__get'])) {
             throw new InvalidArgumentException("Unable to use __get for [{$key}].");
@@ -258,7 +258,7 @@ abstract class Grid
      *
      * @return void
      */
-    public function __set($key, $parameters)
+    public function __set(string $key, $parameters): void
     {
         if (! in_array($key, $this->definition['__set'])) {
             throw new InvalidArgumentException("Unable to use __set for [{$key}].");
@@ -286,7 +286,7 @@ abstract class Grid
      *
      * @return bool
      */
-    public function __isset($key)
+    public function __isset(string $key): bool
     {
         if (! in_array($key, $this->definition['__isset'])) {
             throw new InvalidArgumentException("Unable to use __isset for [{$key}].");
