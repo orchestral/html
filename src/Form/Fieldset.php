@@ -68,7 +68,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @return void
      */
-    public function initiate(array $config, ControlContract $control, Template $presenter)
+    public function initiate(array $config, ControlContract $control, Template $presenter): void
     {
         $control->setTemplates($config)->setPresenter($presenter);
 
@@ -83,7 +83,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *
      * @return void
      */
-    protected function buildBasic($name, Closure $callback = null)
+    protected function buildBasic($name, Closure $callback = null): void
     {
         if ($name instanceof Closure) {
             $callback = $name;

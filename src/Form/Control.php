@@ -32,7 +32,7 @@ class Control implements ControlContract
     /**
      * Presenter instance.
      *
-     * @var \Orchestra\Contracts\Html\Form\Template
+     * @var \Orchestra\Contracts\Html\Form\Template|null
      */
     protected $presenter;
 
@@ -69,7 +69,7 @@ class Control implements ControlContract
      *
      * @return $this
      */
-    public function setPresenter(Template $presenter)
+    public function setPresenter(Template $presenter): self
     {
         $this->presenter = $presenter;
 
@@ -81,7 +81,7 @@ class Control implements ControlContract
      *
      * @return \Orchestra\Contracts\Html\Form\Template
      */
-    public function getPresenter()
+    public function getPresenter(): ?Template
     {
         return $this->presenter;
     }
@@ -93,7 +93,7 @@ class Control implements ControlContract
      *
      * @return $this
      */
-    public function setTemplates(array $templates = [])
+    public function setTemplates(array $templates = []): self
     {
         $this->templates = $templates;
 
@@ -105,7 +105,7 @@ class Control implements ControlContract
      *
      * @return array
      */
-    public function getTemplates()
+    public function getTemplates(): array
     {
         return $this->templates;
     }
@@ -117,7 +117,7 @@ class Control implements ControlContract
      *
      * @return \Closure
      */
-    public function generate($type)
+    public function generate($type): callable
     {
         return function ($row, $control, $templates = []) use ($type) {
             $data = $this->buildFieldByType($type, $row, $control);
@@ -186,7 +186,7 @@ class Control implements ControlContract
      *
      * @return array
      */
-    protected function getOptionList($row, Fluent $control)
+    protected function getOptionList($row, Fluent $control): array
     {
         // set the value of options, if it's callable run it first
         $options = $control->get('options');
@@ -228,7 +228,7 @@ class Control implements ControlContract
      *
      * @return \Illuminate\Support\Fluent
      */
-    protected function resolveFieldType($value, Fluent $data)
+    protected function resolveFieldType(string $value, Fluent $data): Field
     {
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
@@ -254,7 +254,7 @@ class Control implements ControlContract
      *
      * @return mixed
      */
-    protected function resolveFieldValue($name, $row, Fluent $control)
+    protected function resolveFieldValue(string $name, $row, Fluent $control)
     {
         // Set the value from old input, followed by row value.
         $value = $control->get('value');

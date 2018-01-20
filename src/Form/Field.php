@@ -19,7 +19,7 @@ class Field extends Fluent implements FieldContract
      *
      * @return string
      */
-    public function getField($row, array $templates = [])
+    public function getField($row, array $templates = []): string
     {
         $value = $this->attributes['field']($row, $this, $templates);
 
@@ -37,11 +37,10 @@ class Field extends Fluent implements FieldContract
      *
      * @return $this
      */
-    public function attributes(array $value = [])
+    public function attributes(array $value = []): self
     {
         $this->attributes['attributes'] = $this->decorate(
-            $value,
-            $this->attributes['attributes']
+            $value, $this->attributes['attributes']
         );
 
         return $this;
