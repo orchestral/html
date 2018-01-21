@@ -63,6 +63,6 @@ return [
     |
     */
 
-    'presenter' => Orchestra\Html\Form\BootstrapThreePresenter::class,
+    'presenter' => Orchestra\Html\Form\Presenters\BootstrapThree::class,
 
 ];

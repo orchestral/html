@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Html\Form;
+namespace Orchestra\Html\Form\Presenters;
 
 use Illuminate\Support\Traits\Macroable;
 use Illuminate\Contracts\Support\Htmlable;
@@ -10,7 +10,7 @@ use Orchestra\Html\FormBuilder as BaseFormBuilder;
 use Orchestra\Html\HtmlBuilder as BaseHtmlBuilder;
 use Orchestra\Contracts\Html\Form\Field as FieldContract;
 
-class BootstrapThreePresenter implements Template
+class BootstrapThree implements Template
 {
     use Macroable;
 
