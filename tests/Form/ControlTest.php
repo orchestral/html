@@ -59,7 +59,14 @@ class ControlTest extends TestCase
         ]);
 
         $stub = new Control($app, $request);
-        $stub->buildFluentData('text', $row, $control);
+        $response = $stub->buildFluentData('text', $row, $control);
+
+        $this->assertSame('foobar', $response->name);
+        $this->assertSame('input', $response->method);
+        $this->assertSame('text', $response->type);
+        $this->assertSame([], $response->options);
+        $this->assertFalse($response->checked);
+        $this->assertSame([], $response->attributes);
     }
 
     /**
