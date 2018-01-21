@@ -87,12 +87,10 @@ class HtmlBuilderTest extends TestCase
     public function testEntitiesMethod()
     {
         $stub = new HtmlBuilder($this->url, $this->view);
-        $output = $stub->raw('<img src="foo.jpg">');
 
-        $this->assertEquals('<img src="foo.jpg">', $stub->entities($output));
+        $this->assertEquals('<img src="foo.jpg">', $stub->entities($stub->raw('<img src="foo.jpg">')));
 
-        $output = '<img src="foo.jpg">';
-        $this->assertEquals('&lt;img src=&quot;foo.jpg&quot;&gt;', $stub->entities($output));
+        $this->assertEquals('&lt;img src=&quot;foo.jpg&quot;&gt;', $stub->entities('<img src="foo.jpg">'));
     }
 
     /**

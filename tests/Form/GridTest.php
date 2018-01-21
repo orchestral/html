@@ -145,11 +145,11 @@ class GridTest extends TestCase
     {
         $app = new Container();
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
-        $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = m::mock('\Orchestra\Html\Form\BootstrapThreePresenter');
+        $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = m::mock('\Orchestra\Html\Form\Presenters\BootstrapThree');
 
         $config = [
             'templates' => $this->getFieldsetTemplates(),
-            'presenter' => 'Orchestra\Html\Form\BootstrapThreePresenter',
+            'presenter' => 'Orchestra\Html\Form\Presenters\BootstrapThree',
         ];
 
         $control->shouldReceive('setTemplates')->twice()->with($this->getFieldsetTemplates())->andReturnSelf()
