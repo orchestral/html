@@ -11,6 +11,7 @@ use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Database\Eloquent\Model;
 use Orchestra\Contracts\Html\Form\Presenter;
 use Orchestra\Contracts\Html\Form\Grid as GridContract;
+use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
 
 class Grid extends BaseGrid implements GridContract
 {
@@ -165,9 +166,9 @@ class Grid extends BaseGrid implements GridContract
      * @param  string|\Closure  $name
      * @param  \Closure|null  $callback
      *
-     * @return \Orchestra\Html\Form\Fieldset
+     * @return \Orchestra\Contracts\Html\Form\Fieldset
      */
-    public function fieldset($name, Closure $callback = null)
+    public function fieldset($name, Closure $callback = null): FieldsetContract
     {
         $fieldset = new Fieldset($this->app, $this->templates, $name, $callback);
 
@@ -191,9 +192,9 @@ class Grid extends BaseGrid implements GridContract
      *
      * @throws \InvalidArgumentException
      *
-     * @return \Orchestra\Html\Form\Field|null
+     * @return \Orchestra\Html\Form\Field
      */
-    public function find(string $name): ?Field
+    public function find(string $name): Field
     {
         if (Str::contains($name, '.')) {
             list($fieldset, $control) = explode('.', $name, 2);
@@ -217,7 +218,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return void
      */
-    public function hidden($name, $callback = null)
+    public function hidden(string $name, $callback = null): void
     {
         $value = data_get($this->data, $name);
 
@@ -244,7 +245,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function resource(Presenter $listener, $url, Model $model, array $attributes = [])
+    public function resource(Presenter $listener, $url, Model $model, array $attributes = []): self
     {
         $method = 'POST';
 
@@ -268,7 +269,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function setup(Presenter $listener, $url, $model, array $attributes = [])
+    public function setup(Presenter $listener, $url, $model, array $attributes = []): self
     {
         $attributes = array_merge($attributes, [
             'url' => $listener->handles($url),

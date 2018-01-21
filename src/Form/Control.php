@@ -9,6 +9,7 @@ use Illuminate\Support\Fluent;
 use Orchestra\Html\Traits\Decorate;
 use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
+use Orchestra\Contracts\Html\Form\Field as FieldContract;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
 
 class Control implements ControlContract
@@ -115,9 +116,9 @@ class Control implements ControlContract
      *
      * @param  string  $type
      *
-     * @return \Closure
+     * @return callable
      */
-    public function generate($type): callable
+    public function generate(string $type): callable
     {
         return function ($row, $control, $templates = []) use ($type) {
             $data = $this->buildFieldByType($type, $row, $control);
@@ -135,7 +136,7 @@ class Control implements ControlContract
      *
      * @return \Illuminate\Support\Fluent
      */
-    public function buildFieldByType($type, $row, Fluent $control)
+    public function buildFieldByType(string $type, $row, Fluent $control): FieldContract
     {
         $templates = $this->templates;
 
@@ -157,9 +158,9 @@ class Control implements ControlContract
      * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent  $control
      *
-     * @return \Illuminate\Support\Fluent
+     * @return \Orchestra\Contracts\Html\Form\Field
      */
-    public function buildFluentData($type, $row, Fluent $control)
+    public function buildFluentData(string $type, $row, Fluent $control): FieldContract
     {
         // set the name of the control
         $name = $control->get('name');
@@ -208,7 +209,7 @@ class Control implements ControlContract
      *
      * @return string
      */
-    public function render($templates, Fluent $field)
+    public function render(array $templates, Fluent $field): string
     {
         $method = $field->get('method');
         $template = $templates[$method] ?? [$this->presenter, $method];
@@ -226,9 +227,9 @@ class Control implements ControlContract
      * @param  string  $value
      * @param  \Illuminate\Support\Fluent  $data
      *
-     * @return \Illuminate\Support\Fluent
+     * @return \Orchestra\Contracts\Html\Form\Field
      */
-    protected function resolveFieldType(string $value, Fluent $data): Field
+    protected function resolveFieldType(string $value, Fluent $data): FieldContract
     {
         if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];

@@ -113,7 +113,7 @@ abstract class Builder implements BuilderContract, Htmlable
      *
      * @return string
      */
-    public function toHtml()
+    public function toHtml(): string
     {
         return $this->render();
     }

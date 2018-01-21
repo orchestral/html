@@ -190,7 +190,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      *     $fieldset->legend('User Information');
      * </code>
      *
-     * @param  string  $name
+     * @param  string|null  $name
      *
      * @return string
      */
