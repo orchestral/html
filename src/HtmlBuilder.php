@@ -34,18 +34,6 @@ class HtmlBuilder extends BaseHtmlBuilder
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function entities($value, bool $encoding = false): string
-    {
-        if ($value instanceof Htmlable) {
-            return $value->toHtml();
-        }
-
-        return parent::entities($value, $encoding);
-    }
-
-    /**
      * Create a new HTML expression instance are used to inject HTML.
      *
      * @param  string  $value
