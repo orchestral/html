@@ -10,7 +10,7 @@ use Orchestra\Html\FormBuilder as BaseFormBuilder;
 use Orchestra\Html\HtmlBuilder as BaseHtmlBuilder;
 use Orchestra\Contracts\Html\Form\Field as FieldContract;
 
-class BootstrapThree implements Template
+class BootstrapFour implements Template
 {
     use Macroable;
 
