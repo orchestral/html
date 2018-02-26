@@ -185,9 +185,9 @@ class Control implements ControlContract
      * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent  $control
      *
-     * @return array
+     * @return array|\Illuminate\Contracts\Support\Arrayable
      */
-    protected function getOptionList($row, Fluent $control): array
+    protected function getOptionList($row, Fluent $control)
     {
         // set the value of options, if it's callable run it first
         $options = $control->get('options');
