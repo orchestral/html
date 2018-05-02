@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
-use Orchestra\Html\Traits\Decorate;
+use Orchestra\Html\Concerns\Decorate;
 use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
 use Orchestra\Contracts\Html\Form\Field as FieldContract;

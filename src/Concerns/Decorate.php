@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Html\Traits;
+namespace Orchestra\Html\Concerns;
 
 use Illuminate\Support\Str;
 
