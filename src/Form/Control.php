@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Support\Fluent;
-use Orchestra\Html\Traits\Decorate;
+use Orchestra\Html\Concerns\Decorate;
 use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
 use Orchestra\Contracts\Html\Form\Field as FieldContract;
@@ -185,9 +185,9 @@ class Control implements ControlContract
      * @param  mixed  $row
      * @param  \Illuminate\Support\Fluent  $control
      *
-     * @return array
+     * @return array|\Illuminate\Contracts\Support\Arrayable
      */
-    protected function getOptionList($row, Fluent $control): array
+    protected function getOptionList($row, Fluent $control)
     {
         // set the value of options, if it's callable run it first
         $options = $control->get('options');
