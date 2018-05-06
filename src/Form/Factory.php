@@ -2,7 +2,6 @@
 
 namespace Orchestra\Html\Form;
 
-use Closure;
 use Orchestra\Html\Factory as BaseFactory;
 use Orchestra\Contracts\Html\Builder as BuilderContract;
 use Orchestra\Contracts\Html\Form\Factory as FactoryContract;

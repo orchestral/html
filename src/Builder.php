@@ -2,7 +2,6 @@
 
 namespace Orchestra\Html;
 
-use Closure;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Translation\Translator;
