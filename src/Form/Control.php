@@ -70,7 +70,7 @@ class Control implements ControlContract
      *
      * @return $this
      */
-    public function setPresenter(Template $presenter): self
+    public function setPresenter(Template $presenter)
     {
         $this->presenter = $presenter;
 
@@ -94,7 +94,7 @@ class Control implements ControlContract
      *
      * @return $this
      */
-    public function setTemplates(array $templates = []): self
+    public function setTemplates(array $templates = [])
     {
         $this->templates = $templates;
 

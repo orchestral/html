@@ -121,7 +121,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function layout(string $name, array $data = []): self
+    public function layout(string $name, array $data = [])
     {
         if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::table.{$name}";
@@ -152,7 +152,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function with($model, bool $paginate = true): self
+    public function with($model, bool $paginate = true)
     {
         $this->model = $model;
         $this->paginate = $paginate;
@@ -184,7 +184,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function rows($data): self
+    public function rows($data)
     {
         if ($data instanceof Arrayable) {
             $data = $data->toArray();
@@ -293,7 +293,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function paginate($perPage): self
+    public function paginate($perPage)
     {
         if (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) && ! is_bool($perPage)) {
             $this->perPage = $perPage;

@@ -114,7 +114,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function layout(string $name, array $data = []): self
+    public function layout(string $name, array $data = [])
     {
         if (in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::form.{$name}";
@@ -245,7 +245,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function resource(Presenter $listener, $url, Model $model, array $attributes = []): self
+    public function resource(Presenter $listener, $url, Model $model, array $attributes = [])
     {
         $method = 'POST';
 
@@ -269,7 +269,7 @@ class Grid extends BaseGrid implements GridContract
      *
      * @return $this
      */
-    public function setup(Presenter $listener, $url, $model, array $attributes = []): self
+    public function setup(Presenter $listener, $url, $model, array $attributes = [])
     {
         $attributes = array_merge($attributes, [
             'url' => $listener->handles($url),
