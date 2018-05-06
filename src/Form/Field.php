@@ -37,7 +37,7 @@ class Field extends Fluent implements FieldContract
      *
      * @return $this
      */
-    public function attributes(array $value = []): self
+    public function attributes(array $value = [])
     {
         $this->attributes['attributes'] = $this->decorate(
             $value, $this->attributes['attributes']

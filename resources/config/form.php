@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |----------------------------------------------------------------------
     | Default Error Message String
@@ -64,5 +63,4 @@ return [
     */
 
     'presenter' => Orchestra\Html\Form\Presenters\BootstrapThree::class,
-
 ];

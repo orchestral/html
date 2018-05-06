@@ -2,7 +2,6 @@
 
 namespace Orchestra\Html;
 
-use Closure;
 use Illuminate\Http\Request;
 use InvalidArgumentException;
 use Illuminate\Translation\Translator;
@@ -65,7 +64,7 @@ abstract class Builder implements BuilderContract, Htmlable
      *
      * @return $this
      */
-    public function extend(callable $callback = null): self
+    public function extend(callable $callback = null)
     {
         // Run the table designer.
         if (! is_null($callback)) {
@@ -83,7 +82,7 @@ abstract class Builder implements BuilderContract, Htmlable
      *
      * @return $this
      */
-    public function __call(string $method, array $parameters): self
+    public function __call(string $method, array $parameters)
     {
         $this->grid->{$method}(...$parameters);
 

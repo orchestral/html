@@ -9,6 +9,7 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 [![Total Downloads](https://poser.pugx.org/orchestra/html/downloads)](https://packagist.org/packages/orchestra/html)
 [![Latest Unstable Version](https://poser.pugx.org/orchestra/html/v/unstable)](//packagist.org/packages/orchestra/html)
 [![License](https://poser.pugx.org/orchestra/html/license)](https://packagist.org/packages/orchestra/html)
+[![Coverage Status](https://coveralls.io/repos/github/orchestral/html/badge.svg?branch=master)](https://coveralls.io/github/orchestral/html?branch=master)
 
 ## Table of Content
 
@@ -29,7 +30,7 @@ Laravel    | HTML
  5.3.x     | 3.3.x
  5.4.x     | 3.4.x
  5.5.x     | 3.5.x
- 5.6.x     | 3.6.x@dev
+ 5.6.x     | 3.6.x
  5.7.x     | 3.7.x@dev
 
 ## Installation
