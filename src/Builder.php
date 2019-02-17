@@ -67,8 +67,8 @@ abstract class Builder implements BuilderContract, Htmlable
     public function extend(callable $callback = null)
     {
         // Run the table designer.
-        if (! is_null($callback)) {
-            call_user_func($callback, $this->grid, $this->request, $this->translator);
+        if (! \is_null($callback)) {
+            \call_user_func($callback, $this->grid, $this->request, $this->translator);
         }
 
         return $this;
@@ -100,7 +100,7 @@ abstract class Builder implements BuilderContract, Htmlable
      */
     public function __get(string $key)
     {
-        if (! in_array($key, ['grid', 'name'])) {
+        if (! \in_array($key, ['grid', 'name'])) {
             throw new InvalidArgumentException("Unable to get property [{$key}].");
         }
 

@@ -155,8 +155,8 @@ class HtmlServiceProvider extends ServiceProvider
         $this->mergeConfigFrom("{$path}/config/table.php", 'orchestra.table');
 
         $this->publishes([
-            "{$path}/config/form.php" => config_path('orchestra/form.php'),
-            "{$path}/config/table.php" => config_path('orchestra/table.php'),
+            "{$path}/config/form.php" => \config_path('orchestra/form.php'),
+            "{$path}/config/table.php" => \config_path('orchestra/table.php'),
         ]);
     }
 

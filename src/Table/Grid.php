@@ -92,7 +92,7 @@ class Grid extends BaseGrid implements GridContract
     public function initiate(array $config): void
     {
         foreach ($config as $key => $value) {
-            if (property_exists($this, $key)) {
+            if (\property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
         }
@@ -123,7 +123,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function layout(string $name, array $data = [])
     {
-        if (in_array($name, ['horizontal', 'vertical'])) {
+        if (\in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::table.{$name}";
         } else {
             $this->view = $name;
@@ -220,7 +220,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function header(Closure $callback = null)
     {
-        if (is_null($callback)) {
+        if (\is_null($callback)) {
             return $this->header;
         }
 
@@ -263,7 +263,7 @@ class Grid extends BaseGrid implements GridContract
         list($name, $column) = $this->buildColumn($name, $callback);
 
         $this->columns[] = $column;
-        $this->keyMap[$name] = count($this->columns) - 1;
+        $this->keyMap[$name] = \count($this->columns) - 1;
 
         return $column;
     }
@@ -279,7 +279,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function find(string $name): Column
     {
-        if (! array_key_exists($name, $this->keyMap)) {
+        if (! \array_key_exists($name, $this->keyMap)) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");
         }
 
@@ -295,10 +295,10 @@ class Grid extends BaseGrid implements GridContract
      */
     public function paginate($perPage)
     {
-        if (filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) && ! is_bool($perPage)) {
+        if (\filter_var($perPage, FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]) && ! \is_bool($perPage)) {
             $this->perPage = $perPage;
             $this->paginate = true;
-        } elseif (filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
+        } elseif (\filter_var($perPage, FILTER_VALIDATE_BOOLEAN)) {
             $this->perPage = null;
             $this->paginate = $perPage;
         } else {
@@ -323,7 +323,7 @@ class Grid extends BaseGrid implements GridContract
         $request = $this->app->make('request');
         $value = $request->input($key);
 
-        $request->merge(["{$key}" => rawurlencode($value)]);
+        $request->merge(["{$key}" => \rawurlencode($value)]);
 
         $this->set('search', [
             'attributes' => $attributes,
@@ -381,7 +381,7 @@ class Grid extends BaseGrid implements GridContract
 
         if (! empty($name)) {
             $value = function ($row) use ($name) {
-                return data_get($row, $name);
+                return \data_get($row, $name);
             };
         }
 
@@ -395,7 +395,7 @@ class Grid extends BaseGrid implements GridContract
             },
         ]);
 
-        if (is_callable($callback)) {
+        if (\is_callable($callback)) {
             $callback($column);
         }
 
@@ -418,7 +418,7 @@ class Grid extends BaseGrid implements GridContract
             $query = $model;
         }
 
-        if ($this->paginate === true && method_exists($query, 'paginate')) {
+        if ($this->paginate === true && \method_exists($query, 'paginate')) {
             $query = $query->paginate($this->perPage, ['*'], $this->pageName);
         } elseif ($this->isQueryBuilder($query)) {
             $query = $query->get();
@@ -447,7 +447,7 @@ class Grid extends BaseGrid implements GridContract
             $this->setRowsData($model->all());
         } elseif ($model instanceof Arrayable) {
             $this->setRowsData($model->toArray());
-        } elseif (is_array($model)) {
+        } elseif (\is_array($model)) {
             $this->setRowsData($model);
         } else {
             throw new InvalidArgumentException('Unable to convert $model to array.');

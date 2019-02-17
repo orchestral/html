@@ -19,14 +19,14 @@ class HtmlBuilder extends BaseHtmlBuilder
      */
     public function create(string $tag = 'div', $value = null, array $attributes = []): Htmlable
     {
-        if (is_array($value)) {
+        if (\is_array($value)) {
             $attributes = $value;
             $value = null;
         }
 
         $content = '<'.$tag.$this->attributes($attributes).'>';
 
-        if (! is_null($value)) {
+        if (! \is_null($value)) {
             $content .= $this->entities($value).'</'.$tag.'>';
         }
 
@@ -71,7 +71,7 @@ class HtmlBuilder extends BaseHtmlBuilder
     {
         $class = $this->buildClassDecorate($attributes, $defaults);
 
-        $attributes = array_merge($defaults, $attributes);
+        $attributes = \array_merge($defaults, $attributes);
 
         if (! empty($class)) {
             $attributes['class'] = $class;
@@ -95,8 +95,8 @@ class HtmlBuilder extends BaseHtmlBuilder
         $default = $defaults['class'] ?? '';
         $attribute = $attributes['class'] ?? '';
 
-        $classes = explode(' ', trim($default.' '.$attribute));
-        $current = array_unique($classes);
+        $classes = \explode(' ', \trim($default.' '.$attribute));
+        $current = \array_unique($classes);
         $excludes = [];
 
         foreach ($current as $c) {
@@ -106,6 +106,6 @@ class HtmlBuilder extends BaseHtmlBuilder
             }
         }
 
-        return implode(' ', array_diff($current, $excludes));
+        return \implode(' ', \array_diff($current, $excludes));
     }
 }

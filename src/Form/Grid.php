@@ -87,7 +87,7 @@ class Grid extends BaseGrid implements GridContract
         $this->fieldsets = new Collection();
 
         foreach ($config as $key => $value) {
-            if (property_exists($this, $key)) {
+            if (\property_exists($this, $key)) {
                 $this->{$key} = $value;
             }
         }
@@ -116,7 +116,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function layout(string $name, array $data = [])
     {
-        if (in_array($name, ['horizontal', 'vertical'])) {
+        if (\in_array($name, ['horizontal', 'vertical'])) {
             $this->view = "orchestra/html::form.{$name}";
         } else {
             $this->view = $name;
@@ -141,7 +141,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function with($data)
     {
-        if (is_array($data)) {
+        if (\is_array($data)) {
             $data = new Fluent($data);
         }
 
@@ -172,8 +172,8 @@ class Grid extends BaseGrid implements GridContract
     {
         $fieldset = new Fieldset($this->app, $this->templates, $name, $callback);
 
-        if (is_null($name = $fieldset->getName())) {
-            $name = sprintf('fieldset-%d', $this->fieldsets->count());
+        if (\is_null($name = $fieldset->getName())) {
+            $name = \sprintf('fieldset-%d', $this->fieldsets->count());
         } else {
             $name = Str::slug($name);
         }
@@ -197,13 +197,13 @@ class Grid extends BaseGrid implements GridContract
     public function find(string $name): Field
     {
         if (Str::contains($name, '.')) {
-            list($fieldset, $control) = explode('.', $name, 2);
+            list($fieldset, $control) = \explode('.', $name, 2);
         } else {
             $fieldset = 'fieldset-0';
             $control = $name;
         }
 
-        if (! array_key_exists($fieldset, $this->keyMap)) {
+        if (! \array_key_exists($fieldset, $this->keyMap)) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");
         }
 
@@ -220,7 +220,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function hidden(string $name, $callback = null): void
     {
-        $value = data_get($this->data, $name);
+        $value = \data_get($this->data, $name);
 
         $field = new Fluent([
             'name' => $name,
@@ -271,7 +271,7 @@ class Grid extends BaseGrid implements GridContract
      */
     public function setup(Presenter $listener, $url, $model, array $attributes = [])
     {
-        $attributes = array_merge($attributes, [
+        $attributes = \array_merge($attributes, [
             'url' => $listener->handles($url),
             'method' => $attributes['method'] ?? 'POST',
         ]);
