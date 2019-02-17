@@ -56,7 +56,7 @@ class Title
      */
     public function setFormat(array $formats = []): void
     {
-        $this->formats = array_filter($formats);
+        $this->formats = \array_filter($formats);
     }
 
     /**

@@ -127,12 +127,12 @@ class Fieldset extends BaseGrid implements FieldsetContract
     {
         list($name, $control) = $this->buildControl($name, $callback);
 
-        if (is_null($control->field)) {
+        if (\is_null($control->field)) {
             $control->field = $this->control->generate($type);
         }
 
         $this->controls[] = $control;
-        $this->keyMap[$name] = count($this->controls) - 1;
+        $this->keyMap[$name] = \count($this->controls) - 1;
 
         return $control;
     }
@@ -148,7 +148,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      */
     public function find(string $name)
     {
-        if (! array_key_exists($name, $this->keyMap)) {
+        if (! \array_key_exists($name, $this->keyMap)) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");
         }
 
@@ -168,7 +168,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
         list($label, $name, $callback) = $this->buildFluentAttributes($name, $callback);
 
         $control = new Field([
-            'id' => preg_replace('/(.+)\[\]/', '$1', $name),
+            'id' => \preg_replace('/(.+)\[\]/', '$1', $name),
             'name' => $name,
             'value' => null,
             'label' => $label,
@@ -178,7 +178,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
             'field' => null,
         ]);
 
-        is_callable($callback) && $callback($control);
+        \is_callable($callback) && $callback($control);
 
         return [$name, $control];
     }
@@ -196,7 +196,7 @@ class Fieldset extends BaseGrid implements FieldsetContract
      */
     public function legend($name = null)
     {
-        if (! is_null($name)) {
+        if (! \is_null($name)) {
             $this->name = $name;
         }
 

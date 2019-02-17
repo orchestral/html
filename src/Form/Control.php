@@ -214,7 +214,7 @@ class Control implements ControlContract
         $method = $field->get('method');
         $template = $templates[$method] ?? [$this->presenter, $method];
 
-        if (! is_callable($template)) {
+        if (! \is_callable($template)) {
             throw new InvalidArgumentException("Form template for [{$method}] is not available.");
         }
 
@@ -231,11 +231,11 @@ class Control implements ControlContract
      */
     protected function resolveFieldType(string $value, Fluent $data): FieldContract
     {
-        if (preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
+        if (\preg_match('/^(input):([a-zA-Z]+)$/', $value, $matches)) {
             $value = $matches[2];
         }
 
-        $filterable = in_array($value, array_keys($this->templates)) || method_exists($this->presenter, $value);
+        $filterable = \in_array($value, \array_keys($this->templates)) || \method_exists($this->presenter, $value);
 
         if ((bool) $filterable) {
             $data->method($value);
@@ -259,9 +259,9 @@ class Control implements ControlContract
     {
         // Set the value from old input, followed by row value.
         $value = $control->get('value');
-        $model = data_get($row, $name, $this->request->old($name));
+        $model = \data_get($row, $name, $this->request->old($name));
 
-        if (! is_null($model)) {
+        if (! \is_null($model)) {
             return $model;
         }
 

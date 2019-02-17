@@ -20,13 +20,13 @@ class FormBuilder extends BaseFormBuilder
     public function checkboxes($name, array $list = [], $checked = null, array $options = [], $separator = '<br>')
     {
         $group = [];
-        $name = str_replace('[]', '', $name);
+        $name = \str_replace('[]', '', $name);
 
         foreach ($list as $id => $label) {
             $group[] = $this->generateCheckboxByGroup($id, $label, $name, $checked, $options);
         }
 
-        return implode($separator, $group);
+        return \implode($separator, $group);
     }
 
     /**
@@ -42,9 +42,9 @@ class FormBuilder extends BaseFormBuilder
      */
     protected function generateCheckboxByGroup($id, $label, $name, $checked, array $options)
     {
-        $identifier = sprintf('%s_%s', $name, $id);
-        $key = sprintf('%s[]', $name);
-        $active = in_array($id, (array) $checked);
+        $identifier = \sprintf('%s_%s', $name, $id);
+        $key = \sprintf('%s[]', $name);
+        $active = \in_array($id, (array) $checked);
 
         $options['id'] = $identifier;
 
@@ -52,6 +52,6 @@ class FormBuilder extends BaseFormBuilder
 
         $label = $this->label($identifier, $label);
 
-        return implode(' ', [$control, $label]);
+        return \implode(' ', [$control, $label]);
     }
 }

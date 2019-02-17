@@ -75,7 +75,7 @@ abstract class Grid
     {
         $this->app = $app;
 
-        if (method_exists($this, 'initiate')) {
+        if (\method_exists($this, 'initiate')) {
             $app->call([$this, 'initiate'], ['config' => $config]);
         }
     }
@@ -90,12 +90,12 @@ abstract class Grid
      */
     public function attributes($key = null, $value = null)
     {
-        if (is_null($key)) {
+        if (\is_null($key)) {
             return $this->attributes;
         }
 
-        if (is_array($key)) {
-            $this->attributes = array_merge($this->attributes, $key);
+        if (\is_array($key)) {
+            $this->attributes = \array_merge($this->attributes, $key);
         } else {
             $this->attributes[$key] = $value;
         }
@@ -118,7 +118,7 @@ abstract class Grid
     {
         $type = $this->definition['name'];
 
-        if (is_null($type) || ! property_exists($this, $type)) {
+        if (\is_null($type) || ! \property_exists($this, $type)) {
             throw new RuntimeException('Not supported.');
         } elseif (! isset($this->keyMap[$name])) {
             throw new InvalidArgumentException("Name [{$name}] is not available.");
@@ -126,8 +126,8 @@ abstract class Grid
 
         $id = $this->keyMap[$name];
 
-        if (is_callable($callback)) {
-            call_user_func($callback, $this->{$type}[$id]);
+        if (\is_callable($callback)) {
+            \call_user_func($callback, $this->{$type}[$id]);
         }
 
         return $this->{$type}[$id];
@@ -194,11 +194,11 @@ abstract class Grid
     {
         $label = $name;
 
-        if (! is_string($label)) {
+        if (! \is_string($label)) {
             $callback = $label;
             $name = '';
             $label = '';
-        } elseif (is_string($callback)) {
+        } elseif (\is_string($callback)) {
             $name = Str::lower($callback);
             $callback = null;
         } else {
@@ -223,7 +223,7 @@ abstract class Grid
     {
         unset($parameters);
 
-        if (! in_array($method, $this->definition['__call'])) {
+        if (! \in_array($method, $this->definition['__call'])) {
             throw new InvalidArgumentException("Unable to use __call for [{$method}].");
         }
 
@@ -241,7 +241,7 @@ abstract class Grid
      */
     public function __get(string $key)
     {
-        if (! in_array($key, $this->definition['__get'])) {
+        if (! \in_array($key, $this->definition['__get'])) {
             throw new InvalidArgumentException("Unable to use __get for [{$key}].");
         }
 
@@ -260,7 +260,7 @@ abstract class Grid
      */
     public function __set(string $key, $parameters): void
     {
-        if (! in_array($key, $this->definition['__set'])) {
+        if (! \in_array($key, $this->definition['__set'])) {
             throw new InvalidArgumentException("Unable to use __set for [{$key}].");
         }
 
@@ -270,7 +270,7 @@ abstract class Grid
             return;
         }
 
-        if (! is_array($parameters)) {
+        if (! \is_array($parameters)) {
             throw new InvalidArgumentException('Require values to be an array.');
         }
 
@@ -288,7 +288,7 @@ abstract class Grid
      */
     public function __isset(string $key): bool
     {
-        if (! in_array($key, $this->definition['__isset'])) {
+        if (! \in_array($key, $this->definition['__isset'])) {
             throw new InvalidArgumentException("Unable to use __isset for [{$key}].");
         }
 
