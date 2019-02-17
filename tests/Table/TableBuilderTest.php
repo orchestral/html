@@ -14,7 +14,7 @@ class TableBuilderTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -53,10 +53,12 @@ class TableBuilderTest extends TestCase
     /**
      * test Orchestra\Html\Table\TableBuilder::__get() throws an exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $grid = new Grid($this->getContainer(), []);
 
         $request = m::mock('\Illuminate\Http\Request');

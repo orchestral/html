@@ -14,7 +14,7 @@ class GridTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -190,10 +190,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid::with() method throws an exceptions
      * when $model can't be converted to array.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testWithMethodThrowsAnException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $model = 'Foo';
@@ -299,10 +301,12 @@ class GridTest extends TestCase
     /**
      * Test Orchestra\Html\Table\Grid::of() method throws exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testOfMethodThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
         $stub->of('id');
     }
@@ -397,10 +401,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid::searchable() method
      * throws exception when model is not a query builder.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testSearchableMethodThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $attributes = ['email', 'fullname'];
 
         $stub = new Grid($this->getContainer(), []);
@@ -445,10 +451,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid::sortable() method
      * throws exception when model is not a query builder.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testSortableMethodThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $attributes = ['email', 'fullname'];
 
         $stub = new Grid($this->getContainer(), []);
@@ -509,10 +517,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid magic method __call() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodCallThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->invalidMethod();
@@ -522,10 +532,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid magic method __get() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodGetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->invalidProperty;
@@ -535,10 +547,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid magic method __set() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodSetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->invalidProperty = ['foo'];
@@ -548,10 +562,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid magic method __set() throws
      * exception when $values is not an array.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->attributes = 'foo';
@@ -561,10 +577,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Table\Grid magic method __isset() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodIssetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         isset($stub->invalidProperty) ? true : false;

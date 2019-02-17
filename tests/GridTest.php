@@ -8,7 +8,8 @@ use Illuminate\Container\Container;
 
 class GridTest extends TestCase
 {
-    public function testMetaData()
+    /** @test */
+    public function it_can_manipulate_meta_data()
     {
         $app = new Container();
         $stub = new GridStub($app, []);

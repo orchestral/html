@@ -12,7 +12,7 @@ class ControlTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -72,10 +72,12 @@ class ControlTest extends TestCase
     /**
      * Test Orchestra\Html\Form\Control::render() throws exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testRenderMethodThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $app = m::mock('\Illuminate\Contracts\Container\Container');
         $request = m::mock('\Illuminate\Http\Request');
 

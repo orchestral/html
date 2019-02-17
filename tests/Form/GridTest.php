@@ -12,7 +12,7 @@ class GridTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         m::close();
     }
@@ -221,10 +221,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Form\Grid::find() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testFindMethodThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->find('foobar.email');
@@ -234,10 +236,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Form\Grid magic method __call() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodCallThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->invalidMethod();
@@ -247,10 +251,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Form\Grid magic method __get() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodGetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->invalidProperty;
@@ -260,10 +266,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Form\Grid magic method __set() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodSetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->invalidProperty = ['foo'];
@@ -273,10 +281,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Form\Grid magic method __set() throws
      * exception when $values is not an array.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->attributes = 'foo';
@@ -285,10 +295,12 @@ class GridTest extends TestCase
     /**
      * Test Orchestra\Html\Form\Grid::of() method throws exception.
      *
-     * @expectedException \RuntimeException
+     * @test
      */
     public function testOfMethodThrowsException()
     {
+        $this->expectException('RuntimeException');
+
         $stub = new Grid($this->getContainer(), []);
 
         $stub->of('foo');
@@ -298,10 +310,12 @@ class GridTest extends TestCase
      * Test Orchestra\Html\Form\Grid magic method __isset() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodIssetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $stub = new Grid($this->getContainer(), []);
 
         isset($stub->invalidProperty) ? true : false;

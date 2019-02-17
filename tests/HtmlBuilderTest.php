@@ -25,7 +25,7 @@ class HtmlBuilderTest extends TestCase
     /**
      * Setup the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->url = m::mock('\Illuminate\Contracts\Routing\UrlGenerator');
         $this->view = m::mock('\Illuminate\Contracts\View\Factory');
@@ -34,7 +34,7 @@ class HtmlBuilderTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->url);
         m::close();
@@ -178,10 +178,12 @@ class HtmlBuilderTest extends TestCase
     /**
      * Test Orchestra\Html\HtmlBuilder::__call() method throws exception.
      *
-     * @expectedException \BadMethodCallException
+     * @test
      */
     public function testMagicCallMethodThrowsException()
     {
+        $this->expectException('BadMethodCallException');
+
         with(new HtmlBuilder($this->url, $this->view))->missing();
     }
 }

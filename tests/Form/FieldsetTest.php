@@ -23,7 +23,7 @@ class FieldsetTest extends TestCase
     /**
      * Setup the test environment.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->app = new Container();
     }
@@ -31,7 +31,7 @@ class FieldsetTest extends TestCase
     /**
      * Teardown the test environment.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->app);
         m::close();
@@ -250,10 +250,12 @@ class FieldsetTest extends TestCase
     /**
      * Test Orchestra\Html\Form\Fieldset::of() method throws exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testOfMethodThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $app = $this->app;
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
@@ -305,10 +307,12 @@ class FieldsetTest extends TestCase
      * Test Orchestra\Html\Form\Fieldset magic method __call() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodCallThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $app = $this->app;
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
@@ -327,10 +331,12 @@ class FieldsetTest extends TestCase
      * Test Orchestra\Html\Form\Fieldset magic method __get() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodGetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $app = $this->app;
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
@@ -349,10 +355,12 @@ class FieldsetTest extends TestCase
      * Test Orchestra\Html\Form\Fieldset magic method __set() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodSetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $app = $this->app;
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
@@ -371,10 +379,12 @@ class FieldsetTest extends TestCase
      * Test Orchestra\Html\Form\Fieldset magic method __set() throws
      * exception when $values is not an array.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodSetThrowsExceptionValuesNotAnArray()
     {
+        $this->expectException('InvalidArgumentException');
+
         $app = $this->app;
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
@@ -393,10 +403,12 @@ class FieldsetTest extends TestCase
      * Test Orchestra\Html\Form\Fieldset magic method __isset() throws
      * exception.
      *
-     * @expectedException \InvalidArgumentException
+     * @test
      */
     public function testMagicMethodIssetThrowsException()
     {
+        $this->expectException('InvalidArgumentException');
+
         $app = $this->app;
         $app['Orchestra\Contracts\Html\Form\Control'] = $control = m::mock('\Orchestra\Html\Form\Control');
         $app['Orchestra\Contracts\Html\Form\Template'] = $presenter = $this->getPresenterInstance();
