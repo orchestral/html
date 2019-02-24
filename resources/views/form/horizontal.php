@@ -1,9 +1,9 @@
 <?php
 
-echo Form::open(array_merge($grid->attributes(), ['class' => 'form-horizontal']));
+echo Form::open(\array_merge($grid->attributes(), ['class' => 'form-horizontal']));
 
 if ($token) :
-echo csrf_field();
+echo \csrf_field();
 endif;
 
 foreach ($grid->hiddens() as $hidden) :
@@ -13,7 +13,7 @@ endforeach;
 foreach ($grid->fieldsets() as $fieldset) : ?>
   <fieldset<?php echo HTML::attributes($fieldset->attributes() ?: []); ?>>
     <?php if ($fieldset->name) : ?>
-    <legend><?php echo e($fieldset->name) ?: ''; ?></legend>
+    <legend><?php echo \e($fieldset->name) ?: ''; ?></legend>
     <?php endif; ?>
 
     <?php foreach ($fieldset->controls() as $control) : ?>
@@ -35,7 +35,7 @@ foreach ($grid->fieldsets() as $fieldset) : ?>
 <?php endforeach; ?>
 
 <div class="row">
-  <div<?php echo HTML::attributable(array_get($meta, 'button', []), ['class' => 'col-md-9 col-md-offset-3']); ?>>
+  <div<?php echo HTML::attributable(($meta['button'] ?? []), ['class' => 'col-md-9 col-md-offset-3']); ?>>
     <button type="submit" class="btn btn-primary"><?php echo $submit; ?></button>
   </div>
 </div>
