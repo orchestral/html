@@ -9,11 +9,10 @@ use Orchestra\Html\Form\BootstrapThreePresenter;
 use Orchestra\Support\Providers\ServiceProvider;
 use Orchestra\Html\Table\Factory as TableFactory;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Illuminate\Contracts\Support\RegistrableProvider;
 use Orchestra\Contracts\Html\Form\Template as TemplateContract;
 use Orchestra\Contracts\Html\Form\Control as FormControlContract;
 
-class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider, RegistrableProvider
+class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Register the service provider.
