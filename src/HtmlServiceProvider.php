@@ -8,18 +8,13 @@ use Illuminate\Contracts\Foundation\Application;
 use Orchestra\Html\Form\BootstrapThreePresenter;
 use Orchestra\Support\Providers\ServiceProvider;
 use Orchestra\Html\Table\Factory as TableFactory;
+use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Contracts\Support\RegistrableProvider;
 use Orchestra\Contracts\Html\Form\Template as TemplateContract;
 use Orchestra\Contracts\Html\Form\Control as FormControlContract;
 
-class HtmlServiceProvider extends ServiceProvider
+class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider, RegistrableProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
     /**
      * Register the service provider.
      *
