@@ -126,10 +126,10 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function bootComponents(): void
     {
-        $path = realpath(__DIR__.'/../resources');
+        $path = realpath(__DIR__.'/../');
 
         $this->addConfigComponent('orchestra/html', 'orchestra/html', "{$path}/config");
-        $this->addViewComponent('orchestra/html', 'orchestra/html', "{$path}/views");
+        $this->addViewComponent('orchestra/html', 'orchestra/html', "{$path}/resources/views");
 
         if (! $this->hasPackageRepository()) {
             $this->bootUsingLaravel($path);
