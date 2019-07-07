@@ -18,19 +18,19 @@
     },
     "require": {
         "php": ">=7.2",
-        "illuminate/translation": "~5.9.0",
-        "laravie/html": "~5.9.0",
-        "orchestra/contracts": "~3.9.0",
-        "orchestra/support": "~3.9.0"
+        "illuminate/translation": "dev-master",
+        "laravie/html": "~5.10.0",
+        "orchestra/contracts": "~3.10.0",
+        "orchestra/support": "~3.10.0"
     },
     "require-dev": {
-        "illuminate/database": "~5.9.0",
+        "illuminate/database": "dev-master",
         "mockery/mockery": "^1.2",
         "phpunit/phpunit": "^8.0"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.9-dev"
+            "dev-master": "3.10-dev"
         }
     },
     "config": {
