@@ -3,6 +3,7 @@
 namespace Orchestra\Html\Table;
 
 use Closure;
+use Orchestra\Support\Str;
 use InvalidArgumentException;
 use Orchestra\Html\Grid as BaseGrid;
 use Illuminate\Contracts\Support\Arrayable;
@@ -354,15 +355,17 @@ class Grid extends BaseGrid implements GridContract
         $orderByValue = $request->input($orderByKey);
         $directionValue = $request->input($directionKey);
 
+        $orderByValue = Str::validateColumnName($orderByValue) ? $orderByValue : null;
+
         $this->set('filter.order_by', ['key' => $orderByKey, 'value' => $orderByValue]);
         $this->set('filter.direction', ['key' => $directionKey, 'value' => $directionValue]);
         $this->set('filter.columns', $orderColumns);
 
-        $this->model = $this->setupBasicQueryFilter($model, [
+        $this->model = $this->setupBasicQueryFilter($model, \array_filter([
             'order_by' => $orderByValue,
             'direction' => $directionValue,
             'columns' => $orderColumns,
-        ]);
+        ]));
     }
 
     /**

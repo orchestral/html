@@ -21,7 +21,7 @@
         "illuminate/translation": "~5.8.0",
         "laravie/html": "~5.8.0",
         "orchestra/contracts": "~3.8.0",
-        "orchestra/support": "~3.8.0"
+        "orchestra/support": "~3.8.4"
     },
     "require-dev": {
         "illuminate/database": "~5.8.0",
