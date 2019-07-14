@@ -2,6 +2,14 @@
 
 This changelog references the relevant changes (bug and security fixes) done to `orchestra/html`.
 
+## 3.8.1
+
+Released: 2019-07-14
+
+### Changes
+
+* Validate column name for ordered sort with `Orchestra\Support\Str::validateColumnName()`.
+
 ## 3.8.0
 
 Released: 2019-03-21
