@@ -40,7 +40,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function registerHtmlBuilder(): void
     {
-        $this->app->singleton('html', function (Application $app) {
+        $this->app->singleton('html', static function (Application $app) {
             return new HtmlBuilder($app->make('url'), $app->make('view'));
         });
     }
@@ -52,7 +52,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function registerFormBuilder(): void
     {
-        $this->app->singleton('form', function (Application $app) {
+        $this->app->singleton('form', static function (Application $app) {
             $form = new FormBuilder($app->make('html'), $app->make('url'), $app->make('view'));
 
             return $form->setSessionStore($app->make('session.store'));
@@ -76,7 +76,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
             return $app->make($class);
         });
 
-        $this->app->singleton('orchestra.form', function (Application $app) {
+        $this->app->singleton('orchestra.form', static function (Application $app) {
             return new FormFactory($app);
         });
     }
@@ -88,7 +88,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function registerOrchestraTableBuilder(): void
     {
-        $this->app->singleton('orchestra.table', function ($app) {
+        $this->app->singleton('orchestra.table', static function ($app) {
             return new TableFactory($app);
         });
     }
