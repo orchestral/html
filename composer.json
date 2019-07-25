@@ -19,9 +19,9 @@
     "require": {
         "php": ">=7.2",
         "illuminate/translation": "dev-master",
-        "laravie/html": "~5.10.0",
-        "orchestra/contracts": "~3.10.0",
-        "orchestra/support": "~3.10.0"
+        "laravie/html": "^6.0",
+        "orchestra/contracts": "~4.0.0",
+        "orchestra/support": "^4.0"
     },
     "require-dev": {
         "illuminate/database": "dev-master",
@@ -30,7 +30,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.10-dev"
+            "dev-master": "4.0-dev"
         }
     },
     "config": {
