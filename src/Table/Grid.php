@@ -98,7 +98,7 @@ class Grid extends BaseGrid implements GridContract
             }
         }
 
-        $this->header(function () {
+        $this->header(static function () {
             return [];
         });
     }
