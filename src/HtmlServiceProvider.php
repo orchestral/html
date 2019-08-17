@@ -4,7 +4,6 @@ namespace Orchestra\Html;
 
 use Orchestra\Html\Form\Control;
 use Orchestra\Html\Form\Factory as FormFactory;
-use Illuminate\Contracts\Foundation\Application;
 use Orchestra\Html\Form\BootstrapThreePresenter;
 use Orchestra\Support\Providers\ServiceProvider;
 use Orchestra\Html\Table\Factory as TableFactory;
@@ -40,7 +39,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function registerHtmlBuilder(): void
     {
-        $this->app->singleton('html', static function (Application $app) {
+        $this->app->singleton('html', static function (Container $app) {
             return new HtmlBuilder($app->make('url'), $app->make('view'));
         });
     }
@@ -52,7 +51,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function registerFormBuilder(): void
     {
-        $this->app->singleton('form', static function (Application $app) {
+        $this->app->singleton('form', static function (Container $app) {
             $form = new FormBuilder($app->make('html'), $app->make('url'), $app->make('view'));
 
             return $form->setSessionStore($app->make('session.store'));
@@ -68,7 +67,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
     {
         $this->app->singleton(FormControlContract::class, Control::class);
 
-        $this->app->singleton(TemplateContract::class, function (Application $app) {
+        $this->app->singleton(TemplateContract::class, function (Container $app) {
             $namespace = $this->hasPackageRepository() ? 'orchestra/html::form' : 'orchestra.form';
 
             $class = $app->make('config')->get("{$namespace}.presenter", BootstrapThreePresenter::class);
@@ -76,7 +75,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
             return $app->make($class);
         });
 
-        $this->app->singleton('orchestra.form', static function (Application $app) {
+        $this->app->singleton('orchestra.form', static function (Container $app) {
             return new FormFactory($app);
         });
     }
@@ -88,7 +87,7 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
      */
     protected function registerOrchestraTableBuilder(): void
     {
-        $this->app->singleton('orchestra.table', static function ($app) {
+        $this->app->singleton('orchestra.table', static function (Container $app) {
             return new TableFactory($app);
         });
     }
