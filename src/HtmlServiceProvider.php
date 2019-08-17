@@ -3,6 +3,7 @@
 namespace Orchestra\Html;
 
 use Orchestra\Html\Form\Control;
+use Illuminate\Contracts\Container\Container;
 use Orchestra\Html\Form\Factory as FormFactory;
 use Orchestra\Html\Form\BootstrapThreePresenter;
 use Orchestra\Support\Providers\ServiceProvider;
