@@ -18,13 +18,13 @@
     },
     "require": {
         "php": ">=7.2",
-        "illuminate/translation": "dev-master",
+        "illuminate/translation": "^6.0",
         "laravie/html": "^6.0",
-        "orchestra/contracts": "~4.0.0",
+        "orchestra/contracts": "^4.0",
         "orchestra/support": "^4.0"
     },
     "require-dev": {
-        "illuminate/database": "dev-master",
+        "illuminate/database": "^6.0",
         "mockery/mockery": "^1.2",
         "phpunit/phpunit": "^8.0"
     },
