@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Html\TestCase\Form;
+namespace Orchestra\Html\Tests\Form;
 
 use Mockery as m;
 use Illuminate\Support\Fluent;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Html\TestCase\Table;
+namespace Orchestra\Html\Tests\Table;
 
 use Mockery as m;
 use PHPUnit\Framework\TestCase;

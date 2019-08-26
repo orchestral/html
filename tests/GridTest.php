@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Html\TestCase;
+namespace Orchestra\Html\Tests;
 
 use Orchestra\Html\Grid;
 use PHPUnit\Framework\TestCase;

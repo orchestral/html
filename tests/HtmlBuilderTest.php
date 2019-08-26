@@ -1,6 +1,6 @@
 <?php
 
-namespace Orchestra\Html\TestCase;
+namespace Orchestra\Html\Tests;
 
 use Mockery as m;
 use Orchestra\Html\HtmlBuilder;
