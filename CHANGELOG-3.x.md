@@ -1,4 +1,4 @@
-# Changelog
+# Changelog for 3.x
 
 This changelog references the relevant changes (bug and security fixes) done to `orchestra/html`.
 
