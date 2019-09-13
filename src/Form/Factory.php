@@ -2,9 +2,9 @@
 
 namespace Orchestra\Html\Form;
 
-use Orchestra\Html\Factory as BaseFactory;
 use Orchestra\Contracts\Html\Builder as BuilderContract;
 use Orchestra\Contracts\Html\Form\Factory as FactoryContract;
+use Orchestra\Html\Factory as BaseFactory;
 
 class Factory extends BaseFactory implements FactoryContract
 {

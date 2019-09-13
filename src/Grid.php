@@ -2,11 +2,11 @@
 
 namespace Orchestra\Html;
 
-use RuntimeException;
-use Orchestra\Support\Str;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
-use Illuminate\Contracts\Container\Container;
+use Orchestra\Support\Str;
+use RuntimeException;
 
 abstract class Grid
 {

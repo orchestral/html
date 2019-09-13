@@ -2,10 +2,10 @@
 
 namespace Orchestra\Html\Tests\Form;
 
-use Mockery as m;
 use Illuminate\Support\Fluent;
-use PHPUnit\Framework\TestCase;
+use Mockery as m;
 use Orchestra\Html\Form\Control;
+use PHPUnit\Framework\TestCase;
 
 class ControlTest extends TestCase
 {

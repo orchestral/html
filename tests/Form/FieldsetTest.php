@@ -2,14 +2,14 @@
 
 namespace Orchestra\Html\Tests\Form;
 
-use Mockery as m;
-use Illuminate\Support\Fluent;
-use PHPUnit\Framework\TestCase;
-use Orchestra\Html\Form\Control;
-use Orchestra\Html\Form\Fieldset;
 use Illuminate\Container\Container;
+use Illuminate\Support\Fluent;
+use Mockery as m;
 use Orchestra\Contracts\Html\Form\Field;
 use Orchestra\Contracts\Html\Form\Template;
+use Orchestra\Html\Form\Control;
+use Orchestra\Html\Form\Fieldset;
+use PHPUnit\Framework\TestCase;
 
 class FieldsetTest extends TestCase
 {

@@ -2,13 +2,13 @@
 
 namespace Orchestra\Html\Table;
 
-use Illuminate\Support\Arr;
-use Illuminate\Http\Request;
-use Illuminate\Translation\Translator;
-use Orchestra\Html\Builder as BaseBuilder;
 use Illuminate\Contracts\View\Factory as View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Translation\Translator;
 use Orchestra\Contracts\Html\Grid as GridContract;
 use Orchestra\Contracts\Html\Table\Builder as BuilderContract;
+use Orchestra\Html\Builder as BaseBuilder;
 
 class TableBuilder extends BaseBuilder implements BuilderContract
 {

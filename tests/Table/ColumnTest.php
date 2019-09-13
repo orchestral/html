@@ -2,10 +2,10 @@
 
 namespace Orchestra\Html\Tests\Table;
 
-use Mockery as m;
 use Illuminate\Support\Fluent;
-use PHPUnit\Framework\TestCase;
+use Mockery as m;
 use Orchestra\Html\Table\Column;
+use PHPUnit\Framework\TestCase;
 
 class ColumnTest extends TestCase
 {

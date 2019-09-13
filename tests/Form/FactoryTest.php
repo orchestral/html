@@ -2,10 +2,10 @@
 
 namespace Orchestra\Html\Tests\Form;
 
-use Mockery as m;
-use PHPUnit\Framework\TestCase;
-use Orchestra\Html\Form\Factory;
 use Illuminate\Container\Container;
+use Mockery as m;
+use Orchestra\Html\Form\Factory;
+use PHPUnit\Framework\TestCase;
 
 class FactoryTest extends TestCase
 {

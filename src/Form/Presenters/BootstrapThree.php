@@ -2,13 +2,13 @@
 
 namespace Orchestra\Html\Form\Presenters;
 
-use Illuminate\Support\Traits\Macroable;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Traits\Macroable;
+use Orchestra\Contracts\Html\Form\Field as FieldContract;
 use Orchestra\Contracts\Html\Form\Template;
 use Orchestra\Html\FormBuilder as BaseFormBuilder;
 use Orchestra\Html\HtmlBuilder as BaseHtmlBuilder;
-use Orchestra\Contracts\Html\Form\Field as FieldContract;
 
 class BootstrapThree implements Template
 {

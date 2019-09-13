@@ -3,15 +3,15 @@
 namespace Orchestra\Html\Form;
 
 use Closure;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use InvalidArgumentException;
-use Illuminate\Support\Fluent;
-use Orchestra\Support\Collection;
-use Orchestra\Html\Grid as BaseGrid;
-use Illuminate\Database\Eloquent\Model;
-use Orchestra\Contracts\Html\Form\Presenter;
-use Orchestra\Contracts\Html\Form\Grid as GridContract;
 use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
+use Orchestra\Contracts\Html\Form\Grid as GridContract;
+use Orchestra\Contracts\Html\Form\Presenter;
+use Orchestra\Html\Grid as BaseGrid;
+use Orchestra\Support\Collection;
 
 class Grid extends BaseGrid implements GridContract
 {

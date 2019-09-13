@@ -2,10 +2,10 @@
 
 namespace Orchestra\Html\Tests\Form;
 
+use Illuminate\Container\Container;
 use Mockery as m;
 use Orchestra\Html\Form\Grid;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Container\Container;
 
 class GridTest extends TestCase
 {

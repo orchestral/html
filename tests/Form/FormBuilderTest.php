@@ -2,11 +2,11 @@
 
 namespace Orchestra\Html\Tests\Form;
 
+use Illuminate\Container\Container;
 use Mockery as m;
+use Orchestra\Html\Form\FormBuilder;
 use Orchestra\Html\Form\Grid;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Container\Container;
-use Orchestra\Html\Form\FormBuilder;
 
 class FormBuilderTest extends TestCase
 {
