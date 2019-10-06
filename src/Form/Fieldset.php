@@ -3,12 +3,12 @@
 namespace Orchestra\Html\Form;
 
 use Closure;
-use InvalidArgumentException;
-use Orchestra\Html\Grid as BaseGrid;
-use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
+use InvalidArgumentException;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
 use Orchestra\Contracts\Html\Form\Fieldset as FieldsetContract;
+use Orchestra\Contracts\Html\Form\Template;
+use Orchestra\Html\Grid as BaseGrid;
 
 class Fieldset extends BaseGrid implements FieldsetContract
 {

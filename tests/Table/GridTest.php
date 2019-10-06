@@ -2,12 +2,12 @@
 
 namespace Orchestra\Html\Tests\Table;
 
-use Mockery as m;
+use Illuminate\Container\Container;
 use Illuminate\Support\Fluent;
+use Mockery as m;
+use Orchestra\Html\Table\Column;
 use Orchestra\Html\Table\Grid;
 use PHPUnit\Framework\TestCase;
-use Orchestra\Html\Table\Column;
-use Illuminate\Container\Container;
 
 class GridTest extends TestCase
 {

@@ -2,9 +2,9 @@
 
 namespace Orchestra\Html\Tests;
 
+use Illuminate\Container\Container;
 use Orchestra\Html\Grid;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Container\Container;
 
 class GridTest extends TestCase
 {

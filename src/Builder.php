@@ -2,13 +2,13 @@
 
 namespace Orchestra\Html;
 
-use Illuminate\Http\Request;
-use InvalidArgumentException;
-use Illuminate\Translation\Translator;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Contracts\View\Factory as View;
-use Orchestra\Contracts\Html\Grid as GridContract;
+use Illuminate\Http\Request;
+use Illuminate\Translation\Translator;
+use InvalidArgumentException;
 use Orchestra\Contracts\Html\Builder as BuilderContract;
+use Orchestra\Contracts\Html\Grid as GridContract;
 
 abstract class Builder implements BuilderContract, Htmlable
 {

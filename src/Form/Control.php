@@ -3,14 +3,14 @@
 namespace Orchestra\Html\Form;
 
 use Closure;
-use Illuminate\Http\Request;
-use InvalidArgumentException;
-use Illuminate\Support\Fluent;
-use Orchestra\Html\Concerns\Decorate;
-use Orchestra\Contracts\Html\Form\Template;
 use Illuminate\Contracts\Container\Container;
-use Orchestra\Contracts\Html\Form\Field as FieldContract;
+use Illuminate\Http\Request;
+use Illuminate\Support\Fluent;
+use InvalidArgumentException;
 use Orchestra\Contracts\Html\Form\Control as ControlContract;
+use Orchestra\Contracts\Html\Form\Field as FieldContract;
+use Orchestra\Contracts\Html\Form\Template;
+use Orchestra\Html\Concerns\Decorate;
 
 class Control implements ControlContract
 {

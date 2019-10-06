@@ -2,10 +2,10 @@
 
 namespace Orchestra\Html\Form;
 
-use Illuminate\Support\Fluent;
-use Orchestra\Html\Concerns\Decorate;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Fluent;
 use Orchestra\Contracts\Html\Form\Field as FieldContract;
+use Orchestra\Html\Concerns\Decorate;
 
 class Field extends Fluent implements FieldContract
 {

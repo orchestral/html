@@ -2,8 +2,8 @@
 
 namespace Orchestra\Html\Tests\Form;
 
-use Mockery as m;
 use Illuminate\Support\Fluent;
+use Mockery as m;
 use Orchestra\Html\Form\Field;
 use PHPUnit\Framework\TestCase;
 

@@ -2,10 +2,10 @@
 
 namespace Orchestra\Html\Macros;
 
-use Orchestra\Support\Str;
-use Orchestra\Html\HtmlBuilder;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Pagination\Paginator;
+use Orchestra\Html\HtmlBuilder;
+use Orchestra\Support\Str;
 
 class Title
 {

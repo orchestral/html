@@ -3,14 +3,14 @@
 namespace Orchestra\Html\Table;
 
 use Closure;
-use Orchestra\Support\Str;
-use InvalidArgumentException;
-use Orchestra\Html\Grid as BaseGrid;
-use Illuminate\Contracts\Support\Arrayable;
-use Orchestra\Support\Concerns\QueryFilter;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Collection;
+use InvalidArgumentException;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
+use Orchestra\Html\Grid as BaseGrid;
+use Orchestra\Support\Concerns\QueryFilter;
+use Orchestra\Support\Str;
 
 class Grid extends BaseGrid implements GridContract
 {

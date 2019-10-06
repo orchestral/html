@@ -2,8 +2,8 @@
 
 namespace Orchestra\Html\Table;
 
-use Illuminate\Support\Fluent;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Fluent;
 use Orchestra\Contracts\Html\Table\Column as ColumnContract;
 
 class Column extends Fluent implements ColumnContract

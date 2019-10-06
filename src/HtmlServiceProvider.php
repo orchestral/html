@@ -2,15 +2,15 @@
 
 namespace Orchestra\Html;
 
-use Orchestra\Html\Form\Control;
 use Illuminate\Contracts\Container\Container;
-use Orchestra\Html\Form\Factory as FormFactory;
-use Orchestra\Html\Form\BootstrapThreePresenter;
-use Orchestra\Support\Providers\ServiceProvider;
-use Orchestra\Html\Table\Factory as TableFactory;
 use Illuminate\Contracts\Support\DeferrableProvider;
-use Orchestra\Contracts\Html\Form\Template as TemplateContract;
 use Orchestra\Contracts\Html\Form\Control as FormControlContract;
+use Orchestra\Contracts\Html\Form\Template as TemplateContract;
+use Orchestra\Html\Form\BootstrapThreePresenter;
+use Orchestra\Html\Form\Control;
+use Orchestra\Html\Form\Factory as FormFactory;
+use Orchestra\Html\Table\Factory as TableFactory;
+use Orchestra\Support\Providers\ServiceProvider;
 
 class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 {

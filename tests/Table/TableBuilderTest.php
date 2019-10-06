@@ -2,12 +2,12 @@
 
 namespace Orchestra\Html\Tests\Table;
 
-use Mockery as m;
-use Illuminate\Support\Fluent;
-use Orchestra\Html\Table\Grid;
-use PHPUnit\Framework\TestCase;
 use Illuminate\Container\Container;
+use Illuminate\Support\Fluent;
+use Mockery as m;
+use Orchestra\Html\Table\Grid;
 use Orchestra\Html\Table\TableBuilder;
+use PHPUnit\Framework\TestCase;
 
 class TableBuilderTest extends TestCase
 {

@@ -2,9 +2,9 @@
 
 namespace Orchestra\Html;
 
-use Illuminate\Support\Str;
-use Illuminate\Contracts\Support\Htmlable;
 use Collective\Html\HtmlBuilder as BaseHtmlBuilder;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Str;
 
 class HtmlBuilder extends BaseHtmlBuilder
 {

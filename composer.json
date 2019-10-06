@@ -25,7 +25,6 @@
     },
     "require-dev": {
         "illuminate/database": "^7.0",
-        "mockery/mockery": "^1.2",
         "orchestra/testbench": "^5.0"
     },
     "extra": {
