@@ -385,6 +385,14 @@ class GridTest extends TestCase
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
 
+        $model->shouldReceive('getConnection->getDriverName')->andReturn('mysql');
+        $model->shouldReceive('orWhere')->twice()->with(m::type('Closure'))
+                ->andReturnUsing(static function ($c) use ($model) {
+                    $c($model);
+                })
+            ->shouldReceive('orWhere')->once()->with('email', 'like', 'orchestra%')
+            ->shouldReceive('orWhere')->once()->with('fullname', 'like', 'orchestra%');
+
         $stub->with($model);
 
         $this->assertNull($stub->searchable($attributes));
