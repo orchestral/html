@@ -7,8 +7,8 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Collection;
 use InvalidArgumentException;
-use Laravie\QueryFilter\OrderedQuery;
-use Laravie\QueryFilter\SearchQuery;
+use Laravie\QueryFilter\Orderable;
+use Laravie\QueryFilter\Searchable;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Orchestra\Html\Grid as BaseGrid;
 use Orchestra\Support\Str;
@@ -331,7 +331,7 @@ class Grid extends BaseGrid implements GridContract
             'value' => $keyword,
         ]);
 
-        $this->model = (new SearchQuery(
+        $this->model = (new Searchable(
             $keyword, $columns
         ))->apply($model);
     }
@@ -362,7 +362,7 @@ class Grid extends BaseGrid implements GridContract
         $this->set('filter.direction', ['key' => $directionKey, 'value' => $direction]);
         $this->set('filter.columns', $config);
 
-        $this->model = (new OrderedQuery(
+        $this->model = (new Orderable(
             $orderBy, $direction, $config
         ))->apply($model);
     }
