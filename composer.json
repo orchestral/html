@@ -20,8 +20,9 @@
         "php": ">=7.2",
         "illuminate/translation": "^6.0",
         "laravie/html": "^6.0",
+        "laravie/query-filter": "^1.0",
         "orchestra/contracts": "^4.0",
-        "orchestra/support": "^4.0"
+        "orchestra/support": "^4.1"
     },
     "require-dev": {
         "illuminate/database": "^6.0",

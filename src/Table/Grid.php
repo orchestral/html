@@ -7,15 +7,14 @@ use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Collection;
 use InvalidArgumentException;
+use Laravie\QueryFilter\OrderedQuery;
+use Laravie\QueryFilter\SearchQuery;
 use Orchestra\Contracts\Html\Table\Grid as GridContract;
 use Orchestra\Html\Grid as BaseGrid;
-use Orchestra\Support\Concerns\QueryFilter;
 use Orchestra\Support\Str;
 
 class Grid extends BaseGrid implements GridContract
 {
-    use QueryFilter;
-
     /**
      * All the columns.
      *
@@ -313,59 +312,59 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Execute searchable filter on model instance.
      *
-     * @param  array   $attributes
-     * @param  string  $key
+     * @param  array   $columns
+     * @param  string  $searchKey
      *
      * @return void
      */
-    public function searchable(array $attributes, string $key = 'q'): void
+    public function searchable(array $columns, string $searchKey = 'q'): void
     {
         $model = $this->resolveQueryBuilderFromModel($this->model);
         $request = $this->app->make('request');
-        $value = $request->input($key);
+        $keyword = $request->input($searchKey);
 
-        $request->merge(["{$key}" => \rawurlencode($value)]);
+        $request->merge(["{$searchKey}" => \rawurlencode($keyword)]);
 
         $this->set('search', [
-            'attributes' => $attributes,
-            'key' => $key,
-            'value' => $value,
+            'attributes' => $columns,
+            'key' => $searchKey,
+            'value' => $keyword,
         ]);
 
-        $this->model = $this->setupWildcardQueryFilter($model, $value, $attributes);
+        $this->model = (new SearchQuery(
+            $keyword, $columns
+        ))->apply($model);
     }
 
     /**
      * Execute sortable query filter on model instance.
      *
-     * @param  array   $orderColumns
+     * @param  array   $config
      * @param  string  $orderByKey
      * @param  string  $directionKey
      *
      * @return void
      */
     public function sortable(
-        array $orderColumns = [],
+        array $config = [],
         string $orderByKey = 'order_by',
         string $directionKey = 'direction'
     ): void {
         $model = $this->resolveQueryBuilderFromModel($this->model);
         $request = $this->app->make('request');
 
-        $orderByValue = $request->input($orderByKey);
-        $directionValue = $request->input($directionKey);
+        $orderBy = $request->input($orderByKey);
+        $direction = $request->input($directionKey);
 
-        $orderByValue = Str::validateColumnName($orderByValue) ? $orderByValue : null;
+        $orderBy = Str::validateColumnName($orderBy) ? $orderBy : null;
 
-        $this->set('filter.order_by', ['key' => $orderByKey, 'value' => $orderByValue]);
-        $this->set('filter.direction', ['key' => $directionKey, 'value' => $directionValue]);
-        $this->set('filter.columns', $orderColumns);
+        $this->set('filter.order_by', ['key' => $orderByKey, 'value' => $orderBy]);
+        $this->set('filter.direction', ['key' => $directionKey, 'value' => $direction]);
+        $this->set('filter.columns', $config);
 
-        $this->model = $this->setupBasicQueryFilter($model, \array_filter([
-            'order_by' => $orderByValue,
-            'direction' => $directionValue,
-            'columns' => $orderColumns,
-        ]));
+        $this->model = (new OrderedQuery(
+            $orderBy, $direction, $config
+        ))->apply($model);
     }
 
     /**

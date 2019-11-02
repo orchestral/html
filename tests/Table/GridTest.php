@@ -381,12 +381,9 @@ class GridTest extends TestCase
         $request->shouldReceive('input')->once()->with('q')->andReturn('orchestra*')
             ->shouldReceive('merge')->once()->with(m::type('Array'))->andReturnNull();
 
-        $stub = m::mock('\Orchestra\Html\Table\Grid[setupWildcardQueryFilter]', [$app, []])
-                    ->shouldAllowMockingProtectedMethods();
+        $stub = new Grid($app, []);
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
-
-        $stub->shouldReceive('setupWildcardQueryFilter')->once()->with($model, 'orchestra*', $attributes)->andReturnNull();
 
         $stub->with($model);
 
@@ -429,14 +426,11 @@ class GridTest extends TestCase
         $request->shouldReceive('input')->once()->with('order_by')->andReturn('email')
             ->shouldReceive('input')->once()->with('direction')->andReturn('desc');
 
-        $stub = m::mock('\Orchestra\Html\Table\Grid[setupBasicQueryFilter]', [$app, []])
-            ->shouldAllowMockingProtectedMethods();
+        $stub = new Grid($app, []);
 
         $model = m::mock('\Illuminate\Database\Query\Builder');
 
-        $stub->shouldReceive('setupBasicQueryFilter')->once()
-            ->with($model, ['order_by' => 'email', 'direction' => 'desc', 'columns' => ['only' => ['email'], 'except' => ['fullname']]])
-            ->andReturnNull();
+        $model->shouldReceive('orderBy')->once()->with('email', 'DESC')->andReturnSelf();
 
         $stub->with($model);
 
