@@ -363,7 +363,7 @@ class Grid extends BaseGrid implements GridContract
         $this->set('filter.columns', $config);
 
         $this->model = (new Orderable(
-            $orderBy, $direction, $config
+            $orderBy, $direction ?? 'asc', $config
         ))->apply($model);
     }
 
