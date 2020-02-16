@@ -20,7 +20,7 @@
         "php": ">=7.2",
         "illuminate/translation": "^7.0",
         "laravie/html": "^7.0",
-        "laravie/query-filter": "dev-master",
+        "laravie/query-filter": "^1.6.1",
         "orchestra/contracts": "^5.0",
         "orchestra/support": "^5.0"
     },
