@@ -8,11 +8,6 @@ trait Decorate
 {
     /**
      * Build a list of HTML attributes from one or two array.
-     *
-     * @param  array  $attributes
-     * @param  array  $defaults
-     *
-     * @return array
      */
     public function decorate(array $attributes, array $defaults = []): array
     {
@@ -29,11 +24,6 @@ trait Decorate
 
     /**
      * Build class attribute from one or two array.
-     *
-     * @param  array  $attributes
-     * @param  array  $defaults
-     *
-     * @return string
      */
     protected function buildClassDecorate(array $attributes, array $defaults = []): string
     {

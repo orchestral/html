@@ -49,11 +49,6 @@ abstract class Builder implements BuilderContract, Htmlable
 
     /**
      * Create a new Builder instance.
-     *
-     * @param \Illuminate\Http\Request  $request
-     * @param \Illuminate\Translation\Translator  $translator
-     * @param \Illuminate\Contracts\View\Factory  $view
-     * @param \Orchestra\Contracts\Html\Grid  $grid
      */
     abstract public function __construct(Request $request, Translator $translator, View $view, GridContract $grid);
 
@@ -77,9 +72,6 @@ abstract class Builder implements BuilderContract, Htmlable
     /**
      * Magic Method for calling the methods.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     *
      * @return $this
      */
     public function __call(string $method, array $parameters)
@@ -91,8 +83,6 @@ abstract class Builder implements BuilderContract, Htmlable
 
     /**
      * Magic method to get Grid instance.
-     *
-     * @param  string  $key
      *
      * @throws \InvalidArgumentException
      *
@@ -109,8 +99,6 @@ abstract class Builder implements BuilderContract, Htmlable
 
     /**
      * Get the the HTML string.
-     *
-     * @return string
      */
     public function toHtml(): string
     {

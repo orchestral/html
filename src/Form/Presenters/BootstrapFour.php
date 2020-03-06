@@ -30,9 +30,6 @@ class BootstrapFour implements Template
 
     /**
      * Construct a new presenter.
-     *
-     * @param \Orchestra\Html\FormBuilder  $form
-     * @param \Orchestra\Html\HtmlBuilder  $html
      */
     public function __construct(BaseFormBuilder $form, BaseHtmlBuilder $html)
     {
@@ -42,10 +39,6 @@ class BootstrapFour implements Template
 
     /**
      * Button template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function button(FieldContract $field): Htmlable
     {
@@ -56,10 +49,6 @@ class BootstrapFour implements Template
 
     /**
      * Checkbox template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function checkbox(FieldContract $field): Htmlable
     {
@@ -73,10 +62,6 @@ class BootstrapFour implements Template
 
     /**
      * Checkboxes template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function checkboxes(FieldContract $field): Htmlable
     {
@@ -90,10 +75,6 @@ class BootstrapFour implements Template
 
     /**
      * File template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function file(FieldContract $field): Htmlable
     {
@@ -104,10 +85,6 @@ class BootstrapFour implements Template
 
     /**
      * Input template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function input(FieldContract $field): Htmlable
     {
@@ -123,10 +100,6 @@ class BootstrapFour implements Template
 
     /**
      * Password template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function password(FieldContract $field): Htmlable
     {
@@ -137,10 +110,6 @@ class BootstrapFour implements Template
 
     /**
      * Radio template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function radio(FieldContract $field): Htmlable
     {
@@ -149,10 +118,6 @@ class BootstrapFour implements Template
 
     /**
      * Select template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function select(FieldContract $field): Htmlable
     {
@@ -168,10 +133,6 @@ class BootstrapFour implements Template
 
     /**
      * Textarea template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function textarea(FieldContract $field): Htmlable
     {
@@ -188,8 +149,6 @@ class BootstrapFour implements Template
      * Convert input to actual array.
      *
      * @param  array|\Illuminate\Contracts\Support\Arrayable  $array
-     *
-     * @return array
      */
     protected function asArray($array): array
     {

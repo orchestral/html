@@ -26,9 +26,6 @@ class Factory extends BaseFactory implements FactoryContract
     /**
      * Allow to access `form` service location method using magic method.
      *
-     * @param  string  $method
-     * @param  array   $parameters
-     *
      * @return mixed
      */
     public function __call(string $method, array $parameters)

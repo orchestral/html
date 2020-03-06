@@ -67,9 +67,6 @@ abstract class Grid
 
     /**
      * Create a new Grid instance.
-     *
-     * @param  \Illuminate\Contracts\Container\Container  $app
-     * @param  array  $config
      */
     public function __construct(Container $app, array $config)
     {
@@ -106,7 +103,6 @@ abstract class Grid
     /**
      * Allow column overwriting.
      *
-     * @param  string  $name
      * @param  mixed|null  $callback
      *
      * @throws \InvalidArgumentException
@@ -135,10 +131,6 @@ abstract class Grid
 
     /**
      * Forget meta value.
-     *
-     * @param  string  $key
-     *
-     * @return void
      */
     public function forget(string $key): void
     {
@@ -148,7 +140,6 @@ abstract class Grid
     /**
      * Get meta value.
      *
-     * @param  string  $key
      * @param  mixed|null  $default
      *
      * @return mixed
@@ -161,7 +152,6 @@ abstract class Grid
     /**
      * Set meta value.
      *
-     * @param  string  $key
      * @param  mixed  $value
      *
      * @return array
@@ -174,8 +164,6 @@ abstract class Grid
     /**
      * Find definition that match the given id.
      *
-     * @param  string  $name
-     *
      * @throws \InvalidArgumentException
      *
      * @return mixed
@@ -187,8 +175,6 @@ abstract class Grid
      *
      * @param  mixed  $name
      * @param  mixed  $callback
-     *
-     * @return array
      */
     protected function buildFluentAttributes($name, $callback = null): array
     {
@@ -212,9 +198,6 @@ abstract class Grid
     /**
      * Magic Method for calling the methods.
      *
-     * @param  string  $method
-     * @param  array   $parameters
-     *
      * @throws \InvalidArgumentException
      *
      * @return mixed
@@ -233,8 +216,6 @@ abstract class Grid
     /**
      * Magic Method for handling dynamic data access.
      *
-     * @param  string  $key
-     *
      * @throws \InvalidArgumentException
      *
      * @return mixed
@@ -251,12 +232,9 @@ abstract class Grid
     /**
      * Magic Method for handling the dynamic setting of data.
      *
-     * @param  string  $key
      * @param  array   $parameters
      *
      * @throws \InvalidArgumentException
-     *
-     * @return void
      */
     public function __set(string $key, $parameters): void
     {
@@ -280,11 +258,7 @@ abstract class Grid
     /**
      * Magic Method for checking dynamically-set data.
      *
-     * @param  string  $key
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return bool
      */
     public function __isset(string $key): bool
     {

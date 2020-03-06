@@ -15,9 +15,6 @@ class Field extends Fluent implements FieldContract
      * Get value of column.
      *
      * @param  mixed  $row
-     * @param  array  $templates
-     *
-     * @return string
      */
     public function getField($row, array $templates = []): string
     {
@@ -32,8 +29,6 @@ class Field extends Fluent implements FieldContract
 
     /**
      * Setup attributes via decorate.
-     *
-     * @param  array  $value
      *
      * @return $this
      */

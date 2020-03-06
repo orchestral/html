@@ -11,11 +11,7 @@ class HtmlBuilder extends BaseHtmlBuilder
     /**
      * Generate a HTML element.
      *
-     * @param  string  $tag
      * @param  mixed   $value
-     * @param  array   $attributes
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function create(string $tag = 'div', $value = null, array $attributes = []): Htmlable
     {
@@ -35,10 +31,6 @@ class HtmlBuilder extends BaseHtmlBuilder
 
     /**
      * Create a new HTML expression instance are used to inject HTML.
-     *
-     * @param  string  $value
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function raw(string $value): Htmlable
     {
@@ -48,11 +40,6 @@ class HtmlBuilder extends BaseHtmlBuilder
     /**
      * Build a list of HTML attributes from one or two array and generate
      * HTML attributes.
-     *
-     * @param  array  $attributes
-     * @param  array  $defaults
-     *
-     * @return string
      */
     public function attributable(array $attributes, array $defaults = []): string
     {
@@ -61,11 +48,6 @@ class HtmlBuilder extends BaseHtmlBuilder
 
     /**
      * Build a list of HTML attributes from one or two array.
-     *
-     * @param  array  $attributes
-     * @param  array  $defaults
-     *
-     * @return array
      */
     public function decorate(array $attributes, array $defaults = []): array
     {
@@ -82,11 +64,6 @@ class HtmlBuilder extends BaseHtmlBuilder
 
     /**
      * Build class attribute from one or two array.
-     *
-     * @param  array  $attributes
-     * @param  array  $defaults
-     *
-     * @return string
      */
     protected function buildClassDecorate(array $attributes, array $defaults = []): string
     {

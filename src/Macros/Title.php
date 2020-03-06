@@ -36,9 +36,7 @@ class Title
     /**
      * Construct a new title builder.
      *
-     * @param \Orchestra\Html\HtmlBuilder  $html
      * @param string  $site
-     * @param array  $formats
      */
     public function __construct(HtmlBuilder $html, $site, array $formats = [])
     {
@@ -49,10 +47,6 @@ class Title
 
     /**
      * Set text formats.
-     *
-     * @param  array  $formats
-     *
-     * @return void
      */
     public function setFormat(array $formats = []): void
     {
@@ -61,10 +55,6 @@ class Title
 
     /**
      * Create the title.
-     *
-     * @param  string|null  $title
-     *
-     * @return \Illuminate\Contracts\Support\Htmlable
      */
     public function title(string $title = null): Htmlable
     {
@@ -85,8 +75,6 @@ class Title
     /**
      * Get HTML::title() format for site.
      *
-     * @param  array  $data
-     *
      * @return mixed
      */
     protected function getHtmlTitleFormatForSite(array $data)
@@ -100,8 +88,6 @@ class Title
 
     /**
      * Get HTML::title() format for page.
-     *
-     * @param  array  $data
      *
      * @return mixed
      */
