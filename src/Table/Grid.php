@@ -84,10 +84,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Load grid configuration.
-     *
-     * @param  array  $config
-     *
-     * @return void
      */
     public function initiate(array $config): void
     {
@@ -116,9 +112,6 @@ class Grid extends BaseGrid implements GridContract
      *      $table->layout('path.to.view');
      * </code>
      *
-     * @param  string  $name
-     * @param  array   $data
-     *
      * @return $this
      */
     public function layout(string $name, array $data = [])
@@ -146,7 +139,6 @@ class Grid extends BaseGrid implements GridContract
      * </code>
      *
      * @param  mixed  $model
-     * @param  bool   $paginate
      *
      * @throws \InvalidArgumentException
      *
@@ -162,8 +154,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Get whether current setup is paginated.
-     *
-     * @return bool
      */
     public function paginated(): bool
     {
@@ -199,8 +189,6 @@ class Grid extends BaseGrid implements GridContract
      * Get raw data.
      *
      * @throws \InvalidArgumentException
-     *
-     * @return array
      */
     public function data(): array
     {
@@ -213,8 +201,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Add or append grid header attributes.
-     *
-     * @param  \Closure|null  $callback
      *
      * @return \Closure|array|null
      */
@@ -271,8 +257,6 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Find definition that match the given id.
      *
-     * @param  string  $name
-     *
      * @throws \InvalidArgumentException
      *
      * @return \Orchestra\Contracts\Html\Table\Column
@@ -311,11 +295,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Execute searchable filter on model instance.
-     *
-     * @param  array   $columns
-     * @param  string  $searchKey
-     *
-     * @return void
      */
     public function searchable(array $columns, string $searchKey = 'q'): void
     {
@@ -338,12 +317,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Execute sortable query filter on model instance.
-     *
-     * @param  array   $config
-     * @param  string  $orderByKey
-     * @param  string  $directionKey
-     *
-     * @return void
      */
     public function sortable(
         array $config = [],
@@ -372,8 +345,6 @@ class Grid extends BaseGrid implements GridContract
      *
      * @param  mixed  $name
      * @param  mixed  $callback
-     *
-     * @return array
      */
     protected function buildColumn($name, $callback = null): array
     {
@@ -435,8 +406,6 @@ class Grid extends BaseGrid implements GridContract
      * @param  object  $model
      *
      * @throws \InvalidArgumentException
-     *
-     * @return void
      */
     protected function buildRowsFromModel($model): void
     {
@@ -458,10 +427,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Set rows data.
-     *
-     * @param  array  $data
-     *
-     * @return array
      */
     protected function setRowsData(array $data = []): array
     {
@@ -494,8 +459,6 @@ class Grid extends BaseGrid implements GridContract
      * Check if given $model is a query builder.
      *
      * @param  mixed  $model
-     *
-     * @return bool
      */
     protected function isQueryBuilder($model): bool
     {
@@ -507,8 +470,6 @@ class Grid extends BaseGrid implements GridContract
      * Check if given $model is a Model instance.
      *
      * @param mixed $model
-     *
-     * @return bool
      */
     protected function isEloquentModel($model): bool
     {
@@ -519,8 +480,6 @@ class Grid extends BaseGrid implements GridContract
      * Check if given $model is a Model instance.
      *
      * @param mixed $model
-     *
-     * @return bool
      */
     protected function isEloquentRelationModel($model): bool
     {

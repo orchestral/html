@@ -10,9 +10,7 @@ class FormBuilder extends BaseFormBuilder
      * Create a checkboxes input field.
      *
      * @param  string  $name
-     * @param  array  $list
      * @param  bool|array  $checked
-     * @param  array  $options
      * @param  string  $separator
      *
      * @return string
@@ -36,7 +34,6 @@ class FormBuilder extends BaseFormBuilder
      * @param  string  $label
      * @param  string  $name
      * @param  bool|array  $checked
-     * @param  array  $options
      *
      * @return array
      */

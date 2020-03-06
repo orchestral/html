@@ -35,8 +35,6 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 
     /**
      * Register the HTML builder instance.
-     *
-     * @return void
      */
     protected function registerHtmlBuilder(): void
     {
@@ -47,8 +45,6 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 
     /**
      * Register the form builder instance.
-     *
-     * @return void
      */
     protected function registerFormBuilder(): void
     {
@@ -61,8 +57,6 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 
     /**
      * Register the Orchestra\Form builder instance.
-     *
-     * @return void
      */
     protected function registerOrchestraFormBuilder(): void
     {
@@ -83,8 +77,6 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 
     /**
      * Register the Orchestra\Table builder instance.
-     *
-     * @return void
      */
     protected function registerOrchestraTableBuilder(): void
     {
@@ -107,8 +99,6 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 
     /**
      * Boot extension configurations.
-     *
-     * @return void
      */
     protected function bootConfiguration(): void
     {
@@ -121,8 +111,6 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 
     /**
      * Boot extension components.
-     *
-     * @return void
      */
     protected function bootComponents(): void
     {
@@ -138,10 +126,6 @@ class HtmlServiceProvider extends ServiceProvider implements DeferrableProvider
 
     /**
      * Boot using Laravel setup.
-     *
-     * @param  string  $path
-     *
-     * @return void
      */
     protected function bootUsingLaravel(string $path): void
     {

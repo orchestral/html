@@ -53,9 +53,6 @@ class Control implements ControlContract
 
     /**
      * Create a new Field instance.
-     *
-     * @param  \Illuminate\Contracts\Container\Container  $app
-     * @param  \Illuminate\Http\Request  $request
      */
     public function __construct(Container $app, Request $request)
     {
@@ -65,8 +62,6 @@ class Control implements ControlContract
 
     /**
      * Set presenter instance.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Template  $presenter
      *
      * @return $this
      */
@@ -90,8 +85,6 @@ class Control implements ControlContract
     /**
      * Set template.
      *
-     * @param  array  $templates
-     *
      * @return $this
      */
     public function setTemplates(array $templates = [])
@@ -103,8 +96,6 @@ class Control implements ControlContract
 
     /**
      * Get template.
-     *
-     * @return array
      */
     public function getTemplates(): array
     {
@@ -113,10 +104,6 @@ class Control implements ControlContract
 
     /**
      * Generate Field.
-     *
-     * @param  string  $type
-     *
-     * @return callable
      */
     public function generate(string $type): callable
     {
@@ -130,9 +117,7 @@ class Control implements ControlContract
     /**
      * Build field by type.
      *
-     * @param  string  $type
      * @param  mixed  $row
-     * @param  \Illuminate\Support\Fluent  $control
      *
      * @return \Illuminate\Support\Fluent
      */
@@ -154,11 +139,7 @@ class Control implements ControlContract
     /**
      * Build data.
      *
-     * @param  string  $type
      * @param  mixed  $row
-     * @param  \Illuminate\Support\Fluent  $control
-     *
-     * @return \Orchestra\Contracts\Html\Form\Field
      */
     public function buildFluentData(string $type, $row, Fluent $control): FieldContract
     {
@@ -183,7 +164,6 @@ class Control implements ControlContract
      * Get options from control.
      *
      * @param  mixed  $row
-     * @param  \Illuminate\Support\Fluent  $control
      *
      * @return array|\Illuminate\Contracts\Support\Arrayable
      */
@@ -202,12 +182,7 @@ class Control implements ControlContract
     /**
      * Render the field.
      *
-     * @param  array  $templates
-     * @param  \Illuminate\Support\Fluent  $field
-     *
      * @throws \InvalidArgumentException
-     *
-     * @return string
      */
     public function render(array $templates, Fluent $field): string
     {
@@ -223,11 +198,6 @@ class Control implements ControlContract
 
     /**
      * Resolve method name and type.
-     *
-     * @param  string  $value
-     * @param  \Illuminate\Support\Fluent  $data
-     *
-     * @return \Orchestra\Contracts\Html\Form\Field
      */
     protected function resolveFieldType(string $value, Fluent $data): FieldContract
     {
@@ -249,9 +219,7 @@ class Control implements ControlContract
     /**
      * Resolve field value.
      *
-     * @param  string  $name
      * @param  mixed  $row
-     * @param  \Illuminate\Support\Fluent  $control
      *
      * @return mixed
      */

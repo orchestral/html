@@ -429,8 +429,6 @@ class StubTemplatePresenter implements Template
     /**
      * Button template.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
      * @return string
      */
     public function button(Field $field)
@@ -440,8 +438,6 @@ class StubTemplatePresenter implements Template
 
     /**
      * Checkbox template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
      * @return string
      */
@@ -453,8 +449,6 @@ class StubTemplatePresenter implements Template
     /**
      * Checkboxes template.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
      * @return string
      */
     public function checkboxes(Field $field)
@@ -464,8 +458,6 @@ class StubTemplatePresenter implements Template
 
     /**
      * File template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
      * @return string
      */
@@ -477,8 +469,6 @@ class StubTemplatePresenter implements Template
     /**
      * Input template.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
      * @return string
      */
     public function input(Field $field)
@@ -488,8 +478,6 @@ class StubTemplatePresenter implements Template
 
     /**
      * Password template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
      * @return string
      */
@@ -501,8 +489,6 @@ class StubTemplatePresenter implements Template
     /**
      * Radio template.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
      * @return string
      */
     public function radio(Field $field)
@@ -513,8 +499,6 @@ class StubTemplatePresenter implements Template
     /**
      * Select template.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
-     *
      * @return string
      */
     public function select(Field $field)
@@ -524,8 +508,6 @@ class StubTemplatePresenter implements Template
 
     /**
      * Textarea template.
-     *
-     * @param  \Orchestra\Contracts\Html\Form\Field $field
      *
      * @return string
      */

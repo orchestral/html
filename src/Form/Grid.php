@@ -77,10 +77,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Load grid configuration.
-     *
-     * @param  array  $config
-     *
-     * @return void
      */
     public function initiate(array $config): void
     {
@@ -108,9 +104,6 @@ class Grid extends BaseGrid implements GridContract
      *      // define fieldset using custom view
      *      $fieldset->layout('path.to.view');
      * </code>
-     *
-     * @param  string  $name
-     * @param  array   $data
      *
      * @return $this
      */
@@ -164,9 +157,6 @@ class Grid extends BaseGrid implements GridContract
      * Create a new Fieldset instance.
      *
      * @param  string|\Closure  $name
-     * @param  \Closure|null  $callback
-     *
-     * @return \Orchestra\Contracts\Html\Form\Fieldset
      */
     public function fieldset($name, Closure $callback = null): FieldsetContract
     {
@@ -187,8 +177,6 @@ class Grid extends BaseGrid implements GridContract
 
     /**
      * Find definition that match the given id.
-     *
-     * @param  string  $name
      *
      * @throws \InvalidArgumentException
      *
@@ -213,10 +201,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Add hidden field.
      *
-     * @param  string  $name
      * @param  \Closure  $callback
-     *
-     * @return void
      */
     public function hidden(string $name, $callback = null): void
     {
@@ -238,10 +223,7 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Setup form configuration.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Presenter  $listener
      * @param  string  $url
-     * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  array  $attributes
      *
      * @return $this
      */
@@ -262,10 +244,8 @@ class Grid extends BaseGrid implements GridContract
     /**
      * Setup simple form configuration.
      *
-     * @param  \Orchestra\Contracts\Html\Form\Presenter  $listener
      * @param  string  $url
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     * @param  array  $attributes
      *
      * @return $this
      */

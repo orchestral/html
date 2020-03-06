@@ -30,8 +30,6 @@ abstract class Factory
 
     /**
      * Construct a new factory.
-     *
-     * @param  \Illuminate\Contracts\Container\Container  $app
      */
     public function __construct(Container $app)
     {
@@ -40,20 +38,11 @@ abstract class Factory
 
     /**
      * Create a new Builder instance.
-     *
-     * @param  callable|null  $callback
-     *
-     * @return \Orchestra\Contracts\Html\Builder
      */
     abstract public function make(callable $callback = null): BuilderContract;
 
     /**
      * Create a new builder instance of a named builder.
-     *
-     * @param  string  $name
-     * @param  callable|null  $callback
-     *
-     * @return \Orchestra\Contracts\Html\Builder
      */
     public function of(string $name, callable $callback = null): BuilderContract
     {
@@ -67,8 +56,6 @@ abstract class Factory
 
     /**
      * Set configuration.
-     *
-     * @param  array  $config
      *
      * @return $this
      */
