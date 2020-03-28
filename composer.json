@@ -19,7 +19,7 @@
     "require": {
         "php": ">=7.3",
         "illuminate/translation": "^8.0",
-        "laravie/html": "^8.0",
+        "laravie/html": "dev-master",
         "laravie/query-filter": "dev-master",
         "orchestra/contracts": "^6.0",
         "orchestra/support": "^6.0"
