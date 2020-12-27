@@ -235,7 +235,8 @@ class Control implements ControlContract
             $value = $matches[2];
         }
 
-        $filterable = \in_array($value, \array_keys($this->templates)) || \method_exists($this->presenter, $value);
+        $filterable = \in_array($value, \array_keys($this->templates))
+            || (! \is_null($this->presenter) && \method_exists($this->presenter, $value));
 
         if ((bool) $filterable) {
             $data->method($value);
