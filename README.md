@@ -10,14 +10,6 @@ HTML Component extends the functionality of `Illuminate\Html` with the extra fun
 [![License](https://poser.pugx.org/orchestra/html/license)](https://packagist.org/packages/orchestra/html)
 [![Coverage Status](https://coveralls.io/repos/github/orchestral/html/badge.svg?branch=master)](https://coveralls.io/github/orchestral/html?branch=master)
 
-## Table of Content
-
-* [Version Compatibility](#version-compatibility)
-* [Installation](#installation)
-* [Configuration](#configuration)
-* [Usage](#usage)
-* [Changelog](https://github.com/orchestral/html/releases)
-
 ## Version Compatibility
 
 Laravel    | HTML
@@ -29,12 +21,14 @@ Laravel    | HTML
  6.x       | 4.x
  7.x       | 5.x
  8.x       | 6.x
- 
+
 ## Installation
 
 To install through composer, run the following command from terminal:
 
-    composer require "orchestra/html"
+```bash
+composer require "orchestra/html"
+```
 
 ## Configuration
 
