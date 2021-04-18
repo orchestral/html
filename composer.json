@@ -17,7 +17,7 @@
         }
     },
     "require": {
-        "php": "^7.3 || ^8.0",
+        "php": "^7.4 || ^8.0",
         "illuminate/translation": "^8.0",
         "laravie/html": "^7.2",
         "laravie/query-filter": "^2.1",
