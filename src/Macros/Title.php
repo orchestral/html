@@ -83,7 +83,7 @@ class Title
             return $data['site']['name'];
         }
 
-        return Str::replace($this->formats['site'], $data);
+        return Str::translate($this->formats['site'], $data);
     }
 
     /**
@@ -97,6 +97,6 @@ class Title
             return $data['site']['name'];
         }
 
-        return Str::replace($this->formats['page'], $data);
+        return Str::translate($this->formats['page'], $data);
     }
 }
