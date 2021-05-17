@@ -21,7 +21,7 @@
         "illuminate/translation": "^8.40",
         "illuminate/support": "^8.40",
         "laravie/html": "^7.2",
-        "laravie/query-filter": "^2.1",
+        "laravie/query-filter": "^2.1 || ^3.0",
         "orchestra/contracts": "^6.0",
         "orchestra/support": "^6.1"
     },
