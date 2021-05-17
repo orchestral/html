@@ -390,7 +390,7 @@ class GridTest extends TestCase
                 ->andReturnUsing(static function ($c) use ($model) {
                     $c($model);
                 })
-            ->shouldReceive('orWhere')->twice()->with(m::type('Closure'))
+            ->shouldReceive('orWhere')->with(m::type('Closure'))
                 ->andReturnUsing(static function ($c) use ($model) {
                     $c($model);
                 })
